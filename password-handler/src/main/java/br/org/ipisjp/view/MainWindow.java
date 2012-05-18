@@ -95,6 +95,8 @@ public class MainWindow extends JFrame implements ActionListener {
         this.setIconImage(icon.getImage());
 
         this.setResizable(false);
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
 
     }
 
