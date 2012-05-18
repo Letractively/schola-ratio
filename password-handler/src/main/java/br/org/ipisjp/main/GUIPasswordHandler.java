@@ -70,8 +70,6 @@ public class GUIPasswordHandler {
                 .getBean("mainWindow");
 
         mainWindow.init();
-        mainWindow.setVisible(true);
-        mainWindow.setLocationRelativeTo(null);
         mainWindow.toFront();
     }
 
