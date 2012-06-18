@@ -40,15 +40,15 @@ import br.org.ipisjp.view.MainWindow;
  */
 public class GUIPasswordHandler {
 
-    static {
-        try {
-            UIManager
-                    .setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (Exception e) {
-            System.err.println(e);
-            System.exit(0);
-        }
-    }
+//    static {
+//        try {
+//            UIManager
+//                    .setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+//        } catch (Exception e) {
+//            System.err.println(e);
+//            System.exit(0);
+//        }
+//    }
 
     /**
      * Initialize the user interface.<br>
