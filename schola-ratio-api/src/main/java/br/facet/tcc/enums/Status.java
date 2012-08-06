@@ -22,6 +22,44 @@ package br.facet.tcc.enums;
  */
 public enum Status {
 
-    ATIVO, INATIVO
+    ATIVO(1), INATIVO(2);
+
+    private int codigo;
+
+    /**
+     * @param codigo
+     *            Valor que sera armazenado para definir o Status
+     * @since 0.0.1
+     */
+    private Status(int codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * Converte um codigo inteiro para um Enum do tipo Status.
+     * 
+     * @param codigo
+     *            valor armazenado que representa um Status.
+     * @return Constante enum para o codigo passado.
+     * @since 0.0.1
+     */
+    public static Status fromInt(int codigo) {
+        switch (codigo) {
+        case 1:
+            return ATIVO;
+        case 2:
+            return INATIVO;
+
+        default:
+            return null;
+        }
+    }
+
+    /**
+     * @return the codigo
+     */
+    public int getCodigo() {
+        return codigo;
+    }
 
 }
