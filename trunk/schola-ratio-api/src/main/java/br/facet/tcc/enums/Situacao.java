@@ -22,6 +22,37 @@ package br.facet.tcc.enums;
  */
 public enum Situacao {
 
-    APROVADO, REPROVADO
+    APROVADO(1), REPROVADO(2);
+
+    private int codigo;
+
+    /**
+     * Default constructor
+     * 
+     * @param codigo
+     *            which define the enum value
+     * @since 0.0.1
+     */
+    private Situacao(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public static Situacao fromInt(int codigo) {
+        switch (codigo) {
+        case 1:
+            return APROVADO;
+        case 2:
+            return REPROVADO;
+        default:
+            return null;
+        }
+    }
+
+    /**
+     * @return the codigo
+     */
+    public int getCodigo() {
+        return codigo;
+    }
 
 }
