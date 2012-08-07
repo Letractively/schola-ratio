@@ -27,10 +27,11 @@ public enum Situacao {
     private int codigo;
 
     /**
-     * Default constructor
+     * Construtor unico e privado que cria uma enum Situação apartir de um
+     * codigo.
      * 
      * @param codigo
-     *            which define the enum value
+     *            Valor que sera armazenado para definir o Status
      * @since 0.0.1
      */
     private Situacao(int codigo) {
