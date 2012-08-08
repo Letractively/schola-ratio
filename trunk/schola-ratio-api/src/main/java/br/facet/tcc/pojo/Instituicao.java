@@ -15,9 +15,12 @@ package br.facet.tcc.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +34,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_instituicao")
+@SequenceGenerator(sequenceName = "seq_instituicao", name = "seq_instituicao", allocationSize = 1)
 public class Instituicao {
 
     private Integer id;
@@ -52,6 +56,7 @@ public class Instituicao {
      */
     @Id
     @Column(name = "id_instituicao")
+    @GeneratedValue(generator = "seq_instituicao", strategy = GenerationType.SEQUENCE)
     public Integer getId() {
         return id;
     }
