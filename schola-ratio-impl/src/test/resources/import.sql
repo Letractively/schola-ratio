@@ -1,0 +1,2 @@
+insert into tb_endereco (bairro, cep, cidade, complemento, estado, numero, rua, id_endereco) values ('Cajuru', 89012099, 'CTBA', '', 'PR', 500,'Das rosas amarelas', nextval('seq_endereco'));
+insert into tb_endereco (bairro, cep, cidade, complemento, estado, numero, rua, id_endereco) values ('Ap', 98776547, 'SJP', '', 'PR', 1500,'Travessa rosa', nextval('seq_endereco'));
