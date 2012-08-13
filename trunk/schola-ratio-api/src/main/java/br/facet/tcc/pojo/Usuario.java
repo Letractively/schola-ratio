@@ -20,6 +20,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -37,6 +39,7 @@ import br.facet.tcc.enums.Status;
 @Entity
 @Table(name = "tb_usuario")
 @SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Usuario {
 
     private Integer id;
