@@ -15,11 +15,11 @@ package br.facet.tcc.impl.dao;
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.hibernate.cfg.NotYetImplementedException;
+import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import br.facet.tcc.dao.Dao;
+import br.facet.tcc.impl.util.HibernateUtil;
 import br.facet.tcc.pojo.Endereco;
 
 /**
@@ -40,7 +40,7 @@ public class EnderecoDaoImpl extends DaoConfiguration implements Dao<Endereco> {
      * @since since optional
      */
     @Override
-    public Integer salvar(Endereco t) throws HibernateException {
+    public Integer salvar(Endereco t) {
         return (Integer) this.getHibernateTemplate().save(t);
     }
 
@@ -77,6 +77,8 @@ public class EnderecoDaoImpl extends DaoConfiguration implements Dao<Endereco> {
      */
     @Override
     public List<Endereco> pesquisar(Endereco t) {
-        throw new NotYetImplementedException("Classe em desenvolvimento.");
+        Criteria criteria = HibernateUtil.createCriteria(t, getSession());
+        List enderecos = criteria.list();
+        return enderecos;
     }
 }
