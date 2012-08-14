@@ -51,8 +51,6 @@ public class Disciplina {
 
     private Integer periodo;
 
-    private Professor professor;
-
     /**
      * @return the id
      */
@@ -105,14 +103,6 @@ public class Disciplina {
     }
 
     /**
-     * @return the professor
-     */
-    @Column
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    /**
      * @param id
      *            the id to set
      */
@@ -158,13 +148,5 @@ public class Disciplina {
      */
     public void setPeriodo(Integer periodo) {
         this.periodo = periodo;
-    }
-
-    /**
-     * @param professor
-     *            the professor to set
-     */
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
     }
 }
