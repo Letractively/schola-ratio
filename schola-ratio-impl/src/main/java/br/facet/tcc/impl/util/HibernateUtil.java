@@ -37,7 +37,7 @@ public class HibernateUtil {
         Criteria criteria = session.createCriteria(object.getClass());
         try {
             for (Field field : fields) {
-                StringBuffer methodName = new StringBuffer("get");
+                StringBuilder methodName = new StringBuilder("get");
 
                 methodName
                     .append(field.getName().substring(0, 1).toUpperCase());
