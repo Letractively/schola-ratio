@@ -69,11 +69,15 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
 
     @Test
     public void testDeletar() {
-        Endereco endereco = new Endereco();
-        endereco.setRua("sechi");
-        List<Endereco> enderecos = this.getEnderecoDao().pesquisar(endereco);
+        int unexpected = this.getEnderecoDao().listar().size();
 
-        Assert.assertFalse("Lista esta vazia", enderecos.isEmpty());
+        Endereco endereco = this.getEnderecoDao().listar().get(0);
+
+        this.getEnderecoDao().excluir(endereco);
+
+        int actual = this.getEnderecoDao().listar().size();
+
+        Assert.assertFalse("Lista esta vazia", unexpected == actual);
     }
 
     @Test
@@ -81,6 +85,13 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
         Endereco endereco = new Endereco();
         endereco.setRua("rosa");
         List<Endereco> enderecos = this.getEnderecoDao().pesquisar(endereco);
+
+        Assert.assertFalse(enderecos.isEmpty());
+    }
+
+    @Test
+    public void testListarEndereco() {
+        List<Endereco> enderecos = this.getEnderecoDao().listar();
 
         Assert.assertFalse(enderecos.isEmpty());
     }
