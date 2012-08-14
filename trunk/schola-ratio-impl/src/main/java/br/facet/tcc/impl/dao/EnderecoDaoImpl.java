@@ -100,7 +100,8 @@ public class EnderecoDaoImpl extends DaoConfiguration implements Dao<Endereco> {
     @Override
     public List<Endereco> pesquisar(Endereco t) {
         Criteria criteria = HibernateUtil.createCriteria(t, getSession());
-        List enderecos = criteria.list();
+        List enderecos = criteria.list(); // FIXME: lançando exceção, sera
+                                          // verificada. [ Osnir ]
         return enderecos;
     }
 }
