@@ -16,8 +16,6 @@ package br.facet.tcc.impl.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -38,10 +36,6 @@ import br.facet.tcc.pojo.Endereco;
 @Repository("enderecoDao")
 public class EnderecoDaoImpl extends DaoConfiguration implements Dao<Endereco> {
 
-    Session session;
-
-    Transaction transaction;
-
     /**
      * @see br.facet.tcc.dao.Dao#salvar(java.lang.Object)
      * @since since optional
@@ -51,17 +45,10 @@ public class EnderecoDaoImpl extends DaoConfiguration implements Dao<Endereco> {
 
         Integer id = null;
         try {
-            this.session = this.getHibernateTemplate().getSessionFactory()
-                .openSession();
-            transaction = this.session.beginTransaction();
-
             id = (Integer) this.getHibernateTemplate().save(t);
 
-            transaction.commit();
         } catch (DataAccessException exception) {
-            transaction.rollback();
-        } finally {
-            this.session.close();
+
         }
         return id;
     }
@@ -100,8 +87,8 @@ public class EnderecoDaoImpl extends DaoConfiguration implements Dao<Endereco> {
     @Override
     public List<Endereco> pesquisar(Endereco t) {
         Criteria criteria = HibernateUtil.createCriteria(t, getSession());
-        List enderecos = criteria.list(); // FIXME: lançando exceção, sera
-                                          // verificada. [ Osnir ]
+        List enderecos = criteria.list();
+
         return enderecos;
     }
 }
