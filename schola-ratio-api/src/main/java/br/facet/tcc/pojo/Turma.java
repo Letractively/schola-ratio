@@ -17,8 +17,14 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,7 +33,6 @@ import br.facet.tcc.enums.Status;
 /**
  * @author Osnir F CUNHA
  * 
- *         FIXME : add joins to get methods
  * 
  * @version 0.0.1
  * @since 0.0.1
@@ -51,6 +56,7 @@ public class Turma {
      * @return the id
      */
     @Id
+    @Column(name = "turma_id")
     @GeneratedValue(generator = "seq_turma")
     public Integer getId() {
         return id;
@@ -59,7 +65,8 @@ public class Turma {
     /**
      * @return the professor
      */
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "professor_id")
     public Professor getProfessor() {
         return professor;
     }
@@ -67,7 +74,8 @@ public class Turma {
     /**
      * @return the disciplina
      */
-    @Column
+    @OneToOne
+    @JoinColumn(name = "disciplina_id")
     public Disciplina getDisciplina() {
         return disciplina;
     }
@@ -75,6 +83,7 @@ public class Turma {
     /**
      * @return the status
      */
+    @Enumerated(EnumType.STRING)
     @Column
     public Status getStatus() {
         return status;
@@ -83,7 +92,7 @@ public class Turma {
     /**
      * @return the alunos
      */
-    @Column
+    @ManyToMany
     public List<Aluno> getAlunos() {
         return alunos;
     }
