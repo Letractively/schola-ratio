@@ -13,12 +13,14 @@
  */
 package br.facet.tcc.pojo;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.facet.tcc.enums.TipoTitulo;
@@ -31,28 +33,24 @@ import br.facet.tcc.enums.TipoTitulo;
  */
 @Entity
 @Table(name = "tb_professor")
-@AttributeOverrides({
-    @AttributeOverride(name = "id", column = @Column(name = "ID")),
-    @AttributeOverride(name = "cpf", column = @Column(name = "CPF")),
-    @AttributeOverride(name = "dataexpedicao", column = @Column(name = "DATAEXPEDICAO")),
-    @AttributeOverride(name = "email", column = @Column(name = "EMAIL")),
-    @AttributeOverride(name = "nacionalidade", column = @Column(name = "NACIONALIDADE")),
-    @AttributeOverride(name = "naturalidade", column = @Column(name = "NATURALIDADE")),
-    @AttributeOverride(name = "nome", column = @Column(name = "NOME")),
-    @AttributeOverride(name = "nomemae", column = @Column(name = "NOMEMAE")),
-    @AttributeOverride(name = "nomepai", column = @Column(name = "NOMEPAI")),
-    @AttributeOverride(name = "orgaoexpeditor", column = @Column(name = "ORGAOEXPEDITOR")),
-    @AttributeOverride(name = "rg", column = @Column(name = "RG")),
-    @AttributeOverride(name = "senha", column = @Column(name = "SENHA")),
-    @AttributeOverride(name = "sexo", column = @Column(name = "SEXO")),
-    @AttributeOverride(name = "status", column = @Column(name = "STATUS")),
-    @AttributeOverride(name = "uforgaoexpeditor", column = @Column(name = "UFORGAOEXPEDITOR")),
-    @AttributeOverride(name = "endereco_usuario", column = @Column(name = "ENDERECO_USUARIO"))})
-public class Professor extends Usuario {
+@SequenceGenerator(sequenceName = "seq_professor", name = "seq_professor", allocationSize = 1)
+public class Professor extends Pessoa {
 
     private TipoTitulo titulo;
 
     private String descricaoTitulo;
+
+    /**
+     * @see br.facet.tcc.pojo.Pessoa#getId()
+     * @since since optional
+     */
+    @Override
+    @Id
+    @Column(name = "professor_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_professor")
+    public Integer getId() {
+        return this.id;
+    }
 
     /**
      * @return the titulo
