@@ -15,6 +15,8 @@ package br.facet.tcc.impl.dao.test;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,6 +30,8 @@ import br.facet.tcc.pojo.Endereco;
  * @since 0.0.1
  */
 public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
+
+    private static final Log log = LogFactory.getLog(EnderecoDaoImplTest.class);
 
     /**
      * Test method for
@@ -48,7 +52,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
         endereco.setRua("Leonidas Sechi");
 
         Integer codigo = this.getEnderecoDao().salvar(endereco);
-
+        log.debug("REcuperado endereço com o codigo : " + codigo);
         Assert.assertTrue("Codigo é nulo.", codigo != null);
     }
 
@@ -81,6 +85,13 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
     }
 
     @Test
+    public void testListarEndereco() {
+        List<Endereco> enderecos = this.getEnderecoDao().listar();
+
+        Assert.assertFalse(enderecos.isEmpty());
+    }
+
+    @Test
     public void testPesquisarEndereco() {
         Endereco endereco = new Endereco();
         endereco.setRua("rosa");
@@ -88,12 +99,4 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
 
         Assert.assertFalse(enderecos.isEmpty());
     }
-
-    @Test
-    public void testListarEndereco() {
-        List<Endereco> enderecos = this.getEnderecoDao().listar();
-
-        Assert.assertFalse(enderecos.isEmpty());
-    }
-
 }
