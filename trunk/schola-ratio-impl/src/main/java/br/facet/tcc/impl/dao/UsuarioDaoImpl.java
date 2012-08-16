@@ -15,10 +15,10 @@ package br.facet.tcc.impl.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.Criteria;
 
 import br.facet.tcc.dao.Dao;
+import br.facet.tcc.impl.util.HibernateUtil;
 import br.facet.tcc.pojo.Usuario;
 
 /**
@@ -29,10 +29,6 @@ import br.facet.tcc.pojo.Usuario;
  */
 public class UsuarioDaoImpl extends DaoConfiguration implements Dao<Usuario> {
 
-    private Transaction transaction;
-
-    private Session session;
-
     /**
      * @see br.facet.tcc.dao.Dao#salvar(java.lang.Object)
      * @since since optional
@@ -40,16 +36,9 @@ public class UsuarioDaoImpl extends DaoConfiguration implements Dao<Usuario> {
     @Override
     public Integer salvar(Usuario t) {
 
-        Integer id = null;
-        try {
-            this.session = getHibernateTemplate().getSessionFactory()
-                .openSession();
-            this.transaction = this.session.beginTransaction();
+        Integer id = (Integer) getHibernateTemplate().save(t);
 
-        } catch (Exception exception) {
-
-        }
-        return null;
+        return id;
     }
 
     /**
@@ -58,8 +47,7 @@ public class UsuarioDaoImpl extends DaoConfiguration implements Dao<Usuario> {
      */
     @Override
     public void atualizar(Usuario t) {
-        // TODO Auto-generated method stub
-
+        getHibernateTemplate().update(t);
     }
 
     /**
@@ -68,8 +56,7 @@ public class UsuarioDaoImpl extends DaoConfiguration implements Dao<Usuario> {
      */
     @Override
     public void excluir(Usuario t) {
-        // TODO Auto-generated method stub
-
+        getHibernateTemplate().delete(t);
     }
 
     /**
@@ -78,8 +65,7 @@ public class UsuarioDaoImpl extends DaoConfiguration implements Dao<Usuario> {
      */
     @Override
     public List<Usuario> listar() {
-        // TODO Auto-generated method stub
-        return null;
+        return getHibernateTemplate().find("from Usuario");
     }
 
     /**
@@ -88,8 +74,9 @@ public class UsuarioDaoImpl extends DaoConfiguration implements Dao<Usuario> {
      */
     @Override
     public List<Usuario> pesquisar(Usuario t) {
-        // TODO Auto-generated method stub
-        return null;
+        Criteria criteria = HibernateUtil.createCriteria(t, getSession());
+
+        return criteria.list();
     }
 
 }
