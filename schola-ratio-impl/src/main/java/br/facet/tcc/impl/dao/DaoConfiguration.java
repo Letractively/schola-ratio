@@ -13,9 +13,15 @@
  */
 package br.facet.tcc.impl.dao;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import br.facet.tcc.dao.Dao;
+import br.facet.tcc.impl.util.HibernateUtil;
 
 /**
  * <code>DaoConfiguration</code><br>
@@ -26,7 +32,55 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @version 0.0.1
  * @since 0.0.1
  */
-public class DaoConfiguration extends HibernateDaoSupport {
+public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
+    Dao<T> {
+
+    /**
+     * @see br.facet.tcc.dao.Dao#salvar(java.lang.Object)
+     * @since since optional
+     */
+    @Override
+    public Integer salvar(T t) {
+        Integer integer = (Integer) getHibernateTemplate().save(t);
+        return integer;
+    }
+
+    /**
+     * @see br.facet.tcc.dao.Dao#atualizar(java.lang.Object)
+     * @since since optional
+     */
+    @Override
+    public void atualizar(T t) {
+        getHibernateTemplate().update(t);
+    }
+
+    /**
+     * @see br.facet.tcc.dao.Dao#excluir(java.lang.Object)
+     * @since since optional
+     */
+    @Override
+    public void excluir(T t) {
+        getHibernateTemplate().delete(t);
+    }
+
+    /**
+     * @see br.facet.tcc.dao.Dao#listar()
+     * @since since optional
+     */
+    @Override
+    public List<T> listar(Class clazz) {
+        return getHibernateTemplate().find("from " + clazz.getSimpleName());
+    }
+
+    /**
+     * @see br.facet.tcc.dao.Dao#pesquisar(java.lang.Object)
+     * @since since optional
+     */
+    @Override
+    public List<T> pesquisar(T t) {
+        Criteria criteria = HibernateUtil.createCriteria(t, getSession());
+        return criteria.list();
+    }
 
     /**
      * Um tipo de mock para sobescrever o metodo setSessionFactory da classe
