@@ -23,28 +23,39 @@ import java.util.List;
  */
 public interface Dao<T> {
     /**
+     * Persiste um objeto do tipo definido na classe
+     * 
      * @since 0.0.1
      */
     public Integer salvar(T t);
 
     /**
+     * Atualiza um objeto do tipo definido na classe
+     * 
      * @since 0.0.1
      */
     public void atualizar(T t);
 
     /**
+     * Remove um objeto do tipo definido na classe
+     * 
      * @since 0.0.1
      */
     public void excluir(T t);
 
     /**
-     * @return
+     * Lista os objetos do tipo definido na classe
+     * 
+     * @return lista de objetos T
+     * @param Class
      * @since 0.0.1
      */
-    public List<T> listar();
+    public List<T> listar(@SuppressWarnings("rawtypes") Class clazz);
 
     /**
-     * @return
+     * Pesquisa um objeto apartir dos parametros passado.
+     * 
+     * @return list de objetos encontrados
      * @since 0.0.1
      */
     public List<T> pesquisar(T t);
