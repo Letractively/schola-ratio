@@ -37,9 +37,9 @@ public class Avaliacao {
 
     private Integer id;
 
-    private Integer resultado;
+    private Float resultado;
 
-    private Integer peso;
+    private Float peso;
 
     private Bimestre bimestre;
 
@@ -56,7 +56,7 @@ public class Avaliacao {
      * @return the resultado
      */
     @Column
-    public Integer getResultado() {
+    public Float getResultado() {
         return resultado;
     }
 
@@ -64,7 +64,7 @@ public class Avaliacao {
      * @return the peso
      */
     @Column
-    public Integer getPeso() {
+    public Float getPeso() {
         return peso;
     }
 
@@ -89,7 +89,7 @@ public class Avaliacao {
      * @param resultado
      *            the resultado to set
      */
-    public void setResultado(Integer resultado) {
+    public void setResultado(Float resultado) {
         this.resultado = resultado;
     }
 
@@ -97,7 +97,7 @@ public class Avaliacao {
      * @param peso
      *            the peso to set
      */
-    public void setPeso(Integer peso) {
+    public void setPeso(Float peso) {
         this.peso = peso;
     }
 
