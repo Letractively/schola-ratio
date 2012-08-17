@@ -41,7 +41,7 @@ public class Disciplina {
 
     private Integer id;
 
-    private Integer nome;
+    private String nome;
 
     private Integer cargaHoraria;
 
@@ -64,7 +64,7 @@ public class Disciplina {
      * @return the nome
      */
     @Column
-    public Integer getNome() {
+    public String getNome() {
         return nome;
     }
 
@@ -114,7 +114,7 @@ public class Disciplina {
      * @param nome
      *            the nome to set
      */
-    public void setNome(Integer nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
