@@ -14,7 +14,6 @@
 package br.facet.tcc.impl.util;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -51,28 +50,15 @@ public class HibernateUtil {
 
                 if (serializable != null) {
                     if (serializable instanceof String) {
-                        criteria.add(Restrictions.ilike(field.getName(), "%"
-                            + serializable + "%"));
+                        criteria.add(Restrictions.ilike(field.getName(),
+                            serializable));
                     } else {
                         criteria.add(Restrictions.eq(field.getName(),
                             serializable));
                     }
                 }
             }
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
