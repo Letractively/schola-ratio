@@ -13,14 +13,8 @@
  */
 package br.facet.tcc.impl.dao;
 
-import java.util.List;
-
-import org.hibernate.Criteria;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import br.facet.tcc.dao.Dao;
-import br.facet.tcc.impl.util.HibernateUtil;
 import br.facet.tcc.pojo.Endereco;
 
 /**
@@ -34,61 +28,6 @@ import br.facet.tcc.pojo.Endereco;
  * @since 0.0.1
  */
 @Repository("enderecoDao")
-public class EnderecoDaoImpl extends DaoConfiguration implements Dao<Endereco> {
+public class EnderecoDaoImpl extends DaoConfiguration<Endereco> {
 
-    /**
-     * @see br.facet.tcc.dao.Dao#salvar(java.lang.Object)
-     * @since since optional
-     */
-    @Override
-    public Integer salvar(Endereco t) {
-
-        Integer id = null;
-        try {
-            id = (Integer) this.getHibernateTemplate().save(t);
-
-        } catch (DataAccessException exception) {
-
-        }
-        return id;
-    }
-
-    /**
-     * @see br.facet.tcc.dao.Dao#atualizar(java.lang.Object)
-     * @since since optional
-     */
-    @Override
-    public void atualizar(Endereco t) {
-        this.getHibernateTemplate().update(t);
-    }
-
-    /**
-     * @see br.facet.tcc.dao.Dao#excluir(java.lang.Object)
-     * @since since optional
-     */
-    @Override
-    public void excluir(Endereco t) {
-        this.getHibernateTemplate().delete(t);
-    }
-
-    /**
-     * @see br.facet.tcc.dao.Dao#listar()
-     * @since since optional
-     */
-    @Override
-    public List<Endereco> listar() {
-        return this.getHibernateTemplate().find("from Endereco");
-    }
-
-    /**
-     * @see br.facet.tcc.dao.Dao#pesquisar(java.lang.Object)
-     * @since since optional
-     */
-    @Override
-    public List<Endereco> pesquisar(Endereco t) {
-        Criteria criteria = HibernateUtil.createCriteria(t, getSession());
-        List enderecos = criteria.list();
-
-        return enderecos;
-    }
 }

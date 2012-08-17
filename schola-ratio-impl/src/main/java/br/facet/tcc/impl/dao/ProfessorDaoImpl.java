@@ -13,12 +13,8 @@
  */
 package br.facet.tcc.impl.dao;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-import org.hibernate.Criteria;
-
-import br.facet.tcc.dao.Dao;
-import br.facet.tcc.impl.util.HibernateUtil;
 import br.facet.tcc.pojo.Professor;
 
 /**
@@ -27,55 +23,7 @@ import br.facet.tcc.pojo.Professor;
  * @version 0.0.1
  * @since 0.0.1
  */
-public class ProfessorDaoImpl extends DaoConfiguration implements
-    Dao<Professor> {
-
-    /**
-     * @see br.facet.tcc.dao.Dao#salvar(java.lang.Object)
-     * @since since optional
-     */
-    @Override
-    public Integer salvar(Professor t) {
-        Integer codigo = (Integer) getHibernateTemplate().save(t);
-        return codigo;
-    }
-
-    /**
-     * @see br.facet.tcc.dao.Dao#atualizar(java.lang.Object)
-     * @since since optional
-     */
-    @Override
-    public void atualizar(Professor t) {
-        getHibernateTemplate().update(t);
-    }
-
-    /**
-     * @see br.facet.tcc.dao.Dao#excluir(java.lang.Object)
-     * @since since optional
-     */
-    @Override
-    public void excluir(Professor t) {
-        getHibernateTemplate().delete(t);
-    }
-
-    /**
-     * @see br.facet.tcc.dao.Dao#listar()
-     * @since since optional
-     */
-    @Override
-    public List<Professor> listar() {
-        return getHibernateTemplate().find("from Professor");
-    }
-
-    /**
-     * @see br.facet.tcc.dao.Dao#pesquisar(java.lang.Object)
-     * @since since optional
-     */
-    @Override
-    public List<Professor> pesquisar(Professor t) {
-        Criteria criteria = HibernateUtil.createCriteria(t, getSession());
-
-        return criteria.list();
-    }
+@Repository("professorDao")
+public class ProfessorDaoImpl extends DaoConfiguration<Professor> {
 
 }

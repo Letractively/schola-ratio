@@ -13,87 +13,18 @@
  */
 package br.facet.tcc.impl.dao;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Transactional;
-
-import br.facet.tcc.dao.InstituicaoDao;
 import br.facet.tcc.pojo.Instituicao;
 
 /**
  * @author Osnir F CUNHA
  * 
  * @version 0.0.1
- * @since 0.0.1 FIXME : implementacao antiga, não esta funcionando. Comparar
- *        com {@link EnderecoDaoImpl}
+ * @since 0.0.1
  * 
  */
-@Transactional(readOnly = true)
-public class InstituicaoDaoImpl implements InstituicaoDao {
-
-    private SessionFactory sessionFactory;
-
-    /**
-     * @see br.facet.tcc.dao.InstituicaoDao#salvar(br.facet.tcc.pojo.Instituicao)
-     * @since since optional
-     */
-    @Override
-    @Transactional(readOnly = false)
-    public void salvar(Instituicao instituicao) {
-
-        this.sessionFactory.getCurrentSession().save(instituicao);
-    }
-
-    /**
-     * @see br.facet.tcc.dao.InstituicaoDao#atualizar(br.facet.tcc.pojo.Instituicao)
-     * @since since optional
-     */
-    @Override
-    @Transactional(readOnly = false)
-    public void atualizar(Instituicao instituicao) {
-        this.sessionFactory.getCurrentSession().update(instituicao);
-    }
-
-    /**
-     * @see br.facet.tcc.dao.InstituicaoDao#excluir(br.facet.tcc.pojo.Instituicao)
-     * @since since optional
-     */
-    @Override
-    @Transactional(readOnly = false)
-    public void excluir(Instituicao instituicao) {
-        this.sessionFactory.getCurrentSession().delete(instituicao);
-    }
-
-    /**
-     * @see br.facet.tcc.dao.InstituicaoDao#listar()
-     * @since since optional
-     */
-    @Override
-    public List<Instituicao> listar() {
-        List<Instituicao> instituicoes = this.sessionFactory
-            .getCurrentSession().createQuery("from Instituicao").list();
-        return instituicoes;
-    }
-
-    /**
-     * @return
-     * @see br.facet.tcc.dao.InstituicaoDao#pesquisar(br.facet.tcc.pojo.Instituicao)
-     * @since since optional
-     */
-    @Override
-    public List<Instituicao> pesquisar(Instituicao instituicao) {
-        List<Instituicao> instituicoes = this.sessionFactory
-            .getCurrentSession().createQuery("from Instituicao").list();
-        return instituicoes;
-    }
-
-    /**
-     * @param sessionFactory
-     *            the sessionFactory to set
-     */
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+@Repository("instituicaoDao")
+public class InstituicaoDaoImpl extends DaoConfiguration<Instituicao> {
 
 }
