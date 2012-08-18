@@ -180,6 +180,7 @@ public abstract class Pessoa {
      * @return the status
      */
     @Column
+    @Enumerated(EnumType.STRING)
     public Status getStatus() {
         return status;
     }
