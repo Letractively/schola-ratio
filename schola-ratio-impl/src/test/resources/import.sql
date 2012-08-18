@@ -14,6 +14,6 @@ INSERT INTO tb_permissao( permissao_id, descricaopermissao, tipopermissao) VALUE
 INSERT INTO tb_permissao( permissao_id, descricaopermissao, tipopermissao) VALUES (nextval('seq_permissao'), 'descricaopermissao2', 'tipopermissao2');
 INSERT INTO tb_permissao( permissao_id, descricaopermissao, tipopermissao) VALUES (nextval('seq_permissao'), 'descricaopermissao3', 'tipopermissao3');
 
-INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('sev_avaliacao'), 'PRIMEIRO', 15, 9.5);
-INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('sev_avaliacao'), 'SEGUNDO', 20, 2);
-INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('sev_avaliacao'), 'FINAL', 10, 7.5);
+INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('seq_avaliacao'), 'PRIMEIRO', 15, 9.5);
+INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('seq_avaliacao'), 'SEGUNDO', 20, 2);
+INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('seq_avaliacao'), 'FINAL', 10, 7.5);
