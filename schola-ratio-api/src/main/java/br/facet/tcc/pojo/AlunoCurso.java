@@ -18,6 +18,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,11 +38,23 @@ import br.facet.tcc.enums.SituacaoAlunoCurso;
 @Table(name = "tb_aluno_curso")
 @SequenceGenerator(name = "seq_aluno_curso", sequenceName = "seq_aluno_curso", allocationSize = 1)
 public class AlunoCurso {
+    private Integer id;
+
     private Curso curso;
 
     private Aluno aluno;
 
-    private SituacaoAlunoCurso situacao;
+    private SituacaoAlunoCurso situacaoAlunoCurso;
+
+    /**
+     * @return the id
+     */
+    @Id
+    @Column(name = "aluno_curso")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aluno_curso")
+    public Integer getId() {
+        return id;
+    }
 
     /**
      * @return the curso
@@ -58,12 +73,20 @@ public class AlunoCurso {
     }
 
     /**
-     * @return the situacao
+     * @return the situacaoAlunoCurso
      */
     @Column
     @Enumerated(EnumType.STRING)
-    public SituacaoAlunoCurso getSituacao() {
-        return situacao;
+    public SituacaoAlunoCurso getSituacaoAlunoCurso() {
+        return situacaoAlunoCurso;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     /**
@@ -83,11 +106,10 @@ public class AlunoCurso {
     }
 
     /**
-     * @param situacao
-     *            the situacao to set
+     * @param situacaoAlunoCurso
+     *            the situacaoAlunoCurso to set
      */
-    public void setSituacao(SituacaoAlunoCurso situacao) {
-        this.situacao = situacao;
+    public void setSituacaoAlunoCurso(SituacaoAlunoCurso situacaoAlunoCurso) {
+        this.situacaoAlunoCurso = situacaoAlunoCurso;
     }
-
 }
