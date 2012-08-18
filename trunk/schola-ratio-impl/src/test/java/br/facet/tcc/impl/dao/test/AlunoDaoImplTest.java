@@ -24,6 +24,7 @@ import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.pojo.Aluno;
+import br.facet.tcc.pojo.Endereco;
 
 /**
  * @author Osnir F CUNHA
@@ -46,7 +47,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
         aluno.setCpf(32932112388L);
         aluno.setDataExpedicao(new Date(2003, 06, 12));
         aluno.setEmail("osnircunha@email.com");
-        aluno.setEndereco(this.getEnderecoDao().listar().get(0));
+        aluno.setEndereco(this.getEnderecoDao().listar(Endereco.class).get(0));
         aluno.setNacionalidade("Brasileiro");
         aluno.setNaturalidade("São Vicente");
         aluno.setNome("Osnir F CUNHA");
