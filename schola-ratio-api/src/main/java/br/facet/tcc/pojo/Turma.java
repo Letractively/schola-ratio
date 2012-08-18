@@ -28,6 +28,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.facet.tcc.enums.HorarioDeAulas;
 import br.facet.tcc.enums.Status;
 
 /**
@@ -51,8 +52,22 @@ public class Turma {
     private Status status;
 
     private List<Aluno> alunos;
+    
+    private HorarioDeAulas horarioDeAulas;
+    
+    private String ano;
+    @Enumerated(EnumType.STRING)
+    @Column
+    public HorarioDeAulas getHorarioDeAulas() {
+		return horarioDeAulas;
+	}
 
-    /**
+    @Column
+	public String getAno() {
+		return ano;
+	}
+
+	/**
      * @return the id
      */
     @Id
@@ -97,7 +112,15 @@ public class Turma {
         return alunos;
     }
 
-    /**
+    public void setHorarioDeAulas(HorarioDeAulas horarioDeAulas) {
+		this.horarioDeAulas = horarioDeAulas;
+	}
+
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
+
+	/**
      * @param id
      *            the id to set
      */
