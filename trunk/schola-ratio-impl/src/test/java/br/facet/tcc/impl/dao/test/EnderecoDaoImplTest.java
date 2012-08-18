@@ -63,30 +63,31 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testAtualizar() {
-        Endereco endereco = this.getEnderecoDao().listar().get(0);
+        Endereco endereco = this.getEnderecoDao().listar(Endereco.class).get(0);
         String expected = endereco.getBairro();
         endereco.setBairro("Outro bairro");
         this.getEnderecoDao().atualizar(endereco);
-        String actual = this.getEnderecoDao().listar().get(0).getBairro();
+        String actual = this.getEnderecoDao().listar(Endereco.class).get(0)
+            .getBairro();
         Assert.assertNotSame("Bairro são diferentes", expected, actual);
     }
 
     @Test
     public void testDeletar() {
-        int unexpected = this.getEnderecoDao().listar().size();
+        int unexpected = this.getEnderecoDao().listar(Endereco.class).size();
 
-        Endereco endereco = this.getEnderecoDao().listar().get(0);
+        Endereco endereco = this.getEnderecoDao().listar(Endereco.class).get(0);
 
         this.getEnderecoDao().excluir(endereco);
 
-        int actual = this.getEnderecoDao().listar().size();
+        int actual = this.getEnderecoDao().listar(Endereco.class).size();
 
         Assert.assertFalse("Lista esta vazia", unexpected == actual);
     }
 
     @Test
     public void testListarEndereco() {
-        List<Endereco> enderecos = this.getEnderecoDao().listar();
+        List<Endereco> enderecos = this.getEnderecoDao().listar(Endereco.class);
 
         Assert.assertFalse(enderecos.isEmpty());
     }
