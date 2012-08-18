@@ -46,7 +46,8 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         professor.setCpf(32932112388L);
         professor.setDataExpedicao(new Date(2003, 06, 12));
         professor.setEmail("osnircunha@email.com");
-        professor.setEndereco(this.getEnderecoDao().listar().get(0));
+        professor.setEndereco(this.getEnderecoDao().listar(Professor.class)
+            .get(0));
         professor.setNacionalidade("Brasileiro");
         professor.setNaturalidade("São Vicente");
         professor.setNome("Osnir F CUNHA");
