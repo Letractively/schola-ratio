@@ -13,9 +13,8 @@
  */
 package br.facet.tcc.impl.dao.test;
 
-import static org.junit.Assert.fail;
-
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -45,7 +44,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
         Aluno aluno = new Aluno();
 
         aluno.setCpf(32932112388L);
-        aluno.setDataExpedicao(new Date(2003, 06, 12));
+        aluno.setDataExpedicao(new Date(103, 06, 12));
         aluno.setEmail("osnircunha@email.com");
         aluno.setEndereco(this.getEnderecoDao().listar(Endereco.class).get(0));
         aluno.setNacionalidade("Brasileiro");
@@ -61,8 +60,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
         aluno.setStatus(Status.ATIVO);
         aluno.setDataDeMatricula(new Date());
 
-        Integer codigo = (Integer) this.enderecoDao.getHibernateTemplate()
-            .save(aluno);
+        Integer codigo = this.getAlunoDao().salvar(aluno);
 
         Assert.assertNotNull("Codigo é nulo.", codigo);
     }
@@ -74,7 +72,20 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testAtualizar() {
-        fail("Not yet implemented"); // TODO
+
+        List<Aluno> alunos = getAlunoDao().listar(Aluno.class);
+        Aluno aluno = alunos.get(0);
+        String unexpected = aluno.getNome();
+        String actual = "novo nome";
+
+        aluno.setNome(actual);
+
+        getAlunoDao().atualizar(aluno);
+
+        Aluno atualizado = getAlunoDao().listar(Aluno.class).get(0);
+
+        Assert.assertNotSame("Nome não foi atualizado.", unexpected,
+            atualizado.getNome());
     }
 
     /**
@@ -84,7 +95,12 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testExcluir() {
-        fail("Not yet implemented"); // TODO
+        List<Aluno> list = this.getAlunoDao().listar(Aluno.class);
+        int unexpected = list.size();
+        this.getAlunoDao().excluir(list.get(0));
+        list = this.getAlunoDao().listar(Aluno.class);
+
+        Assert.assertFalse("Aluno não excluido.", unexpected == list.size());
     }
 
     /**
@@ -92,7 +108,8 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testListar() {
-        fail("Not yet implemented"); // TODO
+        List<Aluno> alunos = getAlunoDao().listar(Aluno.class);
+        Assert.assertTrue("Lista esta vazia", alunos.size() > 0);
     }
 
     /**
@@ -102,7 +119,10 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testPesquisar() {
-        fail("Not yet implemented"); // TODO
+        Aluno aluno = new Aluno();
+        aluno.setNaturalidade("São%");
+        List<Aluno> alunos = getAlunoDao().pesquisar(aluno);
+        Assert.assertTrue("Lista esta vazia", alunos.size() > 0);
     }
 
 }
