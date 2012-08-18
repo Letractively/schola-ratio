@@ -20,6 +20,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -44,6 +45,8 @@ public class Desconto {
 
     private Float valorDesconto;
 
+    private Aluno aluno;
+
     /**
      * @return the id
      */
@@ -52,6 +55,15 @@ public class Desconto {
     @Column(name = "desconto_id")
     public Integer getId() {
         return id;
+    }
+
+    /**
+     * @return the aluno
+     */
+
+    @OneToOne
+    public Aluno getAluno() {
+        return aluno;
     }
 
     /**
@@ -85,6 +97,14 @@ public class Desconto {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * @param aluno
+     *            the aluno to set
+     */
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     /**
