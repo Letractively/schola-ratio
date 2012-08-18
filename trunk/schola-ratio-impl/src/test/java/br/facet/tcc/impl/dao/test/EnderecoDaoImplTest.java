@@ -15,8 +15,6 @@ package br.facet.tcc.impl.dao.test;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,8 +28,6 @@ import br.facet.tcc.pojo.Endereco;
  * @since 0.0.1
  */
 public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
-
-    private static final Log log = LogFactory.getLog(EnderecoDaoImplTest.class);
 
     /**
      * Test method for
@@ -52,8 +48,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
         endereco.setRua("Leonidas Sechi");
 
         Integer codigo = this.getEnderecoDao().salvar(endereco);
-        log.debug("REcuperado endereço com o codigo : " + codigo);
-        Assert.assertTrue("Codigo é nulo.", codigo != null);
+        Assert.assertTrue("Endereco nao foi salvo.", codigo > 0);
     }
 
     /**
@@ -68,7 +63,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
         endereco.setBairro("Outro bairro");
         this.getEnderecoDao().atualizar(endereco);
         String actual = this.getEnderecoDao().listar(Endereco.class).get(0)
-            .getBairro();
+                .getBairro();
         Assert.assertNotSame("Bairro são diferentes", expected, actual);
     }
 
