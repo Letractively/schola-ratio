@@ -22,6 +22,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -88,7 +89,7 @@ public class Disciplina {
     /**
      * @return the requisitos
      */
-    @OneToMany
+    @ManyToMany
     @JoinColumn(name = "disciplina_requisitos")
     public List<Disciplina> getRequisitos() {
         return requisitos;
