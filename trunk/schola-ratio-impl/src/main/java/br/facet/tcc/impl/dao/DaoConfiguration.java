@@ -33,7 +33,7 @@ import br.facet.tcc.impl.util.HibernateUtil;
  * @since 0.0.1
  */
 public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
-        Dao<T> {
+    Dao<T> {
 
     /**
      * @see br.facet.tcc.dao.Dao#salvar(java.lang.Object)
@@ -41,7 +41,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public Integer salvar(T t) {
-        Integer integer = (Integer) getHibernateTemplate().save(t);
+        Integer integer = (Integer) getSession().save(t);
         return integer;
     }
 
@@ -51,7 +51,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public void atualizar(T t) {
-        getHibernateTemplate().update(t);
+        getSession().update(t);
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public void excluir(T t) {
-        getHibernateTemplate().delete(t);
+        getSession().delete(t);
     }
 
     /**
@@ -83,7 +83,10 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     }
 
     public T obterPorID(Class clazz, Integer id) {
-        return (T) getHibernateTemplate().load(clazz, id);
+
+        T t = (T) getSession().load(clazz, id);
+
+        return t;
     }
 
     /**
