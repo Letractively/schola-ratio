@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.impl.dao;
 
+import org.springframework.stereotype.Repository;
+
 import br.facet.tcc.pojo.Mensalidade;
 
 /**
@@ -21,6 +23,7 @@ import br.facet.tcc.pojo.Mensalidade;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Repository("mensalidadeDao")
 public class MensalidadeDaoImpl extends DaoConfiguration<Mensalidade> {
 
 }
