@@ -36,6 +36,8 @@ import br.facet.tcc.enums.TipoTitulo;
 @SequenceGenerator(sequenceName = "seq_professor", name = "seq_professor", allocationSize = 1)
 public class Professor extends Pessoa {
 
+    private Integer id;
+
     private TipoTitulo titulo;
 
     private String descricaoTitulo;
@@ -44,7 +46,6 @@ public class Professor extends Pessoa {
      * @see br.facet.tcc.pojo.Pessoa#getId()
      * @since since optional
      */
-    @Override
     @Id
     @Column(name = "professor_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_professor")
@@ -83,5 +84,13 @@ public class Professor extends Pessoa {
      */
     public void setDescricaoTitulo(String descricaoTitulo) {
         this.descricaoTitulo = descricaoTitulo;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

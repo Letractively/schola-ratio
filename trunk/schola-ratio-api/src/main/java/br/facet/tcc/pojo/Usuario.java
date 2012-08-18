@@ -32,11 +32,12 @@ import javax.persistence.Table;
 @SequenceGenerator(sequenceName = "seq_usuario", name = "seq_usuario", allocationSize = 1)
 public class Usuario extends Pessoa {
 
+    private Integer id;
+
     /**
      * @see br.facet.tcc.pojo.Pessoa#getId()
      * @since since optional
      */
-    @Override
     @Id
     @Column(name = "usuario_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
@@ -44,4 +45,11 @@ public class Usuario extends Pessoa {
         return this.id;
     }
 
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

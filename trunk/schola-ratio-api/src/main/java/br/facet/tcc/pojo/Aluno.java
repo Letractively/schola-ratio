@@ -36,13 +36,14 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(sequenceName = "seq_aluno", name = "seq_aluno", allocationSize = 1)
 public class Aluno extends Pessoa {
 
+    private Integer id;
+
     private Date dataDeMatricula;
 
     /**
      * @see br.facet.tcc.pojo.Pessoa#getId()
      * @since since optional
      */
-    @Override
     @Id
     @Column(name = "aluno_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aluno")
@@ -65,5 +66,13 @@ public class Aluno extends Pessoa {
      */
     public void setDataDeMatricula(Date dataDeMatricula) {
         this.dataDeMatricula = dataDeMatricula;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
