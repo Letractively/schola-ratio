@@ -95,7 +95,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
     @Test
     public void testPesquisarEndereco() {
         Endereco endereco = new Endereco();
-        endereco.setRua("rosa");
+        endereco.setRua("%rosa%");
         List<Endereco> enderecos = this.getEnderecoDao().pesquisar(endereco);
 
         Assert.assertFalse(enderecos.isEmpty());
