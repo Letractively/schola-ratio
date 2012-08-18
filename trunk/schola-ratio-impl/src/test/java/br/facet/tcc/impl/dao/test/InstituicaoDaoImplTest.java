@@ -13,9 +13,12 @@
  */
 package br.facet.tcc.impl.dao.test;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
-import br.facet.tcc.impl.dao.InstituicaoDaoImpl;
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import br.facet.tcc.pojo.Endereco;
 import br.facet.tcc.pojo.Instituicao;
 
 /**
@@ -26,23 +29,64 @@ import br.facet.tcc.pojo.Instituicao;
  * 
  *        TODO : implementar usando spring annotations
  */
-public class InstituicaoDaoImplTest extends TestCase {
+public class InstituicaoDaoImplTest extends DaoTestCaseSetUp {
 
-    private InstituicaoDaoImpl instituicaoDao;
+    @Test
+    public void testSalvarInstituicao() throws Exception {
+        Instituicao instituicao = new Instituicao();
+        instituicao.setCnpj(33333333);
+        instituicao.setEmail("email3");
+        instituicao.setInscricaoEstadual(3333333);
+        instituicao.setNome("ScholaRatio3");
+        instituicao.setTelefone(33333333);
+        instituicao.setEndereco(getEnderecoDao().listar(Endereco.class).get(0));
 
-    public void testSalvarInstituicaoNull() throws Exception {
-        // Endereco endereco = new Endereco();
-        // endereco.set
-        Instituicao instituicao = null;
-
-        try {
-            this.instituicaoDao.salvar(instituicao);
-            Assert.fail("Não poderia salvar nulo.");
-        } catch (IllegalArgumentException exception) {
-            Assert.assertTrue("Lançou exceção esperada.",
-                exception instanceof IllegalArgumentException);
-        }
-
+        Integer codigo = this.getInstituicaoDao().salvar(instituicao);
+        Assert.assertTrue("Instituicao nao salva", codigo > 0);
     }
 
+    @Test
+    public void testAtualizar() {
+
+        Instituicao instituicao = this.getInstituicaoDao()
+                .listar(Instituicao.class).get(0);
+        String expected = instituicao.getNome();
+        instituicao.setNome("Outro nome");
+        String actual = this.getInstituicaoDao().listar(Instituicao.class)
+                .get(0).getNome();
+        Assert.assertNotSame("Nao atualizou o nome.", expected, actual);
+    }
+
+    @Test
+    public void testDeletar() {
+        int unexpected = this.getInstituicaoDao().listar(Instituicao.class)
+                .size();
+
+        Instituicao instituicao = this.getInstituicaoDao()
+                .listar(Instituicao.class).get(0);
+
+        this.getInstituicaoDao().excluir(instituicao);
+
+        int actual = this.getInstituicaoDao().listar(Instituicao.class).size();
+
+        Assert.assertFalse("Lista esta vazia", unexpected == actual);
+    }
+
+    @Test
+    public void testListarInstituicao() {
+        List<Instituicao> instituicao = this.getInstituicaoDao().listar(
+                Instituicao.class);
+
+        Assert.assertFalse(instituicao.isEmpty());
+    }
+
+    @Test
+    public void testPesquisarInstituicao() {
+        Instituicao instituicao = new Instituicao();
+        instituicao.setNome("%Schola%");
+        List<Instituicao> instituicaos = this.getInstituicaoDao().pesquisar(
+                instituicao);
+
+        Assert.assertFalse(instituicaos.isEmpty());
+    }
 }
