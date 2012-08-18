@@ -39,8 +39,6 @@ import br.facet.tcc.enums.Status;
 @MappedSuperclass
 public abstract class Pessoa {
 
-    protected Integer id;
-
     private String nome;
 
     private String nacionalidade;
@@ -72,11 +70,6 @@ public abstract class Pessoa {
     private Sexo sexo;
 
     private byte[] image;
-
-    /**
-     * @return the id
-     */
-    public abstract Integer getId();
 
     /**
      * @return the nome
@@ -210,14 +203,6 @@ public abstract class Pessoa {
     @Column
     public byte[] getImage() {
         return image;
-    }
-
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     /**
