@@ -41,7 +41,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testSalvar() {
-        Endereco endereco = this.enderecoDao.listar().get(0);
+        Endereco endereco = this.enderecoDao.listar(Usuario.class).get(0);
         Usuario usuario = new Usuario();
         usuario.setCpf(32932112388L);
         usuario.setDataExpedicao(new Date(2003, 06, 12));
