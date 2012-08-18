@@ -9,3 +9,13 @@ INSERT INTO tb_instituicao(id_instituicao, cnpj, email_instituicao, inscricao_es
 insert into tb_aluno (aluno_id, cpf, dataExpedicao, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg, senha, sexo, status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'33333333333','2003-08-15','wwwrrr@email.com','1','Brasileiro','São Vicente','Astolpho P Cruz','','','SSP-SP','2222222222','123qwe','M','ATIVO','SP','2012-08-18');
 insert into tb_aluno (aluno_id, cpf, dataExpedicao, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg, senha, sexo, status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'55555555555','1994-06-10','xxxxxx@email.com','2','Canadense','Curitiba','Josepha P Silva','','','SSP-SP','11111111','123qwe','F','ATIVO','SP','2012-08-18');
 insert into tb_aluno (aluno_id, cpf, dataExpedicao, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg, senha, sexo, status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'88888888888','1999-04-01','oooooo@email.com','3','Brasileiro','São José dos Pinhais','Jeronimo Pires','','','SSP-RS','54387621','123qwe','M','ATIVO','RS','2012-08-18');
+
+
+
+INSERT INTO tb_permissao( permissao_id, descricaopermissao, tipopermissao) VALUES (nextval('seq_permissao'), 'descricaopermissao1', 'tipopermissao1');
+INSERT INTO tb_permissao( permissao_id, descricaopermissao, tipopermissao) VALUES (nextval('seq_permissao'), 'descricaopermissao2', 'tipopermissao2');
+INSERT INTO tb_permissao( permissao_id, descricaopermissao, tipopermissao) VALUES (nextval('seq_permissao'), 'descricaopermissao3', 'tipopermissao3');
+
+
+
+
