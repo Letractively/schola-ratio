@@ -63,7 +63,6 @@ public class ProfessorLecionaDisciplinas {
      * @return the professor
      */
 
-    @Column
     @OneToOne
     public Professor getProfessor() {
         return professor;
@@ -72,7 +71,6 @@ public class ProfessorLecionaDisciplinas {
     /**
      * @return the disciplinas
      */
-    @Column
     @ManyToMany
     public List<Disciplina> getDisciplinas() {
         return disciplinas;
