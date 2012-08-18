@@ -21,5 +21,6 @@ package br.facet.tcc.enums;
  * @since 0.0.1
  */
 public enum SituacaoAlunoCurso {
-    TRANCADO, CURSANDO, CONCLUIDO
+    TRANCADO, CURSANDO, CONCLUIDO;
+
 }
