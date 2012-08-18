@@ -33,7 +33,7 @@ import br.facet.tcc.impl.util.HibernateUtil;
  * @since 0.0.1
  */
 public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
-    Dao<T> {
+        Dao<T> {
 
     /**
      * @see br.facet.tcc.dao.Dao#salvar(java.lang.Object)
@@ -82,6 +82,10 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
         return criteria.list();
     }
 
+    public T obterPorID(Class clazz, Integer id) {
+        return (T) getHibernateTemplate().load(clazz, id);
+    }
+
     /**
      * Um tipo de mock para sobescrever o metodo setSessionFactory da classe
      * {@link HibernateDaoSupport}
@@ -95,4 +99,5 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     public void addSessionFactoryToDao(SessionFactory sessionFactory) {
         this.setSessionFactory(sessionFactory);
     }
+
 }
