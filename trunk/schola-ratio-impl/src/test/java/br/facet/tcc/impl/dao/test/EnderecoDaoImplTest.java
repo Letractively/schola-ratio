@@ -68,7 +68,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
     }
 
     @Test
-    public void testDeletar() {
+    public void testExcluir() {
         int unexpected = this.getEnderecoDao().listar(Endereco.class).size();
 
         Endereco endereco = this.getEnderecoDao().listar(Endereco.class).get(0);
