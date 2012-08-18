@@ -20,6 +20,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -69,6 +70,8 @@ public abstract class Pessoa {
     private Endereco endereco;
 
     private Sexo sexo;
+
+    private byte[] image;
 
     /**
      * @return the id
@@ -200,6 +203,15 @@ public abstract class Pessoa {
     }
 
     /**
+     * @return the image
+     */
+    @Lob
+    @Column
+    public byte[] getImage() {
+        return image;
+    }
+
+    /**
      * @param id
      *            the id to set
      */
@@ -325,5 +337,13 @@ public abstract class Pessoa {
      */
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
+    }
+
+    /**
+     * @param image
+     *            the image to set
+     */
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
