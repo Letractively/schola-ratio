@@ -13,9 +13,8 @@
  */
 package br.facet.tcc.impl.dao.test;
 
-import static org.junit.Assert.fail;
-
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,8 +28,8 @@ import br.facet.tcc.pojo.Usuario;
 /**
  * @author Osnir F CUNHA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
 
@@ -41,10 +40,10 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testSalvar() {
-        Endereco endereco = this.enderecoDao.listar(Usuario.class).get(0);
+        Endereco endereco = this.enderecoDao.listar(Endereco.class).get(0);
         Usuario usuario = new Usuario();
-        usuario.setCpf(32932112388L);
-        usuario.setDataExpedicao(new Date(2003, 06, 12));
+        usuario.setCpf(19809887654L);
+        usuario.setDataExpedicao(new Date(103, 06, 12));
         usuario.setEmail("osnircunha@email.com");
         usuario.setEndereco(endereco);
         usuario.setNacionalidade("Brasileiro");
@@ -62,7 +61,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         Integer codigo = (Integer) this.enderecoDao.getHibernateTemplate()
             .save(usuario);
 
-        Assert.assertNotNull("Codigo é nulo.", codigo);
+        Assert.assertTrue("Codigo é nulo.", codigo > 0);
     }
 
     /**
@@ -72,7 +71,16 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testAtualizar() {
-        fail("Not yet implemented"); // TODO
+        Usuario usuario = getUsuarioDao().obterPorID(Usuario.class, 2);
+        usuario.setStatus(Status.INATIVO);
+        getUsuarioDao().atualizar(usuario);
+
+        Usuario usuarioToSearch = new Usuario();
+        usuarioToSearch.setStatus(Status.INATIVO);
+        int count = getUsuarioDao().pesquisar(usuarioToSearch).size();
+
+        Assert.assertEquals(
+            "Lista não foi atualizada de acordo com o esperado.", 2, count);
     }
 
     /**
@@ -82,7 +90,12 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testExcluir() {
-        fail("Not yet implemented"); // TODO
+        int unexpected = getUsuarioDao().listar(Usuario.class).size();
+        getUsuarioDao().excluir(getUsuarioDao().listar(Usuario.class).get(0));
+        int actual = getUsuarioDao().listar(Usuario.class).size();
+
+        Assert.assertNotSame("Quantidade das listas são as mesmas.",
+            unexpected, actual);
     }
 
     /**
@@ -90,7 +103,8 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testListar() {
-        fail("Not yet implemented"); // TODO
+        int actual = getUsuarioDao().listar(Usuario.class).size();
+        Assert.assertTrue("Lista esta vazia.", actual > 0);
     }
 
     /**
@@ -100,7 +114,12 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testPesquisar() {
-        fail("Not yet implemented"); // TODO
+        Usuario usuario = new Usuario();
+        usuario.setUfOrgaoExpeditor(Estado.AP);
+
+        List<Usuario> usuarios = getUsuarioDao().pesquisar(usuario);
+
+        Assert.assertFalse("Lista esta vazia.", usuarios.isEmpty());
     }
 
 }
