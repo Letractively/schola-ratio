@@ -14,18 +14,21 @@
 package br.facet.tcc.pojo;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.facet.tcc.enums.Estado;
+import br.facet.tcc.enums.Permissao;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
 
@@ -69,6 +72,8 @@ public abstract class Pessoa {
     private Sexo sexo;
 
     private byte[] image;
+
+    private Set<Permissao> permissoes;
 
     /**
      * @return the nome
@@ -204,6 +209,14 @@ public abstract class Pessoa {
     }
 
     /**
+     * @return the permissoes
+     */
+    @ManyToMany
+    public Set<Permissao> getPermissoes() {
+        return permissoes;
+    }
+
+    /**
      * @param nome
      *            the nome to set
      */
@@ -329,5 +342,13 @@ public abstract class Pessoa {
      */
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    /**
+     * @param permissoes
+     *            the permissoes to set
+     */
+    public void setPermissoes(Set<Permissao> permissoes) {
+        this.permissoes = permissoes;
     }
 }
