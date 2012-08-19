@@ -7,8 +7,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.facet.tcc.impl.dao.AlunoCursoDaoImpl;
 import br.facet.tcc.impl.dao.AlunoDaoImpl;
-import br.facet.tcc.impl.dao.AvaLiacaoDeAlunoDaoImpl;
 import br.facet.tcc.impl.dao.AvaliacaoDaoImpl;
+import br.facet.tcc.impl.dao.AvaliacaoDeAlunoDaoImpl;
 import br.facet.tcc.impl.dao.CursoDaoImpl;
 import br.facet.tcc.impl.dao.DescontoDaoImpl;
 import br.facet.tcc.impl.dao.DisciplinaDaoImpl;
@@ -22,37 +22,51 @@ import br.facet.tcc.impl.dao.TurmaDaoImpl;
 import br.facet.tcc.impl.dao.UsuarioDaoImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/applicationContext.xml"})
+@ContextConfiguration(locations = { "/applicationContext.xml" })
 public class DaoTestCaseSetUp {
 
     @Autowired
     protected AlunoDaoImpl alunoDao;
+
     @Autowired
     protected AlunoCursoDaoImpl alunoCursoDao;
+
     @Autowired
     protected AvaliacaoDaoImpl avaliacaoDao;
+
     @Autowired
-    protected AvaLiacaoDeAlunoDaoImpl avaLiacaoDeAlunoDao;
+    protected AvaliacaoDeAlunoDaoImpl avaliacaoDeAlunoDao;
+
     @Autowired
     protected CursoDaoImpl cursoDao;
+
     @Autowired
     protected DescontoDaoImpl descontoDao;
+
     @Autowired
     protected DisciplinaDaoImpl disciplinaDao;
+
     @Autowired
     protected EnderecoDaoImpl enderecoDao;
+
     @Autowired
     protected InstituicaoDaoImpl instituicaoDao;
+
     @Autowired
     protected MensalidadeDaoImpl mensalidadeDao;
+
     @Autowired
     protected PermissaoDaoImpl permissaoDao;
+
     @Autowired
     protected ProfessorDaoImpl professorDao;
+
     @Autowired
     protected SituacaoDoAlunoNaTurmaDaoImpl situacaoDoAlunoNaTurmaDao;
+
     @Autowired
     protected TurmaDaoImpl turmaDao;
+
     @Autowired
     protected UsuarioDaoImpl usuarioDao;
 
@@ -81,8 +95,8 @@ public class DaoTestCaseSetUp {
     /**
      * @return the avaLiacaoDeAlunoDao
      */
-    public AvaLiacaoDeAlunoDaoImpl getAvaLiacaoDeAlunoDao() {
-        return avaLiacaoDeAlunoDao;
+    public AvaliacaoDeAlunoDaoImpl getAvaLiacaoDeAlunoDao() {
+        return avaliacaoDeAlunoDao;
     }
 
     /**
