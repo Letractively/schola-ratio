@@ -55,17 +55,17 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
         avaliacao.setBimestre(Bimestre.SEGUNDO);
 
         Avaliacao avaliacaoToEdit = getAvaliacaoDao().pesquisar(avaliacao).get(
-            0);
+                0);
 
         avaliacaoToEdit.setBimestre(Bimestre.FINAL);
 
         getAvaliacaoDao().atualizar(avaliacaoToEdit);
 
         Avaliacao avaliacaoEditada = getAvaliacaoDao().obterPorID(
-            Avaliacao.class, avaliacaoToEdit.getId());
+                Avaliacao.class, avaliacaoToEdit.getId());
 
         Assert.assertNotSame("Bimestres são iguais.",
-            avaliacaoEditada.getBimestre(), Bimestre.SEGUNDO);
+                avaliacaoEditada.getBimestre(), Bimestre.SEGUNDO);
 
     }
 
@@ -79,7 +79,7 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
         int unexpected = getAvaliacaoDao().listar(Avaliacao.class).size();
 
         getAvaliacaoDao().excluir(
-            getAvaliacaoDao().obterPorID(Avaliacao.class, 2));
+                getAvaliacaoDao().obterPorID(Avaliacao.class, 4));
 
         int actual = getAvaliacaoDao().listar(Avaliacao.class).size();
 
@@ -112,8 +112,8 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
         int actual = getAvaliacaoDao().listar(Avaliacao.class).size();
 
         Assert.assertTrue(
-            "Não foram encontrados obbjetos com os parametros passado.",
-            actual > 0);
+                "Não foram encontrados obbjetos com os parametros passado.",
+                actual > 0);
     }
 
 }
