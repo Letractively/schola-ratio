@@ -85,7 +85,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
         Aluno atualizado = getAlunoDao().listar(Aluno.class).get(0);
 
         Assert.assertNotSame("Nome não foi atualizado.", unexpected,
-            atualizado.getNome());
+                atualizado.getNome());
     }
 
     /**
@@ -97,7 +97,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
     public void testExcluir() {
         List<Aluno> list = this.getAlunoDao().listar(Aluno.class);
         int unexpected = list.size();
-        this.getAlunoDao().excluir(list.get(0));
+        this.getAlunoDao().excluir(getAlunoDao().obterPorID(Aluno.class, 4));
         list = this.getAlunoDao().listar(Aluno.class);
 
         Assert.assertFalse("Aluno não excluido.", unexpected == list.size());
