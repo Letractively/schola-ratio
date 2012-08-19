@@ -20,6 +20,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Status;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.Desconto;
 
@@ -36,7 +37,7 @@ public class DescontoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
      */
     @Test
-    public final void testSalvar() {
+    public final void testSalvar() throws DaoException {
         Desconto desconto = new Desconto();
 
         desconto.setAluno(this.getAlunoDao().obterPorID(Aluno.class, 1));
@@ -54,7 +55,7 @@ public class DescontoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testAtualizar() {
+    public final void testAtualizar() throws DaoException {
         Desconto desconto = this.getDescontoDao().listar(Desconto.class).get(0);
         String expected = desconto.getTipoDesconto();
         desconto.setTipoDesconto("Novo Desconto");
@@ -69,7 +70,7 @@ public class DescontoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}.
      */
     @Test
-    public final void testExcluir() {
+    public final void testExcluir() throws DaoException {
         int unexpected = this.getDescontoDao().listar(Desconto.class).size();
         Desconto desconto = this.getDescontoDao().listar(Desconto.class).get(0);
         this.getDescontoDao().excluir(desconto);
@@ -82,7 +83,7 @@ public class DescontoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
      */
     @Test
-    public final void testListar() {
+    public final void testListar() throws DaoException {
         List<Desconto> desconto = this.getDescontoDao().listar(Desconto.class);
         Assert.assertFalse(desconto.isEmpty());
     }
@@ -93,7 +94,7 @@ public class DescontoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testPesquisar() {
+    public final void testPesquisar() throws DaoException {
         Desconto desconto = new Desconto();
         desconto.setTipoDesconto("%Novo Desconto%");
         List<Desconto> descontos = this.getDescontoDao().pesquisar(desconto);

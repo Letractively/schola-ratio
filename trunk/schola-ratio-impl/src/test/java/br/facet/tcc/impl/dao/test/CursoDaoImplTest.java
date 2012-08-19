@@ -20,6 +20,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Status;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Curso;
 import br.facet.tcc.pojo.Disciplina;
 import br.facet.tcc.pojo.Instituicao;
@@ -37,7 +38,7 @@ public class CursoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
      */
     @Test
-    public final void testSalvar() {
+    public final void testSalvar() throws DaoException {
         Curso curso = new Curso();
 
         curso.setDisciplina(this.getDisciplinaDao().listar(Disciplina.class));
@@ -57,7 +58,7 @@ public class CursoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testAtualizar() {
+    public final void testAtualizar() throws DaoException {
         Curso curso = this.getCursoDao().listar(Curso.class).get(0);
         String expected = curso.getNome();
         curso.setNome("Novo Nome");
@@ -72,7 +73,7 @@ public class CursoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}.
      */
     @Test
-    public final void testExcluir() {
+    public final void testExcluir() throws DaoException {
         int unexpected = this.getCursoDao().listar(Curso.class).size();
 
         Curso curso = this.getCursoDao().obterPorID(Curso.class, 4);
@@ -89,7 +90,7 @@ public class CursoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
      */
     @Test
-    public final void testListar() {
+    public final void testListar() throws DaoException {
         List<Curso> cursos = this.getCursoDao().listar(Curso.class);
 
         Assert.assertFalse(cursos.isEmpty());
@@ -101,7 +102,7 @@ public class CursoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testPesquisar() {
+    public final void testPesquisar() throws DaoException {
         Curso curso = new Curso();
         curso.setNome("%Novo Nome%");
         List<Curso> cursos = this.getCursoDao().pesquisar(curso);

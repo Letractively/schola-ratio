@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Bimestre;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.Avaliacao;
 import br.facet.tcc.pojo.AvaliacaoDeAluno;
@@ -36,7 +37,7 @@ public class AvaliacaoDeAlunoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
      */
     @Test
-    public final void testSalvar() {
+    public final void testSalvar() throws DaoException {
         AvaliacaoDeAluno avaliacaoDeAluno = new AvaliacaoDeAluno();
         avaliacaoDeAluno
                 .setAluno(this.getAlunoDao().listar(Aluno.class).get(0));
@@ -56,7 +57,7 @@ public class AvaliacaoDeAlunoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testAtualizar() {
+    public final void testAtualizar() throws DaoException {
         AvaliacaoDeAluno avaliacaoDeAluno = this.getAvaLiacaoDeAlunoDao()
                 .listar(AvaliacaoDeAluno.class).get(0);
         Float expected = avaliacaoDeAluno.getAvaliacao().getNota();
@@ -74,7 +75,7 @@ public class AvaliacaoDeAlunoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}.
      */
     @Test
-    public final void testExcluir() {
+    public final void testExcluir() throws DaoException {
         int unexpected = getAvaLiacaoDeAlunoDao()
                 .listar(AvaliacaoDeAluno.class).size();
 
@@ -94,7 +95,7 @@ public class AvaliacaoDeAlunoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
      */
     @Test
-    public final void testListar() {
+    public final void testListar() throws DaoException {
         int actual = getAvaliacaoDao().listar(Avaliacao.class).size();
 
         Assert.assertFalse("Lista esta vazia.", actual == 0);
@@ -106,7 +107,7 @@ public class AvaliacaoDeAlunoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testPesquisar() {
+    public final void testPesquisar() throws DaoException {
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setBimestre(Bimestre.PRIMEIRO);
         avaliacao.setFrequencia(15);

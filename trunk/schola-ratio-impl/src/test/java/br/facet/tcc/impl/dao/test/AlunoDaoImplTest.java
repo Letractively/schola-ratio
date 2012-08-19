@@ -22,6 +22,7 @@ import org.junit.Test;
 import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.Endereco;
 
@@ -39,7 +40,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws DaoException {
 
         Aluno aluno = new Aluno();
 
@@ -71,7 +72,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testAtualizar() {
+    public void testAtualizar() throws DaoException {
 
         List<Aluno> alunos = getAlunoDao().listar(Aluno.class);
         Aluno aluno = alunos.get(0);
@@ -94,7 +95,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws DaoException {
         List<Aluno> list = this.getAlunoDao().listar(Aluno.class);
         int unexpected = list.size();
         this.getAlunoDao().excluir(getAlunoDao().obterPorID(Aluno.class, 4));
@@ -107,7 +108,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      * Test method for {@link br.facet.tcc.impl.dao.AlunoDaoImpl#listar()}.
      */
     @Test
-    public void testListar() {
+    public void testListar() throws DaoException {
         List<Aluno> alunos = getAlunoDao().listar(Aluno.class);
         Assert.assertTrue("Lista esta vazia", alunos.size() > 0);
     }
@@ -118,7 +119,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testPesquisar() {
+    public void testPesquisar() throws DaoException {
         Aluno aluno = new Aluno();
         aluno.setNaturalidade("São%");
         List<Aluno> alunos = getAlunoDao().pesquisar(aluno);

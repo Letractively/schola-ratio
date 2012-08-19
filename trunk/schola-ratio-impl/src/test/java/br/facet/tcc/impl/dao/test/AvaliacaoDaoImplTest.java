@@ -17,6 +17,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Bimestre;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Avaliacao;
 
 /**
@@ -32,7 +33,7 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws DaoException {
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setFrequencia(14);
         avaliacao.setNota(9f);
@@ -50,7 +51,7 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testAtualizar() {
+    public void testAtualizar() throws DaoException {
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setBimestre(Bimestre.SEGUNDO);
 
@@ -75,7 +76,7 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws DaoException {
         int unexpected = getAvaliacaoDao().listar(Avaliacao.class).size();
 
         getAvaliacaoDao().excluir(
@@ -91,7 +92,7 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
      */
     @Test
-    public void testListar() {
+    public void testListar() throws DaoException {
         int actual = getAvaliacaoDao().listar(Avaliacao.class).size();
 
         Assert.assertFalse("Lista esta vazia.", actual == 0);
@@ -103,7 +104,7 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testPesquisar() {
+    public void testPesquisar() throws DaoException {
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setBimestre(Bimestre.PRIMEIRO);
         avaliacao.setFrequencia(15);
@@ -115,5 +116,4 @@ public class AvaliacaoDaoImplTest extends DaoTestCaseSetUp {
                 "Não foram encontrados obbjetos com os parametros passado.",
                 actual > 0);
     }
-
 }
