@@ -13,6 +13,9 @@
  */
 package br.facet.tcc.impl.dao.test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -58,10 +61,23 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         usuario.setSexo(Sexo.M);
         usuario.setStatus(Status.ATIVO);
 
-        Integer codigo = (Integer) this.enderecoDao.getHibernateTemplate()
-            .save(usuario);
+        File imagem = new File("src/test/resources/images/loo.jpg");
+        byte[] bFile = new byte[(int) imagem.length()];
+        FileInputStream inputStream;
+        try {
+            inputStream = new FileInputStream(imagem);
 
-        Assert.assertTrue("Codigo é nulo.", codigo > 0);
+            inputStream.read(bFile);
+            inputStream.close();
+
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }
+        usuario.setImage(bFile);
+
+        Integer codigo = this.usuarioDao.salvar(usuario);
+
+        Assert.assertTrue("Codigo é nulo.", codigo == usuario.getId());
     }
 
     /**
@@ -120,6 +136,22 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         List<Usuario> usuarios = getUsuarioDao().pesquisar(usuario);
 
         Assert.assertFalse("Lista esta vazia.", usuarios.isEmpty());
+    }
+
+    @Test
+    public void testeObterPorId() {
+
+        Usuario usuario = getUsuarioDao().obterPorID(Usuario.class, 4);
+
+        File imagem = new File("src/test/resources/images/loo_out.jpg");
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(imagem);
+            outputStream.write(usuario.getImage());
+            outputStream.close();
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
 }
