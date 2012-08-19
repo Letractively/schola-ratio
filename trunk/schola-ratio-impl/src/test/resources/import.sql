@@ -21,3 +21,7 @@ INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('seq_av
 INSERT INTO tb_curso( curso_id, duracao, nome, status, instituicao_id) VALUES (nextval('seq_curso'), 8, 'Curso1', 'ATIVO', 1);
 INSERT INTO tb_curso( curso_id, duracao, nome, status, instituicao_id) VALUES (nextval('seq_curso'), 8, 'Curso2', 'ATIVO', 2);
 INSERT INTO tb_curso( curso_id, duracao, nome, status, instituicao_id) VALUES (nextval('seq_curso'), 8, 'Curso3', 'ATIVO', 3);
+
+INSERT INTO tb_usuario(usuario_id, cpf, dataexpedicao, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, senha,sexo, status, uforgaoexpeditor, endereco_usuario) VALUES (nextval('seq_usuario'), 12312312312, '2001-10-15', 'xpto@hgf3d3', 'Japones', 'Tokio', 'Takyo H San', '', '', 'XXYYZZ', 43221534, '*******','M', 'INATIVO', 'RJ', 3);
+INSERT INTO tb_usuario(usuario_id, cpf, dataexpedicao, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, senha,sexo, status, uforgaoexpeditor, endereco_usuario) VALUES (nextval('seq_usuario'), 45645645645, '1999-12-05', 'dasg@3gvcfdx', 'Chines', 'Guangdzu', 'Hong Chin Kong', '', '', 'XXYYZZ', 654234677, '*******','M', 'ATIVO', 'AP', 2);
+INSERT INTO tb_usuario(usuario_id, cpf, dataexpedicao, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, senha,sexo, status, uforgaoexpeditor, endereco_usuario) VALUES (nextval('seq_usuario'), 78978978990, '2001-01-12', 'hgftu@rtfdx', 'Brasileiro', 'Pará', 'Anonieta dos Santos', '', '', 'DDEESS', 6432098778, '*******','F', 'ATIVO', 'SP', 1);
