@@ -13,7 +13,7 @@
  */
 package br.facet.tcc.impl.util;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -29,34 +29,32 @@ public class HibernateUtil {
 
     public static Criteria createCriteria(Object object, Session session) {
 
-        Field[] fields = object.getClass().getDeclaredFields();
+        Method[] methods = object.getClass().getMethods();
 
         Class[] noparam = {};
 
         Criteria criteria = session.createCriteria(object.getClass());
         try {
-            for (Field field : fields) {
-                StringBuilder methodName = new StringBuilder("get");
+            for (Method method : methods) {
 
-                methodName
-                    .append(field.getName().substring(0, 1).toUpperCase());
+                if (method.getName().startsWith("get")
+                    && method.getName() != "getClass") {
+                    Object serializable = method.invoke(object, noparam);
+                    if (serializable != null) {
 
-                methodName.append(field.getName().substring(1,
-                    field.getName().length()));
+                        String field = method.getName().subSequence(3, 4)
+                            .toString().toLowerCase()
+                            + method.getName().substring(4);
 
-                Object serializable = object.getClass()
-                    .getDeclaredMethod(methodName.toString(), noparam)
-                    .invoke(object, noparam);
-
-                if (serializable != null) {
-                    if (serializable instanceof String) {
-                        criteria.add(Restrictions.ilike(field.getName(),
-                            serializable));
-                    } else {
-                        criteria.add(Restrictions.eq(field.getName(),
-                            serializable));
+                        if (serializable instanceof String) {
+                            criteria.add(Restrictions
+                                .ilike(field, serializable));
+                        } else {
+                            criteria.add(Restrictions.eq(field, serializable));
+                        }
                     }
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
