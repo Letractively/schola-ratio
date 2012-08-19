@@ -47,7 +47,7 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         professor.setDataExpedicao(new Date(2003, 06, 12));
         professor.setEmail("osnircunha@email.com");
         professor.setEndereco(this.getEnderecoDao().listar(Endereco.class)
-                .get(0));
+            .get(0));
         professor.setNacionalidade("Brasileiro");
         professor.setNaturalidade("São Vicente");
         professor.setNome("Osnir F CUNHA");
@@ -63,7 +63,7 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         professor.setDescricaoTitulo("Engenharia de Computação");
 
         Integer codigo = (Integer) this.enderecoDao.getHibernateTemplate()
-                .save(professor);
+            .save(professor);
 
         Assert.assertNotNull("Codigo é nulo.", codigo);
     }
@@ -82,7 +82,7 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         getProfessorDao().atualizar(professor);
         Professor atualizado = getProfessorDao().listar(Professor.class).get(0);
         Assert.assertNotSame("Nome do professor não foi atualizado.",
-                unexpected, atualizado.getNome());
+            unexpected, atualizado.getNome());
     }
 
     /**
@@ -92,12 +92,14 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testExcluir() {
-        List<Professor> list = this.getProfessorDao().listar(Professor.class);
-        int unexpected = list.size();
-        this.getProfessorDao().excluir(list.get(0));
-        list = this.getProfessorDao().listar(Professor.class);
+        int unexpected = getProfessorDao().listar(Professor.class).size();
 
-        Assert.assertFalse("Professor não excluido.", unexpected == list.size());
+        this.getProfessorDao().excluir(
+            getProfessorDao().obterPorID(Professor.class, 4));
+
+        int actual = getProfessorDao().listar(Professor.class).size();
+
+        Assert.assertNotSame("Professor não excluido.", unexpected, actual);
     }
 
     /**
