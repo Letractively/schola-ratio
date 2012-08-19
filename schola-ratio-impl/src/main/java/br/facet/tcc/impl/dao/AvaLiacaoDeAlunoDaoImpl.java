@@ -24,6 +24,6 @@ import br.facet.tcc.pojo.AvaliacaoDeAluno;
  * @since 0.0.1
  */
 @Repository("avaLiacaoDeAlunoDao")
-public class AvaliacaoDeAlunoDaoImpl extends DaoConfiguration<AvaliacaoDeAluno> {
+public class AvaLiacaoDeAlunoDaoImpl extends DaoConfiguration<AvaliacaoDeAluno> {
 
 }
