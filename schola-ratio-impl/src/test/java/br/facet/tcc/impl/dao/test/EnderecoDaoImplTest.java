@@ -63,7 +63,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
         endereco.setBairro("Outro bairro");
         this.getEnderecoDao().atualizar(endereco);
         String actual = this.getEnderecoDao().listar(Endereco.class).get(0)
-                .getBairro();
+            .getBairro();
         Assert.assertNotSame("Bairro são diferentes", expected, actual);
     }
 
@@ -71,7 +71,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
     public void testExcluir() {
         int unexpected = this.getEnderecoDao().listar(Endereco.class).size();
 
-        Endereco endereco = this.getEnderecoDao().listar(Endereco.class).get(0);
+        Endereco endereco = this.getEnderecoDao().obterPorID(Endereco.class, 4);
 
         this.getEnderecoDao().excluir(endereco);
 
