@@ -23,6 +23,7 @@ import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.enums.TipoTitulo;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Endereco;
 import br.facet.tcc.pojo.Professor;
 
@@ -38,9 +39,11 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      * Test method for
      * {@link br.facet.tcc.impl.dao.ProfessorDaoImpl#salvar(br.facet.tcc.pojo.Professor)}
      * .
+     * 
+     * @throws DaoException
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws DaoException {
         Professor professor = new Professor();
 
         professor.setCpf(32932112388L);
@@ -72,9 +75,11 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      * Test method for
      * {@link br.facet.tcc.impl.dao.ProfessorDaoImpl#atualizar(br.facet.tcc.pojo.Professor)}
      * .
+     * 
+     * @throws DaoException
      */
     @Test
-    public void testAtualizar() {
+    public void testAtualizar() throws DaoException {
         Professor professor = getProfessorDao().listar(Professor.class).get(0);
         String unexpected = professor.getNome();
         String actual = "novo nome";
@@ -89,9 +94,11 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      * Test method for
      * {@link br.facet.tcc.impl.dao.ProfessorDaoImpl#excluir(br.facet.tcc.pojo.Professor)}
      * .
+     * 
+     * @throws DaoException
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws DaoException {
         int unexpected = getProfessorDao().listar(Professor.class).size();
 
         this.getProfessorDao().excluir(
@@ -104,9 +111,11 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
 
     /**
      * Test method for {@link br.facet.tcc.impl.dao.ProfessorDaoImpl#listar()}.
+     * 
+     * @throws DaoException
      */
     @Test
-    public void testListar() {
+    public void testListar() throws DaoException {
         List<Professor> professor = getProfessorDao().listar(Professor.class);
         Assert.assertTrue("Lista esta vazia", professor.size() > 0);
     }
@@ -115,9 +124,11 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      * Test method for
      * {@link br.facet.tcc.impl.dao.ProfessorDaoImpl#pesquisar(br.facet.tcc.pojo.Professor)}
      * .
+     * 
+     * @throws DaoException
      */
     @Test
-    public void testPesquisar() {
+    public void testPesquisar() throws DaoException {
         Professor professor = new Professor();
         professor.setNome("%novo nome%");
         List<Professor> professor1 = getProfessorDao().pesquisar(professor);

@@ -1,9 +1,8 @@
 /*
  * TCC Facet 2012 - Djulles IKEDA e Osnir F CUNHA.
- *
- * Copyright (c) 2012
- * All rights reserved.
- *
+ * 
+ * Copyright (c) 2012 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
@@ -20,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Status;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Disciplina;
 
 /**
@@ -35,7 +35,7 @@ public class DisciplinaDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
      */
     @Test
-    public final void testSalvar() {
+    public final void testSalvar() throws DaoException {
         Disciplina disciplina = new Disciplina();
 
         disciplina.setCargaHoraria(36);
@@ -52,28 +52,29 @@ public class DisciplinaDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testAtualizar() {
+    public final void testAtualizar() throws DaoException {
         Disciplina disciplina = this.getDisciplinaDao()
-                .listar(Disciplina.class).get(0);
+            .listar(Disciplina.class).get(0);
         String expected = disciplina.getNome();
         disciplina.setNome("Outro Nome");
         this.getDisciplinaDao().atualizar(disciplina);
         String actual = this.getDisciplinaDao().listar(Disciplina.class).get(0)
-                .getNome();
+            .getNome();
         Assert.assertNotSame("Disciplina são diferentes", expected, actual);
     }
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}.
+     * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}
+     * .
      */
     @Test
-    public final void testExcluir() {
+    public final void testExcluir() throws DaoException {
         int unexpected = this.getDisciplinaDao().listar(Disciplina.class)
-                .size();
+            .size();
 
         Disciplina disciplina = this.getDisciplinaDao().obterPorID(
-                Disciplina.class, 4);
+            Disciplina.class, 4);
 
         this.getDisciplinaDao().excluir(disciplina);
 
@@ -87,9 +88,9 @@ public class DisciplinaDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
      */
     @Test
-    public final void testListar() {
+    public final void testListar() throws DaoException {
         List<Disciplina> disciplina1 = this.getDisciplinaDao().listar(
-                Disciplina.class);
+            Disciplina.class);
 
         Assert.assertFalse(disciplina1.isEmpty());
     }
@@ -100,11 +101,11 @@ public class DisciplinaDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testPesquisar() {
+    public final void testPesquisar() throws DaoException {
         Disciplina disciplina = new Disciplina();
         disciplina.setNome("%Outro Nome%");
         List<Disciplina> disciplina1 = this.getDisciplinaDao().pesquisar(
-                disciplina);
+            disciplina);
 
         Assert.assertFalse(disciplina1.isEmpty());
     }

@@ -1,9 +1,8 @@
 /*
  * TCC Facet 2012 - Djulles IKEDA e Osnir F CUNHA.
- *
- * Copyright (c) 2012
- * All rights reserved.
- *
+ * 
+ * Copyright (c) 2012 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
@@ -19,6 +18,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Permissao;
 
 /**
@@ -36,7 +36,7 @@ public class PermissaoDaoImplTeste extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws DaoException {
         Permissao permissao = new Permissao();
         permissao.setDescricaoPermissao("descricaoPermissao4");
         permissao.setTipoPermissao("tipoPermissao4");
@@ -51,28 +51,29 @@ public class PermissaoDaoImplTeste extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testAtualizar() {
+    public void testAtualizar() throws DaoException {
         Permissao permissao = this.getPermissaoDao().listar(Permissao.class)
-                .get(0);
+            .get(0);
         String expected = permissao.getTipoPermissao();
         permissao.setTipoPermissao("tipoPermissao5");
         this.getPermissaoDao().atualizar(permissao);
         String actual = this.getPermissaoDao().listar(Permissao.class).get(0)
-                .getTipoPermissao();
+            .getTipoPermissao();
         Assert.assertNotSame("Tipos de permissao são diferentes", expected,
-                actual);
+            actual);
     }
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}.
+     * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}
+     * .
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws DaoException {
         int unexpected = this.getPermissaoDao().listar(Permissao.class).size();
 
         Permissao permissao = this.getPermissaoDao().listar(Permissao.class)
-                .get(0);
+            .get(0);
 
         this.getPermissaoDao().excluir(permissao);
 
@@ -86,9 +87,9 @@ public class PermissaoDaoImplTeste extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
      */
     @Test
-    public void testListar() {
+    public void testListar() throws DaoException {
         List<Permissao> permissao = this.getPermissaoDao().listar(
-                Permissao.class);
+            Permissao.class);
 
         Assert.assertFalse(permissao.isEmpty());
 
@@ -100,11 +101,11 @@ public class PermissaoDaoImplTeste extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testPesquisar() {
+    public void testPesquisar() throws DaoException {
         Permissao permissao = new Permissao();
         permissao.setTipoPermissao("tipoPermissao5");
         List<Permissao> permissao1 = this.getPermissaoDao()
-                .pesquisar(permissao);
+            .pesquisar(permissao);
 
         Assert.assertFalse(permissao1.isEmpty());
     }

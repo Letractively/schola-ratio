@@ -19,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Estado;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Endereco;
 
 /**
@@ -35,7 +36,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws DaoException {
 
         Endereco endereco = new Endereco();
 
@@ -57,7 +58,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testAtualizar() {
+    public void testAtualizar() throws DaoException {
         Endereco endereco = this.getEnderecoDao().listar(Endereco.class).get(0);
         String expected = endereco.getBairro();
         endereco.setBairro("Outro bairro");
@@ -68,7 +69,7 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
     }
 
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws DaoException {
         int unexpected = this.getEnderecoDao().listar(Endereco.class).size();
 
         Endereco endereco = this.getEnderecoDao().obterPorID(Endereco.class, 4);
@@ -81,14 +82,14 @@ public class EnderecoDaoImplTest extends DaoTestCaseSetUp {
     }
 
     @Test
-    public void testListarEndereco() {
+    public void testListarEndereco() throws DaoException {
         List<Endereco> enderecos = this.getEnderecoDao().listar(Endereco.class);
 
         Assert.assertFalse(enderecos.isEmpty());
     }
 
     @Test
-    public void testPesquisarEndereco() {
+    public void testPesquisarEndereco() throws DaoException {
         Endereco endereco = new Endereco();
         endereco.setRua("%rosa%");
         List<Endereco> enderecos = this.getEnderecoDao().pesquisar(endereco);

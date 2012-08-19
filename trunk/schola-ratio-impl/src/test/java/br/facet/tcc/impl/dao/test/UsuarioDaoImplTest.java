@@ -25,6 +25,7 @@ import org.junit.Test;
 import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Endereco;
 import br.facet.tcc.pojo.Usuario;
 
@@ -42,7 +43,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws DaoException {
         Endereco endereco = this.enderecoDao.listar(Endereco.class).get(0);
         Usuario usuario = new Usuario();
         usuario.setCpf(19809887654L);
@@ -86,7 +87,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testAtualizar() {
+    public void testAtualizar() throws DaoException {
         Usuario usuario = getUsuarioDao().obterPorID(Usuario.class, 2);
         usuario.setStatus(Status.INATIVO);
         getUsuarioDao().atualizar(usuario);
@@ -105,7 +106,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws DaoException {
         int unexpected = getUsuarioDao().listar(Usuario.class).size();
         getUsuarioDao().excluir(getUsuarioDao().listar(Usuario.class).get(0));
         int actual = getUsuarioDao().listar(Usuario.class).size();
@@ -118,7 +119,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      * Test method for {@link br.facet.tcc.impl.dao.UsuarioDaoImpl#listar()}.
      */
     @Test
-    public void testListar() {
+    public void testListar() throws DaoException {
         int actual = getUsuarioDao().listar(Usuario.class).size();
         Assert.assertTrue("Lista esta vazia.", actual > 0);
     }
@@ -129,7 +130,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public void testPesquisar() {
+    public void testPesquisar() throws DaoException {
         Usuario usuario = new Usuario();
         usuario.setUfOrgaoExpeditor(Estado.AP);
 
@@ -139,7 +140,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
     }
 
     @Test
-    public void testeObterPorId() {
+    public void testeObterPorId() throws DaoException {
 
         Usuario usuario = getUsuarioDao().obterPorID(Usuario.class, 4);
 

@@ -1,9 +1,8 @@
 /*
  * TCC Facet 2012 - Djulles IKEDA e Osnir F CUNHA.
- *
- * Copyright (c) 2012
- * All rights reserved.
- *
+ * 
+ * Copyright (c) 2012 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
@@ -20,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Status;
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.Mensalidade;
 
@@ -36,7 +36,7 @@ public class MensalidadeDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
      */
     @Test
-    public final void testSalvar() {
+    public final void testSalvar() throws DaoException {
         Mensalidade mensalidade = new Mensalidade();
 
         mensalidade.setAluno(this.getAlunoDao().listar(Aluno.class).get(0));
@@ -55,28 +55,29 @@ public class MensalidadeDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testAtualizar() {
+    public final void testAtualizar() throws DaoException {
         Mensalidade mensalidade = this.getMensalidadeDao()
-                .listar(Mensalidade.class).get(0);
+            .listar(Mensalidade.class).get(0);
         Float expected = mensalidade.getValorPago();
         mensalidade.setValorPago(420.00f);
         this.getMensalidadeDao().atualizar(mensalidade);
         Float actual = this.getMensalidadeDao().listar(Mensalidade.class)
-                .get(0).getValorPago();
+            .get(0).getValorPago();
         Assert.assertNotSame("Mensalidades são diferentes", expected, actual);
     }
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}.
+     * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}
+     * .
      */
     @Test
-    public final void testExcluir() {
+    public final void testExcluir() throws DaoException {
         int unexpected = this.getMensalidadeDao().listar(Mensalidade.class)
-                .size();
+            .size();
 
         Mensalidade mensalidade = this.getMensalidadeDao().obterPorID(
-                Mensalidade.class, 2);
+            Mensalidade.class, 2);
 
         this.getMensalidadeDao().excluir(mensalidade);
 
@@ -90,9 +91,9 @@ public class MensalidadeDaoImplTest extends DaoTestCaseSetUp {
      * {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
      */
     @Test
-    public final void testListar() {
+    public final void testListar() throws DaoException {
         List<Mensalidade> mensalidade1 = this.getMensalidadeDao().listar(
-                Mensalidade.class);
+            Mensalidade.class);
 
         Assert.assertFalse(mensalidade1.isEmpty());
     }
@@ -103,11 +104,11 @@ public class MensalidadeDaoImplTest extends DaoTestCaseSetUp {
      * .
      */
     @Test
-    public final void testPesquisar() {
+    public final void testPesquisar() throws DaoException {
         Mensalidade mensalidade = new Mensalidade();
         mensalidade.setValorPago(420.00f);
         List<Mensalidade> mensalidade1 = this.getMensalidadeDao().pesquisar(
-                mensalidade);
+            mensalidade);
 
         Assert.assertFalse(mensalidade1.isEmpty());
     }
