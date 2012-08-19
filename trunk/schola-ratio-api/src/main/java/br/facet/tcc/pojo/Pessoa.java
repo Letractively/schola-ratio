@@ -20,7 +20,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -199,7 +198,6 @@ public abstract class Pessoa {
     /**
      * @return the image
      */
-    @Lob
     @Column
     public byte[] getImage() {
         return image;
