@@ -46,9 +46,9 @@ INSERT INTO tb_turma( turma_id, ano, horariodeaulas, status, disciplina_id, prof
 INSERT INTO tb_turma( turma_id, ano, horariodeaulas, status, disciplina_id, professor_id) VALUES ( nextval('seq_turma'), '2012-10-02', 'SEGUNDA_SEGUNDO_HORARIO', 'ATIVO', 2, 2);
 INSERT INTO tb_turma( turma_id, ano, horariodeaulas, status, disciplina_id, professor_id) VALUES ( nextval('seq_turma'), '2012-10-03', 'TERCA_PRIMEIRO_HORARIO', 'ATIVO', 3, 3);
 
-INSERT INTO tb_aluno_curso( aluno_curso, situacaoalunocurso, aluno_aluno_id, curso_curso_id)  VALUES (nextval('seq_aluno_curso'), 'ATIVO', 1, 1);
-INSERT INTO tb_aluno_curso( aluno_curso, situacaoalunocurso, aluno_aluno_id, curso_curso_id)  VALUES (nextval('seq_aluno_curso'), 'ATIVO', 2, 2);
-INSERT INTO tb_aluno_curso( aluno_curso, situacaoalunocurso, aluno_aluno_id, curso_curso_id)  VALUES (nextval('seq_aluno_curso'), 'ATIVO', 3, 3);
+INSERT INTO tb_aluno_curso( aluno_curso, situacaoalunocurso, aluno_aluno_id, curso_curso_id)  VALUES (nextval('seq_aluno_curso'), 'CURSANDO', 1, 1);
+INSERT INTO tb_aluno_curso( aluno_curso, situacaoalunocurso, aluno_aluno_id, curso_curso_id)  VALUES (nextval('seq_aluno_curso'), 'CURSANDO', 2, 2);
+INSERT INTO tb_aluno_curso( aluno_curso, situacaoalunocurso, aluno_aluno_id, curso_curso_id)  VALUES (nextval('seq_aluno_curso'), 'CURSANDO', 3, 3);
 
 INSERT INTO tb_avaliacao_aluno( avaliacao_aluno_id, aluno_aluno_id, avaliacao_id, turma_turma_id)  VALUES (nextval('seq_avaliacao_aluno'), 1, 1, 1);
 INSERT INTO tb_avaliacao_aluno( avaliacao_aluno_id, aluno_aluno_id, avaliacao_id, turma_turma_id)  VALUES (nextval('seq_avaliacao_aluno'), 2, 2, 2);
@@ -74,9 +74,9 @@ INSERT INTO tb_disponibilidade_professor_tb_horario_aulas( tb_disponibilidade_pr
 INSERT INTO tb_disponibilidade_professor_tb_horario_aulas( tb_disponibilidade_professor_disponibilidade_professor_id, horariodisponivel_id) VALUES (2, 2);
 INSERT INTO tb_disponibilidade_professor_tb_horario_aulas( tb_disponibilidade_professor_disponibilidade_professor_id, horariodisponivel_id) VALUES (3, 3);
 
-INSERT INTO tb_situacao_aluno_turma( situacao_aluno_turma_id, situacao, aluno_aluno_id, turma_turma_id) VALUES (nextval('seq_situacao_aluno_turma'), 'ATIVO', 1, 1);
-INSERT INTO tb_situacao_aluno_turma( situacao_aluno_turma_id, situacao, aluno_aluno_id, turma_turma_id) VALUES (nextval('seq_situacao_aluno_turma'), 'ATIVO', 2, 2);
-INSERT INTO tb_situacao_aluno_turma( situacao_aluno_turma_id, situacao, aluno_aluno_id, turma_turma_id) VALUES (nextval('seq_situacao_aluno_turma'), 'ATIVO', 3, 3);
+INSERT INTO tb_situacao_aluno_turma( situacao_aluno_turma_id, situacao, aluno_aluno_id, turma_turma_id) VALUES (nextval('seq_situacao_aluno_turma'), 'APROVADO', 1, 1);
+INSERT INTO tb_situacao_aluno_turma( situacao_aluno_turma_id, situacao, aluno_aluno_id, turma_turma_id) VALUES (nextval('seq_situacao_aluno_turma'), 'APROVADO', 2, 2);
+INSERT INTO tb_situacao_aluno_turma( situacao_aluno_turma_id, situacao, aluno_aluno_id, turma_turma_id) VALUES (nextval('seq_situacao_aluno_turma'), 'APROVADO', 3, 3);
 
 INSERT INTO tb_turma_tb_aluno( tb_turma_turma_id, alunos_aluno_id) VALUES (1, 1);
 INSERT INTO tb_turma_tb_aluno( tb_turma_turma_id, alunos_aluno_id) VALUES (2, 2);
