@@ -1,9 +1,8 @@
 /*
  * TCC Facet 2012 - Djulles IKEDA e Osnir F CUNHA.
- *
- * Copyright (c) 2012
- * All rights reserved.
- *
+ * 
+ * Copyright (c) 2012 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
@@ -16,13 +15,13 @@ package br.facet.tcc.impl.dao;
 
 import org.springframework.stereotype.Repository;
 
-import br.facet.tcc.pojo.Permissao;
+import br.facet.tcc.enums.Permissao;
 
 /**
  * @author Djulles IKEDA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 @Repository("permissaoDao")
 public class PermissaoDaoImpl extends DaoConfiguration<Permissao> {
