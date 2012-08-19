@@ -17,6 +17,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -28,12 +29,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_permissao")
+@SequenceGenerator(name = "seq_permissao", sequenceName = "seq_permissao", allocationSize = 1)
 public enum Permissao {
 
     ROLE_PROFESSOR, ROLE_SECRETARIA, ROLE_ADMINISTRADOR, ROLE_FINANCEIRO;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "seq_permissao")
     @Column
     private Integer id;
 
