@@ -14,27 +14,39 @@
 package br.facet.tcc.controle;
 
 import java.rmi.ServerException;
-import java.util.List;
 
 import br.facet.tcc.pojo.Instituicao;
+import br.facet.tcc.pojo.Permissao;
 
 /**
  * @author Osnir F CUNHA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 public interface GestaoConfiguracao {
 
+    /**
+     * @param instituicao
+     * @throws ServerException
+     * @since 0.0.1
+     */
     public void atualizarDestalhesInstituicao(Instituicao instituicao)
-            throws ServerException;
+        throws ServerException;
 
-    public void salvarInstituicao(Instituicao instituicao)
-            throws ServerException;
+    /**
+     * @param permissao
+     * @return
+     * @throws ServerException
+     * @since 0.0.1
+     */
+    public Integer incluirPermissao(Permissao permissao) throws ServerException;
 
-    public void removerInstituicao(Instituicao instituicao)
-            throws ServerException;
-
-    public List<Instituicao> listarInstituicao() throws ServerException;
+    /**
+     * @param permissao
+     * @throws ServerException
+     * @since 0.0.1
+     */
+    public void alterarPermissao(Permissao permissao) throws ServerException;
 
 }
