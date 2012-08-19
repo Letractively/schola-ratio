@@ -15,8 +15,12 @@ package br.facet.tcc.impl.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -36,12 +40,30 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     Dao<T> {
 
     /**
+     * 
+     */
+    private static Logger logger = Logger.getLogger(DaoConfiguration.class);
+
+    /**
      * @see br.facet.tcc.dao.Dao#salvar(java.lang.Object)
      * @since since optional
      */
     @Override
     public Integer salvar(T t) {
-        Integer integer = (Integer) getHibernateTemplate().save(t);
+        Session session = this.getSessionFactory().openSession();
+        Transaction tx = null;
+        Integer integer = null;
+        try {
+            tx = session.beginTransaction();
+            integer = (Integer) session.save(t);
+            tx.commit();
+            logger.debug("Objeto salvo com sucesso em " + t.getClass());
+        } catch (HibernateException e) {
+            tx.rollback();
+            logger.error(t.getClass(), e);
+        } finally {
+            session.close();
+        }
         return integer;
     }
 
@@ -51,7 +73,19 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public void atualizar(T t) {
-        getHibernateTemplate().update(t);
+        Session session = this.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(t);
+            tx.commit();
+            logger.debug("Objeto atualizado com sucesso em " + t.getClass());
+        } catch (HibernateException e) {
+            tx.rollback();
+            logger.error(t.getClass(), e);
+        } finally {
+            session.close();
+        }
     }
 
     /**
@@ -60,7 +94,19 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public void excluir(T t) {
-        getHibernateTemplate().delete(t);
+        Session session = this.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.delete(t);
+            tx.commit();
+            logger.debug("Objeto removido com sucesso em " + t.getClass());
+        } catch (HibernateException e) {
+            tx.rollback();
+            logger.error(t.getClass(), e);
+        } finally {
+            session.close();
+        }
     }
 
     /**
@@ -82,15 +128,22 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
         return criteria.list();
     }
 
+    /**
+     * Obtem um objeto apartir do seu id e de seu tipo
+     * 
+     * @param clazz
+     *            define o tipo do objeto a ser recuperado
+     * @param id
+     *            id do objeto persistido
+     * @return o objeto
+     * @since 0.0.1
+     */
     public T obterPorID(Class clazz, Integer id) {
-
-        T t = (T) getSession().load(clazz, id);
-
-        return t;
+        return (T) getSession().load(clazz, id);
     }
 
     /**
-     * Um tipo de mock para sobescrever o metodo setSessionFactory da classe
+     * Usado paa sobscrever o metodo setSessionFactory da classe
      * {@link HibernateDaoSupport}
      * 
      * @param sessionFactory
