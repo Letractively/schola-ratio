@@ -15,7 +15,7 @@ package br.facet.tcc.impl.dao;
 
 import org.springframework.stereotype.Repository;
 
-import br.facet.tcc.enums.Permissao;
+import br.facet.tcc.pojo.Permissao;
 
 /**
  * @author Djulles IKEDA
