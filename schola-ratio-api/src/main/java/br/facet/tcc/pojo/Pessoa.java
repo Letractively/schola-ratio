@@ -28,7 +28,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.facet.tcc.enums.Estado;
-import br.facet.tcc.enums.Permissao;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
 
