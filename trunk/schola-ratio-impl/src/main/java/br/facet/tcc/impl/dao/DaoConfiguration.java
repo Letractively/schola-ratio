@@ -41,7 +41,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public Integer salvar(T t) {
-        Integer integer = (Integer) getSession().save(t);
+        Integer integer = (Integer) getHibernateTemplate().save(t);
         return integer;
     }
 
@@ -51,7 +51,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public void atualizar(T t) {
-        getSession().update(t);
+        getHibernateTemplate().update(t);
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public void excluir(T t) {
-        getSession().delete(t);
+        getHibernateTemplate().delete(t);
     }
 
     /**
