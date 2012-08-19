@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.controle;
 
+import java.rmi.ServerException;
 import java.util.List;
 
 import br.facet.tcc.pojo.Instituicao;
@@ -25,12 +26,15 @@ import br.facet.tcc.pojo.Instituicao;
  */
 public interface GestaoConfiguracao {
 
-    public void atualizarDestalhesInstituicao(Instituicao instituicao);
+    public void atualizarDestalhesInstituicao(Instituicao instituicao)
+            throws ServerException;
 
-    public void salvarInstituicao(Instituicao instituicao);
+    public void salvarInstituicao(Instituicao instituicao)
+            throws ServerException;
 
-    public void removerInstituicao(Instituicao instituicao);
+    public void removerInstituicao(Instituicao instituicao)
+            throws ServerException;
 
-    public List<Instituicao> listarInstituicao();
+    public List<Instituicao> listarInstituicao() throws ServerException;
 
 }
