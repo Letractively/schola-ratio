@@ -15,10 +15,12 @@
 package br.facet.tcc.controle;
 
 import java.io.File;
+import java.util.List;
 
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.Desconto;
+import br.facet.tcc.pojo.Mensalidade;
 
 /**
  * @author Djulles IKEDA
@@ -28,9 +30,10 @@ import br.facet.tcc.pojo.Desconto;
  */
 public interface GestaoFinanceiro {
 
-    public void gerarMensalidade(Aluno aluno) throws ServiceException;
+    public Integer gerarMensalidade(Aluno aluno) throws ServiceException;
 
-    public void buscarMensalidade(Aluno aluno) throws ServiceException;
+    public List<Mensalidade> buscarMensalidade(Aluno aluno)
+            throws ServiceException;
 
     public void quitarMensalidade(Aluno aluno) throws ServiceException;
 
