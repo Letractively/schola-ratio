@@ -1,5 +1,4 @@
-
- /*
+/*
  * TCC Facet 2012 - Djulles IKEDA e Osnir F CUNHA.
  *
  * Copyright (c) 2012
@@ -15,73 +14,98 @@
  */
 package br.facet.tcc.impl.dao.test;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
+import br.facet.tcc.enums.Status;
+import br.facet.tcc.pojo.Disciplina;
 
- /**
+/**
  * @author Djulles IKEDA
- *
+ * 
  * @version TODO: class_version
- * @since TODO: package_version 
+ * @since TODO: package_version
  */
 public class DisciplinaDaoImplTest extends DaoTestCaseSetUp {
 
     /**
-     * Test method for {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
+     * Test method for
+     * {@link br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)}.
      */
     @Test
     public final void testSalvar() {
-        fail("Not yet implemented"); // TODO
+        Disciplina disciplina = new Disciplina();
+
+        disciplina.setCargaHoraria(36);
+        disciplina.setNome("Matematica");
+        disciplina.setPeriodo(8);
+        disciplina.setStatus(Status.ATIVO);
+        Integer codigo = this.getDisciplinaDao().salvar(disciplina);
+        Assert.assertTrue("Endereco nao foi salvo.", codigo > 0);
     }
 
     /**
-     * Test method for {@link br.facet.tcc.impl.dao.DaoConfiguration#atualizar(java.lang.Object)}.
+     * Test method for
+     * {@link br.facet.tcc.impl.dao.DaoConfiguration#atualizar(java.lang.Object)}
+     * .
      */
     @Test
     public final void testAtualizar() {
-        fail("Not yet implemented"); // TODO
+        Disciplina disciplina = this.getDisciplinaDao()
+                .listar(Disciplina.class).get(0);
+        String expected = disciplina.getNome();
+        disciplina.setNome("Outro Nome");
+        this.getDisciplinaDao().atualizar(disciplina);
+        String actual = this.getDisciplinaDao().listar(Disciplina.class).get(0)
+                .getNome();
+        Assert.assertNotSame("Disciplina são diferentes", expected, actual);
     }
 
     /**
-     * Test method for {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}.
+     * Test method for
+     * {@link br.facet.tcc.impl.dao.DaoConfiguration#excluir(java.lang.Object)}.
      */
     @Test
     public final void testExcluir() {
-        fail("Not yet implemented"); // TODO
+        int unexpected = this.getDisciplinaDao().listar(Disciplina.class)
+                .size();
+
+        Disciplina disciplina = this.getDisciplinaDao().obterPorID(
+                Disciplina.class, 4);
+
+        this.getDisciplinaDao().excluir(disciplina);
+
+        int actual = this.getDisciplinaDao().listar(Disciplina.class).size();
+
+        Assert.assertFalse("Lista esta vazia", unexpected == actual);
     }
 
     /**
-     * Test method for {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
+     * Test method for
+     * {@link br.facet.tcc.impl.dao.DaoConfiguration#listar(java.lang.Class)}.
      */
     @Test
     public final void testListar() {
-        fail("Not yet implemented"); // TODO
+        List<Disciplina> disciplina1 = this.getDisciplinaDao().listar(
+                Disciplina.class);
+
+        Assert.assertFalse(disciplina1.isEmpty());
     }
 
     /**
-     * Test method for {@link br.facet.tcc.impl.dao.DaoConfiguration#pesquisar(java.lang.Object)}.
+     * Test method for
+     * {@link br.facet.tcc.impl.dao.DaoConfiguration#pesquisar(java.lang.Object)}
+     * .
      */
     @Test
     public final void testPesquisar() {
-        fail("Not yet implemented"); // TODO
-    }
+        Disciplina disciplina = new Disciplina();
+        disciplina.setNome("%Outro Nome%");
+        List<Disciplina> disciplina1 = this.getDisciplinaDao().pesquisar(
+                disciplina);
 
-    /**
-     * Test method for {@link br.facet.tcc.impl.dao.DaoConfiguration#obterPorID(java.lang.Class, java.lang.Integer)}.
-     */
-    @Test
-    public final void testObterPorID() {
-        fail("Not yet implemented"); // TODO
+        Assert.assertFalse(disciplina1.isEmpty());
     }
-
-    /**
-     * Test method for {@link br.facet.tcc.impl.dao.DaoConfiguration#addSessionFactoryToDao(org.hibernate.SessionFactory)}.
-     */
-    @Test
-    public final void testAddSessionFactoryToDao() {
-        fail("Not yet implemented"); // TODO
-    }
-
 }
