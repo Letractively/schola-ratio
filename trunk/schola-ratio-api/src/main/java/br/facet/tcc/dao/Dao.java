@@ -15,11 +15,13 @@ package br.facet.tcc.dao;
 
 import java.util.List;
 
+import br.facet.tcc.exception.DaoException;
+
 /**
  * @author Osnir F CUNHA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 public interface Dao<T> {
     /**
@@ -27,21 +29,21 @@ public interface Dao<T> {
      * 
      * @since 0.0.1
      */
-    public Integer salvar(T t);
+    public Integer salvar(T t) throws DaoException;
 
     /**
      * Atualiza um objeto do tipo definido na classe
      * 
      * @since 0.0.1
      */
-    public void atualizar(T t);
+    public void atualizar(T t) throws DaoException;
 
     /**
      * Remove um objeto do tipo definido na classe
      * 
      * @since 0.0.1
      */
-    public void excluir(T t);
+    public void excluir(T t) throws DaoException;
 
     /**
      * Lista os objetos do tipo definido na classe
@@ -50,7 +52,8 @@ public interface Dao<T> {
      * @param Class
      * @since 0.0.1
      */
-    public List<T> listar(@SuppressWarnings("rawtypes") Class clazz);
+    public List<T> listar(@SuppressWarnings("rawtypes") Class clazz)
+        throws DaoException;
 
     /**
      * Pesquisa um objeto apartir dos parametros passado.
@@ -58,6 +61,19 @@ public interface Dao<T> {
      * @return list de objetos encontrados
      * @since 0.0.1
      */
-    public List<T> pesquisar(T t);
+    public List<T> pesquisar(T t) throws DaoException;
+
+    /**
+     * Obtem objeto apartir do seu id
+     * 
+     * @param clazz
+     *            classe do objeto que sera recuperado
+     * @param id
+     *            id do objeto
+     * @return objeto que sera recuperado
+     * @throws DaoException
+     * @since 0.0.1
+     */
+    public T obterPorID(Class clazz, Integer id) throws DaoException;
 
 }
