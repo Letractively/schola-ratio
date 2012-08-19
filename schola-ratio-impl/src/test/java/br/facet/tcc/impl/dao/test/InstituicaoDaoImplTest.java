@@ -62,9 +62,8 @@ public class InstituicaoDaoImplTest extends DaoTestCaseSetUp {
         int unexpected = this.getInstituicaoDao().listar(Instituicao.class)
                 .size();
 
-        Instituicao instituicao = this.getInstituicaoDao()
-                .listar(Instituicao.class).get(0);
-
+        Instituicao instituicao = this.getInstituicaoDao().obterPorID(
+                Instituicao.class, 4);
         this.getInstituicaoDao().excluir(instituicao);
 
         int actual = this.getInstituicaoDao().listar(Instituicao.class).size();
