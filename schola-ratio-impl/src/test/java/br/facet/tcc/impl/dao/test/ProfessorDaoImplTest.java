@@ -13,9 +13,8 @@
  */
 package br.facet.tcc.impl.dao.test;
 
-import static org.junit.Assert.fail;
-
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,6 +23,7 @@ import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.enums.TipoTitulo;
+import br.facet.tcc.pojo.Endereco;
 import br.facet.tcc.pojo.Professor;
 
 /**
@@ -46,8 +46,8 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         professor.setCpf(32932112388L);
         professor.setDataExpedicao(new Date(2003, 06, 12));
         professor.setEmail("osnircunha@email.com");
-        professor.setEndereco(this.getEnderecoDao().listar(Professor.class)
-            .get(0));
+        professor.setEndereco(this.getEnderecoDao().listar(Endereco.class)
+                .get(0));
         professor.setNacionalidade("Brasileiro");
         professor.setNaturalidade("São Vicente");
         professor.setNome("Osnir F CUNHA");
@@ -63,7 +63,7 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         professor.setDescricaoTitulo("Engenharia de Computação");
 
         Integer codigo = (Integer) this.enderecoDao.getHibernateTemplate()
-            .save(professor);
+                .save(professor);
 
         Assert.assertNotNull("Codigo é nulo.", codigo);
     }
@@ -75,7 +75,14 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testAtualizar() {
-        fail("Not yet implemented"); // TODO
+        Professor professor = getProfessorDao().listar(Professor.class).get(0);
+        String unexpected = professor.getNome();
+        String actual = "novo nome";
+        professor.setNome(actual);
+        getProfessorDao().atualizar(professor);
+        Professor atualizado = getProfessorDao().listar(Professor.class).get(0);
+        Assert.assertNotSame("Nome do professor não foi atualizado.",
+                unexpected, atualizado.getNome());
     }
 
     /**
@@ -85,7 +92,12 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testExcluir() {
-        fail("Not yet implemented"); // TODO
+        List<Professor> list = this.getProfessorDao().listar(Professor.class);
+        int unexpected = list.size();
+        this.getProfessorDao().excluir(list.get(0));
+        list = this.getProfessorDao().listar(Professor.class);
+
+        Assert.assertFalse("Professor não excluido.", unexpected == list.size());
     }
 
     /**
@@ -93,7 +105,8 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testListar() {
-        fail("Not yet implemented"); // TODO
+        List<Professor> professor = getProfessorDao().listar(Professor.class);
+        Assert.assertTrue("Lista esta vazia", professor.size() > 0);
     }
 
     /**
@@ -103,7 +116,10 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testPesquisar() {
-        fail("Not yet implemented"); // TODO
+        Professor professor = new Professor();
+        professor.setNome("%novo nome%");
+        List<Professor> professor1 = getProfessorDao().pesquisar(professor);
+        Assert.assertTrue("Lista esta vazia", professor1.size() > 0);
     }
 
 }
