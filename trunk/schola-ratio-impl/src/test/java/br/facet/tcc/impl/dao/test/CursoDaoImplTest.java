@@ -75,7 +75,7 @@ public class CursoDaoImplTest extends DaoTestCaseSetUp {
     public final void testExcluir() {
         int unexpected = this.getCursoDao().listar(Curso.class).size();
 
-        Curso curso = this.getCursoDao().listar(Curso.class).get(0);
+        Curso curso = this.getCursoDao().obterPorID(Curso.class, 4);
 
         this.getCursoDao().excluir(curso);
 
