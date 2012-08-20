@@ -14,7 +14,7 @@
 package br.facet.tcc.pojo;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -72,7 +72,7 @@ public abstract class Pessoa {
 
     private byte[] image;
 
-    private Set<Permissao> permissoes;
+    private List<Permissao> permissoes;
 
     /**
      * @return the nome
@@ -211,7 +211,7 @@ public abstract class Pessoa {
      * @return the permissoes
      */
     @ManyToMany
-    public Set<Permissao> getPermissoes() {
+    public List<Permissao> getPermissoes() {
         return permissoes;
     }
 
@@ -347,7 +347,7 @@ public abstract class Pessoa {
      * @param permissoes
      *            the permissoes to set
      */
-    public void setPermissoes(Set<Permissao> permissoes) {
+    public void setPermissoes(List<Permissao> permissoes) {
         this.permissoes = permissoes;
     }
 }
