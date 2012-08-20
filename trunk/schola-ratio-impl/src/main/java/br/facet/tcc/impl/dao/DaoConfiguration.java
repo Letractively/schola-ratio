@@ -18,9 +18,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -53,19 +51,12 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public Integer salvar(T t) throws DaoException {
-        Session session = this.getSessionFactory().openSession();
-        Transaction tx = null;
         Integer integer = null;
         try {
-            tx = session.beginTransaction();
-            integer = (Integer) session.save(t);
-            tx.commit();
+            integer = (Integer) getHibernateTemplate().save(t);
             logger.debug("Objeto salvo com sucesso em " + t.getClass());
         } catch (HibernateException e) {
-            tx.rollback();
             throw new DaoException(e);
-        } finally {
-            session.close();
         }
         return integer;
     }
@@ -77,18 +68,11 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public void atualizar(T t) throws DaoException {
-        Session session = this.getSessionFactory().openSession();
-        Transaction tx = null;
         try {
-            tx = session.beginTransaction();
-            session.update(t);
-            tx.commit();
+            getHibernateTemplate().saveOrUpdate(t);
             logger.debug("Objeto atualizado com sucesso em " + t.getClass());
         } catch (HibernateException e) {
-            tx.rollback();
             throw new DaoException(e);
-        } finally {
-            session.close();
         }
     }
 
@@ -99,18 +83,11 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public void excluir(T t) throws DaoException {
-        Session session = this.getSessionFactory().openSession();
-        Transaction tx = null;
         try {
-            tx = session.beginTransaction();
-            session.delete(t);
-            tx.commit();
+            getHibernateTemplate().delete(t);
             logger.debug("Objeto removido com sucesso em " + t.getClass());
         } catch (HibernateException e) {
-            tx.rollback();
             throw new DaoException(e);
-        } finally {
-            session.close();
         }
     }
 
@@ -123,7 +100,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     public List<T> listar(Class clazz) throws DaoException {
         List list = null;
         try {
-            list = getHibernateTemplate().find("from " + clazz.getSimpleName());
+            list = getHibernateTemplate().loadAll(clazz);
         } catch (DataAccessException e) {
             throw new DaoException(e);
         }
@@ -158,12 +135,11 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      * @throws DaoException
      * @since 0.0.1
      */
-    @SuppressWarnings("unchecked")
     @Override
     public T obterPorID(Class clazz, Integer id) throws DaoException {
         T t = null;
         try {
-            t = (T) getSession().load(clazz, id);
+            t = (T) getHibernateTemplate().get(clazz, id);
         } catch (HibernateException e) {
             throw new DaoException(e);
         }
