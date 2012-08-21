@@ -130,7 +130,7 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
     @Test
     public void testPesquisar() throws DaoException {
         Professor professor = new Professor();
-        professor.setNome("%novo nome%");
+        professor.setNome("%nome%");
         List<Professor> professor1 = getProfessorDao().pesquisar(professor);
         Assert.assertTrue("Lista esta vazia", professor1.size() > 0);
     }
