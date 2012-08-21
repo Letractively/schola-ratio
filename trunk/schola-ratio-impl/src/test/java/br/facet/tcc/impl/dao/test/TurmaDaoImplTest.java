@@ -107,7 +107,7 @@ public class TurmaDaoImplTest extends DaoTestCaseSetUp {
     @Test
     public final void testPesquisar() throws DaoException {
         Turma turma = new Turma();
-        turma.setAno("%Outro Ano%");
+        turma.setAno("2012-10-02");
         List<Turma> turma1 = this.getTurmaDao().pesquisar(turma);
 
         Assert.assertFalse(turma1.isEmpty());

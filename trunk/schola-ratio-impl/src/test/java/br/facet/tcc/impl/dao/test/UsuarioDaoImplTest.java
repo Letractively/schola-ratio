@@ -108,7 +108,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
     @Test
     public void testExcluir() throws DaoException {
         int unexpected = getUsuarioDao().listar(Usuario.class).size();
-        getUsuarioDao().excluir(getUsuarioDao().listar(Usuario.class).get(0));
+        getUsuarioDao().excluir(getUsuarioDao().obterPorID(Usuario.class, 3));
         int actual = getUsuarioDao().listar(Usuario.class).size();
 
         Assert.assertNotSame("Quantidade das listas são as mesmas.",
