@@ -23,7 +23,7 @@ import br.facet.tcc.pojo.AvaliacaoDeAluno;
  * @version 0.0.1
  * @since 0.0.1
  */
-@Repository("avaliacaoDeAlunoDao")
+@Repository("avaLiacaoDeAlunoDao")
 public class AvaliacaoDeAlunoDaoImpl extends DaoConfiguration<AvaliacaoDeAluno> {
 
 }
