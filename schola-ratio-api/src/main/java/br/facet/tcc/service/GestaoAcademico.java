@@ -14,9 +14,9 @@
 package br.facet.tcc.service;
 
 import java.io.File;
-import java.rmi.ServerException;
 import java.util.List;
 
+import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.AvaliacaoDeAluno;
 import br.facet.tcc.pojo.Turma;
@@ -30,17 +30,17 @@ import br.facet.tcc.pojo.Turma;
 public interface GestaoAcademico {
 
     public void registrarNotasFaltas(List<AvaliacaoDeAluno> avaliacoesDaTurma)
-        throws ServerException;
+        throws ServiceException;
 
     public void registrarNotasFaltas(AvaliacaoDeAluno avaliacaoDeAluno)
-        throws ServerException;
+        throws ServiceException;
 
-    public File buscarRelatorio(Integer tipo) throws ServerException;
+    public File buscarRelatorio(Integer tipo) throws ServiceException;
 
     public List<AvaliacaoDeAluno> listarDiario(Aluno aluno)
-        throws ServerException;
+        throws ServiceException;
 
     public List<AvaliacaoDeAluno> listarDiario(Turma turma)
-        throws ServerException;
+        throws ServiceException;
 
 }
