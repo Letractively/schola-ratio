@@ -32,6 +32,9 @@ public interface GestaoAcademico {
     public void registrarNotasFaltas(List<AvaliacaoDeAluno> avaliacoesDaTurma)
         throws ServerException;
 
+    public void registrarNotasFaltas(AvaliacaoDeAluno avaliacaoDeAluno)
+        throws ServerException;
+
     public File buscarRelatorio(Integer tipo) throws ServerException;
 
     public List<AvaliacaoDeAluno> listarDiario(Aluno aluno)
