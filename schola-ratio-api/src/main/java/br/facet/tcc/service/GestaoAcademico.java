@@ -1,9 +1,8 @@
 /*
  * TCC Facet 2012 - Djulles IKEDA e Osnir F CUNHA.
- *
- * Copyright (c) 2012
- * All rights reserved.
- *
+ * 
+ * Copyright (c) 2012 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
@@ -30,15 +29,15 @@ import br.facet.tcc.pojo.Turma;
  */
 public interface GestaoAcademico {
 
-    public void registrarNotasFaltas(AvaliacaoDeAluno avaliacaoDeAluno)
-            throws ServerException;
+    public void registrarNotasFaltas(List<AvaliacaoDeAluno> avaliacoesDaTurma)
+        throws ServerException;
 
     public File buscarRelatorio(Integer tipo) throws ServerException;
 
     public List<AvaliacaoDeAluno> listarDiario(Aluno aluno)
-            throws ServerException;
+        throws ServerException;
 
     public List<AvaliacaoDeAluno> listarDiario(Turma turma)
-            throws ServerException;
+        throws ServerException;
 
 }
