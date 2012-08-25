@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Schola-Ratio</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+	body {
+		background-color: #777777;
+		font-size: 14px;
+	}
+</style>
+</h:head>
+<h:body>
+	
+	<p:growl id="messages" />
+	
+	<p:layout fullPage="true">
+		
+		<p:layoutUnit position="north" size="45"
+			header="SCHOLA RATIO - Gestão Escolar"  />
+		
+		<p:layoutUnit position="west" size="250" collapsible="false" header="Menu">
+			<h:form>
+				<p:growl id="messages" />
+				<p:accordionPanel>
+					<p:tab title="Academico">
+						<p:menuitem value="Cliente" url="/pages/cliente.pastelada" />
+						<p:menuitem value="Venda" url="/pages/venda.pastelada" />
+					</p:tab>
+					<p:tab title="Administrativo">
+						<p:menuitem value="Aberto" url="/pages/pedidosAberto.pastelada" />
+						<p:menuitem value="Embalado"
+							url="/pages/pedidosEmbalado.pastelada" />
+					</p:tab>
+					<p:tab title="Financeiro" >
+						<p:menuitem value="Aberto" url="/pages/pedidosAberto.pastelada" />
+						<p:menuitem value="Embalado"
+							url="/pages/pedidosEmbalado.pastelada" />
+					</p:tab>
+					<p:tab title="Usuarios">
+						<p:menuitem value="Aberto" url="/pages/pedidosAberto.pastelada" />
+						<p:menuitem value="Embalado"
+							url="/pages/pedidosEmbalado.pastelada" />
+					</p:tab>
+					<p:tab title="Configurações">
+						<p:commandLink value="Aberto" url="/pages/pedidosAberto.pastelada" />
+						<p:commandLink value="Embalado"
+							url="/pages/pedidosEmbalado.pastelada" />
+					</p:tab>
+				</p:accordionPanel>
+			</h:form>
+		</p:layoutUnit>
+	
+		<p:layoutUnit position="center">
+			<ui:insert name="content"></ui:insert>
+		</p:layoutUnit>
+	
+		<p:layoutUnit size="auto" position="east" collapsible="true" header="DashBoard">
+			<ui:insert name="dashBoard"></ui:insert>
+		</p:layoutUnit>
+	
+		<p:layoutUnit size="45" position="south"
+			header="TCC - Facet 2012 - Djulles IKEDA e Osnir F CUNHA" />
+	</p:layout>
+</h:body>
+</html>
