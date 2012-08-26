@@ -14,14 +14,12 @@
 package br.facet.tcc.pojo;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -62,7 +60,7 @@ public abstract class Pessoa {
 
     private String nomeMae;
 
-    private String senha;
+    private UserLogin userLogin;
 
     private Status status;
 
@@ -71,8 +69,6 @@ public abstract class Pessoa {
     private Sexo sexo;
 
     private byte[] image;
-
-    private List<Permissao> permissoes;
 
     /**
      * @return the nome
@@ -165,14 +161,6 @@ public abstract class Pessoa {
     }
 
     /**
-     * @return the senha
-     */
-    @Column
-    public String getSenha() {
-        return senha;
-    }
-
-    /**
      * @return the status
      */
     @Column
@@ -208,11 +196,12 @@ public abstract class Pessoa {
     }
 
     /**
-     * @return the permissoes
+     * @return the userLogin
      */
-    @ManyToMany
-    public List<Permissao> getPermissoes() {
-        return permissoes;
+    @OneToOne
+    @JoinColumn(name = "user_name")
+    public UserLogin getUserLogin() {
+        return userLogin;
     }
 
     /**
@@ -304,14 +293,6 @@ public abstract class Pessoa {
     }
 
     /**
-     * @param senha
-     *            the senha to set
-     */
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    /**
      * @param status
      *            the status to set
      */
@@ -344,10 +325,10 @@ public abstract class Pessoa {
     }
 
     /**
-     * @param permissoes
-     *            the permissoes to set
+     * @param userLogin
+     *            the userLogin to set
      */
-    public void setPermissoes(List<Permissao> permissoes) {
-        this.permissoes = permissoes;
+    public void setUserLogin(UserLogin userLogin) {
+        this.userLogin = userLogin;
     }
 }

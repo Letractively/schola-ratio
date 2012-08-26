@@ -16,8 +16,10 @@ package br.facet.tcc.pojo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,40 +31,54 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_permissao")
-@SequenceGenerator(name = "seq_permissao", sequenceName = "seq_permissao", allocationSize = 1)
 public class Permissao {
+
     private Integer id;
 
-    private String tipoPermissao;
+    private UserLogin usuario;
 
-    private String descricaoPermissao;
+    private String role;
 
     /**
      * @return the id
      */
-
     @Id
-    @GeneratedValue(generator = "seq_permissao")
-    @Column(name = "permissao_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
     }
 
     /**
-     * @return the tipoPermissao
+     * @return the usuario
      */
-    @Column
-    public String getTipoPermissao() {
-        return tipoPermissao;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    public UserLogin getUsuario() {
+        return usuario;
     }
 
     /**
-     * @return the descricaoPermissao
+     * @return the role
      */
-
     @Column
-    public String getDescricaoPermissao() {
-        return descricaoPermissao;
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * @param usuario
+     *            the usuario to set
+     */
+    public void setUsuario(UserLogin usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @param role
+     *            the role to set
+     */
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /**
@@ -71,22 +87,6 @@ public class Permissao {
      */
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * @param tipoPermissao
-     *            the tipoPermissao to set
-     */
-    public void setTipoPermissao(String tipoPermissao) {
-        this.tipoPermissao = tipoPermissao;
-    }
-
-    /**
-     * @param descricaoPermissao
-     *            the descricaoPermissao to set
-     */
-    public void setDescricaoPermissao(String descricaoPermissao) {
-        this.descricaoPermissao = descricaoPermissao;
     }
 
 }
