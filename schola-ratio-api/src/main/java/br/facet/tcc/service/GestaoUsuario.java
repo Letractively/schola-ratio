@@ -14,8 +14,9 @@
  */
 package br.facet.tcc.service;
 
-import java.rmi.ServerException;
 import java.util.List;
+
+import br.facet.tcc.exception.ServiceException;
 
 /**
  * @author Djulles IKEDA
@@ -25,16 +26,16 @@ import java.util.List;
  */
 public interface GestaoUsuario<T> {
 
-    public void salvarUsuario(T t) throws ServerException;
+    public Integer salvarUsuario(T t) throws ServiceException;
 
-    public void removerUsuario(T t) throws ServerException;
+    public void removerUsuario(T t) throws ServiceException;
 
-    public void consultarUsuario(T t) throws ServerException;
+    public List<T> consultarUsuario(T t) throws ServiceException;
 
-    public void consultarUsuario(Integer id) throws ServerException;
+    public T consultarUsuario(Class clazz, Integer id) throws ServiceException;
 
-    public void alterarUsuario(T t) throws ServerException;
+    public void alterarUsuario(T t) throws ServiceException;
 
-    public List<T> listarUsuario(T t) throws ServerException;
+    public List<T> listarUsuario(Class clazz) throws ServiceException;
 
 }
