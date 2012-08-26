@@ -13,12 +13,9 @@
  */
 package br.facet.tcc.pojo;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -37,7 +34,7 @@ public class UserLogin {
 
     private boolean enable;
 
-    private List<Permissao> permissoes;
+    // private List<Permissao> permissoes;
 
     /**
      * @return the username
@@ -65,14 +62,6 @@ public class UserLogin {
     }
 
     /**
-     * @return the permissoes
-     */
-    @OneToMany
-    public List<Permissao> getPermissoes() {
-        return permissoes;
-    }
-
-    /**
      * @param username
      *            the username to set
      */
@@ -94,14 +83,6 @@ public class UserLogin {
      */
     public void setEnable(boolean enable) {
         this.enable = enable;
-    }
-
-    /**
-     * @param permissoes
-     *            the permissoes to set
-     */
-    public void setPermissoes(List<Permissao> permissoes) {
-        this.permissoes = permissoes;
     }
 
 }
