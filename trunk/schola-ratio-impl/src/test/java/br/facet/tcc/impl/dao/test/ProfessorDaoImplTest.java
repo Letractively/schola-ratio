@@ -59,7 +59,7 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         professor.setOrgaoExpeditor("SSP-SP");
         professor.setRg(272675670L);
         professor.setUfOrgaoExpeditor(Estado.SP);
-        professor.setSenha("123qwe");
+        professor.setUserLogin(this.userLoginDao.obterPorID("user_name4"));
         professor.setSexo(Sexo.M);
         professor.setStatus(Status.ATIVO);
         professor.setTitulo(TipoTitulo.GRADUACAO);
