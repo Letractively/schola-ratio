@@ -19,6 +19,7 @@ import br.facet.tcc.impl.dao.PermissaoDaoImpl;
 import br.facet.tcc.impl.dao.ProfessorDaoImpl;
 import br.facet.tcc.impl.dao.SituacaoDoAlunoNaTurmaDaoImpl;
 import br.facet.tcc.impl.dao.TurmaDaoImpl;
+import br.facet.tcc.impl.dao.UserLoginDaoImpl;
 import br.facet.tcc.impl.dao.UsuarioDaoImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,6 +67,9 @@ public class DaoTestCaseSetUp {
 
     @Autowired
     protected TurmaDaoImpl turmaDao;
+
+    @Autowired
+    protected UserLoginDaoImpl userLoginDao;
 
     @Autowired
     protected UsuarioDaoImpl usuarioDao;
