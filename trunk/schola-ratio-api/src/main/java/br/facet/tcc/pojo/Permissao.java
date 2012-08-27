@@ -22,6 +22,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.facet.tcc.enums.UserRoles;
+
 /**
  * @author Djulles IKEDA
  * 
@@ -37,7 +39,7 @@ public class Permissao {
 
     private UserLogin usuario;
 
-    private String role;
+    private UserRoles role;
 
     /**
      * @return the id
@@ -61,7 +63,7 @@ public class Permissao {
      * @return the role
      */
     @Column
-    public String getRole() {
+    public UserRoles getRole() {
         return role;
     }
 
@@ -77,7 +79,7 @@ public class Permissao {
      * @param role
      *            the role to set
      */
-    public void setRole(String role) {
+    public void setRole(UserRoles role) {
         this.role = role;
     }
 
