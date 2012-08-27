@@ -56,7 +56,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
         aluno.setOrgaoExpeditor("SSP-SP");
         aluno.setRg(272675670L);
         aluno.setUfOrgaoExpeditor(Estado.SP);
-        aluno.setSenha("123qwe");
+        aluno.setUserLogin(this.userLoginDao.obterPorID("user_name6"));
         aluno.setSexo(Sexo.M);
         aluno.setStatus(Status.ATIVO);
         aluno.setDataDeMatricula(new Date());
@@ -86,7 +86,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
         Aluno atualizado = getAlunoDao().listar(Aluno.class).get(0);
 
         Assert.assertNotSame("Nome não foi atualizado.", unexpected,
-                atualizado.getNome());
+            atualizado.getNome());
     }
 
     /**
