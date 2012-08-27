@@ -44,6 +44,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testSalvar() throws DaoException {
+
         Endereco endereco = this.enderecoDao.listar(Endereco.class).get(0);
         Usuario usuario = new Usuario();
         usuario.setCpf(19809887654L);
@@ -58,7 +59,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         usuario.setOrgaoExpeditor("SSP-SP");
         usuario.setRg(272675670L);
         usuario.setUfOrgaoExpeditor(Estado.SP);
-        usuario.setSenha("123qwe");
+        usuario.setUserLogin(this.userLoginDao.obterPorID("user_name5"));
         usuario.setSexo(Sexo.M);
         usuario.setStatus(Status.ATIVO);
 
@@ -142,7 +143,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
     @Test
     public void testeObterPorId() throws DaoException {
 
-        Usuario usuario = getUsuarioDao().obterPorID(Usuario.class, 4);
+        Usuario usuario = getUsuarioDao().obterPorID(Usuario.class, 5);
 
         File imagem = new File("src/test/resources/images/loo_out.jpg");
         FileOutputStream outputStream = null;
