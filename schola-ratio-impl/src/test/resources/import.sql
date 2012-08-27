@@ -14,14 +14,14 @@ insert into tb_aluno (aluno_id, cpf, dataExpedicao, email, endereco_usuario, nac
 insert into tb_aluno (aluno_id, cpf, dataExpedicao, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'44444444444','1994-04-01','444444@email.com','3','Brasileiro','São José dos Pinhais','Jeronimo Pires','','','SSP-RS','44387621','M','ATIVO','RS','2012-08-14');
 
 
-insert into tb_user_login( user_name, enable, password) values ( 'user_name1', 'TRUE', 'senha');
-insert into tb_user_login( user_name, enable, password) values ( 'user_name2', 'TRUE', 'senha');
-insert into tb_user_login( user_name, enable, password) values ( 'user_name3', 'TRUE', 'senha');
-insert into tb_user_login( user_name, enable, password) values ( 'user_name4', 'TRUE', 'senha');
-insert into tb_user_login( user_name, enable, password) values ( 'user_name5', 'TRUE', 'senha');
-insert into tb_user_login( user_name, enable, password) values ( 'user_name6', 'TRUE', 'senha');
-insert into tb_user_login( user_name, enable, password) values ( 'user_name7', 'TRUE', 'senha');
-insert into tb_user_login( user_name, enable, password) values ( 'user_name8', 'TRUE', 'senha');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name1', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name2', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name3', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name4', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name5', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name6', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name7', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name8', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
 
 
 INSERT INTO tb_permissao( id, role, username) VALUES (nextval('hibernate_sequence'), 'ROLE_FIN', 'user_name1');
