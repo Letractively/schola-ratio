@@ -16,6 +16,7 @@ package br.facet.tcc.impl.dao;
 
 import org.springframework.stereotype.Repository;
 
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.UserLogin;
 
 /**
@@ -27,4 +28,12 @@ import br.facet.tcc.pojo.UserLogin;
 
 @Repository("userLoginDao")
 public class UserLoginDaoImpl extends DaoConfiguration<UserLogin> {
+
+    public UserLogin obterPorID(String userName) throws DaoException {
+        UserLogin userLogin = new UserLogin();
+        userLogin.setUsername(userName);
+
+        return this.pesquisar(userLogin).get(0);
+    }
+
 }
