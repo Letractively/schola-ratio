@@ -1,18 +1,16 @@
 /*
  * Trabalho de Conclusão de Curso - FACET
- *
- * IKEDA, Djulles
- * CUNHA, Osnir F
- *
- *
- * Copyright (c) 2011
- * All rights reserved.
- *
+ * 
+ * IKEDA, Djulles CUNHA, Osnir F
+ * 
+ * 
+ * Copyright (c) 2011 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
  * language in any way for any purposes whatsoever without the prior written
-
+ * 
  * Infringement of copyright is a serious civil and criminal offence, which can
  * result in heavy fines and payment of substantial damages.
  * 
@@ -30,8 +28,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import org.apache.xml.security.exceptions.Base64DecodingException;
 
 import br.org.ipisjp.util.PasswordHandler;
 
@@ -91,7 +87,7 @@ public class MainWindow extends JFrame implements ActionListener {
         this.add(mainPanel);
 
         ImageIcon icon = new ImageIcon(getClass()
-                .getResource("/config/key.png"));
+            .getResource("/config/key.png"));
         this.setIconImage(icon.getImage());
 
         this.setResizable(false);
@@ -114,13 +110,14 @@ public class MainWindow extends JFrame implements ActionListener {
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      * @since since optional
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
         // Define action to be performed when buttonHash is clicked.
         if (e.getSource() == this.buttonHash) {
 
             if (!validateValue()) {
                 this.textResult.setText(PasswordHandler
-                        .generateHash(this.textValue.getText()));
+                    .generateHash(this.textValue.getText()));
             } else {
                 showError();
             }
@@ -130,8 +127,12 @@ public class MainWindow extends JFrame implements ActionListener {
         if (e.getSource() == this.buttonEncode) {
 
             if (!validateValue()) {
-                this.textResult.setText(PasswordHandler.encode(this.textValue
-                        .getText()));
+                try {
+                    this.textResult.setText(PasswordHandler
+                        .encode(this.textValue.getText()));
+                } catch (Exception e1) {
+                    showError(e1.getLocalizedMessage());
+                }
             } else {
                 showError();
             }
@@ -143,8 +144,8 @@ public class MainWindow extends JFrame implements ActionListener {
             if (!validateValue()) {
                 try {
                     this.textResult.setText(PasswordHandler
-                            .decode(this.textValue.getText()));
-                } catch (Base64DecodingException e1) {
+                        .decode(this.textValue.getText()));
+                } catch (Exception e1) {
                     showError(e1.getLocalizedMessage());
                 }
             } else {
@@ -176,7 +177,7 @@ public class MainWindow extends JFrame implements ActionListener {
      */
     private void showError() {
         JOptionPane.showMessageDialog(this, "Value can not be empty!!!",
-                "Error", JOptionPane.ERROR_MESSAGE);
+            "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -188,7 +189,7 @@ public class MainWindow extends JFrame implements ActionListener {
      */
     private void showError(String text) {
         JOptionPane.showMessageDialog(this, text, "Erro",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.ERROR_MESSAGE);
     }
 
     /**

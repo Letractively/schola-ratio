@@ -1,18 +1,16 @@
 /*
  * Trabalho de Conclusão de Curso - FACET
- *
- * IKEDA, Djulles
- * CUNHA, Osnir F
- *
- *
- * Copyright (c) 2011
- * All rights reserved.
- *
+ * 
+ * IKEDA, Djulles CUNHA, Osnir F
+ * 
+ * 
+ * Copyright (c) 2011 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
  * language in any way for any purposes whatsoever without the prior written
-
+ * 
  * Infringement of copyright is a serious civil and criminal offence, which can
  * result in heavy fines and payment of substantial damages.
  * 
@@ -20,12 +18,10 @@
  */
 package br.org.ipisjp.util;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import org.apache.xml.security.exceptions.Base64DecodingException;
-import org.apache.xml.security.utils.Base64;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.EncoderException;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.net.BCodec;
 
 /**
  * @author osnir
@@ -35,6 +31,8 @@ import org.apache.xml.security.utils.Base64;
  */
 public class PasswordHandler {
 
+    private static BCodec codec = new BCodec();
+
     /**
      * @param password
      * @return
@@ -42,19 +40,7 @@ public class PasswordHandler {
      */
     public static String generateHash(String password) {
 
-        String passKey = null;
-
-        try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-
-            BigInteger hash = new BigInteger(1, digest.digest(password
-                    .getBytes()));
-
-            passKey = hash.toString(32);
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        String passKey = DigestUtils.shaHex(password);
 
         return passKey;
     }
@@ -62,13 +48,14 @@ public class PasswordHandler {
     /**
      * @param password
      * @return
+     * @throws EncoderException
      * @since class_version
      */
-    public static String encode(String password) {
+    public static String encode(String password) throws Exception {
 
         String passKey = null;
 
-        passKey = Base64.encode(password.getBytes());
+        passKey = codec.encode(password);
 
         return passKey;
     }
@@ -76,12 +63,13 @@ public class PasswordHandler {
     /**
      * @param value
      * @return
+     * @throws DecoderException
      * @throws Base64DecodingException
      * @since class_version
      */
-    public static String decode(String value) throws Base64DecodingException {
-        byte[] decoded = Base64.decode(value);
-        return new String(decoded);
+    public static String decode(String value) throws Exception {
+        String decoded = codec.decode(value);
+        return decoded;
     }
 
 }
