@@ -85,4 +85,13 @@ public class UserLogin {
         this.enable = enable;
     }
 
+    /**
+     * @see java.lang.Object#toString()
+     * @since since optional
+     */
+    @Override
+    public String toString() {
+        return this.username;
+    }
+
 }
