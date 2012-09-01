@@ -1,22 +1,25 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
-     
-<ui:decorate template="/template/template.xhtml">
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Erro</title>
 
-	<ui:define name="content">
-<f:view>  
-     <h:form>  
-         <h:outputText value="Transaction Error has occurred!"></h:outputText>  
-     </h:form>  
- </f:view>
-	</ui:define>
-	
-</ui:decorate>       
-      
-</html> 
+<style type="text/css">
+#form_login {
+	width: 50%;
+	margin-top: 5%;
+}
+</style>
+</h:head>
+
+<h:body >
+	<div id="content" align="center" >
+		<form id="form_login">
+			<h1>Ops, página não encontrada!!!"</h1>
+			<img src="#{request.contextPath}/imagens/404.jpg"/>
+		</form>
+	</div>
+</h:body>
+</html>

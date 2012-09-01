@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Login</title>
+
+<style type="text/css">
+#form_login {
+	width: 370px;
+	margin-top: 15%;
+}
+#msg_erro{
+	color: red;
+}
+body{
+	font-size: 12px;
+}
+</style>
+</h:head>
+
+<h:body >
+	<div id="content" align="center" >
+		<form id="form_login"
+			action="#{request.contextPath}/j_spring_security_check">
+			<p:panel header="Area Restrita" 
+				footer="TCC - Facet 2012 - Djulles IKEDA e Osnir F CUNHA">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel value="Usuario" for="j_username" />
+					<h:inputText id="j_username" required="true"
+						requiredMessage="Usuario deve ser preenchido" />
+
+					<h:outputLabel value="Senha" for="j_password" />
+					<h:inputSecret id="j_password" required="true"
+						requiredMessage="Senha deve ser preenchida" />
+
+
+					<h:commandButton id="submit" value="Entrar" type="submit" />
+					<h:commandButton value="Limpar" type="reset" />
+				</h:panelGrid>
+				<h:panelGroup rendered="#{param.login_erro==1}">
+					<span id="msg_erro">Verifique o usuario e/ou senha!</span>
+				</h:panelGroup>
+			</p:panel>
+		</form>
+	</div>
+</h:body>
+</html>
