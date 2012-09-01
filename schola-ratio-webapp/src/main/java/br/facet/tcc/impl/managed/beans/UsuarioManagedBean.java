@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.impl.service.GestaoUsuarioImpl;
+import br.facet.tcc.pojo.UserLogin;
 import br.facet.tcc.pojo.Usuario;
 
 /**
@@ -28,7 +29,9 @@ import br.facet.tcc.pojo.Usuario;
 public class UsuarioManagedBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private static final String SUCCESS = "success";
+
     private static final String ERROR = "error";
 
     @ManagedProperty("#{usurioService}")
@@ -37,6 +40,10 @@ public class UsuarioManagedBean implements Serializable {
     private List<Usuario> listaUsuarios;
 
     private Usuario usuario;
+
+    public UsuarioManagedBean() {
+        this.reset();
+    }
 
     /**
      * Add User
@@ -52,7 +59,10 @@ public class UsuarioManagedBean implements Serializable {
      * 
      */
     public void reset() {
-        this.usuario = new Usuario();
+        UserLogin userLogin = new UserLogin();
+        usuario = new Usuario();
+        usuario.setUserLogin(userLogin);
+
     }
 
     /**
@@ -61,18 +71,37 @@ public class UsuarioManagedBean implements Serializable {
      * @return List - User List
      */
     public List<Usuario> getListaUsuarios() {
+
+        return listaUsuarios;
+    }
+
+    /**
+     * @return
+     * @since TODO: class_version
+     */
+    public String pesquisarUsuarios() {
         listaUsuarios = new ArrayList<Usuario>();
+        if ("".equals(usuario.getNome())) {
+            usuario.setNome(null);
+        }
+
+        if (usuario.getCpf() == 0) {
+            usuario.setCpf(null);
+        }
+
+        if ("".equals(usuario.getUserLogin().getUsername())) {
+            usuario.setUserLogin(null);
+        }
+
         try {
-
-            listaUsuarios.addAll(usurioService.listarUsuario(Usuario.class));
-
+            listaUsuarios = usurioService.consultarUsuario(usuario);
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
-                FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
-                    .getMessage());
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        return listaUsuarios;
+        return null;
     }
 
     /**
@@ -81,6 +110,21 @@ public class UsuarioManagedBean implements Serializable {
      */
     public void setUsurioService(GestaoUsuarioImpl usurioService) {
         this.usurioService = usurioService;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario
+     *            the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }
