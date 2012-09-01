@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13459558237940" configfile="/schola-ratio-webapp/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="pages/index.xhtml" x="122" y="370" id="pf13462066296400" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13464723438850 pf13464723438851" path="pages/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/error.xhtml" id="pf13464723438852" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf13464723438850" path="/pages/error.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/success.xhtml" id="pf13464723438853" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13464723438851" path="pages/success.xhtml"/>
+  <links id="pf13464723438850" target="pf13464723438852" source="pf13462066296400" outcome="error"/>
+  <links id="pf13464723438851" target="pf13464723438853" source="pf13462066296400" outcome="success"/>
+</pageflow:Pageflow>

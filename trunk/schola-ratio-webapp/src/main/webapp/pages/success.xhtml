@@ -11,8 +11,9 @@
 
 	<ui:define name="content">
 	<h:form>
+	<p:messages id="messages" showDetail="true" autoUpdate="true"/>
 		<h:outputText value="USERs : "></h:outputText>
-		<p:dataTable id="users" var="user" value="#{userMB.userList}" style="width: 10%">
+		<p:dataTable id="users" var="user" value="#{userMB.listaUsuarios}" >
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="ID" />
@@ -21,15 +22,27 @@
 			</p:column>
 			<p:column>
 				<f:facet name="header">
-					<h:outputText value="Name" />
+					<h:outputText value="Nome" />
 				</f:facet>
-				<h:outputText value="#{user.name}" />
+				<h:outputText value="#{user.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Email" />
+				</f:facet>
+				<h:outputText value="#{user.email}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="UF" />
+				</f:facet>
+				<h:outputText value="#{user.ufOrgaoExpeditor}" />
 			</p:column>
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Surname" />
 				</f:facet>
-				<h:outputText value="#{user.surname}" />
+				<h:outputText value="#{user.email}" />
 			</p:column>
 		</p:dataTable>
 	</h:form>
