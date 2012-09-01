@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<style type="text/css">
+#msg_erro {
+	color: red;
+}
+</style>
+</h:head>
+
+<ui:decorate template="/template/template.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+			<p:panel id="pesquisaUsuario" header="Pesquisar">
+				<p:panelGrid columns="2">
+
+					<h:outputLabel value="Nome :" for="nomeUsuario" />
+					<p:inputText id="nomeUsuario" value="#{userMB.usuario.nome}">
+						<f:validateLength minimum="5" />
+						<p:ajax event="blur" update="nomeMsg" />
+						<p:message id="nomeMsg" for="nomeUsuario" showDetail="true"
+							display="icon" />
+					</p:inputText>
+
+
+					<h:outputLabel value="CPF :" for="cpfUsuario" />
+					<p:inputText id="cpfUsuario" value="#{userMB.usuario.cpf}">
+						<f:converter converterId="javax.faces.Long" />
+						<f:validateLength minimum="11" maximum="11" />
+						<p:ajax event="blur" update="cpfMsg" />
+						<p:message id="cpfMsg" for="cpfUsuario" showDetail="true"
+							display="icon" />
+					</p:inputText>
+
+					<h:outputLabel value="Usuario :" for="loginUsuario" />
+					<p:inputText id="loginUsuario"
+						value="#{userMB.usuario.userLogin.username}">
+						<f:validateLength minimum="5" />
+						<p:ajax event="blur" update="loginMsg" />
+						<p:message id="loginMsg" for="loginUsuario" showDetail="true"
+							display="icon" />
+					</p:inputText>
+
+					<h:inputHidden />
+
+					<p:commandButton id="btnPesquisar" value="Pesquisar"
+						action="#{userMB.pesquisarUsuarios}" update=":tbUsuarios"
+						ajax="false" />
+
+				</p:panelGrid>
+
+			</p:panel>
+
+
+			<p:panel header="Resultado Pesquisa">
+				<p:dataTable value="#{userMB.listaUsuarios}" id="tbUsuarios"
+					var="usuario">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{usuario.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="CPF" />
+						</f:facet>
+						<h:outputText value="#{usuario.cpf}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Usuario" />
+						</f:facet>
+						<h:outputText value="#{usuario.userLogin.username}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Email" />
+						</f:facet>
+						<h:outputText value="#{usuario.email}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Status" />
+						</f:facet>
+						<h:outputText value="#{usuario.status}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Acoes" />
+						</f:facet>
+						<h:outputText />
+					</p:column>
+
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:decorate>
+
+</html>
