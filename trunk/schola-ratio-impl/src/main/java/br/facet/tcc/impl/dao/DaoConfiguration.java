@@ -25,7 +25,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import br.facet.tcc.dao.Dao;
 import br.facet.tcc.exception.DaoException;
-import br.facet.tcc.impl.util.HibernateUtil;
+import br.facet.tcc.impl.util.HibernateCriteria;
 
 /**
  * <code>DaoConfiguration</code><br>
@@ -114,7 +114,9 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
      */
     @Override
     public List<T> pesquisar(T t) throws DaoException {
-        Criteria criteria = HibernateUtil.createCriteria(t, getSession());
+
+        HibernateCriteria hCriteria = new HibernateCriteria(getSession());
+        Criteria criteria = hCriteria.createCriteria(t);
         List list = null;
         try {
             list = criteria.list();
