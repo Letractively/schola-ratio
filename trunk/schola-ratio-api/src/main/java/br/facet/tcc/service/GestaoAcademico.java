@@ -14,6 +14,7 @@
 package br.facet.tcc.service;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 import br.facet.tcc.exception.ServiceException;
@@ -27,7 +28,7 @@ import br.facet.tcc.pojo.Turma;
  * @version 0.0.1
  * @since 0.0.1
  */
-public interface GestaoAcademico {
+public interface GestaoAcademico extends Serializable {
 
     public void registrarNotasFaltas(List<AvaliacaoDeAluno> avaliacoesDaTurma)
         throws ServiceException;

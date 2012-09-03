@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.facet.tcc.enums.Status;
@@ -28,7 +29,7 @@ import br.facet.tcc.pojo.Turma;
  * @version 0.0.1
  * @since 0.0.1
  */
-public interface GestaoAdministrativo {
+public interface GestaoAdministrativo extends Serializable {
 
     /**
      * @param curso

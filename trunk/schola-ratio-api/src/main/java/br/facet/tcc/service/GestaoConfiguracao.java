@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.service;
 
+import java.io.Serializable;
 import java.rmi.ServerException;
 
 import br.facet.tcc.pojo.Instituicao;
@@ -24,7 +25,7 @@ import br.facet.tcc.pojo.Permissao;
  * @version 0.0.1
  * @since 0.0.1
  */
-public interface GestaoConfiguracao {
+public interface GestaoConfiguracao extends Serializable {
 
     /**
      * @param instituicao

@@ -1,9 +1,8 @@
 /*
  * TCC Facet 2012 - Djulles IKEDA e Osnir F CUNHA.
- *
- * Copyright (c) 2012
- * All rights reserved.
- *
+ * 
+ * Copyright (c) 2012 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
@@ -15,6 +14,7 @@
 package br.facet.tcc.service;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 import br.facet.tcc.exception.ServiceException;
@@ -25,15 +25,15 @@ import br.facet.tcc.pojo.Mensalidade;
 /**
  * @author Djulles IKEDA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
+ * @version 0.0.1
+ * @since 0.0.1
  */
-public interface GestaoFinanceiro {
+public interface GestaoFinanceiro extends Serializable {
 
     public Integer gerarMensalidade(Aluno aluno) throws ServiceException;
 
     public List<Mensalidade> buscarMensalidade(Aluno aluno)
-            throws ServiceException;
+        throws ServiceException;
 
     public void quitarMensalidade(Aluno aluno) throws ServiceException;
 
