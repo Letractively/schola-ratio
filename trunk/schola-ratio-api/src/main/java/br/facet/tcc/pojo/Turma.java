@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -28,6 +29,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.HorarioDeAulas;
 import br.facet.tcc.enums.Status;
 
@@ -41,7 +43,12 @@ import br.facet.tcc.enums.Status;
 @Entity
 @Table(name = "tb_turma")
 @SequenceGenerator(name = "seq_turma", sequenceName = "seq_turma", allocationSize = 1)
-public class Turma {
+public class Turma implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -934449391778826834L;
 
     private Integer id;
 
@@ -52,27 +59,29 @@ public class Turma {
     private Status status;
 
     private List<Aluno> alunos;
-    
+
     private HorarioDeAulas horarioDeAulas;
-    
+
     private String ano;
+
     @Enumerated(EnumType.STRING)
     @Column
     public HorarioDeAulas getHorarioDeAulas() {
-		return horarioDeAulas;
-	}
+        return horarioDeAulas;
+    }
 
     @Column
-	public String getAno() {
-		return ano;
-	}
+    public String getAno() {
+        return ano;
+    }
 
-	/**
+    /**
      * @return the id
      */
     @Id
     @Column(name = "turma_id")
     @GeneratedValue(generator = "seq_turma")
+    @Searchable
     public Integer getId() {
         return id;
     }
@@ -82,6 +91,7 @@ public class Turma {
      */
     @ManyToOne
     @JoinColumn(name = "professor_id")
+    @Searchable(innerSearch = true)
     public Professor getProfessor() {
         return professor;
     }
@@ -91,6 +101,7 @@ public class Turma {
      */
     @OneToOne
     @JoinColumn(name = "disciplina_id")
+    @Searchable(innerSearch = true)
     public Disciplina getDisciplina() {
         return disciplina;
     }
@@ -113,14 +124,14 @@ public class Turma {
     }
 
     public void setHorarioDeAulas(HorarioDeAulas horarioDeAulas) {
-		this.horarioDeAulas = horarioDeAulas;
-	}
+        this.horarioDeAulas = horarioDeAulas;
+    }
 
-	public void setAno(String ano) {
-		this.ano = ano;
-	}
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
 
-	/**
+    /**
      * @param id
      *            the id to set
      */

@@ -25,6 +25,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
@@ -74,6 +75,7 @@ public abstract class Pessoa {
      * @return the nome
      */
     @Column
+    @Searchable
     public String getNome() {
         return nome;
     }
@@ -98,6 +100,7 @@ public abstract class Pessoa {
      * @return the cpf
      */
     @Column
+    @Searchable
     public Long getCpf() {
         return cpf;
     }
@@ -165,6 +168,7 @@ public abstract class Pessoa {
      */
     @Column
     @Enumerated(EnumType.STRING)
+    @Searchable
     public Status getStatus() {
         return status;
     }
@@ -174,6 +178,7 @@ public abstract class Pessoa {
      */
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "endereco_usuario")
+    @Searchable(innerSearch = true)
     public Endereco getEndereco() {
         return endereco;
     }
@@ -183,6 +188,7 @@ public abstract class Pessoa {
      */
     @Enumerated(EnumType.STRING)
     @Column
+    @Searchable
     public Sexo getSexo() {
         return sexo;
     }
@@ -200,6 +206,7 @@ public abstract class Pessoa {
      */
     @OneToOne
     @JoinColumn(name = "user_name")
+    @Searchable(innerSearch = true)
     public UserLogin getUserLogin() {
         return userLogin;
     }

@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -26,6 +27,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.Status;
 
 /**
@@ -37,7 +39,12 @@ import br.facet.tcc.enums.Status;
 @Entity
 @Table(name = "tb_disciplina")
 @SequenceGenerator(name = "seq_disciplina", sequenceName = "seq_disciplina", allocationSize = 1)
-public class Disciplina {
+public class Disciplina implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1940996532056368591L;
 
     private Integer id;
 
@@ -56,6 +63,7 @@ public class Disciplina {
      */
     @Id
     @GeneratedValue(generator = "seq_disciplina")
+    @Searchable
     public Integer getId() {
         return id;
     }
@@ -64,6 +72,7 @@ public class Disciplina {
      * @return the nome
      */
     @Column
+    @Searchable
     public String getNome() {
         return nome;
     }
@@ -98,6 +107,7 @@ public class Disciplina {
      * @return the periodo
      */
     @Column
+    @Searchable
     public Integer getPeriodo() {
         return periodo;
     }

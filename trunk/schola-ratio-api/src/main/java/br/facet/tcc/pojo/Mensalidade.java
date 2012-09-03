@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -27,6 +28,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.Status;
 
 /**
@@ -38,7 +40,12 @@ import br.facet.tcc.enums.Status;
 @Entity
 @Table(name = "tb_mensalidade")
 @SequenceGenerator(name = "seq_mensalidade", sequenceName = "seq_mensalidade", allocationSize = 1)
-public class Mensalidade {
+public class Mensalidade implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6344904908790945677L;
 
     private Integer id;
 
@@ -66,6 +73,7 @@ public class Mensalidade {
      * @return the aluno
      */
     @OneToOne
+    @Searchable(innerSearch = true)
     public Aluno getAluno() {
         return aluno;
     }
@@ -75,6 +83,7 @@ public class Mensalidade {
      */
     @Temporal(TemporalType.DATE)
     @Column
+    @Searchable
     public Date getMesReferencia() {
         return mesReferencia;
     }

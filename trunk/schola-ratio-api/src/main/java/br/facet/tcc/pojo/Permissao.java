@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -24,6 +26,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.UserRoles;
 
 /**
@@ -35,7 +38,12 @@ import br.facet.tcc.enums.UserRoles;
 
 @Entity
 @Table(name = "tb_permissao")
-public class Permissao {
+public class Permissao implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5913393066760408864L;
 
     private Integer id;
 
@@ -48,6 +56,7 @@ public class Permissao {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Searchable
     public Integer getId() {
         return id;
     }
@@ -57,6 +66,7 @@ public class Permissao {
      */
     @ManyToOne
     @JoinColumn(name = "username")
+    @Searchable(innerSearch = true)
     public UserLogin getUsuario() {
         return usuario;
     }
@@ -66,6 +76,7 @@ public class Permissao {
      */
     @Column
     @Enumerated(EnumType.STRING)
+    @Searchable
     public UserRoles getRole() {
         return role;
     }
