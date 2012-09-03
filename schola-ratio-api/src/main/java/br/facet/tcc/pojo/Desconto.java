@@ -1,9 +1,8 @@
 /*
  * TCC Facet 2012 - Djulles IKEDA e Osnir F CUNHA.
- *
- * Copyright (c) 2012
- * All rights reserved.
- *
+ * 
+ * Copyright (c) 2012 All rights reserved.
+ * 
  * This software is only to be used for the purpose for which it has been
  * provided. No part of it is to be reproduced, disassembled, transmitted,
  * stored in a retrieval system, nor translated in any human or computer
@@ -13,6 +12,8 @@
  * (Code Template Version: 1.0)
  */
 package br.facet.tcc.pojo;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,18 +25,24 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.Status;
 
 /**
  * @author Djulles IKEDA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 @Entity
 @Table(name = "tb_desconto")
 @SequenceGenerator(name = "seq_desconto", sequenceName = "seq_desconto", allocationSize = 1)
-public class Desconto {
+public class Desconto implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1701534779559848962L;
 
     private Integer id;
 
@@ -62,6 +69,7 @@ public class Desconto {
      */
 
     @OneToOne
+    @Searchable(innerSearch = true)
     public Aluno getAluno() {
         return aluno;
     }

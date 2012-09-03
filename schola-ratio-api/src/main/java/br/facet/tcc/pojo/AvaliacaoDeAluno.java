@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +22,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import br.facet.tcc.annotations.Searchable;
 
 /**
  * @author Osnir F CUNHA
@@ -30,7 +34,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_avaliacao_aluno")
 @SequenceGenerator(name = "seq_avaliacao_aluno", sequenceName = "seq_avaliacao_aluno", allocationSize = 1)
-public class AvaliacaoDeAluno {
+public class AvaliacaoDeAluno implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2543693173585879939L;
 
     private Integer id;
 
@@ -54,6 +63,7 @@ public class AvaliacaoDeAluno {
      * @return the aluno
      */
     @OneToOne
+    @Searchable(innerSearch = true)
     public Aluno getAluno() {
         return aluno;
     }
@@ -62,6 +72,7 @@ public class AvaliacaoDeAluno {
      * @return the avaliacao
      */
     @OneToOne
+    @Searchable(innerSearch = true)
     public Avaliacao getAvaliacao() {
         return avaliacao;
     }
@@ -70,6 +81,7 @@ public class AvaliacaoDeAluno {
      * @return the turma
      */
     @OneToOne
+    @Searchable(innerSearch = true)
     public Turma getTurma() {
         return turma;
     }

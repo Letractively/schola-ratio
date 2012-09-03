@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,6 +25,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.TipoTitulo;
 
 /**
@@ -34,7 +37,12 @@ import br.facet.tcc.enums.TipoTitulo;
 @Entity
 @Table(name = "tb_professor")
 @SequenceGenerator(sequenceName = "seq_professor", name = "seq_professor", allocationSize = 1)
-public class Professor extends Pessoa {
+public class Professor extends Pessoa implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1973568054583894362L;
 
     private Integer id;
 
@@ -49,6 +57,7 @@ public class Professor extends Pessoa {
     @Id
     @Column(name = "professor_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_professor")
+    @Searchable
     public Integer getId() {
         return this.id;
     }
@@ -58,6 +67,7 @@ public class Professor extends Pessoa {
      */
     @Enumerated(EnumType.STRING)
     @Column
+    @Searchable
     public TipoTitulo getTitulo() {
         return titulo;
     }

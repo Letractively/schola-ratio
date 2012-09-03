@@ -13,10 +13,14 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import br.facet.tcc.annotations.Searchable;
 
 /**
  * @author Osnir F CUNHA
@@ -26,7 +30,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_user_login")
-public class UserLogin {
+public class UserLogin implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 722657699635191181L;
 
     private String username;
 
@@ -41,6 +50,7 @@ public class UserLogin {
      */
     @Id
     @Column(name = "user_name")
+    @Searchable
     public String getUsername() {
         return username;
     }

@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.Bimestre;
 
 /**
@@ -33,7 +36,12 @@ import br.facet.tcc.enums.Bimestre;
 @Entity
 @Table(name = "tb_avaliacao")
 @SequenceGenerator(name = "seq_avaliacao", sequenceName = "seq_avaliacao", allocationSize = 1)
-public class Avaliacao {
+public class Avaliacao implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6315607367705069804L;
 
     private Integer id;
 
@@ -73,6 +81,7 @@ public class Avaliacao {
      */
     @Enumerated(EnumType.STRING)
     @Column
+    @Searchable
     public Bimestre getBimestre() {
         return bimestre;
     }

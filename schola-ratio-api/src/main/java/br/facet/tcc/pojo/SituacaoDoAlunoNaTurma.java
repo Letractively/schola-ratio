@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,7 +36,12 @@ import br.facet.tcc.enums.Situacao;
 @Entity
 @Table(name = "tb_situacao_aluno_turma")
 @SequenceGenerator(name = "seq_situacao_aluno_turma", sequenceName = "seq_situacao_aluno_turma", allocationSize = 1)
-public class SituacaoDoAlunoNaTurma {
+public class SituacaoDoAlunoNaTurma implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2518287049513011103L;
 
     private Integer id;
 

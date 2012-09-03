@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +24,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import br.facet.tcc.annotations.Searchable;
 
 /**
  * <code>Instituicao</code><br>
@@ -35,7 +39,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_instituicao")
 @SequenceGenerator(sequenceName = "seq_instituicao", name = "seq_instituicao", allocationSize = 1)
-public class Instituicao {
+public class Instituicao implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -135831804467799660L;
 
     private Integer id;
 
@@ -57,6 +66,7 @@ public class Instituicao {
     @Id
     @Column(name = "id_instituicao")
     @GeneratedValue(generator = "seq_instituicao", strategy = GenerationType.SEQUENCE)
+    @Searchable
     public Integer getId() {
         return id;
     }
@@ -65,6 +75,7 @@ public class Instituicao {
      * @return the nome
      */
     @Column(name = "nome_instituicao")
+    @Searchable
     public String getNome() {
         return nome;
     }
@@ -73,6 +84,7 @@ public class Instituicao {
      * @return the cnpj
      */
     @Column(name = "cnpj")
+    @Searchable
     public Integer getCnpj() {
         return cnpj;
     }
@@ -81,6 +93,7 @@ public class Instituicao {
      * @return the inscricaoEstadual
      */
     @Column(name = "inscricao_estadual")
+    @Searchable
     public Integer getInscricaoEstadual() {
         return inscricaoEstadual;
     }

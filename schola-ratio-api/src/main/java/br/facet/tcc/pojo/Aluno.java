@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,6 +26,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.facet.tcc.annotations.Searchable;
+
 /**
  * @author Osnir F CUNHA
  * 
@@ -34,7 +37,12 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tb_aluno")
 @SequenceGenerator(sequenceName = "seq_aluno", name = "seq_aluno", allocationSize = 1)
-public class Aluno extends Pessoa {
+public class Aluno extends Pessoa implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4557294267620477230L;
 
     private Integer id;
 
@@ -47,6 +55,7 @@ public class Aluno extends Pessoa {
     @Id
     @Column(name = "aluno_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aluno")
+    @Searchable
     public Integer getId() {
         return this.id;
     }
@@ -56,6 +65,7 @@ public class Aluno extends Pessoa {
      */
     @Temporal(TemporalType.DATE)
     @Column
+    @Searchable
     public Date getDataDeMatricula() {
         return dataDeMatricula;
     }

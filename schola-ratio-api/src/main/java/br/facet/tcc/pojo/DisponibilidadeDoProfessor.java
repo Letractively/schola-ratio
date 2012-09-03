@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -26,6 +27,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.HorarioDeAulas;
 import br.facet.tcc.enums.Status;
 
@@ -39,7 +41,12 @@ import br.facet.tcc.enums.Status;
 @Entity
 @Table(name = "tb_disponibilidade_professor")
 @SequenceGenerator(sequenceName = "seq_disponibilidade_professor", name = "seq_disponibilidade_professor", allocationSize = 1)
-public class DisponibilidadeDoProfessor {
+public class DisponibilidadeDoProfessor implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -711215748016024891L;
 
     private Integer id;
 
@@ -67,6 +74,7 @@ public class DisponibilidadeDoProfessor {
      */
 
     @OneToOne
+    @Searchable
     public Professor getProfessor() {
         return professor;
     }

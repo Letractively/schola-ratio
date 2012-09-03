@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.Estado;
 
 /**
@@ -32,7 +35,12 @@ import br.facet.tcc.enums.Estado;
 @Entity
 @Table(name = "tb_endereco")
 @SequenceGenerator(sequenceName = "seq_endereco", name = "seq_endereco", allocationSize = 1)
-public class Endereco {
+public class Endereco implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -9151813768097067999L;
 
     private Integer id;
 
@@ -85,6 +93,7 @@ public class Endereco {
      * @return the rua
      */
     @Column(name = "rua")
+    @Searchable
     public String getRua() {
         return rua;
     }
@@ -101,6 +110,7 @@ public class Endereco {
      * @return the bairro
      */
     @Column(name = "bairro")
+    @Searchable
     public String getBairro() {
         return bairro;
     }
@@ -117,6 +127,7 @@ public class Endereco {
      * @return the cep
      */
     @Column(name = "cep")
+    @Searchable
     public Integer getCep() {
         return cep;
     }
@@ -125,6 +136,7 @@ public class Endereco {
      * @return the cidade
      */
     @Column(name = "cidade")
+    @Searchable
     public String getCidade() {
         return cidade;
     }
@@ -134,6 +146,7 @@ public class Endereco {
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
+    @Searchable
     public Estado getEstado() {
         return estado;
     }
