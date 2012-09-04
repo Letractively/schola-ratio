@@ -13,6 +13,7 @@
  */
 package br.facet.tcc.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.facet.tcc.exception.DaoException;
@@ -23,57 +24,57 @@ import br.facet.tcc.exception.DaoException;
  * @version 0.0.1
  * @since 0.0.1
  */
-public interface Dao<T> {
-    /**
-     * Persiste um objeto do tipo definido na classe
-     * 
-     * @since 0.0.1
-     */
-    public Integer salvar(T t) throws DaoException;
+public interface Dao<T> extends Serializable {
+	/**
+	 * Persiste um objeto do tipo definido na classe
+	 * 
+	 * @since 0.0.1
+	 */
+	public Integer salvar(T t) throws DaoException;
 
-    /**
-     * Atualiza um objeto do tipo definido na classe
-     * 
-     * @since 0.0.1
-     */
-    public void atualizar(T t) throws DaoException;
+	/**
+	 * Atualiza um objeto do tipo definido na classe
+	 * 
+	 * @since 0.0.1
+	 */
+	public void atualizar(T t) throws DaoException;
 
-    /**
-     * Remove um objeto do tipo definido na classe
-     * 
-     * @since 0.0.1
-     */
-    public void excluir(T t) throws DaoException;
+	/**
+	 * Remove um objeto do tipo definido na classe
+	 * 
+	 * @since 0.0.1
+	 */
+	public void excluir(T t) throws DaoException;
 
-    /**
-     * Lista os objetos do tipo definido na classe
-     * 
-     * @return lista de objetos T
-     * @param Class
-     * @since 0.0.1
-     */
-    public List<T> listar(@SuppressWarnings("rawtypes") Class clazz)
-        throws DaoException;
+	/**
+	 * Lista os objetos do tipo definido na classe
+	 * 
+	 * @return lista de objetos T
+	 * @param Class
+	 * @since 0.0.1
+	 */
+	public List<T> listar(@SuppressWarnings("rawtypes") Class clazz)
+			throws DaoException;
 
-    /**
-     * Pesquisa um objeto apartir dos parametros passado.
-     * 
-     * @return list de objetos encontrados
-     * @since 0.0.1
-     */
-    public List<T> pesquisar(T t) throws DaoException;
+	/**
+	 * Pesquisa um objeto apartir dos parametros passado.
+	 * 
+	 * @return list de objetos encontrados
+	 * @since 0.0.1
+	 */
+	public List<T> pesquisar(T t) throws DaoException;
 
-    /**
-     * Obtem objeto apartir do seu id
-     * 
-     * @param clazz
-     *            classe do objeto que sera recuperado
-     * @param id
-     *            id do objeto
-     * @return objeto que sera recuperado
-     * @throws DaoException
-     * @since 0.0.1
-     */
-    public T obterPorID(Class clazz, Integer id) throws DaoException;
+	/**
+	 * Obtem objeto apartir do seu id
+	 * 
+	 * @param clazz
+	 *            classe do objeto que sera recuperado
+	 * @param id
+	 *            id do objeto
+	 * @return objeto que sera recuperado
+	 * @throws DaoException
+	 * @since 0.0.1
+	 */
+	public T obterPorID(Class clazz, Integer id) throws DaoException;
 
 }
