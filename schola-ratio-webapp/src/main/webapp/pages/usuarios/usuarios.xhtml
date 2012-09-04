@@ -1,10 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<style type="text/css">
@@ -17,96 +15,194 @@
 <ui:decorate template="/template/template.xhtml">
 
 	<ui:define name="content">
-		<h:form>
-			<p:panel id="pesquisaUsuario" header="Pesquisar">
-				<p:panelGrid columns="2">
+		<h:form id="pesquisar">
+			<p:growl id="growl" showDetail="true"/> 
+			<div id="content" align="center">
+				<p:accordionPanel activeIndex="-1">
+					<p:tab title="Novo Usuario" titleStyle="font-weight: bold; text-align: left;">
+						<h:panelGrid>
+							<h:outputLabel value="Nome :" for="nomeUsuario" />
+							<p:inputText id="nomeUsuario" size="50">
+								<f:validateLength minimum="5" />
+								<p:ajax event="blur" update="nomeMsg" />
+								<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" display="icon" />
+							</p:inputText>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+				<p:panel id="pesquisaUsuario" header="Pesquisar" style="text-align: left;">
+					<h:panelGrid columns="2" cellpadding="5">
 
-					<h:outputLabel value="Nome :" for="nomeUsuario" />
-					<p:inputText id="nomeUsuario" value="#{userMB.usuario.nome}">
-						<f:validateLength minimum="5" />
-						<p:ajax event="blur" update="nomeMsg" />
-						<p:message id="nomeMsg" for="nomeUsuario" showDetail="true"
-							display="icon" />
-					</p:inputText>
-
-
-					<h:outputLabel value="CPF :" for="cpfUsuario" />
-					<p:inputText id="cpfUsuario" value="#{userMB.usuario.cpf}">
-						<f:converter converterId="javax.faces.Long" />
-						<f:validateLength minimum="11" maximum="11" />
-						<p:ajax event="blur" update="cpfMsg" />
-						<p:message id="cpfMsg" for="cpfUsuario" showDetail="true"
-							display="icon" />
-					</p:inputText>
-
-					<h:outputLabel value="Usuario :" for="loginUsuario" />
-					<p:inputText id="loginUsuario"
-						value="#{userMB.usuario.userLogin.username}">
-						<f:validateLength minimum="5" />
-						<p:ajax event="blur" update="loginMsg" />
-						<p:message id="loginMsg" for="loginUsuario" showDetail="true"
-							display="icon" />
-					</p:inputText>
-
-					<h:inputHidden />
-
-					<p:commandButton id="btnPesquisar" value="Pesquisar"
-						action="#{userMB.pesquisarUsuarios}" update=":tbUsuarios"
-						ajax="false" />
-
-				</p:panelGrid>
-
-			</p:panel>
+						<h:outputLabel value="Nome :" for="nomeUsuario" />
+						<p:inputText id="nomeUsuario" value="#{userMB.usuario.nome}" size="50">
+							<f:validateLength minimum="5" />
+							<p:ajax event="blur" update="nomeMsg" />
+							<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" display="icon" />
+						</p:inputText>
 
 
-			<p:panel header="Resultado Pesquisa">
-				<p:dataTable value="#{userMB.listaUsuarios}" id="tbUsuarios"
-					var="usuario">
+						<h:outputLabel value="CPF :" for="cpfUsuario" />
+						<p:inputText id="cpfUsuario" value="#{userMB.usuario.cpf}" requiredMessage="Teste">
+							<f:converter converterId="javax.faces.Long" />
+							<f:validateLength minimum="11" maximum="11" />
+							<p:ajax event="blur" update="cpfMsg" />
+							<p:message id="cpfMsg" for="cpfUsuario" showSummary="false" display="message" />
+						</p:inputText>
 
-					<p:column>
+						<h:outputLabel value="Usuario :" for="loginUsuario" />
+						<p:inputText id="loginUsuario" value="#{userMB.usuario.userLogin.username}">
+							<f:validateLength minimum="5" />
+							<p:ajax event="blur" update="loginMsg" />
+							<p:message id="loginMsg" for="loginUsuario" showDetail="true" display="icon" />
+						</p:inputText>
+
+						<h:inputHidden />
+
+						<p:commandButton id="btnPesquisar" value="Pesquisar" action="#{userMB.pesquisarUsuarios}"
+							update=":tbUsuarios" ajax="false" />
+
+					</h:panelGrid>
+
+				</p:panel>
+			</div>
+			<p:dataTable id="tbUsuarios" var="tUsuario" value="#{userMB.usuarioDataModel}" widgetVar="tabela"
+				paginatorAlwaysVisible="false" selection="#{userMB.usuarioSelecionado}" selectionMode="single"
+				paginator="true" rows="10" paginatorPosition="bottom" emptyMessage="Nenhum resultado">
+
+				<p:ajax event="rowSelect" listener="#{userMB.onRowSelect}" update=":pesquisar:dialog :pesquisar:growl"
+					oncomplete="usuarioPopUp.show()" />
+				<p:ajax event="rowUnselect" listener="#{tableBean.onRowUnselect}" update=":pesquisar:growl" oncomplete="tabela.refresh()"/>
+
+				<f:facet name="header" style="text-align: left;">
+                        Selecione uma linha para obter detalhes:
+                    </f:facet>
+
+				<p:column headerText="Nome">
+					#{tUsuario.nome}
+				</p:column>
+
+				<p:column headerText="CPF">
+					#{tUsuario.cpf}
+				</p:column>
+
+				<p:column headerText="Usuario">
+					#{tUsuario.userLogin.username}
+				</p:column>
+
+				<p:column headerText="Email">
+					#{tUsuario.email}
+				</p:column>
+
+				<p:column headerText="Status">
+					#{tUsuario.status}
+				</p:column>
+
+				<p:column headerText="Acoes">
+					TBD
+				</p:column>
+
+			</p:dataTable>
+			<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false"
+				showEffect="fade" hideEffect="explode">
+
+				<h:panelGrid id="display" columns="2" rendered="#{userMB.usuarioSelecionado != null}">
+					<f:facet name="header">  
+				        <p:row>  
+				            <p:column>Detalhes do usuario</p:column>  
+				        </p:row>  
+    				</f:facet>
+					<p:panelGrid columns="2" cellpadding="4">
 						<f:facet name="header">
-							<h:outputText value="Nome" />
+							<h:outputText value="Informações:" />
 						</f:facet>
-						<h:outputText value="#{usuario.nome}" />
-					</p:column>
+						<h:outputText value="Nome :" />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.nome}" />
+						</p:inplace>
 
-					<p:column>
+						<h:outputText value="Email : " />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.email}" />
+						</p:inplace>
+
+						<h:outputText value="Nacionalidade : " />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.nacionalidade}" />
+						</p:inplace>
+
+						<h:outputText value="Naturalidade : " />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.naturalidade}" />
+						</p:inplace>
+
+						<h:outputText value="Cpf : " />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.cpf}" />
+						</p:inplace>
+
+						<h:outputText value="Rg : " />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.rg}" />
+						</p:inplace>
+
+						<h:outputText value="Nome do Pai : " />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.nomePai}" />
+						</p:inplace>
+
+						<h:outputText value="Nome da Mãe : " />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.nomeMae}" />
+						</p:inplace>
+					</p:panelGrid>
+					<p:panelGrid columns="2" cellpadding="4">
 						<f:facet name="header">
-							<h:outputText value="CPF" />
+							<h:outputText value="Endereço:" />
 						</f:facet>
-						<h:outputText value="#{usuario.cpf}" />
-					</p:column>
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Usuario" />
-						</f:facet>
-						<h:outputText value="#{usuario.userLogin.username}" />
-					</p:column>
+						<h:outputText value="Rua :" />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.endereco.rua}" />
+						</p:inplace>
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Email" />
-						</f:facet>
-						<h:outputText value="#{usuario.email}" />
-					</p:column>
+						<h:outputText value="Numero :" />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.endereco.numero}" />
+						</p:inplace>
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Status" />
-						</f:facet>
-						<h:outputText value="#{usuario.status}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Acoes" />
-						</f:facet>
-						<h:outputText />
-					</p:column>
+						<h:outputText value="Bairro :" />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.endereco.bairro}" />
+						</p:inplace>
 
-				</p:dataTable>
+						<h:outputText value="Cidade :" />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.endereco.cidade}" />
+						</p:inplace>
+						
+						<h:outputText value="Estado:" />
+						<p:inplace emptyLabel="Vazio">
+							<p:selectOneMenu value="#{userMB.usuarioSelecionado.endereco.estado}" effect="fade">
+								<f:selectItems value="#{constantsMB.estadoList}" />
+							</p:selectOneMenu>
+						</p:inplace>						
 
-			</p:panel>
+						<h:outputText value="CEP :" />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.endereco.cep}" />
+						</p:inplace>
+
+						<h:outputText value="Complemento :" />
+						<p:inplace emptyLabel="Vazio">
+							<p:inputText value="#{userMB.usuarioSelecionado.endereco.complemento}" />
+						</p:inplace>
+
+						<p:commandButton oncomplete="usuarioPopUp.hide()" value="Atualizar"
+							action="#{userMB.atualizarUsuario}" />
+					</p:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
+
 		</h:form>
 	</ui:define>
 
