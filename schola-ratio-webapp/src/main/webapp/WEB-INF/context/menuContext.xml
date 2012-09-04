@@ -43,11 +43,11 @@
 	<util:list id="urlsMenuAcademico">
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Notas e Faltas" />
-			<property name="url" value="pages/academico/notas_e_faltas.schola" />
+			<property name="url" value="/pages/academico/notas_e_faltas.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Relatórios" />
-			<property name="url" value="pages/academico/relatorios.schola" />
+			<property name="url" value="/pages/academico/relatorios.schola" />
 		</bean>
 	</util:list>
 
@@ -55,23 +55,23 @@
 	<util:list id="urlsMenuAdministrativo">
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Matrículas" />
-			<property name="url" value="pages/administrativo/matriculas.schola" />
+			<property name="url" value="/pages/administrativo/matriculas.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Disciplinas" />
-			<property name="url" value="pages/administrativo/disciplinas.schola" />
+			<property name="url" value="/pages/administrativo/disciplinas.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Turmas" />
-			<property name="url" value="pages/administrativo/turmas.schola" />
+			<property name="url" value="/pages/administrativo/turmas.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Cursos" />
-			<property name="url" value="pages/administrativo/cursos.schola" />
+			<property name="url" value="/pages/administrativo/cursos.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Relatórios" />
-			<property name="url" value="pages/administrativo/relatorios.schola" />
+			<property name="url" value="/pages/administrativo/relatorios.schola" />
 		</bean>
 	</util:list>
 
@@ -79,11 +79,11 @@
 	<util:list id="urlsMenuFinanceiro">
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Mensalidades" />
-			<property name="url" value="pages/financeiro/mensalidades.schola" />
+			<property name="url" value="/pages/financeiro/mensalidades.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Relatórios" />
-			<property name="url" value="pages/financeiro/relatorios.schola" />
+			<property name="url" value="/pages/financeiro/relatorios.schola" />
 		</bean>
 	</util:list>
 	
@@ -91,19 +91,19 @@
 	<util:list id="urlsMenuUsuarios" >
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Alunos" />
-			<property name="url" value="pages/usuarios/alunos.schola" />
+			<property name="url" value="/pages/usuarios/alunos.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Professores" />
-			<property name="url" value="pages/usuarios/professores.schola" />
+			<property name="url" value="/pages/usuarios/professores.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Usuarios" />
-			<property name="url" value="pages/usuarios/usuarios.schola" />
+			<property name="url" value="/pages/usuarios/usuarios.schola" />
 		</bean>
 		<bean class="org.primefaces.component.menuitem.MenuItem">
 			<property name="value" value="Relatórios" />
-			<property name="url" value="pages/usuarios/relatorios.schola" />
+			<property name="url" value="/pages/usuarios/relatorios.schola" />
 		</bean>
 	</util:list>
 	
