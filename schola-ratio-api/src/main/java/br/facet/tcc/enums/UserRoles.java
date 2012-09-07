@@ -23,28 +23,38 @@ package br.facet.tcc.enums;
  */
 public enum UserRoles {
 
-    /**
-     * Academico
-     */
-    ROLE_ACA,
+	/**
+	 * Academico
+	 */
+	ROLE_ACA(1),
 
-    /**
-     * Administrativo
-     */
-    ROLE_ADM,
+	/**
+	 * Administrativo
+	 */
+	ROLE_ADM(2),
 
-    /**
-     * Configuração
-     */
-    ROLE_CFG,
+	/**
+	 * Configuração
+	 */
+	ROLE_CFG(3),
 
-    /**
-     * Financeiro
-     */
-    ROLE_FIN,
+	/**
+	 * Financeiro
+	 */
+	ROLE_FIN(4),
 
-    /**
-     * Usuarios
-     */
-    ROLE_USR
+	/**
+	 * Usuarios
+	 */
+	ROLE_USR(5);
+
+	private int id;
+
+	private UserRoles(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
 }
