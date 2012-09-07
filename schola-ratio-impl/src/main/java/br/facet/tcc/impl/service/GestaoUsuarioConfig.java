@@ -19,7 +19,6 @@ import java.util.List;
 import br.facet.tcc.dao.Dao;
 import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.exception.ServiceException;
-import br.facet.tcc.impl.dao.EnderecoDaoImpl;
 import br.facet.tcc.service.GestaoUsuario;
 
 /**
@@ -31,8 +30,6 @@ import br.facet.tcc.service.GestaoUsuario;
 public abstract class GestaoUsuarioConfig<T> implements GestaoUsuario<T> {
 
     protected Dao dao;
-
-    protected EnderecoDaoImpl enderecoDao;
 
     /**
      * @see br.facet.tcc.service.GestaoUsuario#salvarUsuario(java.lang.Object)
