@@ -7,10 +7,15 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+
 import br.facet.tcc.exception.ServiceException;
+import br.facet.tcc.impl.datamodel.UsuarioDataModel;
 import br.facet.tcc.impl.service.GestaoUsuarioImpl;
 import br.facet.tcc.pojo.UserLogin;
 import br.facet.tcc.pojo.Usuario;
@@ -25,8 +30,11 @@ import br.facet.tcc.pojo.Usuario;
  * 
  */
 @ManagedBean(name = "userMB")
-@RequestScoped
+@ViewScoped
 public class UsuarioManagedBean implements Serializable {
+
+    private static final Logger log = Logger
+            .getLogger(UsuarioManagedBean.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -41,7 +49,13 @@ public class UsuarioManagedBean implements Serializable {
 
     private Usuario usuario;
 
+    @ManagedProperty("#{usuarioDataModel}")
+    private UsuarioDataModel usuarioDataModel;
+
+    private Usuario usuarioSelecionado;
+
     public UsuarioManagedBean() {
+        this.listaUsuarios = new ArrayList<Usuario>();
         this.reset();
     }
 
@@ -50,8 +64,109 @@ public class UsuarioManagedBean implements Serializable {
      * 
      * @return String - Response Message
      */
-    public String addUser() {
-        return SUCCESS;
+    public String salvarUsuario() {
+        try {
+            this.usurioService.salvarUsuario(this.usuario);
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+
+        return null;
+    }
+
+    /**
+     * Update User
+     * 
+     * @return String - Response Message
+     */
+    public String atualizarUsuario() {
+        try {
+            this.usurioService.alterarUsuario(this.usuarioSelecionado);
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+        return null;
+    }
+
+    /**
+     * Search user
+     * 
+     * @return
+     * @since 0.0.1
+     */
+    public String pesquisarUsuarios() {
+        listaUsuarios = new ArrayList<Usuario>();
+        if ("".equals(usuario.getNome())) {
+            log.info("UsuarioManagedBean.usuario.nome é vazio.");
+            usuario.setNome(null);
+        }
+
+        if (usuario.getCpf() == 0) {
+            log.info("UsuarioManagedBean.usuario.cpf é vazio.");
+            usuario.setCpf(null);
+        }
+
+        if ("".equals(usuario.getUserLogin().getUsername())) {
+            log.info("UsuarioManagedBean.usuario.login é vazio.");
+            usuario.setUserLogin(null);
+        }
+
+        try {
+            listaUsuarios = usurioService.consultarUsuario(usuario);
+            log.info("UsuarioManagedBean.lista carregada.");
+            this.usuarioDataModel.setWrappedData(listaUsuarios);
+            log.info("UsuarioManagedBean.datamodel criado.");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    this.listaUsuarios.size() + " usuários encontrado.", "");
+            FacesContext.getCurrentInstance().addMessage("message", message);
+            this.reset();
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+
+        return null;
+    }
+
+    /**
+     * List users
+     * 
+     * @return
+     * @since schola-ratio-webapp 0.0.1
+     */
+    public String listarUsuarios() {
+        try {
+            this.listaUsuarios = this.usurioService
+                    .listarUsuario(Usuario.class);
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+
+        return null;
+    }
+
+    public String removerUsuario() {
+
+        try {
+            this.usurioService.removerUsuario(usuarioSelecionado);
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+        return null;
     }
 
     /**
@@ -65,6 +180,20 @@ public class UsuarioManagedBean implements Serializable {
 
     }
 
+    public void onRowSelect(SelectEvent event) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Usuario selecionado:", ((Usuario) event.getObject()).getNome());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowUnselect(UnselectEvent event) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+                ((Usuario) event.getObject()).getNome());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
     /**
      * Get User List
      * 
@@ -76,32 +205,24 @@ public class UsuarioManagedBean implements Serializable {
     }
 
     /**
-     * @return
-     * @since TODO: class_version
+     * @return the usuarioDataModel
      */
-    public String pesquisarUsuarios() {
-        listaUsuarios = new ArrayList<Usuario>();
-        if ("".equals(usuario.getNome())) {
-            usuario.setNome(null);
-        }
+    public UsuarioDataModel getUsuarioDataModel() {
+        return usuarioDataModel;
+    }
 
-        if (usuario.getCpf() == 0) {
-            usuario.setCpf(null);
-        }
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-        if ("".equals(usuario.getUserLogin().getUsername())) {
-            usuario.setUserLogin(null);
-        }
-
-        try {
-            listaUsuarios = usurioService.consultarUsuario(usuario);
-        } catch (ServiceException e) {
-            FacesMessage message = new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
-                            .getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
-        return null;
+    /**
+     * @return the usuarioSelecionado
+     */
+    public Usuario getUsuarioSelecionado() {
+        return usuarioSelecionado;
     }
 
     /**
@@ -113,18 +234,27 @@ public class UsuarioManagedBean implements Serializable {
     }
 
     /**
-     * @return the usuario
-     */
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    /**
      * @param usuario
      *            the usuario to set
      */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    /**
+     * @param usuarioDataModel
+     *            the usuarioDataModel to set
+     */
+    public void setUsuarioDataModel(UsuarioDataModel usuarioDataModel) {
+        this.usuarioDataModel = usuarioDataModel;
+    }
+
+    /**
+     * @param usuarioSelecionado
+     *            the usuarioSelecionado to set
+     */
+    public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+        this.usuarioSelecionado = usuarioSelecionado;
     }
 
 }
