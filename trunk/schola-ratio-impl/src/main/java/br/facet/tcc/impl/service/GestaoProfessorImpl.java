@@ -19,9 +19,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.exception.ServiceException;
-import br.facet.tcc.impl.dao.EnderecoDaoImpl;
 import br.facet.tcc.impl.dao.ProfessorDaoImpl;
 import br.facet.tcc.pojo.Professor;
 
@@ -34,10 +32,8 @@ import br.facet.tcc.pojo.Professor;
 @Service("professorService")
 public class GestaoProfessorImpl extends GestaoUsuarioConfig<Professor> {
     @Autowired
-    public GestaoProfessorImpl(ProfessorDaoImpl usuarioDao,
-            EnderecoDaoImpl enderecoDao) {
+    public GestaoProfessorImpl(ProfessorDaoImpl usuarioDao) {
         this.dao = usuarioDao;
-        this.enderecoDao = enderecoDao;
     }
 
     /**
@@ -46,11 +42,6 @@ public class GestaoProfessorImpl extends GestaoUsuarioConfig<Professor> {
      */
     @Override
     public Integer salvarUsuario(Professor t) throws ServiceException {
-        try {
-            this.enderecoDao.salvar(t.getEndereco());
-        } catch (DaoException e) {
-            throw new ServiceException(e.getMessage(), e);
-        }
         return super.salvarUsuario(t);
     }
 
