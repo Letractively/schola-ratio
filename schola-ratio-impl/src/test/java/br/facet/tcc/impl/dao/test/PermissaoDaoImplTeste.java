@@ -21,7 +21,6 @@ import org.junit.Test;
 import br.facet.tcc.enums.UserRoles;
 import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Permissao;
-import br.facet.tcc.pojo.UserLogin;
 
 /**
  * @author Djulles IKEDA
@@ -40,12 +39,9 @@ public class PermissaoDaoImplTeste extends DaoTestCaseSetUp {
     @Test
     public void testSalvar() throws DaoException {
 
-        UserLogin userLogin = userLoginDao.obterPorID("user_name%");
-
         Permissao permissao = new Permissao();
 
         permissao.setRole(UserRoles.ROLE_ADM);
-        permissao.setUsuario(userLogin);
 
         Integer codigo = this.getPermissaoDao().salvar(permissao);
         Assert.assertTrue("Permissao nao foi salva. ", codigo > 0);
