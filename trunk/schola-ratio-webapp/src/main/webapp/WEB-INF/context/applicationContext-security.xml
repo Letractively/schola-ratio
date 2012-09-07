@@ -24,7 +24,7 @@
 		<password-encoder hash="sha" />
 		<jdbc-user-service data-source-ref="dataSource"
 			users-by-username-query="SELECT user_name , password , enable FROM tb_user_login WHERE user_name=?"
-			authorities-by-username-query="SELECT username , role FROM tb_permissao WHERE username=?" />
+			authorities-by-username-query="select ul.user_name, ur.userrole from tb_user_roles as ur, tb_user_login as ul, tb_user_login_tb_user_roles as ulr where ul.user_name = ulr.tb_user_login_user_name and ur.id = ulr.permissoes_id and ul.user_name = ?" />
 	</authentication-provider>
 	
 </beans:beans>
