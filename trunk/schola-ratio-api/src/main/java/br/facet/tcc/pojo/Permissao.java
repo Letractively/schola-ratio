@@ -16,15 +16,11 @@ package br.facet.tcc.pojo;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.UserRoles;
@@ -33,76 +29,56 @@ import br.facet.tcc.enums.UserRoles;
  * @author Djulles IKEDA
  * 
  * @version 0.0.1
- * @since 0.0.1
+ * @since 0.0.1 Entity Table(name = "tb_permissao")
+ *        SequenceGenerator(sequenceName = "seq_permissao", name =
+ *        "seq_permissao", initialValue = 1)
  */
 
-@Entity
-@Table(name = "tb_permissao")
 public class Permissao implements Serializable {
 
-    /**
+	/**
      * 
      */
-    private static final long serialVersionUID = 5913393066760408864L;
+	private static final long serialVersionUID = 5913393066760408864L;
 
-    private Integer id;
+	private Integer id;
 
-    private UserLogin usuario;
+	private UserRoles role;
 
-    private UserRoles role;
+	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_permissao")
+	@Searchable
+	public Integer getId() {
+		return id;
+	}
 
-    /**
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Searchable
-    public Integer getId() {
-        return id;
-    }
+	/**
+	 * @return the role
+	 */
+	@Column
+	@Enumerated(EnumType.STRING)
+	@Searchable
+	public UserRoles getRole() {
+		return role;
+	}
 
-    /**
-     * @return the usuario
-     */
-    @ManyToOne
-    @JoinColumn(name = "username")
-    @Searchable(innerSearch = true)
-    public UserLogin getUsuario() {
-        return usuario;
-    }
+	/**
+	 * @param role
+	 *            the role to set
+	 */
+	public void setRole(UserRoles role) {
+		this.role = role;
+	}
 
-    /**
-     * @return the role
-     */
-    @Column
-    @Enumerated(EnumType.STRING)
-    @Searchable
-    public UserRoles getRole() {
-        return role;
-    }
-
-    /**
-     * @param usuario
-     *            the usuario to set
-     */
-    public void setUsuario(UserLogin usuario) {
-        this.usuario = usuario;
-    }
-
-    /**
-     * @param role
-     *            the role to set
-     */
-    public void setRole(UserRoles role) {
-        this.role = role;
-    }
-
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 }

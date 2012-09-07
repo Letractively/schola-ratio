@@ -15,6 +15,7 @@ package br.facet.tcc.pojo;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -39,303 +40,314 @@ import br.facet.tcc.enums.Status;
 @MappedSuperclass
 public abstract class Pessoa {
 
-    private String nome;
+	private String nome;
 
-    private String nacionalidade;
+	private String nacionalidade;
 
-    private String naturalidade;
+	private String naturalidade;
 
-    private Long cpf;
+	private Long cpf;
 
-    private String email;
+	private String email;
 
-    private Long rg;
+	private Long rg;
 
-    private String orgaoExpeditor;
+	private String orgaoExpeditor;
 
-    private Estado ufOrgaoExpeditor;
+	private Estado ufOrgaoExpeditor;
 
-    private Date dataExpedicao;
+	private Date dataExpedicao;
 
-    private String nomePai;
+	private String nomePai;
 
-    private String nomeMae;
+	private String nomeMae;
 
-    private UserLogin userLogin;
+	private UserLogin userLogin;
 
-    private Status status;
+	private Status status;
 
-    private Endereco endereco;
+	private Endereco endereco;
 
-    private Sexo sexo;
+	private String telefone;
 
-    private byte[] image;
+	private Sexo sexo;
 
-    /**
-     * @return the nome
-     */
-    @Column
-    @Searchable
-    public String getNome() {
-        return nome;
-    }
+	private byte[] image;
 
-    /**
-     * @return the nacionalidade
-     */
-    @Column
-    public String getNacionalidade() {
-        return nacionalidade;
-    }
+	/**
+	 * @return the nome
+	 */
+	@Column
+	@Searchable
+	public String getNome() {
+		return nome;
+	}
 
-    /**
-     * @return the naturalidade
-     */
-    @Column
-    public String getNaturalidade() {
-        return naturalidade;
-    }
+	/**
+	 * @return the nacionalidade
+	 */
+	@Column
+	public String getNacionalidade() {
+		return nacionalidade;
+	}
 
-    /**
-     * @return the cpf
-     */
-    @Column
-    @Searchable
-    public Long getCpf() {
-        return cpf;
-    }
+	/**
+	 * @return the naturalidade
+	 */
+	@Column
+	public String getNaturalidade() {
+		return naturalidade;
+	}
 
-    /**
-     * @return the email
-     */
-    @Column
-    public String getEmail() {
-        return email;
-    }
+	/**
+	 * @return the cpf
+	 */
+	@Column
+	@Searchable
+	public Long getCpf() {
+		return cpf;
+	}
 
-    /**
-     * @return the rg
-     */
-    @Column
-    public Long getRg() {
-        return rg;
-    }
+	/**
+	 * @return the email
+	 */
+	@Column
+	public String getEmail() {
+		return email;
+	}
 
-    /**
-     * @return the orgaoExpeditor
-     */
-    @Column
-    public String getOrgaoExpeditor() {
-        return orgaoExpeditor;
-    }
+	/**
+	 * @return the rg
+	 */
+	@Column
+	public Long getRg() {
+		return rg;
+	}
 
-    /**
-     * @return the ufOrgaoExpeditor
-     */
-    @Enumerated(EnumType.STRING)
-    @Column
-    public Estado getUfOrgaoExpeditor() {
-        return ufOrgaoExpeditor;
-    }
+	/**
+	 * @return the orgaoExpeditor
+	 */
+	@Column
+	public String getOrgaoExpeditor() {
+		return orgaoExpeditor;
+	}
 
-    /**
-     * @return the dataExpedicao
-     */
-    @Temporal(TemporalType.DATE)
-    @Column
-    public Date getDataExpedicao() {
-        return dataExpedicao;
-    }
+	/**
+	 * @return the ufOrgaoExpeditor
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column
+	public Estado getUfOrgaoExpeditor() {
+		return ufOrgaoExpeditor;
+	}
 
-    /**
-     * @return the nomePai
-     */
-    @Column
-    public String getNomePai() {
-        return nomePai;
-    }
+	/**
+	 * @return the dataExpedicao
+	 */
+	@Temporal(TemporalType.DATE)
+	@Column
+	public Date getDataExpedicao() {
+		return dataExpedicao;
+	}
 
-    /**
-     * @return the nomeMae
-     */
-    @Column
-    public String getNomeMae() {
-        return nomeMae;
-    }
+	/**
+	 * @return the nomePai
+	 */
+	@Column
+	public String getNomePai() {
+		return nomePai;
+	}
 
-    /**
-     * @return the status
-     */
-    @Column
-    @Enumerated(EnumType.STRING)
-    @Searchable
-    public Status getStatus() {
-        return status;
-    }
+	/**
+	 * @return the nomeMae
+	 */
+	@Column
+	public String getNomeMae() {
+		return nomeMae;
+	}
 
-    /**
-     * @return the endereco
-     */
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "endereco_usuario")
-    @Searchable(innerSearch = true)
-    public Endereco getEndereco() {
-        return endereco;
-    }
+	/**
+	 * @return the status
+	 */
+	@Column
+	@Enumerated(EnumType.STRING)
+	@Searchable
+	public Status getStatus() {
+		return status;
+	}
 
-    /**
-     * @return the sexo
-     */
-    @Enumerated(EnumType.STRING)
-    @Column
-    @Searchable
-    public Sexo getSexo() {
-        return sexo;
-    }
+	/**
+	 * @return the endereco
+	 */
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "endereco_usuario")
+	@Searchable(innerSearch = true)
+	public Endereco getEndereco() {
+		return endereco;
+	}
 
-    /**
-     * @return the image
-     */
-    @Column
-    public byte[] getImage() {
-        return image;
-    }
+	@Column
+	public String getTelefone() {
+		return telefone;
+	}
 
-    /**
-     * @return the userLogin
-     */
-    @OneToOne
-    @JoinColumn(name = "user_name")
-    @Searchable(innerSearch = true)
-    public UserLogin getUserLogin() {
-        return userLogin;
-    }
+	/**
+	 * @return the sexo
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column
+	@Searchable
+	public Sexo getSexo() {
+		return sexo;
+	}
 
-    /**
-     * @param nome
-     *            the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	/**
+	 * @return the image
+	 */
+	@Column
+	public byte[] getImage() {
+		return image;
+	}
 
-    /**
-     * @param nacionalidade
-     *            the nacionalidade to set
-     */
-    public void setNacionalidade(String nacionalidade) {
-        this.nacionalidade = nacionalidade;
-    }
+	/**
+	 * @return the userLogin
+	 */
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_name")
+	@Searchable(innerSearch = true)
+	public UserLogin getUserLogin() {
+		return userLogin;
+	}
 
-    /**
-     * @param naturalidade
-     *            the naturalidade to set
-     */
-    public void setNaturalidade(String naturalidade) {
-        this.naturalidade = naturalidade;
-    }
+	/**
+	 * @param nome
+	 *            the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    /**
-     * @param cpf
-     *            the cpf to set
-     */
-    public void setCpf(Long cpf) {
-        this.cpf = cpf;
-    }
+	/**
+	 * @param nacionalidade
+	 *            the nacionalidade to set
+	 */
+	public void setNacionalidade(String nacionalidade) {
+		this.nacionalidade = nacionalidade;
+	}
 
-    /**
-     * @param email
-     *            the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/**
+	 * @param naturalidade
+	 *            the naturalidade to set
+	 */
+	public void setNaturalidade(String naturalidade) {
+		this.naturalidade = naturalidade;
+	}
 
-    /**
-     * @param rg
-     *            the rg to set
-     */
-    public void setRg(Long rg) {
-        this.rg = rg;
-    }
+	/**
+	 * @param cpf
+	 *            the cpf to set
+	 */
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
+	}
 
-    /**
-     * @param orgaoExpeditor
-     *            the orgaoExpeditor to set
-     */
-    public void setOrgaoExpeditor(String orgaoExpeditor) {
-        this.orgaoExpeditor = orgaoExpeditor;
-    }
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    /**
-     * @param ufOrgaoExpeditor
-     *            the ufOrgaoExpeditor to set
-     */
-    public void setUfOrgaoExpeditor(Estado ufOrgaoExpeditor) {
-        this.ufOrgaoExpeditor = ufOrgaoExpeditor;
-    }
+	/**
+	 * @param rg
+	 *            the rg to set
+	 */
+	public void setRg(Long rg) {
+		this.rg = rg;
+	}
 
-    /**
-     * @param dataExpedicao
-     *            the dataExpedicao to set
-     */
-    public void setDataExpedicao(Date dataExpedicao) {
-        this.dataExpedicao = dataExpedicao;
-    }
+	/**
+	 * @param orgaoExpeditor
+	 *            the orgaoExpeditor to set
+	 */
+	public void setOrgaoExpeditor(String orgaoExpeditor) {
+		this.orgaoExpeditor = orgaoExpeditor;
+	}
 
-    /**
-     * @param nomePai
-     *            the nomePai to set
-     */
-    public void setNomePai(String nomePai) {
-        this.nomePai = nomePai;
-    }
+	/**
+	 * @param ufOrgaoExpeditor
+	 *            the ufOrgaoExpeditor to set
+	 */
+	public void setUfOrgaoExpeditor(Estado ufOrgaoExpeditor) {
+		this.ufOrgaoExpeditor = ufOrgaoExpeditor;
+	}
 
-    /**
-     * @param nomeMae
-     *            the nomeMae to set
-     */
-    public void setNomeMae(String nomeMae) {
-        this.nomeMae = nomeMae;
-    }
+	/**
+	 * @param dataExpedicao
+	 *            the dataExpedicao to set
+	 */
+	public void setDataExpedicao(Date dataExpedicao) {
+		this.dataExpedicao = dataExpedicao;
+	}
 
-    /**
-     * @param status
-     *            the status to set
-     */
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+	/**
+	 * @param nomePai
+	 *            the nomePai to set
+	 */
+	public void setNomePai(String nomePai) {
+		this.nomePai = nomePai;
+	}
 
-    /**
-     * @param endereco
-     *            the endereco to set
-     */
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+	/**
+	 * @param nomeMae
+	 *            the nomeMae to set
+	 */
+	public void setNomeMae(String nomeMae) {
+		this.nomeMae = nomeMae;
+	}
 
-    /**
-     * @param sexo
-     *            the sexo to set
-     */
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
-    }
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
-    /**
-     * @param image
-     *            the image to set
-     */
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
+	/**
+	 * @param endereco
+	 *            the endereco to set
+	 */
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
-    /**
-     * @param userLogin
-     *            the userLogin to set
-     */
-    public void setUserLogin(UserLogin userLogin) {
-        this.userLogin = userLogin;
-    }
+	/**
+	 * @param sexo
+	 *            the sexo to set
+	 */
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+
+	/**
+	 * @param image
+	 *            the image to set
+	 */
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	/**
+	 * @param userLogin
+	 *            the userLogin to set
+	 */
+	public void setUserLogin(UserLogin userLogin) {
+		this.userLogin = userLogin;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 }
