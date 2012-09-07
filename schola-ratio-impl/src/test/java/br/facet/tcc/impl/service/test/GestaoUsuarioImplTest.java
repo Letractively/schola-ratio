@@ -15,17 +15,22 @@
 package br.facet.tcc.impl.service.test;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
+import br.facet.tcc.enums.UserRoles;
 import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.pojo.Endereco;
+import br.facet.tcc.pojo.UserLogin;
 import br.facet.tcc.pojo.Usuario;
 
 /**
@@ -48,6 +53,9 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
     public void testSalvarUsuarioUsuario() throws DaoException {
         Usuario usuario = new Usuario();
         Endereco endereco = new Endereco();
+        UserLogin userLogin = new UserLogin();
+
+        Set<br.facet.tcc.pojo.UserRoles> permissoes = new HashSet<br.facet.tcc.pojo.UserRoles>();
 
         endereco.setBairro("bairro");
         endereco.setCep(123);
@@ -56,6 +64,19 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
         endereco.setEstado(Estado.PR);
         endereco.setNumero(123);
         endereco.setRua("rua");
+
+        userLogin.setUsername("user_nameX");
+        userLogin.setPassword(DigestUtils.shaHex("senha"));
+
+        br.facet.tcc.pojo.UserRoles roleAca = new br.facet.tcc.pojo.UserRoles();
+        roleAca.setUserRole(UserRoles.ROLE_ACA);
+        permissoes.add(roleAca);
+
+        br.facet.tcc.pojo.UserRoles roleUsr = new br.facet.tcc.pojo.UserRoles();
+        roleUsr.setUserRole(UserRoles.ROLE_USR);
+        permissoes.add(roleUsr);
+
+        userLogin.setPermissoes(permissoes);
 
         usuario.setCpf(32932112388L);
         usuario.setDataExpedicao(new Date(103, 06, 12));
@@ -69,7 +90,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
         usuario.setOrgaoExpeditor("SSP-SP");
         usuario.setRg(272675670L);
         usuario.setUfOrgaoExpeditor(Estado.SP);
-        usuario.setUserLogin(this.userLoginDao.obterPorID("user_name4"));
+        usuario.setUserLogin(userLogin);
         usuario.setSexo(Sexo.M);
         usuario.setStatus(Status.ATIVO);
 
@@ -94,9 +115,9 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
 
         try {
 
-            usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 4);
+            usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 1);
             this.gestaoUsuario.removerUsuario(usuario);
-            usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 4);
+            usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 1);
 
         } catch (ServiceException e) {
             Assert.fail();
@@ -116,7 +137,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
 
         try {
 
-            usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 3);
+            usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 1);
 
         } catch (ServiceException e) {
             Assert.fail();
@@ -134,7 +155,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
     public void testConsultarUsuarioUsuario() {
         Usuario usuario = new Usuario();
         List<Usuario> usuarios = null;
-        usuario.setNacionalidade("Bras%");
+        usuario.setNome("osnir");
 
         try {
 
@@ -158,16 +179,17 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
         String emailAntigo = null, emailNovo = null;
         try {
 
-            usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 3);
+            usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 1);
             emailAntigo = usuario.getEmail();
             usuario.setEmail("EmailNovo");
-            emailAntigo = usuario.getEmail();
+            this.gestaoUsuario.alterarUsuario(usuario);
 
         } catch (ServiceException e) {
             Assert.fail();
         }
         System.out.println(usuario);
-        Assert.assertFalse("Usuario não excluido.", emailAntigo == emailNovo);
+        Assert.assertFalse("Usuario não excluido.",
+                emailAntigo == usuario.getEmail());
     }
 
     /**
