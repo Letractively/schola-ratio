@@ -14,10 +14,14 @@
 package br.facet.tcc.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import br.facet.tcc.annotations.Searchable;
@@ -32,76 +36,93 @@ import br.facet.tcc.annotations.Searchable;
 @Table(name = "tb_user_login")
 public class UserLogin implements Serializable {
 
-    /**
+	/**
      * 
      */
-    private static final long serialVersionUID = 722657699635191181L;
+	private static final long serialVersionUID = 722657699635191181L;
 
-    private String username;
+	private String username;
 
-    private String password;
+	private String password;
 
-    private boolean enable;
+	private boolean enable;
 
-    // private List<Permissao> permissoes;
+	private Set<UserRoles> permissoes;
 
-    /**
-     * @return the username
-     */
-    @Id
-    @Column(name = "user_name")
-    @Searchable
-    public String getUsername() {
-        return username;
-    }
+	public UserLogin() {
+		this.enable = true;
+	}
 
-    /**
-     * @return the password
-     */
-    @Column
-    public String getPassword() {
-        return password;
-    }
+	/**
+	 * @return the username
+	 */
+	@Id
+	@Column(name = "user_name")
+	@Searchable
+	public String getUsername() {
+		return username;
+	}
 
-    /**
-     * @return the enable
-     */
-    @Column(columnDefinition = "BOOLEAN")
-    public boolean isEnable() {
-        return enable;
-    }
+	/**
+	 * @return the password
+	 */
+	@Column
+	public String getPassword() {
+		return password;
+	}
 
-    /**
-     * @param username
-     *            the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	/**
+	 * @return the enable
+	 */
+	@Column(columnDefinition = "BOOLEAN")
+	public boolean isEnable() {
+		return enable;
+	}
 
-    /**
-     * @param password
-     *            the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	/**
+	 * @return
+	 * @since schola-ratio-api 0.0.1
+	 */
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public Set<UserRoles> getPermissoes() {
+		return permissoes;
+	}
 
-    /**
-     * @param enable
-     *            the enable to set
-     */
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
+	/**
+	 * @param username
+	 *            the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    /**
-     * @see java.lang.Object#toString()
-     * @since since optional
-     */
-    @Override
-    public String toString() {
-        return this.username;
-    }
+	/**
+	 * @param password
+	 *            the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @param enable
+	 *            the enable to set
+	 */
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 * @since since optional
+	 */
+	@Override
+	public String toString() {
+		return this.username;
+	}
+
+	public void setPermissoes(Set<UserRoles> permissoes) {
+		this.permissoes = permissoes;
+	}
 
 }
