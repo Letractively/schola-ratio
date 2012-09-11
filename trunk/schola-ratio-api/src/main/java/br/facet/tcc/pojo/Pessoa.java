@@ -46,6 +46,8 @@ public abstract class Pessoa {
 
     private String naturalidade;
 
+    private Estado estadoNat;
+
     private Long cpf;
 
     private String email;
@@ -220,6 +222,16 @@ public abstract class Pessoa {
     }
 
     /**
+     * @return the estadoNat
+     */
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    public Estado getEstadoNat() {
+        return estadoNat;
+    }
+
+    /**
      * @param nome
      *            the nome to set
      */
@@ -349,5 +361,13 @@ public abstract class Pessoa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    /**
+     * @param estadoNat
+     *            the estadoNat to set
+     */
+    public void setEstadoNat(Estado estadoNat) {
+        this.estadoNat = estadoNat;
     }
 }
