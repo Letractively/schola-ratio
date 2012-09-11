@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import br.facet.tcc.enums.Bimestre;
 import br.facet.tcc.enums.Estado;
+import br.facet.tcc.enums.Sexo;
 
 /**
  * <b>FIXME</b>: Each class and interface specification must include:
@@ -41,20 +42,24 @@ import br.facet.tcc.enums.Estado;
 @Component
 public class ConstantsMB {
 
-	/**
-	 * @return
-	 * 
-	 * @since schola-ratio-webapp 0.0.1
-	 */
-	public Bimestre[] getBimestreList() {
-		return Bimestre.values();
-	}
+    /**
+     * @return
+     * 
+     * @since schola-ratio-webapp 0.0.1
+     */
+    public Bimestre[] getBimestreList() {
+        return Bimestre.values();
+    }
 
-	/**
-	 * @return
-	 * @since schola-ratio-webapp 0.0.1
-	 */
-	public Estado[] getEstadoList() {
-		return Estado.values();
-	}
+    /**
+     * @return
+     * @since schola-ratio-webapp 0.0.1
+     */
+    public Estado[] getEstadoList() {
+        return Estado.values();
+    }
+
+    public Sexo[] getSexoList() {
+        return Sexo.values();
+    }
 }
