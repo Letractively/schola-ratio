@@ -58,14 +58,14 @@ public class HibernateCriteria {
                 Object serializable = method.invoke(object, noparam);
                 if (serializable != null) {
                     String field = method.getName().subSequence(3, 4)
-                        .toString().toLowerCase()
-                        + method.getName().substring(4);
+                            .toString().toLowerCase()
+                            + method.getName().substring(4);
                     if (method.getAnnotation(Searchable.class).innerSearch()) {
                         this.prepareInnerSearch(serializable, field);
                     } else {
                         if (serializable instanceof String) {
                             criteria.add(Restrictions.ilike(field, "%"
-                                + serializable + "%"));
+                                    + serializable + "%"));
                         } else {
                             criteria.add(Restrictions.eq(field, serializable));
                         }
@@ -75,7 +75,7 @@ public class HibernateCriteria {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return criteria;
     }
 
@@ -88,18 +88,18 @@ public class HibernateCriteria {
                 Object serializable = method.invoke(object, noparam);
                 if (serializable != null) {
                     String field = method.getName().subSequence(3, 4)
-                        .toString().toLowerCase()
-                        + method.getName().substring(4);
+                            .toString().toLowerCase()
+                            + method.getName().substring(4);
                     if (method.getAnnotation(Searchable.class).innerSearch()) {
                         this.prepareInnerSearch(serializable, field);
                     } else {
                         if (serializable instanceof String) {
                             this.criteria.createCriteria(columnName).add(
-                                Restrictions.ilike(field, "%" + serializable
-                                    + "%"));
+                                    Restrictions.ilike(field, "%"
+                                            + serializable + "%"));
                         } else {
                             this.criteria.createCriteria(columnName).add(
-                                Restrictions.eq(field, serializable));
+                                    Restrictions.eq(field, serializable));
                         }
                     }
                 }
