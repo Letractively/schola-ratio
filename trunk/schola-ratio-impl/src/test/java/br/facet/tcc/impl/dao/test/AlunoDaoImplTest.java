@@ -45,7 +45,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
         Aluno aluno = new Aluno();
 
         aluno.setCpf(32932112388L);
-        aluno.setDataExpedicao(new Date(103, 06, 12));
+        aluno.setDataNascimento(new Date(103, 06, 12));
         aluno.setEmail("osnircunha@email.com");
         aluno.setEndereco(this.getEnderecoDao().listar(Endereco.class).get(0));
         aluno.setNacionalidade("Brasileiro");
@@ -86,7 +86,7 @@ public class AlunoDaoImplTest extends DaoTestCaseSetUp {
         Aluno atualizado = getAlunoDao().listar(Aluno.class).get(0);
 
         Assert.assertNotSame("Nome não foi atualizado.", unexpected,
-            atualizado.getNome());
+                atualizado.getNome());
     }
 
     /**
