@@ -59,7 +59,7 @@ public class GestaoProfessorImplTest extends ServiceTestCaseSetUp {
         endereco.setRua("rua");
 
         professor.setCpf(32932112388L);
-        professor.setDataExpedicao(new Date(103, 06, 12));
+        professor.setDataNascimento(new Date(103, 06, 12));
         professor.setEmail("osnircunha@email.com");
         professor.setEndereco(endereco);
         professor.setNacionalidade("Brasileiro");
