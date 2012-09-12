@@ -48,7 +48,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         Endereco endereco = this.enderecoDao.listar(Endereco.class).get(0);
         Usuario usuario = new Usuario();
         usuario.setCpf(19809887654L);
-        usuario.setDataExpedicao(new Date(103, 06, 12));
+        usuario.setDataNascimento(new Date(103, 06, 12));
         usuario.setEmail("osnircunha@email.com");
         usuario.setEndereco(endereco);
         usuario.setNacionalidade("Brasileiro");
@@ -98,7 +98,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         int count = getUsuarioDao().pesquisar(usuarioToSearch).size();
 
         Assert.assertEquals(
-            "Lista não foi atualizada de acordo com o esperado.", 2, count);
+                "Lista não foi atualizada de acordo com o esperado.", 2, count);
     }
 
     /**
@@ -113,7 +113,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         int actual = getUsuarioDao().listar(Usuario.class).size();
 
         Assert.assertNotSame("Quantidade das listas são as mesmas.",
-            unexpected, actual);
+                unexpected, actual);
     }
 
     /**
