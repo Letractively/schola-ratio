@@ -79,7 +79,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
         userLogin.setPermissoes(permissoes);
 
         usuario.setCpf(32932112388L);
-        usuario.setDataExpedicao(new Date(103, 06, 12));
+        usuario.setDataNascimento(new Date(103, 06, 12));
         usuario.setEmail("osnircunha@email.com");
         usuario.setEndereco(endereco);
         usuario.setNacionalidade("Brasileiro");

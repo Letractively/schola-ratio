@@ -59,7 +59,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
         endereco.setRua("rua");
 
         aluno.setCpf(32932112388L);
-        aluno.setDataExpedicao(new Date(103, 06, 12));
+        aluno.setDataNascimento(new Date(103, 06, 12));
         aluno.setEmail("osnircunha@email.com");
         aluno.setEndereco(endereco);
         aluno.setNacionalidade("Brasileiro");
