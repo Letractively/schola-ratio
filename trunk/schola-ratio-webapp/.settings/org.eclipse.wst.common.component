@@ -4,6 +4,12 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="schola-ratio-api.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/schola-ratio-api/schola-ratio-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="schola-ratio-impl.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/schola-ratio-impl/schola-ratio-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="schola-ratio-webapp"/>
         <property name="java-output-path" value="/schola-ratio-webapp/target/classes"/>
     </wb-module>
