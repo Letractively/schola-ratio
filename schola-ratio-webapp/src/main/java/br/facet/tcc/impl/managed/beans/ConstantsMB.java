@@ -9,13 +9,13 @@
  */
 package br.facet.tcc.impl.managed.beans;
 
-import javax.faces.bean.ManagedBean;
-
-import org.springframework.stereotype.Component;
+import java.util.HashMap;
+import java.util.Map;
 
 import br.facet.tcc.enums.Bimestre;
 import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
+import br.facet.tcc.enums.UserRoles;
 
 /**
  * <b>FIXME</b>: Each class and interface specification must include:
@@ -38,9 +38,8 @@ import br.facet.tcc.enums.Sexo;
  * @version 0.0.1
  * @since schola-ratio-webapp
  */
-@ManagedBean(name = "constantsMB")
-@Component
-public class ConstantsMB {
+
+public abstract class ConstantsMB {
 
     /**
      * @return
@@ -61,5 +60,49 @@ public class ConstantsMB {
 
     public Sexo[] getSexoList() {
         return Sexo.values();
+    }
+
+    public Map<String, br.facet.tcc.pojo.UserRoles> getUserRoles() {
+        Map<String, br.facet.tcc.pojo.UserRoles> selectManyRoles = new HashMap<String, br.facet.tcc.pojo.UserRoles>();
+        for (int i = 0; i < UserRoles.values().length; i++) {
+            br.facet.tcc.pojo.UserRoles role;
+            switch (UserRoles.values()[i]) {
+            case ROLE_ACA:
+                role = new br.facet.tcc.pojo.UserRoles();
+                role.setId(UserRoles.ROLE_ACA.getId());
+                role.setUserRole(UserRoles.ROLE_ACA);
+                selectManyRoles.put("Academico", role);
+                break;
+            case ROLE_ADM:
+                role = new br.facet.tcc.pojo.UserRoles();
+                role.setId(UserRoles.ROLE_ADM.getId());
+                role.setUserRole(UserRoles.ROLE_ADM);
+                selectManyRoles.put("Administrativo", role);
+                break;
+            case ROLE_CFG:
+                role = new br.facet.tcc.pojo.UserRoles();
+                role.setUserRole(UserRoles.ROLE_CFG);
+                role.setId(UserRoles.ROLE_CFG.getId());
+                selectManyRoles.put("Configurações", role);
+                break;
+            case ROLE_FIN:
+                role = new br.facet.tcc.pojo.UserRoles();
+                role.setUserRole(UserRoles.ROLE_FIN);
+                role.setId(UserRoles.ROLE_FIN.getId());
+                selectManyRoles.put("Financeiro", role);
+                break;
+            case ROLE_USR:
+                role = new br.facet.tcc.pojo.UserRoles();
+                role.setUserRole(UserRoles.ROLE_USR);
+                role.setId(UserRoles.ROLE_USR.getId());
+                selectManyRoles.put("Usuario", role);
+                break;
+
+            default:
+                break;
+            }
+        }
+
+        return selectManyRoles;
     }
 }
