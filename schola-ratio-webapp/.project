@@ -3,6 +3,8 @@
 	<name>schola-ratio-webapp</name>
 	<comment></comment>
 	<projects>
+		<project>schola-ratio-api</project>
+		<project>schola-ratio-impl</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
