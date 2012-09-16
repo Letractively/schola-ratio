@@ -128,35 +128,154 @@
 									</p:column>
 									<p:column>CPF</p:column>
 									<p:column>
-										<p:inputMask mask="999.999.999-99" id="cpfUsuario" value="#{userMB.usuario.cpf}">
+										<p:inputMask mask="99999999999" id="cpfUsuario" value="#{userMB.usuario.cpf}">
 											<p:ajax event="blur" update="cpfMsg" />
 											<p:message id="cpfMsg" for="cpfUsuario" showDetail="true" display="icon" />
 										</p:inputMask>
 									</p:column>
 								</p:row>
 
+							</p:panelGrid>
+						</p:tab>
+
+						<p:tab title="Endereco">
+							<p:panelGrid styleClass="companyHeaderGrid">
 								<p:row>
-									<p:column>
-										<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-search"
-											action="#{userMB.salvarUsuario}" update=":tbSalvar" ajax="false" />
+									<p:column>CEP</p:column>
+									<p:column colspan="1">
+										<p:inputMask mask="99999999" id="cepUsuario" value="#{userMB.usuario.endereco.cep}"
+											size="10">
+											<f:validateLength minimum="5" />
+											<p:ajax event="blur" update="cepMsg" />
+											<p:message id="cepMsg" for="cepUsuario" showDetail="true" display="icon" />
+										</p:inputMask>
 									</p:column>
 
-									<p:column>
-										<p:commandButton id="btnCancelar" value="Cancelar" icon="ui-icon-search" ajax="false" />
+									<p:column>Rua</p:column>
+									<p:column colspan="1">
+										<p:inputText id="enderecoUsuario" value="#{userMB.usuario.endereco.rua}" size="30">
+											<f:validateLength minimum="5" />
+											<p:ajax event="blur" update="enderecoMsg" />
+											<p:message id="enderecoMsg" for="enderecoUsuario" showDetail="true" display="icon" />
+										</p:inputText>
+									</p:column>
+
+									<p:column>Numero</p:column>
+									<p:column colspan="1">
+										<p:inputText id="numeroEnderecoUsuario" value="#{userMB.usuario.endereco.numero}" size="6">
+											<p:ajax event="blur" update="numeroEnderecoMsg" />
+											<p:message id="numeroEnderecoMsg" for="numeroEnderecoUsuario" showDetail="true"
+												display="icon" />
+										</p:inputText>
+									</p:column>
+
+									<p:column>Complemento</p:column>
+									<p:column colspan="1">
+										<p:inputText id="complementoUsuario" value="#{userMB.usuario.endereco.complemento}"
+											size="20">
+											<p:ajax event="blur" update="complementoMsg" />
+											<p:message id="complementoMsg" for="complementoUsuario" showDetail="true" display="icon" />
+										</p:inputText>
+									</p:column>
+
+								</p:row>
+
+								<p:row>
+									<p:column>Bairro</p:column>
+									<p:column colspan="1">
+										<p:inputText id="bairroUsuario" value="#{userMB.usuario.endereco.bairro}" size="30">
+											<f:validateLength minimum="5" />
+											<p:ajax event="blur" update="bairroMsg" />
+											<p:message id="bairroMsg" for="bairroUsuario" showDetail="true" display="icon" />
+										</p:inputText>
+									</p:column>
+
+
+									<p:column>Cidade</p:column>
+									<p:column colspan="1">
+										<p:inputText id="cidadeUsuario" value="#{userMB.usuario.endereco.cidade}" size="20">
+											<f:validateLength minimum="5" />
+											<p:ajax event="blur" update="cidadeMsg" />
+											<p:message id="cidadeMsg" for="cidadeUsuario" showDetail="true" display="icon" />
+										</p:inputText>
+									</p:column>
+
+									<p:column>UF</p:column>
+									<p:column colspan="1">
+										<p:selectOneMenu value="#{userMB.usuario.endereco.estado}" effect="fade">
+											<f:selectItem itemLabel="Selecione" />
+											<f:selectItems value="#{constantsMB.estadoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+
+
+								<p:row>
+									<p:column>Telefone</p:column>
+									<p:column colspan="1">
+										<p:inputText id="telefoneUsuario" value="#{userMB.usuario.telefone}" size="15">
+											<p:ajax event="blur" update="telefoneMsg" />
+											<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" display="icon" />
+										</p:inputText>
+									</p:column>
+
+									<p:column>Email</p:column>
+									<p:column colspan="1">
+										<p:inputText id="emailUsuario" value="#{userMB.usuario.email}" size="30">
+											<f:validateLength minimum="5" />
+											<p:ajax event="blur" update="emailMsg" />
+											<p:message id="emailMsg" for="emailUsuario" showDetail="true" display="icon" />
+										</p:inputText>
 									</p:column>
 								</p:row>
 							</p:panelGrid>
 						</p:tab>
 
-						<p:tab title="Endereço">
+						<p:tab title="Acesso">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>Usuario</p:column>
+									<p:column colspan="1">
+										<p:inputText id="userName" value="#{userMB.usuario.userLogin.username}" size="15">
+											<p:ajax event="blur" update="usernameMsg" />
+											<p:message id="usernameMsg" for="userName" showDetail="true" display="icon" />
+										</p:inputText>
+									</p:column>
 
+									<p:column>Senha</p:column>
+									<p:column colspan="1">
+										<p:inputText id="senhaUsuario" type="password"
+											value="#{userMB.usuario.userLogin.password}" size="15">
+											<f:validateLength minimum="5" />
+											<p:ajax event="blur" update="senhaMsg" />
+											<p:message id="senhaMsg" for="senhaUsuario" showDetail="true" display="icon" />
+										</p:inputText>
+									</p:column>
+									<p:column>Permissões</p:column>
+									<p:column>
+										<p:selectManyCheckbox value="#{userMB.usuario.userLogin.permissoes}"
+											layout="pageDirection">
+											<f:selectItems value="#{constantsMB.userRoles}" />
+										</p:selectManyCheckbox>
+									</p:column>
+
+
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk"
+											action="#{userMB.salvarUsuario}" update=":tbSalvar" ajax="false" />
+									</p:column>
+
+									<p:column>
+										<p:commandButton id="btnCancelar" value="Cancelar" icon="ui-icon-cancel" ajax="false" 
+										action="#{userMB.reset()}"/>
+									</p:column>
+								</p:row>
+
+							</p:panelGrid>
 						</p:tab>
 
-						</p:tab>
-
-						<p:tab title="Confirmação">
-
-						</p:tab>
 
 					</p:wizard>
 				</p:tab>
