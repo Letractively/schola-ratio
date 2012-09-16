@@ -31,7 +31,7 @@ import br.facet.tcc.pojo.Usuario;
  */
 @ManagedBean(name = "userMB")
 @ViewScoped
-public class UsuarioManagedBean implements Serializable {
+public class UsuarioManagedBean extends ConstantsMB implements Serializable {
 
     private static final Logger log = Logger
             .getLogger(UsuarioManagedBean.class);
