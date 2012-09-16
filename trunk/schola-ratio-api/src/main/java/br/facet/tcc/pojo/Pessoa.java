@@ -68,7 +68,7 @@ public abstract class Pessoa {
 
     private Status status;
 
-    private Endereco endereco;
+    private Endereco endereco = new Endereco();
 
     private String telefone;
 
