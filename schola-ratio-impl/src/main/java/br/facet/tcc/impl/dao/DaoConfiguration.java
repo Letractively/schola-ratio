@@ -37,7 +37,7 @@ import br.facet.tcc.impl.util.HibernateCriteria;
  * @since 0.0.1
  */
 public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
-    Dao<T> {
+        Dao<T> {
 
     /**
      * 
@@ -69,7 +69,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     @Override
     public void atualizar(T t) throws DaoException {
         try {
-            getHibernateTemplate().saveOrUpdate(t);
+            getHibernateTemplate().merge(t);
             logger.debug("Objeto atualizado com sucesso em " + t.getClass());
         } catch (HibernateException e) {
             throw new DaoException(e);
