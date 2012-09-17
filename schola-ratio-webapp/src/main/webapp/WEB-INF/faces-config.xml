@@ -10,6 +10,10 @@
         <resource-handler>org.primefaces.application.PrimeResourceHandler</resource-handler>	
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
+	<converter>
+		<display-name>roleConverter</display-name>
+		<converter-class>br.facet.tcc.impl.converter.RoleConverter</converter-class>
+	</converter>
 	
 	<!-- configuration of navigation rules -->	
 	<navigation-rule>
