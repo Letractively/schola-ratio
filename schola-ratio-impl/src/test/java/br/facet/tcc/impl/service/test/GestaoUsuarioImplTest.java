@@ -14,10 +14,9 @@
  */
 package br.facet.tcc.impl.service.test;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Assert;
@@ -55,7 +54,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
         Endereco endereco = new Endereco();
         UserLogin userLogin = new UserLogin();
 
-        Set<br.facet.tcc.pojo.UserRoles> permissoes = new HashSet<br.facet.tcc.pojo.UserRoles>();
+        List<br.facet.tcc.pojo.UserRoles> permissoes = new ArrayList<br.facet.tcc.pojo.UserRoles>();
 
         endereco.setBairro("bairro");
         endereco.setCep(123);
