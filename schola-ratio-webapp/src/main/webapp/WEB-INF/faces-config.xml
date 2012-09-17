@@ -12,7 +12,9 @@
     </application>
 	<converter>
 		<display-name>roleConverter</display-name>
+		<converter-for-class>br.facet.tcc.pojo.UserRoles</converter-for-class>
 		<converter-class>br.facet.tcc.impl.converter.RoleConverter</converter-class>
+		
 	</converter>
 	
 	<!-- configuration of navigation rules -->	
