@@ -14,7 +14,7 @@
 package br.facet.tcc.pojo;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,93 +36,93 @@ import br.facet.tcc.annotations.Searchable;
 @Table(name = "tb_user_login")
 public class UserLogin implements Serializable {
 
-	/**
+    /**
      * 
      */
-	private static final long serialVersionUID = 722657699635191181L;
+    private static final long serialVersionUID = 722657699635191181L;
 
-	private String username;
+    private String username;
 
-	private String password;
+    private String password;
 
-	private boolean enable;
+    private boolean enable;
 
-	private Set<UserRoles> permissoes;
+    private List<UserRoles> permissoes;
 
-	public UserLogin() {
-		this.enable = true;
-	}
+    public UserLogin() {
+        this.enable = true;
+    }
 
-	/**
-	 * @return the username
-	 */
-	@Id
-	@Column(name = "user_name")
-	@Searchable
-	public String getUsername() {
-		return username;
-	}
+    /**
+     * @return the username
+     */
+    @Id
+    @Column(name = "user_name")
+    @Searchable
+    public String getUsername() {
+        return username;
+    }
 
-	/**
-	 * @return the password
-	 */
-	@Column
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * @return the password
+     */
+    @Column
+    public String getPassword() {
+        return password;
+    }
 
-	/**
-	 * @return the enable
-	 */
-	@Column(columnDefinition = "BOOLEAN")
-	public boolean isEnable() {
-		return enable;
-	}
+    /**
+     * @return the enable
+     */
+    @Column(columnDefinition = "BOOLEAN")
+    public boolean isEnable() {
+        return enable;
+    }
 
-	/**
-	 * @return
-	 * @since schola-ratio-api 0.0.1
-	 */
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	public Set<UserRoles> getPermissoes() {
-		return permissoes;
-	}
+    /**
+     * @return
+     * @since schola-ratio-api 0.0.1
+     */
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<UserRoles> getPermissoes() {
+        return permissoes;
+    }
 
-	/**
-	 * @param username
-	 *            the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    /**
+     * @param username
+     *            the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	/**
-	 * @param password
-	 *            the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * @param password
+     *            the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	/**
-	 * @param enable
-	 *            the enable to set
-	 */
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
+    /**
+     * @param enable
+     *            the enable to set
+     */
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
 
-	/**
-	 * @see java.lang.Object#toString()
-	 * @since since optional
-	 */
-	@Override
-	public String toString() {
-		return this.username;
-	}
+    /**
+     * @see java.lang.Object#toString()
+     * @since since optional
+     */
+    @Override
+    public String toString() {
+        return this.username;
+    }
 
-	public void setPermissoes(Set<UserRoles> permissoes) {
-		this.permissoes = permissoes;
-	}
+    public void setPermissoes(List<UserRoles> permissoes) {
+        this.permissoes = permissoes;
+    }
 
 }
