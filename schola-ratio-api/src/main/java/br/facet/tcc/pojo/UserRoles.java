@@ -29,53 +29,59 @@ import javax.persistence.Table;
 @SequenceGenerator(sequenceName = "seq_user_roles", name = "seq_user_roles", initialValue = 1)
 public class UserRoles {
 
-	private Integer id;
+    private Integer id;
 
-	private br.facet.tcc.enums.UserRoles userRole;
+    private br.facet.tcc.enums.UserRoles userRole;
 
-	/**
-	 * Returns the id
-	 * 
-	 * @return the id
-	 * @since schola-ratio-api package_version
-	 */
-	@Id
-	public Integer getId() {
-		return this.userRole.getId();
-	}
+    /**
+     * Returns the id
+     * 
+     * @return the id
+     * @since schola-ratio-api package_version
+     */
+    @Id
+    public Integer getId() {
+        return this.userRole.getId();
+    }
 
-	/**
-	 * Returns the userRole
-	 * 
-	 * @return the userRole
-	 * @since schola-ratio-api package_version
-	 */
+    /**
+     * Returns the userRole
+     * 
+     * @return the userRole
+     * @since schola-ratio-api package_version
+     */
 
-	@Enumerated(EnumType.STRING)
-	@Column
-	public br.facet.tcc.enums.UserRoles getUserRole() {
-		return userRole;
-	}
+    @Enumerated(EnumType.STRING)
+    @Column
+    public br.facet.tcc.enums.UserRoles getUserRole() {
+        return userRole;
+    }
 
-	/**
-	 * Sets the id
-	 * 
-	 * @param id
-	 *            the id to set
-	 * @since schola-ratio-api package_version
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    /**
+     * Sets the id
+     * 
+     * @param id
+     *            the id to set
+     * @since schola-ratio-api package_version
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	/**
-	 * Sets the userRole
-	 * 
-	 * @param userRole
-	 *            the userRole to set
-	 * @since schola-ratio-api package_version
-	 */
-	public void setUserRole(br.facet.tcc.enums.UserRoles userRole) {
-		this.userRole = userRole;
-	}
+    /**
+     * Sets the userRole
+     * 
+     * @param userRole
+     *            the userRole to set
+     * @since schola-ratio-api package_version
+     */
+    public void setUserRole(br.facet.tcc.enums.UserRoles userRole) {
+        this.userRole = userRole;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        UserRoles roles = (UserRoles) obj;
+        return this.getUserRole().getId() == roles.getId();
+    }
 }
