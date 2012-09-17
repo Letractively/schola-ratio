@@ -9,8 +9,10 @@
  */
 package br.facet.tcc.impl.managed.beans;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
 
 import br.facet.tcc.enums.Bimestre;
 import br.facet.tcc.enums.Estado;
@@ -62,8 +64,8 @@ public abstract class ConstantsMB {
         return Sexo.values();
     }
 
-    public Map<String, br.facet.tcc.pojo.UserRoles> getUserRoles() {
-        Map<String, br.facet.tcc.pojo.UserRoles> selectManyRoles = new HashMap<String, br.facet.tcc.pojo.UserRoles>();
+    public List getUserRoles_() {
+        List selectManyRoles = new ArrayList();
         for (int i = 0; i < UserRoles.values().length; i++) {
             br.facet.tcc.pojo.UserRoles role;
             switch (UserRoles.values()[i]) {
@@ -71,31 +73,31 @@ public abstract class ConstantsMB {
                 role = new br.facet.tcc.pojo.UserRoles();
                 role.setId(UserRoles.ROLE_ACA.getId());
                 role.setUserRole(UserRoles.ROLE_ACA);
-                selectManyRoles.put("Academico", role);
+                selectManyRoles.add(new SelectItem(role, "Academico"));
                 break;
             case ROLE_ADM:
                 role = new br.facet.tcc.pojo.UserRoles();
                 role.setId(UserRoles.ROLE_ADM.getId());
                 role.setUserRole(UserRoles.ROLE_ADM);
-                selectManyRoles.put("Administrativo", role);
+                selectManyRoles.add(new SelectItem(role, "Administrativo"));
                 break;
             case ROLE_CFG:
                 role = new br.facet.tcc.pojo.UserRoles();
                 role.setUserRole(UserRoles.ROLE_CFG);
                 role.setId(UserRoles.ROLE_CFG.getId());
-                selectManyRoles.put("Configurações", role);
+                selectManyRoles.add(new SelectItem(role, "Configurações"));
                 break;
             case ROLE_FIN:
                 role = new br.facet.tcc.pojo.UserRoles();
                 role.setUserRole(UserRoles.ROLE_FIN);
                 role.setId(UserRoles.ROLE_FIN.getId());
-                selectManyRoles.put("Financeiro", role);
+                selectManyRoles.add(new SelectItem(role, "Financeiro"));
                 break;
             case ROLE_USR:
                 role = new br.facet.tcc.pojo.UserRoles();
                 role.setUserRole(UserRoles.ROLE_USR);
                 role.setId(UserRoles.ROLE_USR.getId());
-                selectManyRoles.put("Usuario", role);
+                selectManyRoles.add(new SelectItem(role, "Usuario"));
                 break;
 
             default:
@@ -104,5 +106,18 @@ public abstract class ConstantsMB {
         }
 
         return selectManyRoles;
+    }
+
+    public List<br.facet.tcc.pojo.UserRoles> getUserRoles() {
+        List<br.facet.tcc.pojo.UserRoles> roles = new ArrayList<br.facet.tcc.pojo.UserRoles>();
+        for (UserRoles userRole : UserRoles.values()) {
+            br.facet.tcc.pojo.UserRoles role = new br.facet.tcc.pojo.UserRoles();
+            role.setId(userRole.getId());
+            role.setUserRole(userRole);
+
+            roles.add(role);
+        }
+
+        return roles;
     }
 }
