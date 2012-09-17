@@ -1,8 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<style type="text/css">
@@ -22,17 +24,20 @@
 
 		<h:form id="salvar">
 			<p:accordionPanel activeIndex="-1">
-				<p:tab title="Novo Usuario" titleStyle="font-weight: bold; text-align: left;">
-					<p:wizard>
-						<p:tab title="Dados Pessoais">
+				<p:tab title="Novo Usuario"
+					titleStyle="font-weight: bold; text-align: left;">
+<!-- 					<p:wizard> -->
+<!-- 						<p:tab title="Dados Pessoais"> -->
 							<p:panelGrid styleClass="companyHeaderGrid">
 								<p:row>
 									<p:column>Nome</p:column>
 									<p:column colspan="1">
-										<p:inputText id="nomeUsuario" value="#{userMB.usuario.nome}" size="30">
+										<p:inputText id="nomeUsuario" value="#{userMB.usuario.nome}"
+											size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="nomeMsg" />
-											<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" display="icon" />
+											<p:message id="nomeMsg" for="nomeUsuario" showDetail="true"
+												display="icon" />
 										</p:inputText>
 									</p:column>
 
@@ -42,7 +47,8 @@
 											value="#{userMB.usuario.dataNascimento}">
 											<f:converter converterId="javax.faces.DateTime" />
 											<p:ajax event="blur" update="dtNasMsg" />
-											<p:message id="dtNasMsg" for="dataNascimento" showDetail="true" display="icon" />
+											<p:message id="dtNasMsg" for="dataNascimento"
+												showDetail="true" display="icon" />
 										</p:inputMask>
 									</p:column>
 
@@ -50,7 +56,7 @@
 									<p:column>
 										<p:selectOneMenu value="#{userMB.usuario.sexo}" effect="fade">
 											<f:selectItem itemLabel="Selecione" />
-											<f:selectItems value="#{constantsMB.sexoList}" />
+											<f:selectItems value="#{userMB.sexoList}" />
 										</p:selectOneMenu>
 									</p:column>
 								</p:row>
@@ -58,25 +64,30 @@
 								<p:row>
 									<p:column>Nacionalidade</p:column>
 									<p:column colspan="1">
-										<p:inputText id="nacionalidadeUsuario" value="#{userMB.usuario.nacionalidade}" size="30">
+										<p:inputText id="nacionalidadeUsuario"
+											value="#{userMB.usuario.nacionalidade}" size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="nacMsg" />
-											<p:message id="nacMsg" for="nacionalidadeUsuario" showDetail="true" display="icon" />
+											<p:message id="nacMsg" for="nacionalidadeUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 									<p:column>Naturalidade</p:column>
 									<p:column colspan="1">
-										<p:inputText id="naturalidadeUsuario" value="#{userMB.usuario.naturalidade}" size="30">
+										<p:inputText id="naturalidadeUsuario"
+											value="#{userMB.usuario.naturalidade}" size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="natMsg" />
-											<p:message id="natMsg" for="naturalidadeUsuario" showDetail="true" display="icon" />
+											<p:message id="natMsg" for="naturalidadeUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 									<p:column>UF</p:column>
 									<p:column>
-										<p:selectOneMenu value="#{userMB.usuario.estadoNat}" effect="fade">
+										<p:selectOneMenu value="#{userMB.usuario.estadoNat}"
+											effect="fade">
 											<f:selectItem itemLabel="Selecione" />
-											<f:selectItems value="#{constantsMB.estadoList}" />
+											<f:selectItems value="#{userMB.estadoList}" />
 										</p:selectOneMenu>
 									</p:column>
 								</p:row>
@@ -84,27 +95,32 @@
 								<p:row>
 									<p:column>RG</p:column>
 									<p:column colspan="1">
-										<p:inputText id="rgUsuario" value="#{userMB.usuario.rg}" size="20">
+										<p:inputText id="rgUsuario" value="#{userMB.usuario.rg}"
+											size="20">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="rgMsg" />
-											<p:message id="rgMsg" for="rgUsuario" showDetail="true" display="icon" />
+											<p:message id="rgMsg" for="rgUsuario" showDetail="true"
+												display="icon" />
 										</p:inputText>
 									</p:column>
 
 									<p:column>Orgão Expedidor</p:column>
 									<p:column colspan="1">
-										<p:inputText id="orgaoExpedidorUsuario" value="#{userMB.usuario.orgaoExpeditor}" size="30">
+										<p:inputText id="orgaoExpedidorUsuario"
+											value="#{userMB.usuario.orgaoExpeditor}" size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="orgExpMsg" />
-											<p:message id="orgExpMsg" for="orgaoExpedidorUsuario" showDetail="true" display="icon" />
+											<p:message id="orgExpMsg" for="orgaoExpedidorUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 
 									<p:column>UF</p:column>
 									<p:column colspan="1">
-										<p:selectOneMenu value="#{userMB.usuario.ufOrgaoExpeditor}" effect="fade">
+										<p:selectOneMenu value="#{userMB.usuario.ufOrgaoExpeditor}"
+											effect="fade">
 											<f:selectItem itemLabel="Selecione" />
-											<f:selectItems value="#{constantsMB.estadoList}" />
+											<f:selectItems value="#{userMB.estadoList}" />
 										</p:selectOneMenu>
 									</p:column>
 								</p:row>
@@ -112,69 +128,80 @@
 								<p:row>
 									<p:column>Nome do Pai</p:column>
 									<p:column colspan="1">
-										<p:inputText id="nomePaiUsuario" value="#{userMB.usuario.nomePai}" size="30">
+										<p:inputText id="nomePaiUsuario"
+											value="#{userMB.usuario.nomePai}" size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="nomePaiMsg" />
-											<p:message id="nomePaiMsg" for="nomePaiUsuario" showDetail="true" display="icon" />
+											<p:message id="nomePaiMsg" for="nomePaiUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 									<p:column>Nome da Mãe</p:column>
 									<p:column colspan="1">
-										<p:inputText id="nomeMaeUsuario" value="#{userMB.usuario.nomeMae}" size="30">
+										<p:inputText id="nomeMaeUsuario"
+											value="#{userMB.usuario.nomeMae}" size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="nomeMaeMsg" />
-											<p:message id="nomeMaeMsg" for="nomeMaeUsuario" showDetail="true" display="icon" />
+											<p:message id="nomeMaeMsg" for="nomeMaeUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 									<p:column>CPF</p:column>
 									<p:column>
-										<p:inputMask mask="99999999999" id="cpfUsuario" value="#{userMB.usuario.cpf}">
+										<p:inputMask mask="99999999999" id="cpfUsuario"
+											value="#{userMB.usuario.cpf}">
 											<p:ajax event="blur" update="cpfMsg" />
-											<p:message id="cpfMsg" for="cpfUsuario" showDetail="true" display="icon" />
+											<p:message id="cpfMsg" for="cpfUsuario" showDetail="true"
+												display="icon" />
 										</p:inputMask>
 									</p:column>
 								</p:row>
 
 							</p:panelGrid>
-						</p:tab>
+<!-- 						</p:tab> -->
 
-						<p:tab title="Endereco">
+<!-- 						<p:tab title="Endereco"> -->
 							<p:panelGrid styleClass="companyHeaderGrid">
 								<p:row>
 									<p:column>CEP</p:column>
 									<p:column colspan="1">
-										<p:inputMask mask="99999999" id="cepUsuario" value="#{userMB.usuario.endereco.cep}"
-											size="10">
+										<p:inputMask mask="99999999" id="cepUsuario"
+											value="#{userMB.usuario.endereco.cep}" size="10">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="cepMsg" />
-											<p:message id="cepMsg" for="cepUsuario" showDetail="true" display="icon" />
+											<p:message id="cepMsg" for="cepUsuario" showDetail="true"
+												display="icon" />
 										</p:inputMask>
 									</p:column>
 
 									<p:column>Rua</p:column>
 									<p:column colspan="1">
-										<p:inputText id="enderecoUsuario" value="#{userMB.usuario.endereco.rua}" size="30">
+										<p:inputText id="enderecoUsuario"
+											value="#{userMB.usuario.endereco.rua}" size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="enderecoMsg" />
-											<p:message id="enderecoMsg" for="enderecoUsuario" showDetail="true" display="icon" />
+											<p:message id="enderecoMsg" for="enderecoUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 
 									<p:column>Numero</p:column>
 									<p:column colspan="1">
-										<p:inputText id="numeroEnderecoUsuario" value="#{userMB.usuario.endereco.numero}" size="6">
+										<p:inputText id="numeroEnderecoUsuario"
+											value="#{userMB.usuario.endereco.numero}" size="6">
 											<p:ajax event="blur" update="numeroEnderecoMsg" />
-											<p:message id="numeroEnderecoMsg" for="numeroEnderecoUsuario" showDetail="true"
-												display="icon" />
+											<p:message id="numeroEnderecoMsg" for="numeroEnderecoUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 
 									<p:column>Complemento</p:column>
 									<p:column colspan="1">
-										<p:inputText id="complementoUsuario" value="#{userMB.usuario.endereco.complemento}"
-											size="20">
+										<p:inputText id="complementoUsuario"
+											value="#{userMB.usuario.endereco.complemento}" size="20">
 											<p:ajax event="blur" update="complementoMsg" />
-											<p:message id="complementoMsg" for="complementoUsuario" showDetail="true" display="icon" />
+											<p:message id="complementoMsg" for="complementoUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 
@@ -183,28 +210,33 @@
 								<p:row>
 									<p:column>Bairro</p:column>
 									<p:column colspan="1">
-										<p:inputText id="bairroUsuario" value="#{userMB.usuario.endereco.bairro}" size="30">
+										<p:inputText id="bairroUsuario"
+											value="#{userMB.usuario.endereco.bairro}" size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="bairroMsg" />
-											<p:message id="bairroMsg" for="bairroUsuario" showDetail="true" display="icon" />
+											<p:message id="bairroMsg" for="bairroUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 
 
 									<p:column>Cidade</p:column>
 									<p:column colspan="1">
-										<p:inputText id="cidadeUsuario" value="#{userMB.usuario.endereco.cidade}" size="20">
+										<p:inputText id="cidadeUsuario"
+											value="#{userMB.usuario.endereco.cidade}" size="20">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="cidadeMsg" />
-											<p:message id="cidadeMsg" for="cidadeUsuario" showDetail="true" display="icon" />
+											<p:message id="cidadeMsg" for="cidadeUsuario"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 
 									<p:column>UF</p:column>
 									<p:column colspan="1">
-										<p:selectOneMenu value="#{userMB.usuario.endereco.estado}" effect="fade">
+										<p:selectOneMenu value="#{userMB.usuario.endereco.estado}"
+											effect="fade">
 											<f:selectItem itemLabel="Selecione" />
-											<f:selectItems value="#{constantsMB.estadoList}" />
+											<f:selectItems value="#{userMB.estadoList}" />
 										</p:selectOneMenu>
 									</p:column>
 								</p:row>
@@ -213,32 +245,38 @@
 								<p:row>
 									<p:column>Telefone</p:column>
 									<p:column colspan="1">
-										<p:inputText id="telefoneUsuario" value="#{userMB.usuario.telefone}" size="15">
+										<p:inputText id="telefoneUsuario"
+											value="#{userMB.usuario.telefone}" size="15">
 											<p:ajax event="blur" update="telefoneMsg" />
-											<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" display="icon" />
+											<p:message id="telefoneMsg" for="telefoneMsg"
+												showDetail="true" display="icon" />
 										</p:inputText>
 									</p:column>
 
 									<p:column>Email</p:column>
 									<p:column colspan="1">
-										<p:inputText id="emailUsuario" value="#{userMB.usuario.email}" size="30">
+										<p:inputText id="emailUsuario" value="#{userMB.usuario.email}"
+											size="30">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="emailMsg" />
-											<p:message id="emailMsg" for="emailUsuario" showDetail="true" display="icon" />
+											<p:message id="emailMsg" for="emailUsuario" showDetail="true"
+												display="icon" />
 										</p:inputText>
 									</p:column>
 								</p:row>
 							</p:panelGrid>
-						</p:tab>
+<!-- 						</p:tab> -->
 
-						<p:tab title="Acesso">
+<!-- 						<p:tab title="Acesso"> -->
 							<p:panelGrid styleClass="companyHeaderGrid">
 								<p:row>
 									<p:column>Usuario</p:column>
 									<p:column colspan="1">
-										<p:inputText id="userName" value="#{userMB.usuario.userLogin.username}" size="15">
+										<p:inputText id="userName"
+											value="#{userMB.usuario.userLogin.username}" size="15">
 											<p:ajax event="blur" update="usernameMsg" />
-											<p:message id="usernameMsg" for="userName" showDetail="true" display="icon" />
+											<p:message id="usernameMsg" for="userName" showDetail="true"
+												display="icon" />
 										</p:inputText>
 									</p:column>
 
@@ -248,14 +286,16 @@
 											value="#{userMB.usuario.userLogin.password}" size="15">
 											<f:validateLength minimum="5" />
 											<p:ajax event="blur" update="senhaMsg" />
-											<p:message id="senhaMsg" for="senhaUsuario" showDetail="true" display="icon" />
+											<p:message id="senhaMsg" for="senhaUsuario" showDetail="true"
+												display="icon" />
 										</p:inputText>
 									</p:column>
 									<p:column>Permissões</p:column>
 									<p:column>
-										<p:selectManyCheckbox value="#{userMB.usuario.userLogin.permissoes}"
-											layout="pageDirection">
-											<f:selectItems value="#{constantsMB.userRoles}" />
+										<p:selectManyCheckbox
+											value="#{userMB.usuario.userLogin.permissoes}"
+											layout="pageDirection" converter="roleConverter">
+											<f:selectItems value="#{userMB.userRoles}"	var="role"  itemLabel="#{role.userRole.descricao}" itemValue="#{role}"/>
 										</p:selectManyCheckbox>
 									</p:column>
 
@@ -263,70 +303,85 @@
 								</p:row>
 								<p:row>
 									<p:column>
-										<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk"
-											action="#{userMB.salvarUsuario}" update=":tbSalvar" ajax="false" />
+										<p:commandButton id="btnSalvar" value="Salvar"
+											icon="ui-icon-disk" action="#{userMB.salvarUsuario}"
+											update=":tbSalvar" ajax="false" />
 									</p:column>
 
 									<p:column>
-										<p:commandButton id="btnCancelar" value="Cancelar" icon="ui-icon-cancel" ajax="false" 
-										action="#{userMB.reset()}"/>
+										<p:commandButton id="btnCancelar" value="Cancelar"
+											icon="ui-icon-cancel" ajax="false" action="#{userMB.reset()}" />
 									</p:column>
 								</p:row>
 
 							</p:panelGrid>
-						</p:tab>
+<!-- 						</p:tab> -->
 
 
-					</p:wizard>
+<!-- 					</p:wizard> -->
 				</p:tab>
 			</p:accordionPanel>
 		</h:form>
-
+<!-- Antigo -->
 		<h:form id="pesquisar">
 			<p:growl id="growl" showDetail="true" />
 			<div id="content" align="center">
-
-				<p:panel id="pesquisaUsuario" header="Pesquisar" style="text-align: left;">
+				<p:panel id="pesquisaUsuario" header="Pesquisar"
+					style="text-align: left;">
 					<h:panelGrid columns="2" cellpadding="5">
 
-						<h:outputLabel value="Nome" for="nomeUsuario" />
-						<p:inputText id="nomeUsuario" value="#{userMB.usuario.nome}" size="50">
+						<h:outputLabel value="Nome :" for="nomeUsuario" />
+						<p:inputText id="nomeUsuario" value="#{userMB.usuario.nome}"
+							size="50">
 							<f:validateLength minimum="5" />
 							<p:ajax event="blur" update="nomeMsg" />
-							<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" display="icon" />
+							<p:message id="nomeMsg" for="nomeUsuario" showDetail="true"
+								display="icon" />
 						</p:inputText>
 
 
-						<h:outputLabel value="CPF" for="cpfUsuario" />
-						<p:inputText id="cpfUsuario" value="#{userMB.usuario.cpf}" requiredMessage="Teste">
+						<h:outputLabel value="CPF :" for="cpfUsuario" />
+						<p:inputText id="cpfUsuario" value="#{userMB.usuario.cpf}"
+							requiredMessage="Teste">
 							<f:converter converterId="javax.faces.Long" />
 							<f:validateLength minimum="11" maximum="11" />
 							<p:ajax event="blur" update="cpfMsg" />
-							<p:message id="cpfMsg" for="cpfUsuario" showSummary="false" display="message" />
+							<p:message id="cpfMsg" for="cpfUsuario" showSummary="false"
+								display="message" />
 						</p:inputText>
 
-						<h:outputLabel value="Usuario" for="loginUsuario" />
-						<p:inputText id="loginUsuario" value="#{userMB.usuario.userLogin.username}">
+						<h:outputLabel value="Usuario :" for="loginUsuario" />
+						<p:inputText id="loginUsuario"
+							value="#{userMB.usuario.userLogin.username}">
 							<f:validateLength minimum="5" />
 							<p:ajax event="blur" update="loginMsg" />
-							<p:message id="loginMsg" for="loginUsuario" showDetail="true" display="icon" />
+							<p:message id="loginMsg" for="loginUsuario" showDetail="true"
+								display="icon" />
 						</p:inputText>
 
 						<h:inputHidden />
 
-						<p:commandButton id="btnPesquisar" value="Pesquisar" icon="ui-icon-search"
-							action="#{userMB.pesquisarUsuarios}" update=":tbUsuarios" ajax="false" />
+						<p:commandButton id="btnPesquisar" value="Pesquisar"
+							action="#{userMB.pesquisarUsuarios}" update=":tbUsuarios"
+							ajax="false" />
 
 					</h:panelGrid>
 
 				</p:panel>
 			</div>
-			<p:dataTable id="tbUsuarios" var="tUsuario" value="#{userMB.usuarioDataModel}" widgetVar="tabela"
-				paginatorAlwaysVisible="false" paginator="true" rows="10" paginatorPosition="bottom"
+
+			<p:dataTable id="tbUsuarios" var="tUsuario"
+				value="#{userMB.usuarioDataModel}" widgetVar="tabela"
+				paginatorAlwaysVisible="false"
+				selection="#{userMB.usuarioSelecionado}" selectionMode="single"
+				paginator="true" rows="10" paginatorPosition="bottom"
 				emptyMessage="Nenhum resultado">
 
-				<p:ajax event="rowUnselect" listener="#{tableBean.onRowUnselect}" update=":pesquisar:growl"
-					oncomplete="tabela.refresh()" />
+				<p:ajax event="rowSelect" listener="#{userMB.onRowSelect}"
+					update=":pesquisar:dialog :pesquisar:growl"
+					oncomplete="usuarioPopUp.show()" />
+				<p:ajax event="rowUnselect" listener="#{tableBean.onRowUnselect}"
+					update=":pesquisar:growl" oncomplete="tabela.refresh()" />
 
 				<f:facet name="header" style="text-align: left;">
                         Selecione uma linha para obter detalhes:
@@ -352,26 +407,24 @@
 					#{tUsuario.status}
 				</p:column>
 
-				<p:column headerText="Acoes">
-					<p:commandButton icon="ui-icon-trash" onclick="confirmation.show()" type="button" />
-
-					<p:commandButton icon="ui-icon-pencil" update=":pesquisar:dialog :pesquisar:growl"
-						oncomplete="usuarioPopUp.show()">
-						<f:setPropertyActionListener target="#{userMB.usuarioSelecionado}" value="#{tUsuario}" />
-					</p:commandButton>
+				<p:column headerText="Excluir">
+					<p:commandButton icon="ui-icon-trash" onclick="confirmation.show()"
+						type="button" />
 				</p:column>
 
 			</p:dataTable>
 			<p:confirmDialog message="Deseja realmente excluir este item?"
-				header="Inciando processo de exclusão" severity="alert" widgetVar="confirmation"
-				appendToBody="true">
-				<p:commandButton value="Sim" action="#{userMB.removerUsuario}" oncomplete="confirmation.hide()" />
+				header="Inciando processo de exclusão" severity="alert"
+				widgetVar="confirmation" appendToBody="true">
+				<p:commandButton value="Sim" action="#{userMB.removerUsuario}"
+					oncomplete="confirmation.hide()" />
 				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
 			</p:confirmDialog>
 
-			<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true" appendToBody="true">
+			<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false"
+				showEffect="fade" hideEffect="explode">
 
-				<h:panelGrid styleClass="companyHeaderGrid" id="display" columns="2"
+				<h:panelGrid id="display" columns="2"
 					rendered="#{userMB.usuarioSelecionado != null}">
 					<f:facet name="header">
 						<p:row>
@@ -449,8 +502,10 @@
 
 						<h:outputText value="Estado:" />
 						<p:inplace emptyLabel="Vazio">
-							<p:selectOneMenu value="#{userMB.usuarioSelecionado.endereco.estado}" effect="fade">
-								<f:selectItems value="#{constantsMB.estadoList}" />
+							<p:selectOneMenu
+								value="#{userMB.usuarioSelecionado.endereco.estado}"
+								effect="fade">
+								<f:selectItems value="#{userMB.estadoList}" />
 							</p:selectOneMenu>
 						</p:inplace>
 
@@ -461,16 +516,13 @@
 
 						<h:outputText value="Complemento :" />
 						<p:inplace emptyLabel="Vazio">
-							<p:inputText value="#{userMB.usuarioSelecionado.endereco.complemento}" />
+							<p:inputText
+								value="#{userMB.usuarioSelecionado.endereco.complemento}" />
 						</p:inplace>
 
+						<p:commandButton oncomplete="usuarioPopUp.hide()"
+							value="Atualizar" action="#{userMB.atualizarUsuario}" />
 					</p:panelGrid>
-					<p:commandButton oncomplete="usuarioPopUp.hide()" value="Atualizar"
-						action="#{userMB.atualizarUsuario}">
-						<p:ajax event="click" listener="#{userMB.pesquisarUsuarios}" update=":pesquisar:tbUsuarios"
-							oncomplete="tabela.refresh()" />
-
-					</p:commandButton>
 				</h:panelGrid>
 			</p:dialog>
 
