@@ -16,13 +16,14 @@ package br.facet.tcc.pojo;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 import br.facet.tcc.annotations.Searchable;
 
@@ -83,7 +84,7 @@ public class UserLogin implements Serializable {
      * @return
      * @since schola-ratio-api 0.0.1
      */
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     public List<UserRoles> getPermissoes() {
         return permissoes;
     }
@@ -101,7 +102,8 @@ public class UserLogin implements Serializable {
      *            the password to set
      */
     public void setPassword(String password) {
-        this.password = password;
+
+        this.password = DigestUtils.shaHex(password);
     }
 
     /**
