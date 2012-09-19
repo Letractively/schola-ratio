@@ -50,7 +50,7 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
 
     private Usuario usuarioSalvar;
 
-    private Usuario usuarioPesquisar;
+    private Usuario usuarioPesquisar = new Usuario();
 
     @ManagedProperty("#{usuarioDataModel}")
     private UsuarioDataModel usuarioDataModel;
@@ -104,24 +104,25 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
      * @since 0.0.1
      */
     public String pesquisarUsuarios() {
+
         listaUsuarios = new ArrayList<Usuario>();
-        if ("".equals(usuarioSalvar.getNome())) {
+        if ("".equals(usuarioPesquisar.getNome())) {
             log.info("UsuarioManagedBean.usuario.nome é vazio.");
-            usuarioSalvar.setNome(null);
+            usuarioPesquisar.setNome(null);
         }
 
-        if (usuarioSalvar.getCpf() == 0) {
+        if (usuarioPesquisar.getCpf() == 0) {
             log.info("UsuarioManagedBean.usuario.cpf é vazio.");
-            usuarioSalvar.setCpf(null);
+            usuarioPesquisar.setCpf(null);
         }
 
-        if ("".equals(usuarioSalvar.getUserLogin().getUsername())) {
+        if ("".equals(usuarioPesquisar.getUserLogin().getUsername())) {
             log.info("UsuarioManagedBean.usuario.login é vazio.");
-            usuarioSalvar.setUserLogin(null);
+            usuarioPesquisar.setUserLogin(null);
         }
 
         try {
-            listaUsuarios = usurioService.consultarUsuario(usuarioSalvar);
+            listaUsuarios = usurioService.consultarUsuario(usuarioPesquisar);
             log.info("UsuarioManagedBean.lista carregada.");
             this.usuarioDataModel.setWrappedData(listaUsuarios);
             log.info("UsuarioManagedBean.datamodel criado.");
@@ -179,8 +180,10 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
     public void reset() {
         UserLogin userLogin = new UserLogin();
         usuarioSalvar = new Usuario();
-        usuarioSalvar.setStatus(Status.ATIVO);
+        usuarioPesquisar = new Usuario();
         usuarioSalvar.setUserLogin(userLogin);
+        usuarioPesquisar.setUserLogin(userLogin);
+        usuarioSalvar.setStatus(Status.ATIVO);
     }
 
     public void onRowSelect(SelectEvent event) {
@@ -229,6 +232,13 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
     }
 
     /**
+     * @return the usuarioPesquisar
+     */
+    public Usuario getUsuarioPesquisar() {
+        return usuarioPesquisar;
+    }
+
+    /**
      * @param usurioService
      *            the usurioService to set
      */
@@ -260,12 +270,7 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
         this.usuarioSelecionado = usuarioSelecionado;
     }
 
-    public Usuario getUsuarioPesquisar() {
-        return usuarioPesquisar;
-    }
-
     public void setUsuarioPesquisar(Usuario usuarioPesquisar) {
         this.usuarioPesquisar = usuarioPesquisar;
     }
-
 }
