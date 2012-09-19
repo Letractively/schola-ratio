@@ -328,29 +328,29 @@
 				<p:panel id="pesquisaUsuario" header="Pesquisar"
 					style="text-align: left;">
 					<h:panelGrid columns="2" cellpadding="5">
-						<h:outputLabel value="Nome :" for="nomeUsuario" />
-						<p:inputText id="nomeUsuario" value="#{userMB.usuarioPesquisar.nome}"
+						<h:outputLabel value="Nome :" for="nomeUsuarioPesquisar" />
+						<p:inputText id="nomeUsuarioPesquisar" value="#{userMB.usuarioPesquisar.nome}"
 							size="50">
 							<f:validateLength minimum="5" />
-							<p:ajax event="blur" update="nomeMsg" />
-							<p:message id="nomeMsg" for="nomeUsuario" showDetail="true"
+							<p:ajax event="blur" update="nomePesquisarMsg" />
+							<p:message id="nomePesquisarMsg" for="nomeUsuarioPesquisar" showDetail="true"
 								display="icon" />
 						</p:inputText>
-						<h:outputLabel value="CPF :" for="cpfUsuario" />
-						<p:inputText id="cpfUsuario" value="#{userMB.usuarioPesquisar.cpf}"
+						<h:outputLabel value="CPF :" for="cpfUsuarioPesquisar" />
+						<p:inputText id="cpfUsuarioPesquisar" value="#{userMB.usuarioPesquisar.cpf}"
 							requiredMessage="Teste">
 							<f:converter converterId="javax.faces.Long" />
 							<f:validateLength minimum="11" maximum="11" />
 							<p:ajax event="blur" update="cpfMsg" />
-							<p:message id="cpfMsg" for="cpfUsuario" showSummary="false"
+							<p:message id="cpfMsg" for="cpfUsuarioPesquisar" showSummary="false"
 								display="message" />
 						</p:inputText>
-						<h:outputLabel value="Usuario :" for="loginUsuario" />
-						<p:inputText id="loginUsuario"
+						<h:outputLabel value="Usuario :" for="loginUsuarioPesquisar" />
+						<p:inputText id="loginUsuarioPesquisar"
 							value="#{userMB.usuarioPesquisar.userLogin.username}">
 							<f:validateLength minimum="5" />
 							<p:ajax event="blur" update="loginMsg" />
-							<p:message id="loginMsg" for="loginUsuario" showDetail="true"
+							<p:message id="loginMsg" for="loginUsuarioPesquisar" showDetail="true"
 								display="icon" />
 						</p:inputText>
 						<h:inputHidden />
@@ -361,7 +361,7 @@
 				</p:panel>
 			</div>
 
-			<p:dataTable id="tbUsuarios" var="tUsuario"
+			<p:dataTable id="tbUsuarios" var="tusuarioSalvar"
 				value="#{userMB.usuarioDataModel}" widgetVar="tabela"
 				paginatorAlwaysVisible="false"
 				selection="#{userMB.usuarioSelecionado}" selectionMode="single"
