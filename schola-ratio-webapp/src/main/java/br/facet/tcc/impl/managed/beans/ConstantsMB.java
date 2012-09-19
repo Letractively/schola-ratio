@@ -17,6 +17,7 @@ import javax.faces.model.SelectItem;
 import br.facet.tcc.enums.Bimestre;
 import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.Sexo;
+import br.facet.tcc.enums.Status;
 import br.facet.tcc.enums.UserRoles;
 
 /**
@@ -62,6 +63,10 @@ public abstract class ConstantsMB {
 
     public Sexo[] getSexoList() {
         return Sexo.values();
+    }
+
+    public Status[] getStatusList() {
+        return Status.values();
     }
 
     public List getUserRoles_() {
