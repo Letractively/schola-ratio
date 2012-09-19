@@ -70,6 +70,7 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
     public String salvarUsuario() {
         try {
             this.usurioService.salvarUsuario(this.usuarioSalvar);
+            this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
@@ -123,6 +124,7 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
 
         try {
             listaUsuarios = usurioService.consultarUsuario(usuarioPesquisar);
+            // listaUsuarios = usurioService.consultarUsuario(usuarioPesquisar);
             log.info("UsuarioManagedBean.lista carregada.");
             this.usuarioDataModel.setWrappedData(listaUsuarios);
             log.info("UsuarioManagedBean.datamodel criado.");
