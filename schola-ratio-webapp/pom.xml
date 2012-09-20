@@ -65,10 +65,10 @@
 			<version>3.1.1</version>
 		</dependency>
 
-		<dependency> 
+		<dependency>
 			<groupId>tcc.bsi.facet</groupId>
-			<artifactId>schola-ratio-impl</artifactId> 
-			<version>0.0.1-SNAPSHOT</version> 
+			<artifactId>schola-ratio-impl</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -96,9 +96,9 @@
 			<version>1.5.4</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>7.0.23</version>
 		</dependency>
 	</dependencies>
 </project>
