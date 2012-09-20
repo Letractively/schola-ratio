@@ -13,8 +13,10 @@
  */
 package br.facet.tcc.impl.dao;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Repository;
 
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Usuario;
 
 /**
@@ -25,5 +27,12 @@ import br.facet.tcc.pojo.Usuario;
  */
 @Repository("usuarioDao")
 public class UsuarioDaoImpl extends DaoConfiguration<Usuario> {
+
+    @Override
+    public Integer salvar(Usuario t) throws DaoException {
+        String password = DigestUtils.shaHex(t.getUserLogin().getPassword());
+        t.getUserLogin().setPassword(password);
+        return super.salvar(t);
+    }
 
 }
