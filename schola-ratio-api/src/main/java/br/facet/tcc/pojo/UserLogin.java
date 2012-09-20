@@ -23,8 +23,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import br.facet.tcc.annotations.Searchable;
 
 /**
@@ -102,8 +100,7 @@ public class UserLogin implements Serializable {
      *            the password to set
      */
     public void setPassword(String password) {
-
-        this.password = DigestUtils.shaHex(password);
+        this.password = password;
     }
 
     /**
