@@ -26,8 +26,6 @@
 			<p:accordionPanel activeIndex="-1">
 				<p:tab title="Novo Usuario"
 					titleStyle="font-weight: bold; text-align: left;">
-					<!-- 					<p:wizard> -->
-					<!-- 						<p:tab title="Dados Pessoais"> -->
 					<p:panelGrid styleClass="companyHeaderGrid">
 
 						<p:row>
@@ -41,13 +39,6 @@
 										display="icon" />
 								</p:inputText>
 							</p:column>
-
-<!-- 							<p:column>Status</p:column> -->
-<!-- 							<p:column colspan="1"> -->
-<!-- 								<p:selectOneMenu value="#{userMB.usuarioSalvar.status}" effect="fade"> -->
-<!-- 									<f:selectItem itemLabel="ATIVO" /> -->
-<!-- 								</p:selectOneMenu> -->
-<!-- 							</p:column> -->
 						</p:row>
 
 						<p:row>
@@ -164,11 +155,6 @@
 							</p:column>
 						</p:row>
 
-						<!-- 							</p:panelGrid> -->
-						<!-- 						</p:tab> -->
-						<!-- 						<p:tab title="Endereco"> -->
-						<!-- 							<p:panelGrid styleClass="companyHeaderGrid"> -->
-
 						<p:row>
 							<p:column>CEP</p:column>
 							<p:column colspan="1">
@@ -243,6 +229,7 @@
 								</p:selectOneMenu>
 							</p:column>
 						</p:row>
+						
 						<p:row>
 							<p:column>Telefone</p:column>
 							<p:column colspan="1">
@@ -264,10 +251,6 @@
 								</p:inputText>
 							</p:column>
 						</p:row>
-						<!-- 							</p:panelGrid> -->
-						<!-- 						</p:tab> -->
-						<!-- 						<p:tab title="Acesso"> -->
-						<!-- 							<p:panelGrid styleClass="companyHeaderGrid"> -->
 
 						<p:row>
 							<p:column>Usuario</p:column>
@@ -290,8 +273,8 @@
 								</p:inputText>
 							</p:column>
 						</p:row>
+						
 						<p:row>
-
 							<p:column>Permissões</p:column>
 							<p:column colspan="4">
 								<p:selectManyCheckbox
@@ -310,21 +293,18 @@
 									update=":tbSalvar" ajax="false" />
 							</p:column>
 							<p:column>
-								<p:commandButton id="btnCancelar" value="Cancelar"
+								<p:commandButton id="btnCancelar" value="Limpar"
 									icon="ui-icon-cancel" ajax="false" action="#{userMB.reset()}" />
 							</p:column>
 						</p:row>
 					</p:panelGrid>
-					<!-- 						</p:tab> -->
-					<!-- 					</p:wizard> -->
+
 				</p:tab>
 			</p:accordionPanel>
 		</h:form>
 		<h:form id="pesquisar">
 			<p:growl id="growl" showDetail="true" />
 			<div id="content" align="center">
-
-
 				<p:panel id="pesquisaUsuario" header="Pesquisar"
 					style="text-align: left;">
 					<h:panelGrid columns="2" cellpadding="5">
@@ -364,18 +344,14 @@
 			<p:dataTable id="tbUsuarios" var="tusuarioSalvar"
 				value="#{userMB.usuarioDataModel}" widgetVar="tabela"
 				paginatorAlwaysVisible="false"
-				selection="#{userMB.usuarioSelecionado}" selectionMode="single"
 				paginator="true" rows="10" paginatorPosition="bottom"
 				emptyMessage="Nenhum resultado">
-				<p:ajax event="rowSelect" listener="#{userMB.onRowSelect}"
-					update=":pesquisar:dialog :pesquisar:growl"
-					oncomplete="usuarioPopUp.show()" />
+<!-- 				<p:ajax event="rowSelect" listener="#{userMB.onRowSelect}" -->
+<!-- 					update=":pesquisar:dialog :pesquisar:growl" -->
+<!-- 					oncomplete="usuarioPopUp.show()" /> -->
 				<p:ajax event="rowUnselect" listener="#{tableBean.onRowUnselect}"
 					update=":pesquisar:growl" oncomplete="tabela.refresh()" />
 
-				<f:facet name="header" style="text-align: left;">
-                        Selecione uma linha para obter detalhes:
-                    </f:facet>
 				<p:column headerText="Nome">
 					#{tusuarioSalvar.nome}
 				</p:column>
@@ -397,8 +373,14 @@
 				</p:column>
 
 				<p:column headerText="Excluir">
-					<p:commandButton icon="ui-icon-trash" onclick="confirmation.show()"
-						type="button" />
+					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()">
+						<f:setPropertyActionListener value="#{tusuarioSalvar}" target="#{userMB.usuarioSelecionado}"/>
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-search" title="Atualizar" update=":pesquisar:dialog :pesquisar:growl" 
+					oncomplete="usuarioPopUp.show()"  >
+					<f:setPropertyActionListener value="#{tusuarioSalvar}" target="#{userMB.usuarioSelecionado}"/>
+					</p:commandButton>
+						
 				</p:column>
 
 			</p:dataTable>
@@ -406,12 +388,12 @@
 				header="Inciando processo de exclusão" severity="alert"
 				widgetVar="confirmation" appendToBody="true">
 				<p:commandButton value="Sim" action="#{userMB.removerUsuario}"
-					oncomplete="confirmation.hide()" />
+					oncomplete="confirmation.hide()"  />
 				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
 			</p:confirmDialog>
 
-			<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false"
-				showEffect="fade" hideEffect="explode">
+			<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true"
+				showEffect="fade" hideEffect="explode" appendToBody="true">
 
 				<h:panelGrid id="display" columns="2"
 					rendered="#{userMB.usuarioSelecionado != null}">
@@ -464,6 +446,7 @@
 							<p:inputText value="#{userMB.usuarioSelecionado.nomeMae}" />
 						</p:inplace>
 					</p:panelGrid>
+					
 					<p:panelGrid columns="2" cellpadding="4">
 						<f:facet name="header">
 							<h:outputText value="Endereço:" />
