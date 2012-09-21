@@ -82,7 +82,7 @@ public class UserLogin implements Serializable {
      * @return
      * @since schola-ratio-api 0.0.1
      */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     public List<UserRoles> getPermissoes() {
         return permissoes;
     }
