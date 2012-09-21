@@ -70,6 +70,11 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
     public String salvarUsuario() {
         try {
             this.usurioService.salvarUsuario(this.usuarioSalvar);
+
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Usuario salvo com sucesso.", "Código : "
+                            + this.usuarioSalvar.getId());
+            FacesContext.getCurrentInstance().addMessage("message", message);
             this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
@@ -89,6 +94,12 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
     public String atualizarUsuario() {
         try {
             this.usurioService.alterarUsuario(this.usuarioSelecionado);
+
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Usuario atualizado com sucesso.", "Código : "
+                            + this.usuarioSalvar.getId());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+            this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
@@ -129,7 +140,8 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
             this.usuarioDataModel.setWrappedData(listaUsuarios);
             log.info("UsuarioManagedBean.datamodel criado.");
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    this.listaUsuarios.size() + " usuários encontrado.", "");
+                    "Busca realizada com sucesso.", this.listaUsuarios.size()
+                            + " usuários encontrado.");
             FacesContext.getCurrentInstance().addMessage("message", message);
             this.reset();
         } catch (ServiceException e) {
@@ -166,6 +178,9 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
 
         try {
             this.usurioService.removerUsuario(usuarioSelecionado);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Usuario removido com sucesso.", "");
+            FacesContext.getCurrentInstance().addMessage("message", message);
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
