@@ -214,7 +214,7 @@ public abstract class Pessoa {
     /**
      * @return the userLogin
      */
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_name")
     @Searchable(innerSearch = true)
     public UserLogin getUserLogin() {
