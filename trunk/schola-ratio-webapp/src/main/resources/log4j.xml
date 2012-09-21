@@ -7,7 +7,7 @@
 		</layout>
 	</appender>
 	<root>
-		<priority value="INFO"></priority>
+		<priority value="ALL"></priority>
 		<appender-ref ref="stdout" />
 	</root>
 </log4j:configuration>
