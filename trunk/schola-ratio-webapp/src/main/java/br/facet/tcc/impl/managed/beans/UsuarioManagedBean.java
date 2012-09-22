@@ -11,8 +11,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.exception.ServiceException;
@@ -39,21 +37,17 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String SUCCESS = "success";
-
-    private static final String ERROR = "error";
-
     @ManagedProperty("#{usurioService}")
     private GestaoUsuarioImpl usurioService;
+
+    @ManagedProperty("#{usuarioDataModel}")
+    private UsuarioDataModel usuarioDataModel;
 
     private List<Usuario> listaUsuarios;
 
     private Usuario usuarioSalvar;
 
     private Usuario usuarioPesquisar = new Usuario();
-
-    @ManagedProperty("#{usuarioDataModel}")
-    private UsuarioDataModel usuarioDataModel;
 
     private Usuario usuarioSelecionado;
 
@@ -119,26 +113,20 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
 
         listaUsuarios = new ArrayList<Usuario>();
         if ("".equals(usuarioPesquisar.getNome())) {
-            log.info("UsuarioManagedBean.usuario.nome é vazio.");
             usuarioPesquisar.setNome(null);
         }
 
         if (usuarioPesquisar.getCpf() == 0) {
-            log.info("UsuarioManagedBean.usuario.cpf é vazio.");
             usuarioPesquisar.setCpf(null);
         }
 
         if ("".equals(usuarioPesquisar.getUserLogin().getUsername())) {
-            log.info("UsuarioManagedBean.usuario.login é vazio.");
             usuarioPesquisar.setUserLogin(null);
         }
 
         try {
             listaUsuarios = usurioService.consultarUsuario(usuarioPesquisar);
-            // listaUsuarios = usurioService.consultarUsuario(usuarioPesquisar);
-            log.info("UsuarioManagedBean.lista carregada.");
             this.usuarioDataModel.setWrappedData(listaUsuarios);
-            log.info("UsuarioManagedBean.datamodel criado.");
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Busca realizada com sucesso.", this.listaUsuarios.size()
                             + " usuários encontrado.");
@@ -178,9 +166,11 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
 
         try {
             this.usurioService.removerUsuario(usuarioSelecionado);
+            this.listaUsuarios.remove(usuarioSelecionado);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Usuario removido com sucesso.", "");
             FacesContext.getCurrentInstance().addMessage("message", message);
+            this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
@@ -195,26 +185,11 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
      * 
      */
     public void reset() {
-        UserLogin userLogin = new UserLogin();
         usuarioSalvar = new Usuario();
         usuarioPesquisar = new Usuario();
-        usuarioSalvar.setUserLogin(userLogin);
-        usuarioPesquisar.setUserLogin(userLogin);
+        usuarioSalvar.setUserLogin(new UserLogin());
+        usuarioPesquisar.setUserLogin(new UserLogin());
         usuarioSalvar.setStatus(Status.ATIVO);
-    }
-
-    public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Usuario selecionado:", ((Usuario) event.getObject()).getNome());
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void onRowUnselect(UnselectEvent event) {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-                ((Usuario) event.getObject()).getNome());
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     /**
