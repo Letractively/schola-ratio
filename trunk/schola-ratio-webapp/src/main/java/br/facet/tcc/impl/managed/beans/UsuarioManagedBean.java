@@ -170,7 +170,6 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Usuario removido com sucesso.", "");
             FacesContext.getCurrentInstance().addMessage("message", message);
-            this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
