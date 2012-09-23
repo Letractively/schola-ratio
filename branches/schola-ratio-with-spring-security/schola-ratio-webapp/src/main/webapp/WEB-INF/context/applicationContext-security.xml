@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<global-method-security secured-annotations="enabled" />
+
+	<http auto-config="true" access-denied-page="/pages/index.schola?login_erro=2"  >
+		<intercept-url pattern="/pages/*" access="ROLE_ACA,ROLE_ADM,ROLE_CFG,ROLE_FIN,ROLE_USR" />
+		<intercept-url pattern="/pages/academico/*" access="ROLE_ACA" />
+		<intercept-url pattern="/pages/administrativo/*" access="ROLE_ADM" />
+		<intercept-url pattern="/pages/usuarios/*" access="ROLE_USR" />
+		<intercept-url pattern="/pages/financeiro/*" access="ROLE_FIN" />
+		
+		<form-login login-page="/login.schola" 
+			authentication-failure-url="/login.schola?login_erro=1"
+			always-use-default-target="true" default-target-url="/pages/index.schola" />
+	</http>
+	
+	<authentication-provider>
+		<password-encoder hash="sha" />
+		<jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="SELECT user_name , password , enable FROM tb_user_login WHERE user_name=?"
+			authorities-by-username-query="select ul.user_name, ur.userrole from tb_user_roles as ur, tb_user_login as ul, tb_user_login_tb_user_roles as ulr where ul.user_name = ulr.tb_user_login_user_name and ur.id = ulr.permissoes_id and ul.user_name = ?" />
+	</authentication-provider>
+	
+</beans:beans>
