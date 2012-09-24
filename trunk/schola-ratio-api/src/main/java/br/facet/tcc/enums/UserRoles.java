@@ -46,7 +46,13 @@ public enum UserRoles {
     /**
      * Usuarios
      */
-    ROLE_USR(5, "Usuario");
+    ROLE_USR(5, "Usuario"),
+
+    /**
+     * Aluno
+     */
+
+    ROLE_ALU(6, "Aluno");
 
     private int id;
 
