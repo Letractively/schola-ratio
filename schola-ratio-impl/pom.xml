@@ -30,6 +30,12 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<properties>
+		<hibernate.version>3.6.9.Final</hibernate.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>tcc.bsi.facet</groupId>
@@ -50,13 +56,18 @@
 		<!-- Spring framework -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>2.5.6</version>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>2.5.6</version>
+			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 
