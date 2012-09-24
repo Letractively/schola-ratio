@@ -1,11 +1,614 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-</head>
-<body>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<style type="text/css">
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+</style>
+</h:head>
 
-</body>
+<ui:decorate template="/template/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="salvar">
+			<p:accordionPanel activeIndex="-1">
+				<p:tab title="Novo Aluno"
+					titleStyle="font-weight: bold; text-align: left;">
+					<p:panelGrid styleClass="companyHeaderGrid">
+						<p:row>
+							<p:column>Nome</p:column>
+							<p:column colspan="3">
+								<p:inputText id="nomeAluno"
+									value="#{alunoMB.alunoSalvar.nome}" size="73" required="true">
+									<p:ajax event="blur" update="nomeMsg" />
+									<p:message id="nomeMsg" for="nomeAluno" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>CPF</p:column>
+							<p:column>
+								<p:inputMask mask="99999999999" id="cpfAluno"
+									value="#{alunoMB.alunoSalvar.cpf}" size="20" required="true">
+									<f:validateLength minimum="11" maximum="11" />
+									<p:ajax event="blur" update="cpfMsg" />
+									<p:message id="cpfMsg" for="cpfAluno" showDetail="true" />
+								</p:inputMask>
+							</p:column>
+							<p:column>Data de Nascimento</p:column>
+							<p:column>
+								<p:inputMask mask="99/99/9999" id="dataNascimento"
+									value="#{alunoMB.alunoSalvar.dataNascimento}" size="20"
+									required="true">
+									<f:converter converterId="javax.faces.DateTime" />
+									<p:ajax event="blur" update="dtNasMsg" />
+									<p:message id="dtNasMsg" for="dataNascimento" showDetail="true" />
+								</p:inputMask>
+							</p:column>
+							<p:column>Sexo</p:column>
+							<p:column>
+								<p:selectOneMenu value="#{alunoMB.alunoSalvar.sexo}"
+									effect="fade" required="true">
+									<f:selectItem itemLabel="--  Selecione   --" itemValue="" />
+									<f:selectItems value="#{alunoMB.sexoList}" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>Nacionalidade</p:column>
+							<p:column>
+								<p:inputText id="nacionalidadeAluno"
+									value="#{alunoMB.alunoSalvar.nacionalidade}" size="20"
+									required="true">
+									<p:ajax event="blur" update="nacMsg" />
+									<p:message id="nacMsg" for="nacionalidadeAluno"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>Naturalidade</p:column>
+							<p:column>
+								<p:inputText id="naturalidadeAluno"
+									value="#{alunoMB.alunoSalvar.naturalidade}" size="20"
+									required="true">
+									<p:ajax event="blur" update="natMsg" />
+									<p:message id="natMsg" for="naturalidadeAluno"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>UF Naturalidade</p:column>
+							<p:column>
+								<p:selectOneMenu value="#{alunoMB.alunoSalvar.estadoNat}"
+									effect="fade">
+									<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+									<f:selectItems value="#{alunoMB.estadoList}" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>RG</p:column>
+							<p:column>
+								<p:inputText id="rgAluno" value="#{alunoMB.alunoSalvar.rg}"
+									size="20" required="true">
+									<p:ajax event="blur" update="rgMsg" />
+									<p:message id="rgMsg" for="rgAluno" showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>Orgão Expedidor</p:column>
+							<p:column>
+								<p:inputText id="orgaoExpedidorAluno"
+									value="#{alunoMB.alunoSalvar.orgaoExpeditor}" size="20"
+									required="true">
+									<p:ajax event="blur" update="orgExpMsg" />
+									<p:message id="orgExpMsg" for="orgaoExpedidorAluno"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>UF Orgao Expedidor</p:column>
+							<p:column>
+								<p:selectOneMenu
+									value="#{alunoMB.alunoSalvar.ufOrgaoExpeditor}" effect="fade">
+									<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+									<f:selectItems value="#{alunoMB.estadoList}" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>Nome do Pai</p:column>
+							<p:column colspan="2">
+								<p:inputText id="nomePaiAluno"
+									value="#{alunoMB.alunoSalvar.nomePai}" size="45">
+									<p:ajax event="blur" update="nomePaiMsg" />
+									<p:message id="nomePaiMsg" for="nomePaiAluno"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>Nome da Mãe</p:column>
+							<p:column colspan="2">
+								<p:inputText id="nomeMaeAluno" style="{text-align:right;}"
+									value="#{alunoMB.alunoSalvar.nomeMae}" size="42"
+									required="true">
+									<p:ajax event="blur" update="nomeMaeMsg" />
+									<p:message id="nomeMaeMsg" for="nomeMaeAluno"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>CEP</p:column>
+							<p:column>
+								<p:inputMask mask="99999999" id="cepAluno"
+									value="#{alunoMB.alunoSalvar.endereco.cep}" size="20"
+									required="true">
+									<p:ajax event="blur" update="cepMsg" />
+									<p:message id="cepMsg" for="cepAluno" showDetail="true" />
+								</p:inputMask>
+							</p:column>
+							<p:column>Rua</p:column>
+							<p:column colspan="3">
+								<p:inputText id="enderecoAluno"
+									value="#{alunoMB.alunoSalvar.endereco.rua}" size="70"
+									required="true">
+									<p:ajax event="blur" update="enderecoMsg" />
+									<p:message id="enderecoMsg" for="enderecoAluno"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>Numero</p:column>
+							<p:column>
+								<p:inputText id="numeroEnderecoAluno"
+									value="#{alunoMB.alunoSalvar.endereco.numero}" size="20"
+									required="true">
+									<p:ajax event="blur" update="numeroEnderecoMsg" />
+									<p:message id="numeroEnderecoMsg" for="numeroEnderecoAluno"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>Complemento</p:column>
+							<p:column colspan="3">
+								<p:inputText id="complementoAluno"
+									value="#{alunoMB.alunoSalvar.endereco.complemento}" size="70">
+									<p:ajax event="blur" update="complementoMsg" />
+									<p:message id="complementoMsg" for="complementoAluno"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>Bairro</p:column>
+							<p:column>
+								<p:inputText id="bairroAluno"
+									value="#{alunoMB.alunoSalvar.endereco.bairro}" size="20"
+									required="true">
+									<p:ajax event="blur" update="bairroMsg" />
+									<p:message id="bairroMsg" for="bairroAluno" showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>Cidade</p:column>
+							<p:column>
+								<p:inputText id="cidadeAluno"
+									value="#{alunoMB.alunoSalvar.endereco.cidade}" size="20"
+									required="true">
+									<p:ajax event="blur" update="cidadeMsg" />
+									<p:message id="cidadeMsg" for="cidadeAluno" showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>Estado</p:column>
+							<p:column>
+								<p:selectOneMenu value="#{alunoMB.alunoSalvar.endereco.estado}"
+									effect="fade">
+									<f:validateLength minimum="4" />
+									<f:selectItem itemLabel="Selecione" itemValue="" />
+									<f:selectItems value="#{alunoMB.estadoList}" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>Telefone</p:column>
+							<p:column>
+								<p:inputText id="telefoneAluno"
+									value="#{alunoMB.alunoSalvar.telefone}" size="20">
+									<p:ajax event="blur" update="telefoneMsg" />
+									<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>Email</p:column>
+							<p:column colspan="3">
+								<p:inputText id="emailAluno"
+									value="#{alunoMB.alunoSalvar.email}" size="70" required="true">
+									<p:ajax event="blur" update="emailMsg" />
+									<p:message id="emailMsg" for="emailAluno" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>Usuario</p:column>
+							<p:column>
+								<p:inputText id="userName"
+									value="#{alunoMB.alunoSalvar.userLogin.username}" size="20"
+									required="true">
+									<p:ajax event="blur" update="usernameMsg" />
+									<p:message id="usernameMsg" for="userName" showDetail="true" />
+								</p:inputText>
+							</p:column>
+							<p:column>Senha</p:column>
+							<p:column>
+								<p:inputText id="senhaAluno" type="password"
+									value="#{alunoMB.alunoSalvar.userLogin.password}" size="20"
+									required="true">
+									<f:validateLength minimum="5" />
+									<p:ajax event="blur" update="senhaMsg" />
+									<p:message id="senhaMsg" for="senhaAluno" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:commandButton id="btnSalvar" value="Salvar"
+									icon="ui-icon-disk" action="#{alunoMB.salvarAluno}"
+									update=":tbSalvar" ajax="false" />
+							</p:column>
+							<p:column>
+								<p:commandButton id="btnCancelar" value="Limpar"
+									icon="ui-icon-cancel" ajax="false" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
+		<h:form id="pesquisar">
+			<p:growl id="growl" showDetail="true" />
+			<div id="content" align="center">
+				<p:panel id="pesquisaAluno" header="Pesquisar"
+					style="text-align: left;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel value="Nome :" for="nomeAlunoPesquisar" />
+						<p:inputText id="nomeAlunoPesquisar"
+							value="#{alunoMB.alunoPesquisar.nome}" size="50">
+							<p:ajax event="blur" update="nomePesquisarMsg" />
+							<p:message id="nomePesquisarMsg" for="nomeAlunoPesquisar"
+								showDetail="true" />
+						</p:inputText>
+						<h:outputLabel value="CPF :" for="cpfAlunoPesquisar" />
+						<p:inputText id="cpfAlunoPesquisar"
+							value="#{alunoMB.alunoPesquisar.cpf}" requiredMessage="Teste">
+							<f:converter converterId="javax.faces.Long" />
+							<p:ajax event="blur" update="cpfMsg" />
+							<p:message id="cpfMsg" for="cpfAlunoPesquisar"
+								showSummary="false" display="message" />
+						</p:inputText>
+						<h:outputLabel value="Usuario :" for="loginAlunoPesquisar" />
+						<p:inputText id="loginAlunoPesquisar"
+							value="#{alunoMB.alunoPesquisar.userLogin.username}">
+							<p:ajax event="blur" update="loginMsg" />
+							<p:message id="loginMsg" for="loginAlunoPesquisar"
+								showDetail="true" />
+						</p:inputText>
+						<p:commandButton id="btnPesquisar" value="Pesquisar"
+							action="#{alunoMB.pesquisarAlunos}" update=":tbAlunos"
+							ajax="false" />
+					</h:panelGrid>
+				</p:panel>
+			</div>
+
+		</h:form>
+		<p:dataTable id="tbAlunos" var="talunoSalvar"
+			value="#{alunoMB.alunoDataModel}" widgetVar="tabela"
+			paginatorAlwaysVisible="false" paginator="true" rows="10"
+			paginatorPosition="bottom" emptyMessage="Nenhum resultado">
+			<p:column headerText="Nome">
+					#{talunoSalvar.nome}
+				</p:column>
+			<p:column headerText="CPF">
+					#{talunoSalvar.cpf}
+				</p:column>
+			<p:column headerText="Usuario">
+					#{talunoSalvar.userLogin.username}
+				</p:column>
+			<p:column headerText="Email">
+					#{talunoSalvar.email}
+				</p:column>
+			<p:column headerText="Telefone">
+					#{talunoSalvar.telefone}
+				</p:column>
+			<p:column headerText="Status">
+					#{talunoSalvar.status}
+				</p:column>
+			<p:column headerText="Excluir">
+				<h:form>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="confirmation.show()">
+						<f:setPropertyActionListener value="#{talunoSalvar}"
+							target="#{alunoMB.alunoSelecionado}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-search" title="Atualizar"
+						process="@this" update=":dialog" oncomplete="alunoPopUp.show()">
+						<f:setPropertyActionListener value="#{talunoSalvar}"
+							target="#{alunoMB.alunoSelecionado}" />
+					</p:commandButton>
+				</h:form>
+			</p:column>
+		</p:dataTable>
+		<h:form>
+			<p:confirmDialog message="Deseja realmente excluir este item?"
+				header="Inciando processo de exclusão" severity="alert"
+				widgetVar="confirmation" appendToBody="true">
+				<p:commandButton value="Sim" action="#{alunoMB.removerAluno}"
+					oncomplete="confirmation.hide()" update=":tbAlunos" />
+				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
+			</p:confirmDialog>
+		</h:form>
+		<p:dialog id="dialog" widgetVar="alunoPopUp" resizable="false"
+			modal="true" showEffect="fade" hideEffect="explode"
+			appendToBody="true" header="Detalhes do Usuário">
+			<h:form id="atualizar">
+				<p:panelGrid styleClass="companyHeaderGrid"
+					rendered="#{alunoMB.alunoSelecionado != null}">
+					<p:row>
+						<p:column>Nome</p:column>
+						<p:column colspan="3">
+							<p:inputText id="nomeAluno"
+								value="#{alunoMB.alunoSelecionado.nome}" size="73"
+								required="true">
+								<p:ajax event="blur" update="nomeMsg" />
+								<p:message id="nomeMsg" for="nomeAluno" showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Status</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{alunoMB.alunoSelecionado.status}"
+								effect="fade">
+								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+								<f:selectItems value="#{alunoMB.statusList}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>CPF</p:column>
+						<p:column>
+							<p:inputMask mask="99999999999" id="cpfAluno"
+								value="#{alunoMB.alunoSelecionado.cpf}" size="20"
+								required="true">
+								<f:validateLength minimum="11" maximum="11" />
+								<p:ajax event="blur" update="cpfMsg" />
+								<p:message id="cpfMsg" for="cpfAluno" showDetail="true" />
+							</p:inputMask>
+						</p:column>
+						<p:column>Data de Nascimento</p:column>
+						<p:column>
+							<p:inputMask mask="99/99/9999" id="dataNascimento"
+								value="#{alunoMB.alunoSelecionado.dataNascimento}" size="20"
+								required="true">
+								<f:converter converterId="javax.faces.DateTime" />
+								<p:ajax event="blur" update="dtNasMsg" />
+								<p:message id="dtNasMsg" for="dataNascimento" showDetail="true" />
+							</p:inputMask>
+						</p:column>
+						<p:column>Sexo</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{alunoMB.alunoSelecionado.sexo}"
+								effect="fade" required="true">
+								<f:selectItem itemLabel="--  Selecione   --" itemValue="" />
+								<f:selectItems value="#{alunoMB.sexoList}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Nacionalidade</p:column>
+						<p:column>
+							<p:inputText id="nacionalidadeAluno"
+								value="#{alunoMB.alunoSelecionado.nacionalidade}" size="20"
+								required="true">
+								<p:ajax event="blur" update="nacMsg" />
+								<p:message id="nacMsg" for="nacionalidadeAluno"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Naturalidade</p:column>
+						<p:column>
+							<p:inputText id="naturalidadeAluno"
+								value="#{alunoMB.alunoSelecionado.naturalidade}" size="20"
+								required="true">
+								<p:ajax event="blur" update="natMsg" />
+								<p:message id="natMsg" for="naturalidadeAluno"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>UF Naturalidade</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{alunoMB.alunoSelecionado.estadoNat}"
+								effect="fade">
+								<f:validateLength minimum="4" />
+								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+								<f:selectItems value="#{alunoMB.estadoList}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>RG</p:column>
+						<p:column>
+							<p:inputText id="rgAluno"
+								value="#{alunoMB.alunoSelecionado.rg}" size="20"
+								required="true">
+								<p:ajax event="blur" update="rgMsg" />
+								<p:message id="rgMsg" for="rgAluno" showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Orgão Expedidor</p:column>
+						<p:column>
+							<p:inputText id="orgaoExpedidorAluno"
+								value="#{alunoMB.alunoSelecionado.orgaoExpeditor}" size="20"
+								required="true">
+								<p:ajax event="blur" update="orgExpMsg" />
+								<p:message id="orgExpMsg" for="orgaoExpedidorAluno"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>UF Orgao Expedidor</p:column>
+						<p:column>
+							<p:selectOneMenu
+								value="#{alunoMB.alunoSelecionado.ufOrgaoExpeditor}"
+								effect="fade">
+								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+								<f:selectItems value="#{alunoMB.estadoList}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Nome do Pai</p:column>
+						<p:column colspan="2">
+							<p:inputText id="nomePaiAluno"
+								value="#{alunoMB.alunoSelecionado.nomePai}" size="45">
+								<p:ajax event="blur" update="nomePaiMsg" />
+								<p:message id="nomePaiMsg" for="nomePaiAluno"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Nome da Mãe</p:column>
+						<p:column colspan="2">
+							<p:inputText id="nomeMaeAluno" style="{text-align:right;}"
+								value="#{alunoMB.alunoSelecionado.nomeMae}" size="42"
+								required="true">
+								<p:ajax event="blur" update="nomeMaeMsg" />
+								<p:message id="nomeMaeMsg" for="nomeMaeAluno"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>CEP</p:column>
+						<p:column>
+							<p:inputMask mask="99999999" id="cepAluno"
+								value="#{alunoMB.alunoSelecionado.endereco.cep}" size="20"
+								required="true">
+								<p:ajax event="blur" update="cepMsg" />
+								<p:message id="cepMsg" for="cepAluno" showDetail="true" />
+							</p:inputMask>
+						</p:column>
+						<p:column>Rua</p:column>
+						<p:column colspan="3">
+							<p:inputText id="enderecoAluno"
+								value="#{alunoMB.alunoSelecionado.endereco.rua}" size="70"
+								required="true">
+								<p:ajax event="blur" update="enderecoMsg" />
+								<p:message id="enderecoMsg" for="enderecoAluno"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Numero</p:column>
+						<p:column>
+							<p:inputText id="numeroEnderecoAluno"
+								value="#{alunoMB.alunoSelecionado.endereco.numero}" size="20"
+								required="true">
+								<p:ajax event="blur" update="numeroEnderecoMsg" />
+								<p:message id="numeroEnderecoMsg" for="numeroEnderecoAluno"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Complemento</p:column>
+						<p:column colspan="3">
+							<p:inputText id="complementoAluno"
+								value="#{alunoMB.alunoSelecionado.endereco.complemento}"
+								size="70">
+								<p:ajax event="blur" update="complementoMsg" />
+								<p:message id="complementoMsg" for="complementoAluno"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Bairro</p:column>
+						<p:column>
+							<p:inputText id="bairroAluno"
+								value="#{alunoMB.alunoSelecionado.endereco.bairro}" size="20"
+								required="true">
+								<p:ajax event="blur" update="bairroMsg" />
+								<p:message id="bairroMsg" for="bairroAluno" showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Cidade</p:column>
+						<p:column>
+							<p:inputText id="cidadeAluno"
+								value="#{alunoMB.alunoSelecionado.endereco.cidade}" size="20"
+								required="true">
+								<p:ajax event="blur" update="cidadeMsg" />
+								<p:message id="cidadeMsg" for="cidadeAluno" showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Estado</p:column>
+						<p:column>
+							<p:selectOneMenu
+								value="#{alunoMB.alunoSelecionado.endereco.estado}"
+								effect="fade">
+								<f:validateLength minimum="4" />
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItems value="#{alunoMB.estadoList}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Telefone</p:column>
+						<p:column>
+							<p:inputText id="telefoneAluno"
+								value="#{alunoMB.alunoSelecionado.telefone}" size="20">
+								<p:ajax event="blur" update="telefoneMsg" />
+								<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Email</p:column>
+						<p:column colspan="3">
+							<p:inputText id="emailAluno"
+								value="#{alunoMB.alunoSelecionado.email}" size="70"
+								required="true">
+								<p:ajax event="blur" update="emailMsg" />
+								<p:message id="emailMsg" for="emailAluno" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>Usuario</p:column>
+						<p:column>
+							<p:inputText id="userName"
+								value="#{alunoMB.alunoSelecionado.userLogin.username}" size="20"
+								required="true">
+								<p:ajax event="blur" update="usernameMsg" />
+								<p:message id="usernameMsg" for="userName" showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Senha</p:column>
+						<p:column>
+							<p:inputText id="senhaUsuario" type="password"
+								value="#{alunoMB.alunoSelecionado.userLogin.password}" size="20"
+								required="true">
+								<f:validateLength minimum="5" />
+								<p:ajax event="blur" update="senhaMsg" />
+								<p:message id="senhaMsg" for="senhaUsuario" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton oncomplete="alunoPopUp.hide()"
+								value="Atualizar" type="submit"
+								action="#{alunoMB.atualizarAluno()}" update=":tbAlunos" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:decorate>
 </html>
