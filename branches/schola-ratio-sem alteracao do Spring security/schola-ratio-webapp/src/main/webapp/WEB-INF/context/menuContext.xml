@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- Main Menu Bean -->
+	<util:list id="mainMenu" value-type="br.facet.tcc.objects.MenuPermissionMap"
+		list-class="java.util.ArrayList">
+		<bean id="menuAcademico" class="br.facet.tcc.objects.MenuPermissionMap">
+			<property name="menuName" value="Academico" />
+			<property name="role">
+				<value type="br.facet.tcc.enums.UserRoles">ROLE_ACA</value>
+			</property>
+			<property name="urlsMenuMap" ref="urlsMenuAcademico" />
+		</bean>
+		<bean id="menuAdministrativo" class="br.facet.tcc.objects.MenuPermissionMap">
+			<property name="menuName" value="Administrativo" />
+			<property name="role">
+				<value type="br.facet.tcc.enums.UserRoles">ROLE_ADM</value>
+			</property>
+			<property name="urlsMenuMap" ref="urlsMenuAdministrativo" />
+		</bean>
+		<bean id="menuFinanceiro" class="br.facet.tcc.objects.MenuPermissionMap">
+			<property name="menuName" value="Financeiro" />
+			<property name="role">
+				<value type="br.facet.tcc.enums.UserRoles">ROLE_FIN</value>
+			</property>
+			<property name="urlsMenuMap" ref="urlsMenuFinanceiro" />
+		</bean>
+		<bean id="menuUsuarios" class="br.facet.tcc.objects.MenuPermissionMap">
+			<property name="menuName" value="Usuarios" />
+			<property name="role">
+				<value type="br.facet.tcc.enums.UserRoles">ROLE_USR</value>
+			</property>
+			<property name="urlsMenuMap" ref="urlsMenuUsuarios" />
+		</bean>
+	</util:list>
+
+	<!-- Urls Menu Academico Bean -->
+	<util:list id="urlsMenuAcademico">
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Notas e Faltas" />
+			<property name="url" value="/pages/academico/notas_e_faltas.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Relatórios" />
+			<property name="url" value="/pages/academico/relatorios.schola" />
+		</bean>
+	</util:list>
+
+	<!-- Urls Menu Academico Bean -->
+	<util:list id="urlsMenuAdministrativo">
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Matrículas" />
+			<property name="url" value="/pages/administrativo/matriculas.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Disciplinas" />
+			<property name="url" value="/pages/administrativo/disciplinas.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Turmas" />
+			<property name="url" value="/pages/administrativo/turmas.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Cursos" />
+			<property name="url" value="/pages/administrativo/cursos.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Relatórios" />
+			<property name="url" value="/pages/administrativo/relatorios.schola" />
+		</bean>
+	</util:list>
+
+	<!-- Urls Menu Academico Bean -->
+	<util:list id="urlsMenuFinanceiro">
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Mensalidades" />
+			<property name="url" value="/pages/financeiro/mensalidades.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Relatórios" />
+			<property name="url" value="/pages/financeiro/relatorios.schola" />
+		</bean>
+	</util:list>
+	
+	<!-- Urls Menu Usuarios -->
+	<util:list id="urlsMenuUsuarios" >
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Alunos" />
+			<property name="url" value="/pages/usuarios/alunos.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Professores" />
+			<property name="url" value="/pages/usuarios/professores.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Usuarios" />
+			<property name="url" value="/pages/usuarios/usuarios.schola" />
+		</bean>
+		<bean class="org.primefaces.component.menuitem.MenuItem">
+			<property name="value" value="Relatórios" />
+			<property name="url" value="/pages/usuarios/relatorios.schola" />
+		</bean>
+	</util:list>
+	
+</beans>

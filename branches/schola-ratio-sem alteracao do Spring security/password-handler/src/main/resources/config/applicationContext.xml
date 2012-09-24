@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="mainWindow" class="br.org.ipisjp.view.MainWindow">
+		<property name="title" value="Password - Encryption / Decryption" />
+		<property name="labelValue" ref="labelPassword" />
+		<property name="textValue" ref="textPassword" />
+		<property name="labelResult" ref="labelHash" />
+		<property name="textResult" ref="textHash" />
+		<property name="buttonHash" ref="buttonHash" />
+		<property name="buttonEncode" ref="buttonEncode"/>
+		<property name="buttonDecode" ref="buttonDecode"/>
+		<property name="buttonClear" ref="clearButton"/>
+		<property name="mainPanel" ref="mainPanel" />
+		<property name="buttonPanel" ref="buttonPanel"/>
+		<property name="dimension" ref="dimension" />
+		<property name="defaultCloseOperation">
+			<util:constant static-field="javax.swing.JFrame.EXIT_ON_CLOSE" />
+		</property>
+	</bean>
+
+	<bean id="labelPassword" class="javax.swing.JLabel">
+		<constructor-arg index="0" value="Value" />
+	</bean>
+
+	<bean id="textPassword" class="javax.swing.JTextField">
+		<!-- <property name="columns" value="60"/> -->
+	</bean>
+
+
+
+	<bean id="labelHash" class="javax.swing.JLabel">
+		<constructor-arg index="0" value="Result" />
+	</bean>
+
+	<bean id="textHash" class="javax.swing.JTextField">
+		<property name="editable" value="false"/>
+	</bean>
+
+	<bean id="buttonEncode" class="br.org.ipisjp.view.ActionButton">
+		<constructor-arg index="0" value="Encode"/>
+		<property name="actionListener" ref="mainWindow" />
+	</bean>
+
+	<bean id="buttonDecode" class="br.org.ipisjp.view.ActionButton">
+		<constructor-arg index="0" value="Decode"/>
+		<property name="actionListener" ref="mainWindow" />
+	</bean>
+
+	<bean id="buttonHash" class="br.org.ipisjp.view.ActionButton">
+		<constructor-arg index="0" value="Hash" />
+		<property name="actionListener" ref="mainWindow" />
+	</bean>
+
+	<bean id="clearButton" class="br.org.ipisjp.view.ActionButton">
+		<constructor-arg index="0" value="Limpar" />
+		<property name="actionListener" ref="mainWindow" />
+	</bean>
+
+	<bean id="mainPanel" class="javax.swing.JPanel">
+		<constructor-arg index="0" ref="springLayout" />
+	</bean>
+
+
+	<bean id="buttonPanel" class="javax.swing.JPanel">
+	</bean>
+
+	<bean id="springLayout" class="javax.swing.SpringLayout"/>
+
+	<bean id="layout" class="java.awt.GridLayout">
+		<property name="columns" value="1" />
+		<property name="rows" value="6" />
+		<property name="hgap" value="10" />
+		<property name="vgap" value="10" />
+	</bean>
+
+
+	<bean id="dimension" class="java.awt.Dimension">
+		<constructor-arg index="0" value="400" />
+		<constructor-arg index="1" value="220" />
+	</bean>
+
+</beans>

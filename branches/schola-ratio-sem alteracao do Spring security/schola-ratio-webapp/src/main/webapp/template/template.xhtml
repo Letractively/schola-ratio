@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Schola-Ratio</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+body{
+	font-size: 12px;
+}
+.accordionMenu .ui-menu {
+ width:96% !important; 
+ 
+}
+.accordionMenu .ui-accordion-content {
+ padding:0 !important;
+ overflow:inherit !important;
+}
+
+.accordionMenu .ui-helper-clearfix:after {
+ height:inherit !important;
+}
+.textSimple{
+font-weight: normal; 
+color: #474747;
+}
+</style>
+</h:head>
+<h:body>
+
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north">
+			<p:toolbar style="overflow: hidden;">
+				<p:toolbarGroup align="right">
+					<form id="form_login"
+						action="#{request.contextPath}/j_spring_security_logout"
+						method="post">
+						<h:outputLabel styleClass="textSimple" value="Olá #{menuPermissionLoaderMB.user.username} &nbsp;" />
+						<button id="logoutButton"
+							class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+							type="submit">
+							<span class="ui-button-text">Logout</span>
+						</button>
+					</form>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="left">
+					<a href="#{request.contextPath}"><img src="#{request.contextPath}/imagens/logo.png" height="80"/></a>
+				</p:toolbarGroup>
+			</p:toolbar>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west" size="250" collapsible="true" style="overflow: hidden;">
+			<h:form>
+				<p:growl id="messages" />
+				<p:accordionPanel value="#{menuPermissionLoaderMB.mainMenuPermited}" var="menuP" styleClass="accordionMenu">
+					<p:tab title="#{menuP.menuName}">
+						<p:menu model="#{menuP.menuModel}" />
+					</p:tab>
+				</p:accordionPanel>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<ui:insert name="content"></ui:insert>
+		</p:layoutUnit>
+
+		<p:layoutUnit style="text-align: center; " position="south">
+			<h:outputLabel style="overflow: hidden;"
+				value="TCC - Facet 2012 - Djulles IKEDA e Osnir F CUNHA" />
+		</p:layoutUnit>
+	</p:layout>
+	
+</h:body>
+</html>
