@@ -23,19 +23,16 @@
 				<p:tab title="Novo Usuario"
 					titleStyle="font-weight: bold; text-align: left;">
 					<p:panelGrid styleClass="companyHeaderGrid">
-
 						<p:row>
 							<p:column>Nome</p:column>
 							<p:column colspan="3">
 								<p:inputText id="nomeUsuario"
 									value="#{userMB.usuarioSalvar.nome}" size="73" required="true">
-									<f:validateLength minimum="5" />
 									<p:ajax event="blur" update="nomeMsg" />
 									<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" />
 								</p:inputText>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>CPF</p:column>
 							<p:column>
@@ -60,13 +57,11 @@
 							<p:column>
 								<p:selectOneMenu value="#{userMB.usuarioSalvar.sexo}"
 									effect="fade" required="true">
-									<f:validateLength minimum="5" />
 									<f:selectItem itemLabel="--  Selecione   --" itemValue="" />
 									<f:selectItems value="#{userMB.sexoList}" />
 								</p:selectOneMenu>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>Nacionalidade</p:column>
 							<p:column>
@@ -92,13 +87,11 @@
 							<p:column>
 								<p:selectOneMenu value="#{userMB.usuarioSalvar.estadoNat}"
 									effect="fade">
-									<f:validateLength minimum="4" />
 									<f:selectItem itemLabel="-- Selecione --" itemValue="" />
 									<f:selectItems value="#{userMB.estadoList}" />
 								</p:selectOneMenu>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>RG</p:column>
 							<p:column>
@@ -122,13 +115,11 @@
 							<p:column>
 								<p:selectOneMenu
 									value="#{userMB.usuarioSalvar.ufOrgaoExpeditor}" effect="fade">
-									<f:validateLength minimum="4" />
 									<f:selectItem itemLabel="-- Selecione --" itemValue="" />
 									<f:selectItems value="#{userMB.estadoList}" />
 								</p:selectOneMenu>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>Nome do Pai</p:column>
 							<p:column colspan="2">
@@ -150,7 +141,6 @@
 								</p:inputText>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>CEP</p:column>
 							<p:column>
@@ -172,7 +162,6 @@
 								</p:inputText>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>Numero</p:column>
 							<p:column>
@@ -194,7 +183,6 @@
 								</p:inputText>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>Bairro</p:column>
 							<p:column>
@@ -224,7 +212,6 @@
 								</p:selectOneMenu>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>Telefone</p:column>
 							<p:column>
@@ -243,7 +230,6 @@
 								</p:inputText>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>Usuario</p:column>
 							<p:column>
@@ -265,7 +251,6 @@
 								</p:inputText>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>Permissões</p:column>
 							<p:column colspan="4">
@@ -277,7 +262,6 @@
 								</p:selectManyCheckbox>
 							</p:column>
 						</p:row>
-
 						<p:row>
 							<p:column>
 								<p:commandButton id="btnSalvar" value="Salvar"
@@ -286,11 +270,10 @@
 							</p:column>
 							<p:column>
 								<p:commandButton id="btnCancelar" value="Limpar"
-									icon="ui-icon-cancel" ajax="false" type="reset" />
+									icon="ui-icon-cancel" ajax="false" />
 							</p:column>
 						</p:row>
 					</p:panelGrid>
-
 				</p:tab>
 			</p:accordionPanel>
 		</h:form>
@@ -303,7 +286,6 @@
 						<h:outputLabel value="Nome :" for="nomeUsuarioPesquisar" />
 						<p:inputText id="nomeUsuarioPesquisar"
 							value="#{userMB.usuarioPesquisar.nome}" size="50">
-							<f:validateLength minimum="5" />
 							<p:ajax event="blur" update="nomePesquisarMsg" />
 							<p:message id="nomePesquisarMsg" for="nomeUsuarioPesquisar"
 								showDetail="true" />
@@ -312,7 +294,6 @@
 						<p:inputText id="cpfUsuarioPesquisar"
 							value="#{userMB.usuarioPesquisar.cpf}" requiredMessage="Teste">
 							<f:converter converterId="javax.faces.Long" />
-							<f:validateLength minimum="11" maximum="11" />
 							<p:ajax event="blur" update="cpfMsg" />
 							<p:message id="cpfMsg" for="cpfUsuarioPesquisar"
 								showSummary="false" display="message" />
@@ -320,49 +301,40 @@
 						<h:outputLabel value="Usuario :" for="loginUsuarioPesquisar" />
 						<p:inputText id="loginUsuarioPesquisar"
 							value="#{userMB.usuarioPesquisar.userLogin.username}">
-							<f:validateLength minimum="5" />
 							<p:ajax event="blur" update="loginMsg" />
 							<p:message id="loginMsg" for="loginUsuarioPesquisar"
 								showDetail="true" />
 						</p:inputText>
-						<h:inputHidden />
 						<p:commandButton id="btnPesquisar" value="Pesquisar"
 							action="#{userMB.pesquisarUsuarios}" update=":tbUsuarios"
 							ajax="false" />
 					</h:panelGrid>
 				</p:panel>
 			</div>
-		</h:form>
 
+		</h:form>
 		<p:dataTable id="tbUsuarios" var="tusuarioSalvar"
 			value="#{userMB.usuarioDataModel}" widgetVar="tabela"
 			paginatorAlwaysVisible="false" paginator="true" rows="10"
 			paginatorPosition="bottom" emptyMessage="Nenhum resultado">
-
 			<p:column headerText="Nome">
 					#{tusuarioSalvar.nome}
 				</p:column>
-
 			<p:column headerText="CPF">
 					#{tusuarioSalvar.cpf}
 				</p:column>
-
 			<p:column headerText="Usuario">
 					#{tusuarioSalvar.userLogin.username}
 				</p:column>
-
 			<p:column headerText="Email">
 					#{tusuarioSalvar.email}
 				</p:column>
-
 			<p:column headerText="Telefone">
 					#{tusuarioSalvar.telefone}
 				</p:column>
-
 			<p:column headerText="Status">
 					#{tusuarioSalvar.status}
 				</p:column>
-
 			<p:column headerText="Excluir">
 				<h:form>
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
@@ -377,7 +349,6 @@
 					</p:commandButton>
 				</h:form>
 			</p:column>
-
 		</p:dataTable>
 		<h:form>
 			<p:confirmDialog message="Deseja realmente excluir este item?"
@@ -388,27 +359,31 @@
 				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
 			</p:confirmDialog>
 		</h:form>
-
 		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false"
 			modal="true" showEffect="fade" hideEffect="explode"
 			appendToBody="true" header="Detalhes do Usuário">
 			<h:form id="atualizar">
 				<p:panelGrid styleClass="companyHeaderGrid"
 					rendered="#{userMB.usuarioSelecionado != null}">
-
 					<p:row>
 						<p:column>Nome</p:column>
 						<p:column colspan="3">
 							<p:inputText id="nomeUsuario"
 								value="#{userMB.usuarioSelecionado.nome}" size="73"
 								required="true">
-								<f:validateLength minimum="5" />
 								<p:ajax event="blur" update="nomeMsg" />
 								<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
+						<p:column>Status</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{userMB.usuarioSelecionado.status}"
+								effect="fade">
+								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+								<f:selectItems value="#{userMB.statusList}" />
+							</p:selectOneMenu>
+						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>CPF</p:column>
 						<p:column>
@@ -434,13 +409,11 @@
 						<p:column>
 							<p:selectOneMenu value="#{userMB.usuarioSelecionado.sexo}"
 								effect="fade" required="true">
-								<f:validateLength minimum="5" />
 								<f:selectItem itemLabel="--  Selecione   --" itemValue="" />
 								<f:selectItems value="#{userMB.sexoList}" />
 							</p:selectOneMenu>
 						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>Nacionalidade</p:column>
 						<p:column>
@@ -472,7 +445,6 @@
 							</p:selectOneMenu>
 						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>RG</p:column>
 						<p:column>
@@ -498,13 +470,11 @@
 							<p:selectOneMenu
 								value="#{userMB.usuarioSelecionado.ufOrgaoExpeditor}"
 								effect="fade">
-								<f:validateLength minimum="4" />
 								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
 								<f:selectItems value="#{userMB.estadoList}" />
 							</p:selectOneMenu>
 						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>Nome do Pai</p:column>
 						<p:column colspan="2">
@@ -526,7 +496,6 @@
 							</p:inputText>
 						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>CEP</p:column>
 						<p:column>
@@ -548,7 +517,6 @@
 							</p:inputText>
 						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>Numero</p:column>
 						<p:column>
@@ -571,7 +539,6 @@
 							</p:inputText>
 						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>Bairro</p:column>
 						<p:column>
@@ -602,7 +569,6 @@
 							</p:selectOneMenu>
 						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>Telefone</p:column>
 						<p:column>
@@ -624,6 +590,29 @@
 					</p:row>
 
 					<p:row>
+						<p:column>Usuario</p:column>
+						<p:column>
+							<p:inputText id="userName"
+								value="#{userMB.usuarioSelecionado.userLogin.username}" size="20"
+								required="true">
+								<p:ajax event="blur" update="usernameMsg" />
+								<p:message id="usernameMsg" for="userName" showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Senha</p:column>
+						<p:column>
+							<p:inputText id="senhaUsuario" type="password"
+								value="#{userMB.usuarioSelecionado.userLogin.password}" size="20"
+								required="true">
+								<f:validateLength minimum="5" />
+								<p:ajax event="blur" update="senhaMsg" />
+								<p:message id="senhaMsg" for="senhaUsuario" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+
+
+					<p:row>
 						<p:column>
 							<p:commandButton oncomplete="usuarioPopUp.hide()"
 								value="Atualizar" type="submit"
@@ -633,7 +622,6 @@
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
-
 	</ui:define>
 </ui:decorate>
 </html>
