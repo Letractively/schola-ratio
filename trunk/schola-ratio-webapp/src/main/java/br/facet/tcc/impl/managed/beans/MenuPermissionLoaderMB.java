@@ -20,8 +20,9 @@ import javax.annotation.Resource;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import br.facet.tcc.objects.MenuPermissionMap;
@@ -49,7 +50,7 @@ public class MenuPermissionLoaderMB {
      */
     public User getUser() {
         this.user = (User) SecurityContextHolder.getContext()
-            .getAuthentication().getPrincipal();
+                .getAuthentication().getPrincipal();
         return user;
     }
 
@@ -58,11 +59,11 @@ public class MenuPermissionLoaderMB {
      */
     public List<MenuPermissionMap> getMainMenuPermited() {
         this.mainMenuPermited = new ArrayList<MenuPermissionMap>();
-        for (int i = 0; i < this.user.getAuthorities().length; i++) {
+        for (GrantedAuthority authority : this.user.getAuthorities()) {
             for (MenuPermissionMap urlPermission : mainMenu) {
-
+                System.out.println(authority.getAuthority());
                 if (urlPermission.getRole().name()
-                    .equals(this.user.getAuthorities()[i].getAuthority())) {
+                        .equals(authority.getAuthority())) {
 
                     this.mainMenuPermited.add(urlPermission);
 
@@ -72,5 +73,4 @@ public class MenuPermissionLoaderMB {
         }
         return mainMenuPermited;
     }
-
 }
