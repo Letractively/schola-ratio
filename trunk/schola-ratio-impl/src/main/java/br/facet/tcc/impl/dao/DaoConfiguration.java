@@ -21,6 +21,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import br.facet.tcc.dao.Dao;
@@ -36,7 +37,7 @@ import br.facet.tcc.impl.util.HibernateCriteria;
  * @version 0.0.1
  * @since 0.0.1
  */
-public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
+public abstract class DaoConfiguration<T> extends HibernateTemplate implements
         Dao<T> {
 
     /**
@@ -53,7 +54,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     public Integer salvar(T t) throws DaoException {
         Integer integer = null;
         try {
-            integer = (Integer) getHibernateTemplate().save(t);
+            integer = (Integer) save(t);
             logger.debug("Objeto salvo com sucesso em " + t.getClass());
         } catch (HibernateException e) {
             throw new DaoException(e);
@@ -69,7 +70,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     @Override
     public void atualizar(T t) throws DaoException {
         try {
-            getHibernateTemplate().merge(t);
+            merge(t);
             logger.debug("Objeto atualizado com sucesso em " + t.getClass());
         } catch (HibernateException e) {
             throw new DaoException(e);
@@ -84,7 +85,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     @Override
     public void excluir(T t) throws DaoException {
         try {
-            getHibernateTemplate().delete(t);
+            delete(t);
             logger.debug("Objeto removido com sucesso em " + t.getClass());
         } catch (HibernateException e) {
             throw new DaoException(e);
@@ -100,7 +101,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     public List<T> listar(Class clazz) throws DaoException {
         List list = null;
         try {
-            list = getHibernateTemplate().loadAll(clazz);
+            list = loadAll(clazz);
         } catch (DataAccessException e) {
             throw new DaoException(e);
         }
@@ -141,7 +142,7 @@ public abstract class DaoConfiguration<T> extends HibernateDaoSupport implements
     public T obterPorID(Class clazz, Integer id) throws DaoException {
         T t = null;
         try {
-            t = (T) getHibernateTemplate().get(clazz, id);
+            t = (T) get(clazz, id);
         } catch (HibernateException e) {
             throw new DaoException(e);
         }

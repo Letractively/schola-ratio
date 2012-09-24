@@ -43,7 +43,7 @@ public class UserLoginDaoImpl extends DaoConfiguration<UserLogin> {
         String pwd = t.getPassword();
 
         t.setPassword(DigestUtils.shaHex(pwd));
-        this.getHibernateTemplate().save(t);
+        this.save(t);
         return null;
     }
 
