@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<style type="text/css">
+#msg_erro{
+	color: red;
+}
+</style>
+</h:head>
+
+<ui:decorate template="/template/template.xhtml">
+
+	<ui:define name="content">
+		<p:panel rendered="#{param.login_erro==2}">
+		<h:panelGroup>
+			<span id="msg_erro">Acesso negado!</span>
+		</h:panelGroup> 
+		</p:panel>
+		<h:form id="usuario">
+			<table>
+				<tr>
+					<td><h:outputLabel for="id" value="Id : " /></td>
+					<td><p:inputText id="id">
+							<f:converter converterId="javax.faces.Integer" />
+							<p:ajax event="blur" update="idMsg" />
+						</p:inputText> <p:message id="idMsg" for="id" display="icon" /></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="name" value="Name : " /></td>
+					<td><p:inputText id="name">
+							<f:validateLength minimum="5" />
+							<p:ajax event="blur" update="nameMsg" />
+						</p:inputText> <p:message id="nameMsg" for="name" showDetail="true"
+							display="icon" /></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="surname" value="Surname : " /></td>
+					<td><p:inputText id="surname">
+							<f:validateLength minimum="5" />
+							<p:ajax event="blur" update="surnameMsg" />
+						</p:inputText> <p:message id="surnameMsg" for="surname" display="icon" /></td>
+				</tr>
+				<tr>
+					<td><p:commandButton id="addUser" value="Add"
+							action="#{userMB.addUser}" ajax="false" /></td>
+					<td><p:commandButton id="reset" value="Reset"
+							action="#{userMB.reset}" ajax="false" /></td>
+				</tr>
+			</table>
+		</h:form>
+
+		<h:form>
+			<p:panelGrid columns="2">
+				<h:outputLabel value="Usuario :" />
+				<h:outputLabel value="#{menuPermissionLoaderMB.user.username}" />
+			</p:panelGrid>
+		</h:form>
+		
+	</ui:define>
+
+</ui:decorate>
+
+</html>
