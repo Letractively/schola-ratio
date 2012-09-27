@@ -8,15 +8,17 @@
 		once-per-request="false" access-denied-page="/pages/index.schola?login_erro=2">
 		<security:intercept-url pattern="/login.schola"
 			access="permitAll" />
-		<security:intercept-url pattern="/pages/**"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/pages/academico/**"
-			access="hasRole('ROLE_ACA')" />
-		<security:intercept-url pattern="/pages/administrativo/**"
+		<security:intercept-url pattern="/pages/*/relatorios.schola"
 			access="hasRole('ROLE_ADM')" />
-		<security:intercept-url pattern="/pages/usuarios/**"
+		<security:intercept-url pattern="/pages/*"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/pages/academico/*"
+			access="hasRole('ROLE_ACA')" />
+		<security:intercept-url pattern="/pages/administrativo/*"
+			access="hasRole('ROLE_ADM')" />
+		<security:intercept-url pattern="/pages/usuarios/*"
 			access="hasRole('ROLE_USR')" />
-		<security:intercept-url pattern="/pages/financeiro/**"
+		<security:intercept-url pattern="/pages/financeiro/*"
 			access="hasRole('ROLE_FIN')" />
 		<security:logout logout-success-url="/login.schola" />
 		<security:form-login login-page="/login.schola"
