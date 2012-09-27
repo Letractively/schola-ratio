@@ -1,13 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Login</title>
 
 	<style type="text/css">
 #form_login {
-	width: 370px;
+	width: 400px;
 	margin-top: 15%;
 }
 
@@ -25,12 +26,11 @@ body {
 	<div id="content" align="center">
 
 		<form id="form_login" method="post" action="/schola-ratio-webapp/j_spring_security_check">
-			<div id="j_idt7" class="ui-panel ui-widget ui-widget-content ui-corner-all">
-				<div id="j_idt7_header"
-					class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
-					<span class="ui-panel-title">Area Restrita</span>
+			<div class="ui-panel ui-widget">
+				<div class="ui-widget-header ui-corner-all">
+					<span style="font-size: 16px ;">Área Restrita</span>
 				</div>
-				<div id="j_idt7_content" class="ui-panel-content ui-widget-content">
+				<div class="ui-panel-content ui-widget-content ui-corner-all">
 					<table cellpadding="5">
 						<tbody>
 							<tr>
@@ -39,11 +39,11 @@ body {
 							</tr>
 							<tr>
 								<td><label for="j_password"> Senha</label></td>
-								<td><input id="j_password" type="password" name="j_password" value="" /></td>
+								<td><input id="j_password" type="password" name="j_password" /></td>
 							</tr>
 							<tr>
-								<td><input id="submit" type="submit" name="submit" value="Entrar" /></td>
-								<td><input type="reset" name="j_idt11" value="Limpar" /></td>
+								<td><input class="ui-widget ui-state-default ui-corner-all " id="submit" type="submit" name="submit" value="Entrar" /></td>
+								<td><input class="ui-widget ui-state-default ui-corner-all " type="reset" name="j_idt11" value="Limpar" /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -53,7 +53,7 @@ body {
 					
 				</div>
 
-				<div id="j_idt7_footer" class="ui-panel-footer ui-widget-content">TCC - Facet 2012 -
+				<div class="ui-panel-footer ui-widget-content ui-corner-all">TCC - Facet 2012 -
 					Djulles IKEDA e Osnir F CUNHA</div>
 			</div>
 		</form>
