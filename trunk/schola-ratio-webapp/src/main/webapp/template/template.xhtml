@@ -7,7 +7,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:sec="http://br.facet.tcc.utils/security-tags">
 <h:head>
 	<title>Schola-Ratio</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -42,7 +43,7 @@ color: #474747;
 					<form id="form_login"
 						action="#{request.contextPath}/j_spring_security_logout"
 						method="post">
-						<h:outputLabel styleClass="textSimple" value="Olá #{menuPermissionLoaderMB.user.username} &nbsp;" />
+						<h:outputLabel styleClass="textSimple" value="Olá #{request.userPrincipal.name} &nbsp;" />
 						<button id="logoutButton"
 							class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 							type="submit">
@@ -51,7 +52,7 @@ color: #474747;
 					</form>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="left">
-					<a href="#{request.contextPath}"><img src="#{request.contextPath}/imagens/logo.png" height="80"/></a>
+					<a href="#{request.contextPath}/pages/index.schola"><img src="#{request.contextPath}/imagens/logo.png" height="80"/></a>
 				</p:toolbarGroup>
 			</p:toolbar>
 		</p:layoutUnit>
@@ -59,9 +60,29 @@ color: #474747;
 		<p:layoutUnit position="west" size="250" collapsible="true" style="overflow: hidden;">
 			<h:form>
 				<p:growl id="messages" />
-				<p:accordionPanel value="#{menuPermissionLoaderMB.mainMenuPermited}" var="menuP" styleClass="accordionMenu">
-					<p:tab title="#{menuP.menuName}">
-						<p:menu model="#{menuP.menuModel}" />
+					<p:accordionPanel styleClass="accordionMenu">
+					<p:tab title="Usuarios" rendered="#{sec:ifAreAllGranted('ROLE_USR')}">
+						<p:menu>
+							<p:menuitem url="/pages/usuarios/alunos.schola" value="Alunos" />
+							<p:menuitem url="/pages/usuarios/professores.schola" value="Professores" />
+							<p:menuitem url="/pages/usuarios/usuarios.schola" value="Usuários" />
+							<p:menuitem rendered="#{sec:ifAreAllGranted('ROLE_ADM')}" url="/pages/usuarios/relatorios.schola" value="Relatórios" />
+						</p:menu>
+					</p:tab>
+					<p:tab title="Acadêmico" rendered="#{sec:ifAreAllGranted('ROLE_ACA')}">
+					<p:menu>
+						<p:menuitem url="/pages/usuarios/usuarios.schola" value="Relatórios" />
+					</p:menu>
+					</p:tab>
+					<p:tab title="Administrativo" rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
+					<p:menu>
+						<p:menuitem url="/pages/usuarios/usuarios.schola" value="Relatórios" />
+					</p:menu>
+					</p:tab>
+					<p:tab title="Financeiro" rendered="#{sec:ifAreAllGranted('ROLE_FIN')}">
+					<p:menu>
+						<p:menuitem url="/pages/usuarios/usuarios.schola" value="Relatórios" />
+					</p:menu>
 					</p:tab>
 				</p:accordionPanel>
 			</h:form>
