@@ -31,7 +31,7 @@ public enum UserRoles {
     /**
      * Administrativo
      */
-    ROLE_ADM(2, "Adminsitrativo"),
+    ROLE_ADM(2, "Administrativo"),
 
     /**
      * Configuração
@@ -51,7 +51,6 @@ public enum UserRoles {
     /**
      * Aluno
      */
-
     ROLE_ALU(6, "Aluno");
 
     private int id;
