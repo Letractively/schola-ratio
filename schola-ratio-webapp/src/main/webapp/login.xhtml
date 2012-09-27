@@ -1,48 +1,61 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Login</title>
 
-<style type="text/css">
+	<style type="text/css">
 #form_login {
 	width: 370px;
 	margin-top: 15%;
 }
-#msg_erro{
+
+#msg_erro {
 	color: red;
 }
-body{
+
+body {
 	font-size: 12px;
 }
 </style>
 </h:head>
 
-<h:body >
-	<div id="content" align="center" >
-		<form id="form_login"
-			action="#{request.contextPath}/j_spring_security_check">
-			<p:panel header="Area Restrita" 
-				footer="TCC - Facet 2012 - Djulles IKEDA e Osnir F CUNHA">
-				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputLabel value="Usuario" for="j_username" />
-					<h:inputText id="j_username" required="true"
-						requiredMessage="Usuario deve ser preenchido" />
+<h:body>
+	<div id="content" align="center">
 
-					<h:outputLabel value="Senha" for="j_password" />
-					<h:inputSecret id="j_password" required="true"
-						requiredMessage="Senha deve ser preenchida" />
+		<form id="form_login" method="post" action="/schola-ratio-webapp/j_spring_security_check">
+			<div id="j_idt7" class="ui-panel ui-widget ui-widget-content ui-corner-all">
+				<div id="j_idt7_header"
+					class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+					<span class="ui-panel-title">Area Restrita</span>
+				</div>
+				<div id="j_idt7_content" class="ui-panel-content ui-widget-content">
+					<table cellpadding="5">
+						<tbody>
+							<tr>
+								<td><label for="j_username"> Usuario</label></td>
+								<td><input id="j_username" type="text" name="j_username" /></td>
+							</tr>
+							<tr>
+								<td><label for="j_password"> Senha</label></td>
+								<td><input id="j_password" type="password" name="j_password" value="" /></td>
+							</tr>
+							<tr>
+								<td><input id="submit" type="submit" name="submit" value="Entrar" /></td>
+								<td><input type="reset" name="j_idt11" value="Limpar" /></td>
+							</tr>
+						</tbody>
+					</table>
+					<h:panelGroup rendered="#{param.login_erro==1}">
+						<span id="msg_erro">Verifique o usuario e/ou senha!<br/></span>
+					</h:panelGroup>
+					
+				</div>
 
-
-					<h:commandButton id="submit" value="Entrar" type="submit" />
-					<h:commandButton value="Limpar" type="reset" />
-				</h:panelGrid>
-				<h:panelGroup rendered="#{param.login_erro==1}">
-					<span id="msg_erro">Verifique o usuario e/ou senha!</span>
-				</h:panelGroup>
-			</p:panel>
+				<div id="j_idt7_footer" class="ui-panel-footer ui-widget-content">TCC - Facet 2012 -
+					Djulles IKEDA e Osnir F CUNHA</div>
+			</div>
 		</form>
 	</div>
 </h:body>
