@@ -2,35 +2,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
 <h:head>
 	<title>Schola-Ratio</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<style type="text/css">
-body{
+	<style type="text/css">
+body {
 	font-size: 12px;
 }
+
 .accordionMenu .ui-menu {
- width:96% !important; 
- 
+	width: 96% !important;
 }
+
 .accordionMenu .ui-accordion-content {
- padding:0 !important;
- overflow:inherit !important;
+	padding: 0 !important;
+	overflow: inherit !important;
 }
 
 .accordionMenu .ui-helper-clearfix:after {
- height:inherit !important;
+	height: inherit !important;
 }
-.textSimple{
-font-weight: normal; 
-color: #474747;
+
+.textSimple {
+	font-weight: normal;
+	color: #474747;
 }
 </style>
 </h:head>
@@ -40,19 +39,17 @@ color: #474747;
 		<p:layoutUnit position="north">
 			<p:toolbar style="overflow: hidden;">
 				<p:toolbarGroup align="right">
-					<form id="form_login"
-						action="#{request.contextPath}/j_spring_security_logout"
-						method="post">
+					<form id="form_login" action="#{request.contextPath}/j_spring_security_logout" method="post">
 						<h:outputLabel styleClass="textSimple" value="Olá #{request.userPrincipal.name} &nbsp;" />
 						<button id="logoutButton"
-							class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-							type="submit">
+							class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit">
 							<span class="ui-button-text">Logout</span>
 						</button>
 					</form>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="left">
-					<a href="#{request.contextPath}/pages/index.schola"><img src="#{request.contextPath}/imagens/logo.png" height="80"/></a>
+					<a href="#{request.contextPath}/pages/index.schola"><img
+						src="#{request.contextPath}/imagens/logo.png" height="80" /></a>
 				</p:toolbarGroup>
 			</p:toolbar>
 		</p:layoutUnit>
@@ -60,30 +57,54 @@ color: #474747;
 		<p:layoutUnit position="west" size="250" collapsible="true" style="overflow: hidden;">
 			<h:form>
 				<p:growl id="messages" />
-					<p:accordionPanel styleClass="accordionMenu">
-					<p:tab title="Usuarios" rendered="#{sec:ifAreAllGranted('ROLE_USR')}">
-						<p:menu>
-							<p:menuitem url="/pages/usuarios/alunos.schola" value="Alunos" />
-							<p:menuitem url="/pages/usuarios/professores.schola" value="Professores" />
-							<p:menuitem url="/pages/usuarios/usuarios.schola" value="Usuários" />
-							<p:menuitem rendered="#{sec:ifAreAllGranted('ROLE_ADM')}" url="/pages/usuarios/relatorios.schola" value="Relatórios" />
-						</p:menu>
-					</p:tab>
-					<p:tab title="Acadêmico" rendered="#{sec:ifAreAllGranted('ROLE_ACA')}">
-					<p:menu>
-						<p:menuitem url="/pages/usuarios/usuarios.schola" value="Relatórios" />
-					</p:menu>
-					</p:tab>
-					<p:tab title="Administrativo" rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
-					<p:menu>
-						<p:menuitem url="/pages/usuarios/usuarios.schola" value="Relatórios" />
-					</p:menu>
-					</p:tab>
-					<p:tab title="Financeiro" rendered="#{sec:ifAreAllGranted('ROLE_FIN')}">
-					<p:menu>
-						<p:menuitem url="/pages/usuarios/usuarios.schola" value="Relatórios" />
-					</p:menu>
-					</p:tab>
+				<p:accordionPanel styleClass="accordionMenu">
+					<sec:ifAllGranted roles="ROLE_ACA">
+						<p:tab title="Academico">
+							<p:menu>
+								<sec:ifAllGranted roles="ROLE_ADM">
+									<p:menuitem url="/pages/academico/relatorios.schola" value="Relatórios" />
+								</sec:ifAllGranted>
+							</p:menu>
+						</p:tab>
+					</sec:ifAllGranted>
+					<sec:ifAllGranted roles="ROLE_ADM">
+						<p:tab title="Administrativo">
+							<p:menu>
+								<p:menuitem url="/pages/administrativo/relatorios.schola" value="Relatórios" />
+							</p:menu>
+						</p:tab>
+					</sec:ifAllGranted>
+					<sec:ifAllGranted roles="ROLE_FIN">
+						<p:tab title="Financeiro">
+							<p:menu>
+								<p:menuitem url="/pages/financeiro/mensalidades.schola" value="Mensalidades" />
+								<sec:ifAllGranted roles="ROLE_ADM">
+									<p:menuitem url="/pages/financeiro/relatorios.schola" value="Relatórios" />
+								</sec:ifAllGranted>
+							</p:menu>
+						</p:tab>
+					</sec:ifAllGranted>
+					<sec:ifAllGranted roles="ROLE_USR">
+						<p:tab title="Usuarios">
+							<p:menu>
+								<p:menuitem url="/pages/usuarios/alunos.schola" value="Alunos" />
+								<p:menuitem url="/pages/usuarios/professores.schola" value="Professores" />
+								<p:menuitem url="/pages/usuarios/usuarios.schola" value="Usuários" />
+								<sec:ifAllGranted roles="ROLE_ADM">
+									<p:menuitem url="/pages/usuarios/relatorios.schola" value="Relatórios" />
+								</sec:ifAllGranted>
+							</p:menu>
+						</p:tab>
+					</sec:ifAllGranted>
+					<sec:ifAllGranted roles="ROLE_CFG">
+						<p:tab title="Configurações">
+							<p:menu>
+								<sec:ifAllGranted roles="ROLE_ADM">
+									<p:menuitem url="#" value="Relatórios" />
+								</sec:ifAllGranted>
+							</p:menu>
+						</p:tab>
+					</sec:ifAllGranted>
 				</p:accordionPanel>
 			</h:form>
 		</p:layoutUnit>
@@ -93,10 +114,9 @@ color: #474747;
 		</p:layoutUnit>
 
 		<p:layoutUnit style="text-align: center; " position="south">
-			<h:outputLabel style="overflow: hidden;"
-				value="TCC - Facet 2012 - Djulles IKEDA e Osnir F CUNHA" />
+			<h:outputLabel style="overflow: hidden;" value="TCC - Facet 2012 - Djulles IKEDA e Osnir F CUNHA" />
 		</p:layoutUnit>
 	</p:layout>
-	
+
 </h:body>
 </html>
