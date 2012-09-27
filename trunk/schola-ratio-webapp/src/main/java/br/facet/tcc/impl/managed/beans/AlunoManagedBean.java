@@ -76,16 +76,11 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
     public String salvarAluno() {
         try {
 
-            UserLogin userLogin = new UserLogin();
             List<br.facet.tcc.pojo.UserRoles> permissoes = new ArrayList<br.facet.tcc.pojo.UserRoles>();
             br.facet.tcc.pojo.UserRoles roles = new br.facet.tcc.pojo.UserRoles();
             roles.setUserRole(UserRoles.ROLE_ALU);
             permissoes.add(roles);
-            userLogin.setPermissoes(permissoes);
-            userLogin.setUsername(alunoSalvar.getUserLogin().getUsername());
-            userLogin.setPassword(alunoSalvar.getUserLogin().getPassword());
-
-            this.alunoSalvar.setUserLogin(userLogin);
+            this.alunoSalvar.getUserLogin().setPermissoes(permissoes);
 
             this.alunoService.salvarUsuario(this.alunoSalvar);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -114,7 +109,7 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
 
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Aluno atualizado com sucesso.", "Código : "
-                            + this.alunoSalvar.getId());
+                            + this.alunoSelecionado.getId());
             FacesContext.getCurrentInstance().addMessage("message", message);
             this.reset();
         } catch (ServiceException e) {
