@@ -18,11 +18,6 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<listener>
-		<listener-class>
-			org.springframework.web.context.request.RequestContextListener
-		</listener-class>
-	</listener>
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -31,6 +26,10 @@
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>glass-x</param-value>
+	</context-param>
+	<context-param>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    	<param-value>/WEB-INF/resources/security-tags.taglib.xml</param-value>
 	</context-param>
 
 	<!-- Project Stage Level -->
@@ -61,6 +60,8 @@
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
 <!-- Filtro para forçar o uso de UTF-8 como encoding -->
