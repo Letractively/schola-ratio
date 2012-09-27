@@ -35,7 +35,7 @@ import br.facet.tcc.pojo.Professor;
 import br.facet.tcc.pojo.UserLogin;
 
 /**
- * @author TODO: Djulles IKEDA
+ * @author Djulles IKEDA
  * 
  * @version 1.0.2
  * @since 23 SEP 2012
@@ -77,14 +77,11 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
     public String salvarProfessor() {
         try {
 
-            UserLogin userLogin = new UserLogin();
             List<br.facet.tcc.pojo.UserRoles> permissoes = new ArrayList<br.facet.tcc.pojo.UserRoles>();
             br.facet.tcc.pojo.UserRoles roles = new br.facet.tcc.pojo.UserRoles();
             roles.setUserRole(UserRoles.ROLE_ACA);
             permissoes.add(roles);
-            userLogin.setPermissoes(permissoes);
-            userLogin.setUsername(professorSalvar.getUserLogin().getUsername());
-            userLogin.setPassword(professorSalvar.getUserLogin().getPassword());
+            this.professorSalvar.getUserLogin().setPermissoes(permissoes);
 
             this.professorService.salvarUsuario(this.professorSalvar);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -113,7 +110,7 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
 
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Professor atualizado com sucesso.", "Código : "
-                            + this.professorSalvar.getId());
+                            + this.professorSelecionado.getId());
             FacesContext.getCurrentInstance().addMessage("message", message);
             this.reset();
         } catch (ServiceException e) {
@@ -149,7 +146,7 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
         try {
             listaProfessors = professorService
                     .consultarUsuario(professorPesquisar);
-            this.professorDataModel.setWrappedData(listaProfessors);
+            // this.professorDataModel.setWrappedData(listaProfessors);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Busca realizada com sucesso.", this.listaProfessors.size()
                             + " usuários encontrado.");
