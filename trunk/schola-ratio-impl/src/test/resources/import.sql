@@ -18,12 +18,6 @@ INSERT INTO tb_instituicao(id_instituicao, cnpj, email_instituicao, inscricao_es
 INSERT INTO tb_instituicao(id_instituicao, cnpj, email_instituicao, inscricao_estadual, nome_instituicao, telefone_instituicao, endereco_instituicao) VALUES (nextval('seq_instituicao'), 234567890, 'bbb@bbb.com', 23456, 'ScholaRatio2', 23452345, 2);
 INSERT INTO tb_instituicao(id_instituicao, cnpj, email_instituicao, inscricao_estadual, nome_instituicao, telefone_instituicao, endereco_instituicao) VALUES (nextval('seq_instituicao'), 345678901, 'ccc@ccc.com', 12345, 'ScholaRatio3', 34563456, 3);
 
-
-insert into tb_aluno (aluno_id, cpf, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg, sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'33333333333','2003-08-15','wwwrrr@email.com','4','Brasileiro','São Vicente','Astolpho P Cruz','','','SSP-SP','2222222222','M', '3333-3333' , 'ATIVO','SP','2012-08-18');
-insert into tb_aluno (aluno_id, cpf, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'55555555555','1994-06-10','xxxxxx@email.com','5','Canadense','Curitiba','Josepha P Silva','','','SSP-SP','11111111','F', '4444-4444', 'ATIVO','SP','2012-08-18');
-insert into tb_aluno (aluno_id, cpf, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'88888888888','1999-04-01','oooooo@email.com','6','Brasileiro','São José dos Pinhais','Jeronimo Pires','','','SSP-RS','54387621','M', '7777-7777' ,'ATIVO','RS','2012-08-18');
-insert into tb_aluno (aluno_id, cpf, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'44444444444','1994-04-01','444444@email.com','7','Brasileiro','São José dos Pinhais','Jeronimo Pires','','','SSP-RS','44387621','M', '9999-9999' ,'ATIVO','RS','2012-08-14');
-
 INSERT INTO tb_user_roles(id, userrole) VALUES (1, 'ROLE_ACA');
 INSERT INTO tb_user_roles(id, userrole) VALUES (2, 'ROLE_ADM');
 INSERT INTO tb_user_roles(id, userrole) VALUES (3, 'ROLE_CFG');
@@ -35,23 +29,37 @@ insert into tb_user_login( user_name, enable, password) values ( 'user_name1', '
 insert into tb_user_login( user_name, enable, password) values ( 'user_name2', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
 insert into tb_user_login( user_name, enable, password) values ( 'user_name3', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
 insert into tb_user_login( user_name, enable, password) values ( 'user_name4', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+
 insert into tb_user_login( user_name, enable, password) values ( 'user_name5', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
 insert into tb_user_login( user_name, enable, password) values ( 'user_name6', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
 insert into tb_user_login( user_name, enable, password) values ( 'user_name7', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
 insert into tb_user_login( user_name, enable, password) values ( 'user_name8', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
 
-INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name1', 5);
-INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name2', 5);
+insert into tb_user_login( user_name, enable, password) values ( 'user_name9', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name10', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name11', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+insert into tb_user_login( user_name, enable, password) values ( 'user_name12', 'TRUE', '7751a23fa55170a57e90374df13a3ab78efe0e99');
+
+
+
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name1', 1);
 INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name1', 2);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name1', 4);
 INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name2', 2);
-INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name3', 4);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name2', 5);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name3', 3);
 INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name4', 3);
-INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name5', 3);
-INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name6', 2);
-INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name7', 5);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name4', 4);
+
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name5', 1);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name6', 1);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name7', 1);
 INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name8', 1);
-INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name2', 1);
-INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name3', 5);
+
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name9', 6);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name10', 6);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name11', 6);
+INSERT INTO tb_user_login_tb_user_roles(tb_user_login_user_name, permissoes_id) VALUES ('user_name12', 6);
 
 
 INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('seq_avaliacao'), 'PRIMEIRO', 15, 9.5);
@@ -62,6 +70,7 @@ INSERT INTO tb_avaliacao(id, bimestre, frequencia, nota) VALUES (nextval('seq_av
 INSERT INTO tb_curso( curso_id, duracao, nome, status, instituicao_id) VALUES (nextval('seq_curso'), 8, 'Curso1', 'ATIVO', 1);
 INSERT INTO tb_curso( curso_id, duracao, nome, status, instituicao_id) VALUES (nextval('seq_curso'), 8, 'Curso2', 'ATIVO', 2);
 INSERT INTO tb_curso( curso_id, duracao, nome, status, instituicao_id) VALUES (nextval('seq_curso'), 8, 'Curso3', 'ATIVO', 3);
+
 
 
 INSERT INTO tb_usuario(usuario_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name,sexo, status, uforgaoexpeditor, endereco_usuario) VALUES (nextval('seq_usuario'), 12312312312, '2001-10-15', 'xpto@hgf3d3', 'Japones', 'Tokio', 'Takyo H San', '', '', 'XXYYZZ', 43221534, 'user_name1','M', 'INATIVO', 'RJ', 8);
@@ -75,6 +84,10 @@ INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidad
 INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 333333, '2010-04-03', '333@333.com', 'nacionalidade3', 'naturalidade3', 'nome3', 'nomema3', 'nomepai3', 'orgaoexpeditor', 333, 'user_name7', 'M', '3333-3333', 'ATIVO', 'PR', 'descricaotitulo3', 'MESTRADO', 14);
 INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 444444, '2010-04-04', '444@444.com', 'nacionalidade4', 'naturalidade4', 'nome4', 'nomema4', 'nomepai4', 'orgaoexpeditor', 444, 'user_name8', 'M', '5555-5555', 'ATIVO', 'PR', 'descricaotitulo4', 'MESTRADO', 15);
 
+insert into tb_aluno (aluno_id, cpf, user_name, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg, sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'33333333333','user_name9','2003-08-15','wwwrrr@email.com','4','Brasileiro','São Vicente','Astolpho P Cruz','','','SSP-SP','2222222222','M', '3333-3333' , 'ATIVO','SP','2012-08-18');
+insert into tb_aluno (aluno_id, cpf, user_name, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'55555555555','user_name10','1994-06-10','xxxxxx@email.com','5','Canadense','Curitiba','Josepha P Silva','','','SSP-SP','11111111','F', '4444-4444', 'ATIVO','SP','2012-08-18');
+insert into tb_aluno (aluno_id, cpf, user_name, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'88888888888','user_name11','1999-04-01','oooooo@email.com','6','Brasileiro','São José dos Pinhais','Jeronimo Pires','','','SSP-RS','54387621','M', '7777-7777' ,'ATIVO','RS','2012-08-18');
+insert into tb_aluno (aluno_id, cpf, user_name, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'44444444444','user_name12','1994-04-01','444444@email.com','7','Brasileiro','São José dos Pinhais','Jeronimo Pires','','','SSP-RS','44387621','M', '9999-9999' ,'ATIVO','RS','2012-08-14');
 
 INSERT INTO tb_desconto( desconto_id, status, tipodesconto, valordesconto, aluno_aluno_id) VALUES (nextval('seq_desconto'), 'ATIVO', 'Bolsa1', 50.00, 1);
 INSERT INTO tb_desconto( desconto_id, status, tipodesconto, valordesconto, aluno_aluno_id) VALUES (nextval('seq_desconto'), 'ATIVO', 'Bolsa2', 52.00, 2);
