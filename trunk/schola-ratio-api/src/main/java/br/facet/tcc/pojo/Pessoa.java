@@ -68,13 +68,18 @@ public abstract class Pessoa {
 
     private Status status;
 
-    private Endereco endereco = new Endereco();
+    private Endereco endereco;
 
     private String telefone;
 
     private Sexo sexo;
 
     private byte[] image;
+
+    public Pessoa() {
+        this.status = Status.ATIVO;
+        this.endereco = new Endereco();
+    }
 
     /**
      * @return the nome
