@@ -185,7 +185,8 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
     public String removerProfessor() {
 
         try {
-            this.professorService.removerUsuario(professorSelecionado);
+            this.professorSelecionado.setStatus(Status.INATIVO);
+            this.professorService.alterarUsuario(professorSelecionado);
             this.listaProfessors.remove(professorSelecionado);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Professor removido com sucesso.", "");
@@ -255,14 +256,6 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
      */
     public void setProfessorService(GestaoProfessorImpl professorService) {
         this.professorService = professorService;
-    }
-
-    public GestaoProfessorImpl getProfessorService() {
-        return professorService;
-    }
-
-    public void setListaProfessors(List<Professor> listaProfessors) {
-        this.listaProfessors = listaProfessors;
     }
 
     /**

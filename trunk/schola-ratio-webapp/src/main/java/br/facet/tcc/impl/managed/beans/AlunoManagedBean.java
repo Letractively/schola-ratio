@@ -35,9 +35,9 @@ import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.UserLogin;
 
 /**
- * @author TODO: Djulles IKEDA
+ * @author Djulles IKEDA
  * 
- * @version 1.0.2
+ * @version 0.0.2
  * @since 01 SEP 2012
  */
 @ManagedBean(name = "alunoMB")
@@ -182,7 +182,8 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
     public String removerAluno() {
 
         try {
-            this.alunoService.removerUsuario(alunoSelecionado);
+            this.alunoSelecionado.setStatus(Status.INATIVO);
+            this.alunoService.alterarUsuario(alunoSelecionado);
             this.listaAlunos.remove(alunoSelecionado);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Aluno removido com sucesso.", "");
