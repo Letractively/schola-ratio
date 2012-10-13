@@ -13,8 +13,12 @@
  */
 package br.facet.tcc.impl.dao;
 
+import java.util.List;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Repository;
 
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Aluno;
 
 /**
@@ -26,4 +30,34 @@ import br.facet.tcc.pojo.Aluno;
 @Repository("alunoDao")
 public class AlunoDaoImpl extends DaoConfiguration<Aluno> {
 
+    @Override
+    public Integer salvar(Aluno t) throws DaoException {
+        String password = DigestUtils.shaHex(t.getUserLogin().getPassword());
+        t.getUserLogin().setPassword(password);
+        return super.salvar(t);
+    }
+
+    @Override
+    public void atualizar(Aluno t) throws DaoException {
+        String password = t.getUserLogin().getPassword();
+        t.getUserLogin().setPassword(
+                password.length() == 40 ? password : DigestUtils
+                        .shaHex(password));
+        super.atualizar(t);
+    }
+
+    @Override
+    public void excluir(Aluno t) throws DaoException {
+        super.excluir(t);
+    }
+
+    @Override
+    public List<Aluno> listar(Class clazz) throws DaoException {
+        return super.listar(clazz);
+    }
+
+    @Override
+    public List<Aluno> pesquisar(Aluno t) throws DaoException {
+        return super.pesquisar(t);
+    }
 }
