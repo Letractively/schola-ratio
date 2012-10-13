@@ -3,8 +3,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:sec="http://br.facet.tcc.utils/security-tags">
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:sec="http://br.facet.tcc.utils/security-tags">
 <h:head>
 	<style type="text/css">
 .companyHeaderGrid tr,.companyHeaderGrid td {
@@ -12,241 +11,296 @@
 }
 </style>
 </h:head>
-
 <ui:decorate template="/template/template.xhtml">
-
 	<ui:define name="content">
-
-		<h:form id="salvar">
-		<p:growl id="growl" showDetail="true" autoUpdate="true"/> 
-			<p:accordionPanel id="panelSalvar" activeIndex="-1">
-				<p:tab title="Novo Usuario" titleStyle="font-weight: bold; text-align: left;">
-					<p:panelGrid styleClass="companyHeaderGrid">
-						<p:row>
-							<p:column>Nome</p:column>
-							<p:column colspan="3">
-								<p:inputText id="nomeUsuario" value="#{userMB.usuarioSalvar.nome}" size="73" required="true">
-									<p:ajax event="blur" update="nomeMsg" />
-									<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>CPF</p:column>
-							<p:column>
-								<p:inputMask mask="99999999999" id="cpfUsuario" value="#{userMB.usuarioSalvar.cpf}"
-									size="20" required="true">
-									<f:validateLength minimum="11" maximum="11" />
-									<p:ajax event="blur" update="cpfMsg" />
-									<p:message id="cpfMsg" for="cpfUsuario" showDetail="true" />
-								</p:inputMask>
-							</p:column>
-							<p:column>Data de Nascimento</p:column>
-							<p:column>
-								<p:inputMask mask="99/99/9999" id="dataNascimento"
-									value="#{userMB.usuarioSalvar.dataNascimento}" size="20" required="true">
-									<f:converter converterId="javax.faces.DateTime" />
-									<p:ajax event="blur" update="dtNasMsg" />
-									<p:message id="dtNasMsg" for="dataNascimento" showDetail="true" />
-								</p:inputMask>
-							</p:column>
-							<p:column>Sexo</p:column>
-							<p:column>
-								<p:selectOneMenu value="#{userMB.usuarioSalvar.sexo}" effect="fade" required="true">
-									<f:selectItem itemLabel="--  Selecione   --" itemValue="" />
-									<f:selectItems value="#{userMB.sexoList}" />
-								</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Nacionalidade</p:column>
-							<p:column>
-								<p:inputText id="nacionalidadeUsuario" value="#{userMB.usuarioSalvar.nacionalidade}"
-									size="20" required="true">
-									<p:ajax event="blur" update="nacMsg" />
-									<p:message id="nacMsg" for="nacionalidadeUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Naturalidade</p:column>
-							<p:column>
-								<p:inputText id="naturalidadeUsuario" value="#{userMB.usuarioSalvar.naturalidade}" size="20"
-									required="true">
-									<p:ajax event="blur" update="natMsg" />
-									<p:message id="natMsg" for="naturalidadeUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>UF Naturalidade</p:column>
-							<p:column>
-								<p:selectOneMenu value="#{userMB.usuarioSalvar.estadoNat}" effect="fade">
-									<f:selectItem itemLabel="-- Selecione --" itemValue="" />
-									<f:selectItems value="#{userMB.estadoList}" />
-								</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>RG</p:column>
-							<p:column>
-								<p:inputText id="rgUsuario" value="#{userMB.usuarioSalvar.rg}" size="20" required="true">
-									<p:ajax event="blur" update="rgMsg" />
-									<p:message id="rgMsg" for="rgUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Orgão Expedidor</p:column>
-							<p:column>
-								<p:inputText id="orgaoExpedidorUsuario" value="#{userMB.usuarioSalvar.orgaoExpeditor}"
-									size="20" required="true">
-									<p:ajax event="blur" update="orgExpMsg" />
-									<p:message id="orgExpMsg" for="orgaoExpedidorUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>UF Orgao Expedidor</p:column>
-							<p:column>
-								<p:selectOneMenu value="#{userMB.usuarioSalvar.ufOrgaoExpeditor}" effect="fade">
-									<f:selectItem itemLabel="-- Selecione --" itemValue="" />
-									<f:selectItems value="#{userMB.estadoList}" />
-								</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Nome do Pai</p:column>
-							<p:column colspan="2">
-								<p:inputText id="nomePaiUsuario" value="#{userMB.usuarioSalvar.nomePai}" size="45">
-									<p:ajax event="blur" update="nomePaiMsg" />
-									<p:message id="nomePaiMsg" for="nomePaiUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Nome da Mãe</p:column>
-							<p:column colspan="2">
-								<p:inputText id="nomeMaeUsuario"
-									value="#{userMB.usuarioSalvar.nomeMae}" size="42" required="true">
-									<p:ajax event="blur" update="nomeMaeMsg" />
-									<p:message id="nomeMaeMsg" for="nomeMaeUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>CEP</p:column>
-							<p:column>
-								<p:inputMask mask="99999999" id="cepUsuario" value="#{userMB.usuarioSalvar.endereco.cep}"
-									size="20" required="true">
-									<p:ajax event="blur" update="cepMsg" />
-									<p:message id="cepMsg" for="cepUsuario" showDetail="true" />
-								</p:inputMask>
-							</p:column>
-							<p:column>Rua</p:column>
-							<p:column colspan="3">
-								<p:inputText id="enderecoUsuario" value="#{userMB.usuarioSalvar.endereco.rua}" size="70"
-									required="true">
-									<p:ajax event="blur" update="enderecoMsg" />
-									<p:message id="enderecoMsg" for="enderecoUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Numero</p:column>
-							<p:column>
-								<p:inputText id="numeroEnderecoUsuario" value="#{userMB.usuarioSalvar.endereco.numero}"
-									size="20" required="true">
-									<p:ajax event="blur" update="numeroEnderecoMsg" />
-									<p:message id="numeroEnderecoMsg" for="numeroEnderecoUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Complemento</p:column>
-							<p:column colspan="3">
-								<p:inputText id="complementoUsuario" value="#{userMB.usuarioSalvar.endereco.complemento}"
-									size="70">
-									<p:ajax event="blur" update="complementoMsg" />
-									<p:message id="complementoMsg" for="complementoUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Bairro</p:column>
-							<p:column>
-								<p:inputText id="bairroUsuario" value="#{userMB.usuarioSalvar.endereco.bairro}" size="20"
-									required="true">
-									<p:ajax event="blur" update="bairroMsg" />
-									<p:message id="bairroMsg" for="bairroUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Cidade</p:column>
-							<p:column>
-								<p:inputText id="cidadeUsuario" value="#{userMB.usuarioSalvar.endereco.cidade}" size="20"
-									required="true">
-									<p:ajax event="blur" update="cidadeMsg" />
-									<p:message id="cidadeMsg" for="cidadeUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Estado</p:column>
-							<p:column>
-								<p:selectOneMenu value="#{userMB.usuarioSalvar.endereco.estado}" effect="fade">
-									<f:validateLength minimum="4" />
-									<f:selectItem itemLabel="Selecione" itemValue="" />
-									<f:selectItems value="#{userMB.estadoList}" />
-								</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Telefone</p:column>
-							<p:column>
-								<p:inputText id="telefoneUsuario" value="#{userMB.usuarioSalvar.telefone}" size="20">
-									<p:ajax event="blur" update="telefoneMsg" />
-									<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Email</p:column>
-							<p:column colspan="3">
-								<p:inputText id="emailUsuario" value="#{userMB.usuarioSalvar.email}" size="70"
-									required="true">
-									<p:ajax event="blur" update="emailMsg" />
-									<p:message id="emailMsg" for="emailUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Usuario</p:column>
-							<p:column>
-								<p:inputText id="userName" value="#{userMB.usuarioSalvar.userLogin.username}" size="20"
-									required="true">
-									<p:ajax event="blur" update="usernameMsg" />
-									<p:message id="usernameMsg" for="userName" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Senha</p:column>
-							<p:column>
-								<p:inputText id="senhaUsuario" type="password"
-									value="#{userMB.usuarioSalvar.userLogin.password}" size="20" required="true">
-									<f:validateLength minimum="5" />
-									<p:ajax event="blur" update="senhaMsg" />
-									<p:message id="senhaMsg" for="senhaUsuario" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Permissões</p:column>
-							<p:column colspan="4">
-								<p:selectManyCheckbox value="#{userMB.usuarioSalvar.userLogin.permissoes}"
-									converter="roleConverter" required="true">
-									<f:selectItems value="#{userMB.userRoles}" var="role"
-										itemLabel="#{role.userRole.descricao}" itemValue="#{role}" />
-								</p:selectManyCheckbox>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>
-								<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk"
-									action="#{userMB.salvarUsuario}" process=":salvar" update=":salvar" />
-							</p:column>
-							<p:column>
-								<p:commandButton id="btnCancelar" value="Limpar" update=":salvar :salvar:panelSalvar" process="@this" icon="ui-icon-cancel">
-									<p:resetInput target="panelSalvar" />
-								</p:commandButton>
-							</p:column>
-						</p:row>
-					</p:panelGrid>
-				</p:tab>
-			</p:accordionPanel>
-		</h:form>
+		<h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login"
+			styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Novo</span>
+		</h:outputLink>
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<p:dialog id="dialogSalvar" header="Novo Usuário" widgetVar="dlg" resizable="false" modal="true"
+			appendToBody="true" width="960" height="480">
+			<h:form id="salvar">
+				<p:wizard widgetVar="wiz" backLabel="Voltar" nextLabel="Próximo">
+					<p:tab id="personal" title="Pessoal">
+						<p:panel header="Dados pessoais">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>
+										<h:outputLabel value="Nome" for="nomeUsuario" />
+									</p:column>
+									<p:column>
+										<p:inputText id="nomeUsuario" value="#{userMB.usuarioSalvar.nome}" required="true"
+											size="35">
+											<p:ajax event="blur" update="nomeMsg" />
+											<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="cpfUsuario" value="CPF" />
+									</p:column>
+									<p:column>
+										<p:inputMask mask="99999999999" id="cpfUsuario" value="#{userMB.usuarioSalvar.cpf}"
+											required="true">
+											<f:validateLength minimum="11" maximum="11" />
+											<p:ajax event="blur" update="cpfMsg" />
+											<p:message id="cpfMsg" for="cpfUsuario" showDetail="true" />
+										</p:inputMask>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="dataNascimento" value="Data de Nascimento" />
+									</p:column>
+									<p:column>
+										<p:inputMask mask="99/99/9999" id="dataNascimento"
+											value="#{userMB.usuarioSalvar.dataNascimento}" required="true">
+											<f:converter converterId="javax.faces.DateTime" />
+											<p:ajax event="blur" update="dtNasMsg" />
+											<p:message id="dtNasMsg" for="dataNascimento" showDetail="true" />
+										</p:inputMask>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="nacionalidadeUsuario" value="Nacionalidade" />
+									</p:column>
+									<p:column>
+										<p:inputText id="nacionalidadeUsuario" value="#{userMB.usuarioSalvar.nacionalidade}"
+											required="true">
+											<p:ajax event="blur" update="nacMsg" />
+											<p:message id="nacMsg" for="nacionalidadeUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="naturalidadeUsuario" value="Naturalidade" />
+									</p:column>
+									<p:column>
+										<p:inputText id="naturalidadeUsuario" value="#{userMB.usuarioSalvar.naturalidade}"
+											required="true">
+											<p:ajax event="blur" update="natMsg" />
+											<p:message id="natMsg" for="naturalidadeUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="estadoNat" value="UF Naturalidade" />
+									</p:column>
+									<p:column>
+										<p:selectOneMenu id="estadoNat" value="#{userMB.usuarioSalvar.estadoNat}" filter="true"
+											effect="fade">
+											<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+											<f:selectItems value="#{userMB.estadoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="rgUsuario" value="RG"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<p:inputText id="rgUsuario" value="#{userMB.usuarioSalvar.rg}" required="true">
+											<p:ajax event="blur" update="rgMsg" />
+											<p:message id="rgMsg" for="rgUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="orgaoExpedidorUsuario" value="Orgão Expedidor" />
+									</p:column>
+									<p:column>
+										<p:inputText id="orgaoExpedidorUsuario" value="#{userMB.usuarioSalvar.orgaoExpeditor}"
+											required="true">
+											<p:ajax event="blur" update="orgExpMsg" />
+											<p:message id="orgExpMsg" for="orgaoExpedidorUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="ufOrgaoExpeditor" value="UF Orgao Expedidor"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu id="ufOrgaoExpeditor" value="#{userMB.usuarioSalvar.ufOrgaoExpeditor}"
+											effect="fade">
+											<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+											<f:selectItems value="#{userMB.estadoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="nomePaiUsuario" value="Nome do Pai" />
+									</p:column>
+									<p:column>
+										<p:inputText id="nomePaiUsuario" value="#{userMB.usuarioSalvar.nomePai}" required="true"
+											size="30">
+											<p:ajax event="blur" update="nomePaiMsg" />
+											<p:message id="nomePaiMsg" for="nomePaiUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="nomeMaeUsuario" value="Nome da Mãe"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<p:inputText id="nomeMaeUsuario" value="#{userMB.usuarioSalvar.nomeMae}" required="true"
+											size="30">
+											<p:ajax event="blur" update="nomeMaeMsg" />
+											<p:message id="nomeMaeMsg" for="nomeMaeUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+											<p:resetInput target="salvar" />
+										</p:commandButton>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id="endereco" title="Endereço">
+						<p:panel header="Dados do Endereço">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>Rua</p:column>
+									<p:column>
+										<p:inputText id="enderecoUsuario" value="#{userMB.usuarioSalvar.endereco.rua}" size="50"
+											required="true">
+											<p:ajax event="blur" update="enderecoMsg" />
+											<p:message id="enderecoMsg" for="enderecoUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Numero</p:column>
+									<p:column>
+										<p:inputText id="numeroEnderecoUsuario" value="#{userMB.usuarioSalvar.endereco.numero}"
+											size="10" required="true">
+											<p:ajax event="blur" update="numeroEnderecoMsg" />
+											<p:message id="numeroEnderecoMsg" for="numeroEnderecoUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Complemento</p:column>
+									<p:column>
+										<p:inputText id="complementoUsuario" value="#{userMB.usuarioSalvar.endereco.complemento}">
+											<p:ajax event="blur" update="complementoMsg" />
+											<p:message id="complementoMsg" for="complementoUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Bairro</p:column>
+									<p:column>
+										<p:inputText id="bairroUsuario" value="#{userMB.usuarioSalvar.endereco.bairro}"
+											required="true">
+											<p:ajax event="blur" update="bairroMsg" />
+											<p:message id="bairroMsg" for="bairroUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Cidade</p:column>
+									<p:column>
+										<p:inputText id="cidadeUsuario" value="#{userMB.usuarioSalvar.endereco.cidade}"
+											required="true">
+											<p:ajax event="blur" update="cidadeMsg" />
+											<p:message id="cidadeMsg" for="cidadeUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Estado</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{userMB.usuarioSalvar.endereco.estado}" effect="fade">
+											<f:validateLength minimum="4" />
+											<f:selectItem itemLabel="Selecione" itemValue="" />
+											<f:selectItems value="#{userMB.estadoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>CEP</p:column>
+									<p:column>
+										<p:inputMask mask="99999999" id="cepUsuario" value="#{userMB.usuarioSalvar.endereco.cep}"
+											required="true">
+											<p:ajax event="blur" update="cepMsg" />
+											<p:message id="cepMsg" for="cepUsuario" showDetail="true" />
+										</p:inputMask>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Telefone</p:column>
+									<p:column>
+										<p:inputText id="telefoneUsuario" value="#{userMB.usuarioSalvar.telefone}">
+											<p:ajax event="blur" update="telefoneMsg" />
+											<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Email</p:column>
+									<p:column>
+										<p:inputText id="emailUsuario" value="#{userMB.usuarioSalvar.email}" required="true">
+											<p:ajax event="blur" update="emailMsg" />
+											<p:message id="emailMsg" for="emailUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+											<p:resetInput target="salvar" />
+										</p:commandButton>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id="acesso" title="Acesso">
+						<p:panel header="Dados de Acesso">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>Usuario</p:column>
+									<p:column>
+										<p:inputText id="userName" value="#{userMB.usuarioSalvar.userLogin.username}"
+											required="true">
+											<p:ajax event="blur" update="usernameMsg" />
+											<p:message id="usernameMsg" for="userName" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Senha</p:column>
+									<p:column>
+										<p:inputText id="senhaUsuario" type="password"
+											value="#{userMB.usuarioSalvar.userLogin.password}" size="20" required="true">
+											<f:validateLength minimum="5" />
+											<p:ajax event="blur" update="senhaMsg" />
+											<p:message id="senhaMsg" for="senhaUsuario" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Permissões</p:column>
+									<p:column>
+										<p:selectManyCheckbox value="#{userMB.usuarioSalvar.userLogin.permissoes}"
+											layout="pageDirection" converter="roleConverter" required="true">
+											<f:selectItems value="#{userMB.userRoles}" var="role" noSelectionValue="ERRO"
+												itemLabel="#{role.userRole.descricao}" itemValue="#{role}" />
+										</p:selectManyCheckbox>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+											<p:resetInput target="salvar" />
+										</p:commandButton>
+									</p:column>
+									<p:column>
+										<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk" oncomplete="dlg.hide()"
+											action="#{userMB.salvarUsuario}" process=":salvar" update=":salvar" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</p:dialog>
 		<h:form id="pesquisar">
 			<div id="content" align="center">
 				<p:panel id="pesquisaUsuario" header="Pesquisar" style="text-align: left;">
@@ -268,16 +322,21 @@
 							<p:ajax event="blur" update="loginMsg" />
 							<p:message id="loginMsg" for="loginUsuarioPesquisar" showDetail="true" />
 						</p:inputText>
+						<h:outputLabel value="Status :" for="statusUsuarioPesquisar" />
+						<p:selectOneMenu id="statusUsuarioPesquisar" value="#{userMB.usuarioPesquisar.status}">
+							<f:selectItems value="#{userMB.statusList}" />
+						</p:selectOneMenu>
 						<p:commandButton id="btnPesquisar" value="Pesquisar" action="#{userMB.pesquisarUsuarios}"
-							update=":tbUsuarios pesquisar:pesquisaUsuario" icon="ui-icon-search"/>
+							update=":formTable:tbUsuarios pesquisar:pesquisaUsuario" icon="ui-icon-search" />
 					</h:panelGrid>
 				</p:panel>
 			</div>
-
 		</h:form>
-		<p:dataTable styleClass="tableColum" id="tbUsuarios" var="tusuarioSalvar" value="#{userMB.listaUsuarios}"
-			widgetVar="tabela" paginatorAlwaysVisible="false" paginator="true" rows="10"
-			paginatorPosition="bottom" emptyMessage="Nenhum resultado">
+		<h:form id="formTable">
+		<p:dataTable id="tbUsuarios" var="tusuarioSalvar"
+			value="#{userMB.listaUsuarios}" widgetVar="tabela" paginatorAlwaysVisible="false"
+			paginator="true" rows="10" paginatorPosition="bottom" emptyMessage="Nenhum resultado"  
+                 rowsPerPageTemplate="5,10,15">
 			<p:column headerText="Nome">
 					#{tusuarioSalvar.nome}
 				</p:column>
@@ -296,29 +355,30 @@
 			<p:column headerText="Status">
 					#{tusuarioSalvar.status}
 				</p:column>
-			<p:column headerText="Excluir">
-				<h:form>
-					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()" disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}" >
+			<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()"
+						rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
 						<f:setPropertyActionListener value="#{tusuarioSalvar}" target="#{userMB.usuarioSelecionado}" />
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-search" title="Atualizar" process="@this" update=":dialog"
 						oncomplete="usuarioPopUp.show()">
 						<f:setPropertyActionListener value="#{tusuarioSalvar}" target="#{userMB.usuarioSelecionado}" />
 					</p:commandButton>
-				</h:form>
 			</p:column>
 		</p:dataTable>
-
-		<p:confirmDialog message="Confirma a exclusão de #{userMB.usuarioSelecionado.nome}?"
+		</h:form>
+		
+		<p:confirmDialog message="Confirma a exclsão?"
 			header="Inciando processo de exclusão" severity="alert" widgetVar="confirmation"
 			appendToBody="true">
 			<h:form id="remover">
 				<p:commandButton value="Sim" action="#{userMB.removerUsuario}" onsuccess="confirmation.hide()"
-					update=":tbUsuarios" />
+					update=":formTable:tbUsuarios" />
 				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
 			</h:form>
 		</p:confirmDialog>
-
+		
+		
 		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true" showEffect="fade"
 			hideEffect="explode" appendToBody="true" header="Detalhes do Usuário">
 			<h:form id="atualizar">
@@ -334,7 +394,7 @@
 						</p:column>
 						<p:column>Status</p:column>
 						<p:column>
-							<p:selectOneMenu value="#{userMB.usuarioSelecionado.status}" effect="fade">
+							<p:selectOneMenu value="#{userMB.usuarioSelecionado.status}" effect="fade" disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}">
 								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
 								<f:selectItems value="#{userMB.statusList}" />
 							</p:selectOneMenu>
@@ -513,7 +573,6 @@
 							</p:inputText>
 						</p:column>
 					</p:row>
-
 					<p:row rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
 						<p:column>Usuario</p:column>
 						<p:column>
@@ -533,12 +592,10 @@
 							</p:inputText>
 						</p:column>
 					</p:row>
-
-
 					<p:row>
 						<p:column>
 							<p:commandButton oncomplete="usuarioPopUp.hide()" value="Atualizar" type="submit"
-								action="#{userMB.atualizarUsuario()}" update=":tbUsuarios" />
+								action="#{userMB.atualizarUsuario()}" update=":formTable:tbUsuarios" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>
