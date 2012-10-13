@@ -22,10 +22,10 @@ import javax.faces.convert.FacesConverter;
 import br.facet.tcc.pojo.UserRoles;
 
 /**
- * @author TODO: author_name
+ * @author Djulles IKEDA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 @FacesConverter("roleConverter")
 public class RoleConverter implements Converter {
@@ -38,7 +38,6 @@ public class RoleConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component,
             String value) {
-        System.out.println(" ============ getAsObject ===============");
         UserRoles role = new UserRoles();
         for (br.facet.tcc.enums.UserRoles userRoles : br.facet.tcc.enums.UserRoles
                 .values()) {
@@ -59,7 +58,6 @@ public class RoleConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component,
             Object value) {
-        System.out.println(" ============ getAsString ===============");
         String retorno = ((UserRoles) value).getUserRole().getDescricao();
 
         return retorno;
