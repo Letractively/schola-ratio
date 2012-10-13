@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.impl.dao;
 
+import java.util.List;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Repository;
 
@@ -35,4 +37,27 @@ public class UsuarioDaoImpl extends DaoConfiguration<Usuario> {
         return super.salvar(t);
     }
 
+    @Override
+    public void atualizar(Usuario t) throws DaoException {
+        String password = t.getUserLogin().getPassword();
+        t.getUserLogin().setPassword(
+                password.length() == 40 ? password : DigestUtils
+                        .shaHex(password));
+        super.atualizar(t);
+    }
+
+    @Override
+    public void excluir(Usuario t) throws DaoException {
+        super.excluir(t);
+    }
+
+    @Override
+    public List<Usuario> listar(Class clazz) throws DaoException {
+        return super.listar(clazz);
+    }
+
+    @Override
+    public List<Usuario> pesquisar(Usuario t) throws DaoException {
+        return super.pesquisar(t);
+    }
 }
