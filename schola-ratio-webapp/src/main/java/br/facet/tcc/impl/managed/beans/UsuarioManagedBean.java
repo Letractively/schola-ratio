@@ -164,7 +164,8 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
     public String removerUsuario() {
 
         try {
-            this.usurioService.removerUsuario(usuarioSelecionado);
+            this.usuarioSelecionado.setStatus(Status.INATIVO);
+            this.usurioService.alterarUsuario(usuarioSelecionado);
             this.listaUsuarios.remove(usuarioSelecionado);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Usuario removido com sucesso.", "");
