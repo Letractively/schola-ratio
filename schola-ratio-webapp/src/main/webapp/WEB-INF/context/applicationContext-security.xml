@@ -20,6 +20,8 @@
 			access="hasRole('ROLE_USR')" />
 		<security:intercept-url pattern="/pages/financeiro/*"
 			access="hasRole('ROLE_FIN')" />
+		<security:intercept-url pattern="/pages/configuracoes/*"
+			access="hasRole('ROLE_CFG')" />
 		<security:logout logout-success-url="/login.schola" />
 		<security:form-login login-page="/login.schola"
 			authentication-failure-url="/login.schola?login_erro=1"
