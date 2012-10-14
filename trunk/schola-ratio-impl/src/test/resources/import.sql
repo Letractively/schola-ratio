@@ -78,12 +78,6 @@ INSERT INTO tb_usuario(usuario_id, cpf, dataNascimento, email, nacionalidade, na
 INSERT INTO tb_usuario(usuario_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name,sexo, status, uforgaoexpeditor, endereco_usuario) VALUES (nextval('seq_usuario'), 78978978990, '2001-01-12', 'hgftu@rtfdx', 'Brasileiro', 'Pará', 'Anonieta dos Santos', '', '', 'DDEESS', 6432098778, 'user_name3','F', 'ATIVO', 'SP', 10);
 INSERT INTO tb_usuario(usuario_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name,sexo, status, uforgaoexpeditor, endereco_usuario) VALUES (nextval('seq_usuario'), 48978978990, '2001-01-14', '44444@rtfdx', 'Brasileiro', 'Pará', 'Anonieta dos Santos', '', '', '4SS', 4444098778, 'user_name4','F', 'ATIVO', 'SP', 11);
 
-
-INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 111111, '2010-04-01', '111@111.com', 'nacionalidade1', 'naturalidade1', 'nome1', 'nomema1', 'nomepai1', 'orgaoexpeditor', 111, 'user_name5', 'M', '1111-1111', 'ATIVO', 'PR', 'descricaotitulo1', 'MESTRADO', 12);
-INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 222222, '2010-04-02', '222@222.com', 'nacionalidade2', 'naturalidade2', 'nome2', 'nomema2', 'nomepai2', 'orgaoexpeditor', 222, 'user_name6', 'M', '2222-2222', 'ATIVO', 'PR', 'descricaotitulo2', 'MESTRADO', 13);
-INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 333333, '2010-04-03', '333@333.com', 'nacionalidade3', 'naturalidade3', 'nome3', 'nomema3', 'nomepai3', 'orgaoexpeditor', 333, 'user_name7', 'M', '3333-3333', 'ATIVO', 'PR', 'descricaotitulo3', 'MESTRADO', 14);
-INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 444444, '2010-04-04', '444@444.com', 'nacionalidade4', 'naturalidade4', 'nome4', 'nomema4', 'nomepai4', 'orgaoexpeditor', 444, 'user_name8', 'M', '5555-5555', 'ATIVO', 'PR', 'descricaotitulo4', 'MESTRADO', 15);
-
 insert into tb_aluno (aluno_id, cpf, user_name, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg, sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'33333333333','user_name9','2003-08-15','wwwrrr@email.com','4','Brasileiro','São Vicente','Astolpho P Cruz','','','SSP-SP','2222222222','M', '3333-3333' , 'ATIVO','SP','2012-08-18');
 insert into tb_aluno (aluno_id, cpf, user_name, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'55555555555','user_name10','1994-06-10','xxxxxx@email.com','5','Canadense','Curitiba','Josepha P Silva','','','SSP-SP','11111111','F', '4444-4444', 'ATIVO','SP','2012-08-18');
 insert into tb_aluno (aluno_id, cpf, user_name, dataNascimento, email, endereco_usuario, nacionalidade, naturalidade, nome, nomeMae, nomePai, orgaoExpeditor, rg,  sexo, telefone ,status, ufOrgaoExpeditor, dataDeMatricula) values (nextval('seq_aluno'),'88888888888','user_name11','1999-04-01','oooooo@email.com','6','Brasileiro','São José dos Pinhais','Jeronimo Pires','','','SSP-RS','54387621','M', '7777-7777' ,'ATIVO','RS','2012-08-18');
@@ -97,12 +91,22 @@ INSERT INTO tb_desconto( desconto_id, status, tipodesconto, valordesconto, aluno
 INSERT INTO tb_disciplina( id, cargahoraria, nome, periodo, status)  VALUES (nextval('seq_disciplina'), 11, 'disciplina1', 1, 'ATIVO');
 INSERT INTO tb_disciplina( id, cargahoraria, nome, periodo, status)  VALUES (nextval('seq_disciplina'), 22, 'disciplina2', 2, 'ATIVO');
 INSERT INTO tb_disciplina( id, cargahoraria, nome, periodo, status)  VALUES (nextval('seq_disciplina'), 33, 'disciplina3', 1, 'ATIVO');
+INSERT INTO tb_disciplina( id, cargahoraria, nome, periodo, status)  VALUES (nextval('seq_disciplina'), 33, 'disciplina4', 3, 'ATIVO');
 
 
 INSERT INTO tb_mensalidade( mensalidade_id, mesreferencia, status, valor, valorpago, aluno_aluno_id)  VALUES (nextval('seq_mensalidade'), '2012-10-01', 'ATIVO', 200.51, 200.51, 1);
 INSERT INTO tb_mensalidade( mensalidade_id, mesreferencia, status, valor, valorpago, aluno_aluno_id)  VALUES (nextval('seq_mensalidade'), '2012-10-02', 'ATIVO', 200.52, 200.52, 2);
 INSERT INTO tb_mensalidade( mensalidade_id, mesreferencia, status, valor, valorpago, aluno_aluno_id)  VALUES (nextval('seq_mensalidade'), '2012-10-03', 'ATIVO', 200.53, 200.53, 3);
 
+--INSERT INTO tb_disponibilidade_professor( disponibilidade_professor_id, status) VALUES (nextval('seq_disponibilidade_professor'), 'ATIVO');
+--INSERT INTO tb_disponibilidade_professor( disponibilidade_professor_id, status) VALUES (nextval('seq_disponibilidade_professor'), 'ATIVO');
+--INSERT INTO tb_disponibilidade_professor( disponibilidade_professor_id, status) VALUES (nextval('seq_disponibilidade_professor'), 'ATIVO');
+--INSERT INTO tb_disponibilidade_professor( disponibilidade_professor_id, status) VALUES (nextval('seq_disponibilidade_professor'), 'ATIVO');
+
+INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 111111, '2010-04-01', '111@111.com', 'nacionalidade1', 'naturalidade1', 'nome1', 'nomema1', 'nomepai1', 'orgaoexpeditor', 111, 'user_name5', 'M', '1111-1111', 'ATIVO', 'PR', 'descricaotitulo1', 'MESTRADO', 12);
+INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 222222, '2010-04-02', '222@222.com', 'nacionalidade2', 'naturalidade2', 'nome2', 'nomema2', 'nomepai2', 'orgaoexpeditor', 222, 'user_name6', 'M', '2222-2222', 'ATIVO', 'PR', 'descricaotitulo2', 'MESTRADO', 13);
+INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 333333, '2010-04-03', '333@333.com', 'nacionalidade3', 'naturalidade3', 'nome3', 'nomema3', 'nomepai3', 'orgaoexpeditor', 333, 'user_name7', 'M', '3333-3333', 'ATIVO', 'PR', 'descricaotitulo3', 'MESTRADO', 14);
+INSERT INTO tb_professor( professor_id, cpf, dataNascimento, email, nacionalidade, naturalidade, nome, nomemae, nomepai, orgaoexpeditor, rg, user_name, sexo, telefone ,status, uforgaoexpeditor, descricaotitulo, titulo, endereco_usuario) VALUES       (nextval('seq_professor') , 444444, '2010-04-04', '444@444.com', 'nacionalidade4', 'naturalidade4', 'nome4', 'nomema4', 'nomepai4', 'orgaoexpeditor', 444, 'user_name8', 'M', '5555-5555', 'ATIVO', 'PR', 'descricaotitulo4', 'MESTRADO', 15);
 
 INSERT INTO tb_turma( turma_id, ano, horariodeaulas, status, disciplina_id, professor_id) VALUES ( nextval('seq_turma'), '2012-10-01', 'SEGUNDA_PRIMEIRO_HORARIO', 'ATIVO', 1, 1);
 INSERT INTO tb_turma( turma_id, ano, horariodeaulas, status, disciplina_id, professor_id) VALUES ( nextval('seq_turma'), '2012-10-02', 'SEGUNDA_SEGUNDO_HORARIO', 'ATIVO', 2, 2);
@@ -123,25 +127,27 @@ INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (1,
 INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (2, 2);
 INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (3, 3);
 
-
-INSERT INTO tb_disponibilidade_professor( disponibilidade_professor_id, status, professor_professor_id) VALUES (nextval('seq_disponibilidade_professor'), 'ATIVO', 1);
-INSERT INTO tb_disponibilidade_professor( disponibilidade_professor_id, status, professor_professor_id) VALUES (nextval('seq_disponibilidade_professor'), 'ATIVO', 2);
-INSERT INTO tb_disponibilidade_professor( disponibilidade_professor_id, status, professor_professor_id) VALUES (nextval('seq_disponibilidade_professor'), 'ATIVO', 3);
-
-
-INSERT INTO tb_disponibilidade_professor_tb_disciplina( tb_disponibilidade_professor_disponibilidade_professor_id, disciplinas_id) VALUES (1, 1);
-INSERT INTO tb_disponibilidade_professor_tb_disciplina( tb_disponibilidade_professor_disponibilidade_professor_id, disciplinas_id) VALUES (2, 2);
-INSERT INTO tb_disponibilidade_professor_tb_disciplina( tb_disponibilidade_professor_disponibilidade_professor_id, disciplinas_id) VALUES (3, 3);
+INSERT INTO tb_professor_tb_disciplina( tb_professor_professor_id, disciplinasqueleciona_id) VALUES (1, 1);
+INSERT INTO tb_professor_tb_disciplina( tb_professor_professor_id, disciplinasqueleciona_id) VALUES (2, 2);
+INSERT INTO tb_professor_tb_disciplina( tb_professor_professor_id, disciplinasqueleciona_id) VALUES (3, 3);
+INSERT INTO tb_professor_tb_disciplina( tb_professor_professor_id, disciplinasqueleciona_id) VALUES (4, 4);
 
 
-INSERT INTO tb_horario_aulas( id, value) VALUES (1, 'SEGUNDA_PRIMEIRO_HORARIO');
-INSERT INTO tb_horario_aulas( id, value) VALUES (2, 'SEGUNDA_SEGUNDO_HORARIO');
-INSERT INTO tb_horario_aulas( id, value) VALUES (3, 'TERCA_PRIMEIRO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (1, 'SEGUNDA_PRIMEIRO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (2, 'SEGUNDA_SEGUNDO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (3, 'TERCA_PRIMEIRO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (4, 'TERCA_SEGUNDO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (5, 'QUARTA_PRIMEIRO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (6, 'QUARTA_SEGUNDO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (7, 'QUINTA_PRIMEIRO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (8, 'QUINTA_SEGUNDO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (9, 'SEXTA_PRIMEIRO_HORARIO');
+INSERT INTO tb_horario_aulas( id, horariodeaulas) VALUES (10, 'SEXTA_SEGUNDO_HORARIO');
 
-
-INSERT INTO tb_disponibilidade_professor_tb_horario_aulas( tb_disponibilidade_professor_disponibilidade_professor_id, horariodisponivel_id) VALUES (1, 1);
-INSERT INTO tb_disponibilidade_professor_tb_horario_aulas( tb_disponibilidade_professor_disponibilidade_professor_id, horariodisponivel_id) VALUES (2, 2);
-INSERT INTO tb_disponibilidade_professor_tb_horario_aulas( tb_disponibilidade_professor_disponibilidade_professor_id, horariodisponivel_id) VALUES (3, 3);
+INSERT INTO tb_professor_tb_horario_aulas( tb_professor_professor_id, horariodisponivel_id) VALUES (1, 1);
+INSERT INTO tb_professor_tb_horario_aulas( tb_professor_professor_id, horariodisponivel_id) VALUES (2, 2);
+INSERT INTO tb_professor_tb_horario_aulas( tb_professor_professor_id, horariodisponivel_id) VALUES (3, 3);
+INSERT INTO tb_professor_tb_horario_aulas( tb_professor_professor_id, horariodisponivel_id) VALUES (4, 4);
 
 
 INSERT INTO tb_situacao_aluno_turma( situacao_aluno_turma_id, situacao, aluno_aluno_id, turma_turma_id) VALUES (nextval('seq_situacao_aluno_turma'), 'APROVADO', 1, 1);
