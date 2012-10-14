@@ -16,6 +16,7 @@ package br.facet.tcc.service;
 import java.io.Serializable;
 import java.rmi.ServerException;
 
+import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.pojo.Instituicao;
 import br.facet.tcc.pojo.Permissao;
 
@@ -29,11 +30,11 @@ public interface GestaoConfiguracao extends Serializable {
 
     /**
      * @param instituicao
+     * @return
      * @throws ServerException
      * @since 0.0.1
      */
-    public void atualizarDestalhesInstituicao(Instituicao instituicao)
-        throws ServerException;
+    public Instituicao buscarInstituicao() throws ServiceException;
 
     /**
      * @param permissao
@@ -41,13 +42,24 @@ public interface GestaoConfiguracao extends Serializable {
      * @throws ServerException
      * @since 0.0.1
      */
-    public Integer incluirPermissao(Permissao permissao) throws ServerException;
+
+    public Instituicao atualizarDetalhesInstituicao(Instituicao instituicao)
+            throws ServiceException;
+
+    /**
+     * @param permissao
+     * @return
+     * @throws ServerException
+     * @since 0.0.1
+     */
+    public Integer incluirPermissao(Permissao permissao)
+            throws ServiceException;
 
     /**
      * @param permissao
      * @throws ServerException
      * @since 0.0.1
      */
-    public void alterarPermissao(Permissao permissao) throws ServerException;
+    public void alterarPermissao(Permissao permissao) throws ServiceException;
 
 }
