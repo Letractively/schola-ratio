@@ -17,18 +17,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
-import br.facet.tcc.annotations.Searchable;
-import br.facet.tcc.enums.HorarioDeAulas;
 import br.facet.tcc.enums.Status;
 
 /**
@@ -38,9 +33,6 @@ import br.facet.tcc.enums.Status;
  * @since 0.0.1
  */
 
-@Entity
-@Table(name = "tb_disponibilidade_professor")
-@SequenceGenerator(sequenceName = "seq_disponibilidade_professor", name = "seq_disponibilidade_professor", allocationSize = 1)
 public class DisponibilidadeDoProfessor implements Serializable {
 
     /**
@@ -50,11 +42,11 @@ public class DisponibilidadeDoProfessor implements Serializable {
 
     private Integer id;
 
-    private Professor professor;
+    // private Professor professor;
 
     private List<Disciplina> disciplinas;
 
-    private List<HorarioDeAulas> horarioDisponivel;
+    private List<HorarioDeAula> horarioDisponivel;
 
     private Status status;
 
@@ -73,16 +65,10 @@ public class DisponibilidadeDoProfessor implements Serializable {
      * @return the professor
      */
 
-    @OneToOne
-    @Searchable
-    public Professor getProfessor() {
-        return professor;
-    }
-
     /**
      * @return the disciplinas
      */
-    @ManyToMany
+
     public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
@@ -99,8 +85,8 @@ public class DisponibilidadeDoProfessor implements Serializable {
     /**
      * @return the horarioDisponivel
      */
-    @ManyToMany
-    public List<HorarioDeAulas> getHorarioDisponivel() {
+    @ManyToMany(fetch = FetchType.LAZY)
+    public List<HorarioDeAula> getHorarioDisponivel() {
         return horarioDisponivel;
     }
 
@@ -110,14 +96,6 @@ public class DisponibilidadeDoProfessor implements Serializable {
      */
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * @param professor
-     *            the professor to set
-     */
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
     }
 
     /**
@@ -140,7 +118,7 @@ public class DisponibilidadeDoProfessor implements Serializable {
      * @param horarioDisponivel
      *            the horarioDisponivel to set
      */
-    public void setHorarioDisponivel(List<HorarioDeAulas> horarioDisponivel) {
+    public void setHorarioDisponivel(List<HorarioDeAula> horarioDisponivel) {
         this.horarioDisponivel = horarioDisponivel;
     }
 

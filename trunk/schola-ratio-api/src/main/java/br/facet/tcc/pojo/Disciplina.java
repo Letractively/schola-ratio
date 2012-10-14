@@ -14,18 +14,23 @@
 package br.facet.tcc.pojo;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.IndexColumn;
 
 import br.facet.tcc.annotations.Searchable;
 import br.facet.tcc.enums.Status;
@@ -54,9 +59,13 @@ public class Disciplina implements Serializable {
 
     private Status status;
 
-    private List<Disciplina> requisitos;
+    private Set<Disciplina> requisitos;
 
     private Integer periodo;
+
+    public Disciplina() {
+        this.requisitos = new HashSet<Disciplina>();
+    }
 
     /**
      * @return the id
@@ -97,9 +106,10 @@ public class Disciplina implements Serializable {
     /**
      * @return the requisitos
      */
-    @ManyToMany
-    @JoinColumn(name = "disciplina_requisitos")
-    public List<Disciplina> getRequisitos() {
+    @ManyToMany(fetch = FetchType.EAGER)
+    @IndexColumn(name = "idx_col")
+    @Fetch(FetchMode.SUBSELECT)
+    public Set<Disciplina> getRequisitos() {
         return requisitos;
     }
 
@@ -148,7 +158,7 @@ public class Disciplina implements Serializable {
      * @param requisitos
      *            the requisitos to set
      */
-    public void setRequisitos(List<Disciplina> requisitos) {
+    public void setRequisitos(Set<Disciplina> requisitos) {
         this.requisitos = requisitos;
     }
 
@@ -158,5 +168,16 @@ public class Disciplina implements Serializable {
      */
     public void setPeriodo(Integer periodo) {
         this.periodo = periodo;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Disciplina disciplina = (Disciplina) obj;
+        return this.nome.equals(disciplina.getNome());
     }
 }

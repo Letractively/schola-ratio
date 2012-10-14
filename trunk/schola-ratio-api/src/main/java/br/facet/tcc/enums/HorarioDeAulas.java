@@ -13,32 +13,33 @@
  */
 package br.facet.tcc.enums;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 /**
  * @author Osnir F CUNHA
  * 
  * @version 0.0.1
  * @since 0.0.1
  */
-@Entity
-@Table(name = "tb_horario_aulas")
+
 public enum HorarioDeAulas {
-    SEGUNDA_PRIMEIRO_HORARIO, SEGUNDA_SEGUNDO_HORARIO, TERCA_PRIMEIRO_HORARIO, TERCA_SEGUNDO_HORARIO, QUARTA_PRIMEIRO_HORARIO, QUARTA_SEGUNDO_HORARIO, QUINTA_PRIMEIRO_HORARIO, QUINTA_SEGUNDO_HORARIO, SEXTA_PRIMEIRO_HORARIO, SEXTA_SEGUNDO_HORARIO;
+    SEGUNDA_PRIMEIRO_HORARIO(1), SEGUNDA_SEGUNDO_HORARIO(2), TERCA_PRIMEIRO_HORARIO(
+            3), TERCA_SEGUNDO_HORARIO(4), QUARTA_PRIMEIRO_HORARIO(5), QUARTA_SEGUNDO_HORARIO(
+            6), QUINTA_PRIMEIRO_HORARIO(7), QUINTA_SEGUNDO_HORARIO(8), SEXTA_PRIMEIRO_HORARIO(
+            9), SEXTA_SEGUNDO_HORARIO(10);
 
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private Integer id;
+    private int id;
 
-    @Column
     private String value;
 
-    private HorarioDeAulas() {
-        this.value = this.toString();
+    private HorarioDeAulas(Integer id) {
+        this.id = id;
+        this.value = this.name();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getValue() {
+        return value;
     }
 }
