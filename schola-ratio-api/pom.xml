@@ -32,11 +32,17 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- Hibernate annotation -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>ejb3-persistence</artifactId>
-			<version>1.0.2.GA</version>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.3.1.ga</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.transaction</groupId>
+					<artifactId>jta</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
-
 </project>

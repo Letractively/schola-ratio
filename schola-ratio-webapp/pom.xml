@@ -67,7 +67,6 @@
 			<artifactId>primefaces</artifactId>
 			<version>3.4</version>
 		</dependency>
-
 		<dependency>
 			<groupId>tcc.bsi.facet</groupId>
 			<artifactId>schola-ratio-impl</artifactId>
@@ -121,15 +120,15 @@
 			<artifactId>taglib-core</artifactId>
 			<version>0.4</version>
 		</dependency>
-
-		<!-- ~~~~ -->
-		<!-- TEST -->
-		<!-- ~~~~ -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.7</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
-
 	</dependencies>
 </project>
