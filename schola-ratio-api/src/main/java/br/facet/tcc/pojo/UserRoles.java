@@ -33,6 +33,14 @@ public class UserRoles {
 
     private br.facet.tcc.enums.UserRoles userRole;
 
+    public UserRoles() {
+    }
+
+    public UserRoles(br.facet.tcc.enums.UserRoles role) {
+        this.userRole = role;
+        this.id = role.getId();
+    }
+
     /**
      * Returns the id
      * 
