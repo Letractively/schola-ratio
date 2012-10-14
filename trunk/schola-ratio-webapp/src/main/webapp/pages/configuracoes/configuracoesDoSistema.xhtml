@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<h:head>
+	<style type="text/css">
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+</style>
+</h:head>
+<ui:decorate template="/template/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:commandButton id="loginLink" oncomplete="dlg.show()"
+				value="Instituicao" update=":dialogSalvar">
+				<f:setPropertyActionListener
+					target="#{instituicaoMB.instituicaoSalvar}"
+					value="#{instituicaoMB.instituicaoPesquisar}" />
+			</p:commandButton>
+		</h:form>
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<p:dialog id="dialogSalvar" header="Novo Aluno" widgetVar="dlg"
+			resizable="false" modal="true" appendToBody="true" width="960"
+			height="480">
+			<h:form id="salvar">
+				<p:wizard widgetVar="wiz" backLabel="Voltar" nextLabel="Próximo">
+					<p:tab id="personal" title="Instituição">
+						<p:panel header="Dados da Instituição">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>
+										<h:outputLabel value="Nome" for="nomeInstituicao" />
+									</p:column>
+									<p:column>
+										<p:inputText id="nomeInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.nome}"
+											required="true" size="35">
+											<p:ajax event="blur" update="nomeMsg" />
+											<p:message id="nomeMsg" for="nomeInstituicao"
+												showDetail="true" />
+										</p:inputText>
+									</p:column>
+
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="cnpjInstituicao" value="CNPJ" />
+									</p:column>
+									<p:column>
+										<p:inputMask mask="99999999999999" id="cnpjInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.cnpj}"
+											required="true">
+											<f:validateLength minimum="14" maximum="14" />
+											<p:ajax event="blur" update="cnpjMsg" />
+											<p:message id="cnpjMsg" for="cnpjInstituicao"
+												showDetail="true" />
+										</p:inputMask>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="inscricaoEstadual"
+											value="Inscricao Estadual" />
+									</p:column>
+
+									<p:column>
+										<p:inputText id="inscricaoEstadual"
+											value="#{instituicaoMB.instituicaoSalvar.inscricaoEstadual}"
+											required="true">
+											<p:ajax event="blur" update="inscricaoEstadualMsg" />
+											<p:message id="inscricaoEstadualMsg" for="inscricaoEstadual"
+												showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id="endereco" title="Endereço">
+						<p:panel header="Dados do Endereço">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>Rua</p:column>
+									<p:column>
+										<p:inputText id="enderecoInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.endereco.rua}"
+											size="50" required="true">
+											<p:ajax event="blur" update="enderecoMsg" />
+											<p:message id="enderecoMsg" for="enderecoInstituicao"
+												showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Numero</p:column>
+									<p:column>
+										<p:inputText id="numeroEnderecoInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.endereco.numero}"
+											size="10" required="true">
+											<p:ajax event="blur" update="numeroEnderecoMsg" />
+											<p:message id="numeroEnderecoMsg"
+												for="numeroEnderecoInstituicao" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Complemento</p:column>
+									<p:column>
+										<p:inputText id="complementoInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.endereco.complemento}">
+											<p:ajax event="blur" update="complementoMsg" />
+											<p:message id="complementoMsg" for="complementoInstituicao"
+												showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Bairro</p:column>
+									<p:column>
+										<p:inputText id="bairroInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.endereco.bairro}"
+											required="true">
+											<p:ajax event="blur" update="bairroMsg" />
+											<p:message id="bairroMsg" for="bairroInstituicao"
+												showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Cidade</p:column>
+									<p:column>
+										<p:inputText id="cidadeInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.endereco.cidade}"
+											required="true">
+											<p:ajax event="blur" update="cidadeMsg" />
+											<p:message id="cidadeMsg" for="cidadeInstituicao"
+												showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Estado</p:column>
+									<p:column>
+										<p:selectOneMenu
+											value="#{instituicaoMB.instituicaoSalvar.endereco.estado}"
+											effect="fade">
+											<f:validateLength minimum="4" />
+											<f:selectItem itemLabel="Selecione" itemValue="" />
+											<f:selectItems value="#{instituicaoMB.estadoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>CEP</p:column>
+									<p:column>
+										<p:inputMask mask="99999999" id="cepInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.endereco.cep}"
+											required="true">
+											<p:ajax event="blur" update="cepMsg" />
+											<p:message id="cepMsg" for="cepInstituicao" showDetail="true" />
+										</p:inputMask>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Telefone</p:column>
+									<p:column>
+										<p:inputText id="telefoneInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.telefone}">
+											<p:ajax event="blur" update="telefoneMsg" />
+											<p:message id="telefoneMsg" for="telefoneMsg"
+												showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Email</p:column>
+									<p:column>
+										<p:inputText id="emailInstituicao"
+											value="#{instituicaoMB.instituicaoSalvar.email}"
+											required="true">
+											<p:ajax event="blur" update="emailMsg" />
+											<p:message id="emailMsg" for="emailInstituicao"
+												showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton value="Limpar" update=":salvar"
+											process="@this" icon="ui-icon-cancel">
+											<p:resetInput target="salvar" />
+										</p:commandButton>
+									</p:column>
+									<p:column>
+										<p:commandButton id="btnAtualizar" value="Atualizar"
+											icon="ui-icon-disk" oncomplete="dlg.hide()"
+											action="#{instituicaoMB.atualizarInstituicao}"
+											process=":salvar" update=":salvar">
+											<!-- 									<f:setPropertyActionListener target="#{instituicaoMB.instituicaoPesquisar}" value="#{instituicaoMB.instituicaoSalvar}" /> -->
+										</p:commandButton>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:row>
+					</p:row>
+				</p:wizard>
+
+
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:decorate>
+</html>
