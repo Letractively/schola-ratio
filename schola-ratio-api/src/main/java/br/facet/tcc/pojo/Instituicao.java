@@ -15,6 +15,7 @@ package br.facet.tcc.pojo;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +51,7 @@ public class Instituicao implements Serializable {
 
     private String nome;
 
-    private Integer cnpj;
+    private Long cnpj;
 
     private Integer inscricaoEstadual;
 
@@ -59,6 +60,10 @@ public class Instituicao implements Serializable {
     private String email;
 
     private Integer telefone;
+
+    public Instituicao() {
+        this.endereco = new Endereco();
+    }
 
     /**
      * @return the id
@@ -85,7 +90,7 @@ public class Instituicao implements Serializable {
      */
     @Column(name = "cnpj")
     @Searchable
-    public Integer getCnpj() {
+    public Long getCnpj() {
         return cnpj;
     }
 
@@ -101,7 +106,7 @@ public class Instituicao implements Serializable {
     /**
      * @return the endereco
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_instituicao")
     public Endereco getEndereco() {
         return endereco;
@@ -143,7 +148,7 @@ public class Instituicao implements Serializable {
      * @param cnpj
      *            the cnpj to set
      */
-    public void setCnpj(Integer cnpj) {
+    public void setCnpj(Long cnpj) {
         this.cnpj = cnpj;
     }
 
