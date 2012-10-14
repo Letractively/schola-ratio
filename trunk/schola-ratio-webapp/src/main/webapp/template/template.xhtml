@@ -99,6 +99,7 @@ body {
 					<sec:ifAllGranted roles="ROLE_CFG">
 						<p:tab title="Configurações">
 							<p:menu>
+								<p:menuitem url="/pages/configuracoes/configuracoesDoSistema.schola" value="Parametros do Sistema" />
 								<sec:ifAllGranted roles="ROLE_ADM">
 									<p:menuitem url="#" value="Relatórios" />
 								</sec:ifAllGranted>
