@@ -12,30 +12,16 @@ package br.facet.tcc.impl.managed.beans;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
-
 import br.facet.tcc.enums.Bimestre;
 import br.facet.tcc.enums.Estado;
+import br.facet.tcc.enums.HorarioDeAulas;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
+import br.facet.tcc.enums.TipoTitulo;
 import br.facet.tcc.enums.UserRoles;
+import br.facet.tcc.pojo.HorarioDeAula;
 
 /**
- * <b>FIXME</b>: Each class and interface specification must include:
- * <OL>
- * <LI><b>Executive summary</b></LI>
- * <LI><b>State Information</b></LI>
- * <LI><b>OS/Hardware Dependencies</b></LI>
- * <LI><b>Allowed Implementation Variances</b></LI>
- * <LI><b>Security Constraints</b></LI>
- * <LI><b>Serialized Form</b></LI>
- * <LI><b>References to any External Specifications</b></LI>
- * </OL>
- * Refer to <a
- * href="http://java.sun.com/j2se/javadoc/writingapispecs/index.html#class"
- * >Class/Interface Specification</a> for more information
- * <p>
- * <b>Creation Time:</b> 04/09/2012 01:20:41
  * 
  * @author Osnir F CUNHA
  * @version 0.0.1
@@ -69,50 +55,6 @@ public abstract class ConstantsMB {
         return Status.values();
     }
 
-    public List getUserRoles_() {
-        List selectManyRoles = new ArrayList();
-        for (int i = 0; i < UserRoles.values().length; i++) {
-            br.facet.tcc.pojo.UserRoles role;
-            switch (UserRoles.values()[i]) {
-            case ROLE_ACA:
-                role = new br.facet.tcc.pojo.UserRoles();
-                role.setId(UserRoles.ROLE_ACA.getId());
-                role.setUserRole(UserRoles.ROLE_ACA);
-                selectManyRoles.add(new SelectItem(role, "Academico"));
-                break;
-            case ROLE_ADM:
-                role = new br.facet.tcc.pojo.UserRoles();
-                role.setId(UserRoles.ROLE_ADM.getId());
-                role.setUserRole(UserRoles.ROLE_ADM);
-                selectManyRoles.add(new SelectItem(role, "Administrativo"));
-                break;
-            case ROLE_CFG:
-                role = new br.facet.tcc.pojo.UserRoles();
-                role.setUserRole(UserRoles.ROLE_CFG);
-                role.setId(UserRoles.ROLE_CFG.getId());
-                selectManyRoles.add(new SelectItem(role, "Configurações"));
-                break;
-            case ROLE_FIN:
-                role = new br.facet.tcc.pojo.UserRoles();
-                role.setUserRole(UserRoles.ROLE_FIN);
-                role.setId(UserRoles.ROLE_FIN.getId());
-                selectManyRoles.add(new SelectItem(role, "Financeiro"));
-                break;
-            case ROLE_USR:
-                role = new br.facet.tcc.pojo.UserRoles();
-                role.setUserRole(UserRoles.ROLE_USR);
-                role.setId(UserRoles.ROLE_USR.getId());
-                selectManyRoles.add(new SelectItem(role, "Usuario"));
-                break;
-
-            default:
-                break;
-            }
-        }
-
-        return selectManyRoles;
-    }
-
     public List<br.facet.tcc.pojo.UserRoles> getUserRoles() {
         List<br.facet.tcc.pojo.UserRoles> roles = new ArrayList<br.facet.tcc.pojo.UserRoles>();
         for (UserRoles userRole : UserRoles.values()) {
@@ -124,5 +66,21 @@ public abstract class ConstantsMB {
         }
 
         return roles;
+    }
+
+    public TipoTitulo[] getTitulos() {
+        return TipoTitulo.values();
+    }
+
+    public List<HorarioDeAula> getHorariosDeAula() {
+        List<HorarioDeAula> lista = new ArrayList<HorarioDeAula>();
+        for (HorarioDeAulas horarioDeAula : HorarioDeAulas.values()) {
+            HorarioDeAula horarioDeA = new HorarioDeAula(horarioDeAula);
+            horarioDeA.setId(horarioDeAula.getId());
+            horarioDeA.setHorarioDeAulas(horarioDeAula);
+
+            lista.add(horarioDeA);
+        }
+        return lista;
     }
 }
