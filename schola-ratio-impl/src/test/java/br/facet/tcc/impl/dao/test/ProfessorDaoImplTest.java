@@ -13,19 +13,28 @@
  */
 package br.facet.tcc.impl.dao.test;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.facet.tcc.enums.Estado;
+import br.facet.tcc.enums.HorarioDeAulas;
 import br.facet.tcc.enums.Sexo;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.enums.TipoTitulo;
+import br.facet.tcc.enums.UserRoles;
 import br.facet.tcc.exception.DaoException;
+import br.facet.tcc.pojo.Disciplina;
 import br.facet.tcc.pojo.Endereco;
+import br.facet.tcc.pojo.HorarioDeAula;
 import br.facet.tcc.pojo.Professor;
+import br.facet.tcc.pojo.UserLogin;
 
 /**
  * @author Osnir F CUNHA
@@ -44,13 +53,38 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
      */
     @Test
     public void testSalvar() throws DaoException {
+        // Endereço
+        Endereco endereco = new Endereco();
+        endereco.setBairro("bairroendprof");
+        endereco.setCep(12312345);
+        endereco.setCidade("cidadeendprof");
+        endereco.setComplemento("nt");
+        endereco.setEstado(Estado.BA);
+        endereco.setNumero(123);
+        endereco.setRua("ruaendprfo");
+
+        // Permissoes
+        List<br.facet.tcc.pojo.UserRoles> permissoes = new ArrayList<br.facet.tcc.pojo.UserRoles>();
+        permissoes.add(new br.facet.tcc.pojo.UserRoles(UserRoles.ROLE_USR));
+        UserLogin userLogin = new UserLogin();
+        userLogin.setUsername("prof1");
+        userLogin.setEnable(true);
+        userLogin.setPassword("senha");
+        userLogin.setPermissoes(permissoes);
+
+        // Disponibilidade
+        Set<Disciplina> disciplinas = new HashSet<Disciplina>(
+                this.disciplinaDao.listar(Disciplina.class));
+        Set<HorarioDeAula> horarioDeAulas = new LinkedHashSet<HorarioDeAula>();
+        horarioDeAulas.add(new HorarioDeAula(
+                HorarioDeAulas.SEGUNDA_PRIMEIRO_HORARIO));
+
         Professor professor = new Professor();
 
         professor.setCpf(32932112388L);
         professor.setDataNascimento(new Date(2003, 06, 12));
         professor.setEmail("osnircunha@email.com");
-        professor.setEndereco(this.getEnderecoDao().listar(Endereco.class)
-                .get(0));
+        professor.setEndereco(endereco);
         professor.setNacionalidade("Brasileiro");
         professor.setNaturalidade("São Vicente");
         professor.setNome("Osnir F CUNHA");
@@ -59,11 +93,13 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         professor.setOrgaoExpeditor("SSP-SP");
         professor.setRg(272675670L);
         professor.setUfOrgaoExpeditor(Estado.SP);
-        professor.setUserLogin(this.userLoginDao.obterPorID("user_name4"));
+        professor.setUserLogin(userLogin);
         professor.setSexo(Sexo.M);
         professor.setStatus(Status.ATIVO);
         professor.setTitulo(TipoTitulo.GRADUACAO);
         professor.setDescricaoTitulo("Engenharia de Computação");
+        professor.setDisciplinasQueLeciona(disciplinas);
+        professor.setHorarioDisponivel(horarioDeAulas);
 
         Integer codigo = (Integer) this.enderecoDao.save(professor);
 
