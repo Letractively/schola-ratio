@@ -15,6 +15,7 @@ package br.facet.tcc.impl.dao;
 
 import org.springframework.stereotype.Repository;
 
+import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Instituicao;
 
 /**
@@ -26,5 +27,15 @@ import br.facet.tcc.pojo.Instituicao;
  */
 @Repository("instituicaoDao")
 public class InstituicaoDaoImpl extends DaoConfiguration<Instituicao> {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public void atualizar(Instituicao t) throws DaoException {
+        super.atualizar(t);
+    }
 
 }
