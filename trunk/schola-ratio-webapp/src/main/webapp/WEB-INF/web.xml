@@ -12,9 +12,12 @@
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/pages/error.schola</location>
+		<location>/pages/index.schola?serverError=1</location>
 	</error-page>
-
+	<error-page>
+		<error-code>500</error-code>
+		<location>/pages/index.schola?serverError=1</location>
+	</error-page>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

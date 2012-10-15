@@ -1,28 +1,29 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-<style type="text/css">
-#msg_erro{
+	<style type="text/css">
+#msg_erro {
 	color: red;
 }
 </style>
 </h:head>
-
 <ui:decorate template="/template/template.xhtml">
-
 	<ui:define name="content">
 		<p:panel rendered="#{param.login_erro==2}">
-		<h:panelGroup>
-			<span id="msg_erro">Acesso negado!</span>
-		</h:panelGroup> 
+			<div align="center">
+				<h4 id="msg_erro">Acesso negado!</h4>
+			</div>
+		</p:panel>
+		<p:panel rendered="#{param.serverError==1}">
+			<div align="center">
+				<h4 id="msg_erro">Ops, página não encontrada!!!"</h4>
+				<img src="#{request.contextPath}/imagens/404.jpg" />
+			</div>
 		</p:panel>
 	</ui:define>
-
 </ui:decorate>
 </html>
