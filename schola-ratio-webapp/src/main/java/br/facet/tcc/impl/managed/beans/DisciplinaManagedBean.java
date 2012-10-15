@@ -15,12 +15,20 @@
 package br.facet.tcc.impl.managed.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
+import br.facet.tcc.enums.Status;
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.impl.service.GestaoAdministrativoImpl;
 import br.facet.tcc.pojo.Disciplina;
@@ -35,27 +43,147 @@ import br.facet.tcc.pojo.Disciplina;
 @ViewScoped
 public class DisciplinaManagedBean extends ConstantsMB implements Serializable {
 
+    private static final Logger log = Logger
+            .getLogger(DisciplinaManagedBean.class);
+
     @ManagedProperty("#{gestaoAdministrativo}")
     private GestaoAdministrativoImpl gestaoAdministrativo;
 
     private List<Disciplina> disciplinas;
 
+    private List<Disciplina> listaDisciplinas;
+
+    private Disciplina disciplinaSalvar;
+
+    private Disciplina disciplinaPesquisar;
+
+    private Disciplina disciplinaSelecionada;
+
+    public DisciplinaManagedBean() {
+        this.disciplinas = new ArrayList<Disciplina>();
+
+        this.reset();
+    }
+
+    public String salvarDisciplina() {
+
+        try {
+            this.gestaoAdministrativo.salvarDisciplina(disciplinaSalvar);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Disciplina salva com sucesso.", "Código : "
+                            + this.disciplinaSalvar.getId());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+            this.reset();
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+        return null;
+    }
+
+    public String atualizarDisciplina() {
+        try {
+            this.gestaoAdministrativo.alterarDisciplina(disciplinaSelecionada);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Disciplina alterada com sucesso.", "Código : "
+                            + this.disciplinaSelecionada.getId());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+            this.reset();
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+        return null;
+    }
+
+    public String pesquisarDisciplina() {
+        this.disciplinas = new ArrayList<Disciplina>();
+        if ("".equals(disciplinaPesquisar.getNome())) {
+            this.disciplinaPesquisar.setNome(null);
+        }
+        if (disciplinaPesquisar.getPeriodo() == 0) {
+            this.disciplinaPesquisar.setPeriodo(null);
+        }
+        if (disciplinaPesquisar.getCargaHoraria() == 0) {
+            this.disciplinaPesquisar.setCargaHoraria(null);
+        }
+        try {
+            this.listaDisciplinas = this.gestaoAdministrativo
+                    .buscarDisciplinas(disciplinaPesquisar);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Busca realizada com sucesso.",
+                    this.listaDisciplinas.size() + " disciplinas encontrado.");
+            FacesContext.getCurrentInstance().addMessage("message", message);
+            this.reset();
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+        return null;
+    }
+
     public String listarDisciplinas() {
         try {
             this.disciplinas = this.gestaoAdministrativo.listarDisciplinas();
         } catch (ServiceException e) {
-            e.printStackTrace();
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
         }
 
         return null;
+    }
+
+    public String removerDisciplina() {
+        try {
+            this.disciplinaSelecionada.setStatus(Status.INATIVO);
+            this.gestaoAdministrativo.alterarDisciplina(disciplinaSelecionada);
+            this.listaDisciplinas.remove(disciplinaSelecionada);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Disciplina removida com sucesso.", "");
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+
+        return null;
+    }
+
+    private void reset() {
+        this.disciplinaSalvar = new Disciplina();
+        this.disciplinaPesquisar = new Disciplina();
+        this.disciplinaSalvar.setStatus(Status.ATIVO);
+    }
+
+    public void prepararAtualizar() {
+        Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+
+        for (Disciplina disciplina : this.disciplinaSelecionada.getRequisitos()) {
+            Set<Disciplina> disciplinasD = new HashSet<Disciplina>();
+            for (Disciplina disciplinaD : disciplina.getRequisitos()) {
+                disciplinasD.add(disciplinaD);
+            }
+            disciplina.setRequisitos(disciplinasD);
+            disciplinas.add(disciplina);
+        }
+        this.disciplinaSelecionada.setRequisitos(disciplinas);
     }
 
     /**
      * @return the disciplinas
      */
     public List<Disciplina> getDisciplinas() {
-        if (this.disciplinas == null)
-            listarDisciplinas();
+        listarDisciplinas();
         return disciplinas;
     }
 
@@ -74,5 +202,65 @@ public class DisciplinaManagedBean extends ConstantsMB implements Serializable {
     public void setGestaoAdministrativo(
             GestaoAdministrativoImpl gestaoAdministrativo) {
         this.gestaoAdministrativo = gestaoAdministrativo;
+    }
+
+    /**
+     * @return the disciplinaSalvar
+     */
+    public Disciplina getDisciplinaSalvar() {
+        return disciplinaSalvar;
+    }
+
+    /**
+     * @param disciplinaSalvar
+     *            the disciplinaSalvar to set
+     */
+    public void setDisciplinaSalvar(Disciplina disciplinaSalvar) {
+        this.disciplinaSalvar = disciplinaSalvar;
+    }
+
+    /**
+     * @return the disciplinaPesquisar
+     */
+    public Disciplina getDisciplinaPesquisar() {
+        return disciplinaPesquisar;
+    }
+
+    /**
+     * @return the disciplinaSelecionada
+     */
+    public Disciplina getDisciplinaSelecionada() {
+        return disciplinaSelecionada;
+    }
+
+    /**
+     * @param disciplinaPesquisar
+     *            the disciplinaPesquisar to set
+     */
+    public void setDisciplinaPesquisar(Disciplina disciplinaPesquisar) {
+        this.disciplinaPesquisar = disciplinaPesquisar;
+    }
+
+    /**
+     * @param disciplinaSelecionada
+     *            the disciplinaSelecionada to set
+     */
+    public void setDisciplinaSelecionada(Disciplina disciplinaSelecionada) {
+        this.disciplinaSelecionada = disciplinaSelecionada;
+    }
+
+    /**
+     * @return the listaDisciplinas
+     */
+    public List<Disciplina> getListaDisciplinas() {
+        return listaDisciplinas;
+    }
+
+    /**
+     * @param listaDisciplinas
+     *            the listaDisciplinas to set
+     */
+    public void setListaDisciplinas(List<Disciplina> listaDisciplinas) {
+        this.listaDisciplinas = listaDisciplinas;
     }
 }
