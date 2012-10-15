@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -64,6 +65,7 @@ public class Disciplina implements Serializable {
     private Integer periodo;
 
     public Disciplina() {
+        this.status = Status.ATIVO;
         this.requisitos = new HashSet<Disciplina>();
     }
 
@@ -90,6 +92,7 @@ public class Disciplina implements Serializable {
      * @return the cargaHoraria
      */
     @Column
+    @Searchable
     public Integer getCargaHoraria() {
         return cargaHoraria;
     }
@@ -99,6 +102,7 @@ public class Disciplina implements Serializable {
      */
     @Enumerated(EnumType.STRING)
     @Column
+    @Searchable
     public Status getStatus() {
         return status;
     }
@@ -106,7 +110,7 @@ public class Disciplina implements Serializable {
     /**
      * @return the requisitos
      */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @IndexColumn(name = "idx_col")
     @Fetch(FetchMode.SUBSELECT)
     public Set<Disciplina> getRequisitos() {
