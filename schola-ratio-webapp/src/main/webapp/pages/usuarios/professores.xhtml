@@ -1,12 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:sec="http://br.facet.tcc.utils/security-tags">
 <h:head>
 	<style type="text/css">
 .companyHeaderGrid tr,.companyHeaderGrid td {
@@ -14,380 +11,452 @@
 }
 </style>
 </h:head>
-
 <ui:decorate template="/template/template.xhtml">
-
 	<ui:define name="content">
-
-		<h:form id="salvar">
-			<p:growl id="growl" showDetail="true" autoUpdate="true" />
-			<p:accordionPanel activeIndex="-1" id="panelSalvar">
-				<p:tab title="Novo Professor "
-					titleStyle="font-weight: bold; text-align: left;">
-					<p:panelGrid styleClass="companyHeaderGrid">
-						<p:row>
-							<p:column>Nome</p:column>
-							<p:column colspan="3">
-								<p:inputText id="nomeProfessor"
-									value="#{professorMB.professorSalvar.nome}" size="73"
-									required="true">
-									<p:ajax event="blur" update="nomeMsg" />
-									<p:message id="nomeMsg" for="nomeProfessor" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>CPF</p:column>
-							<p:column>
-								<p:inputMask mask="99999999999" id="cpfProfessor"
-									value="#{professorMB.professorSalvar.cpf}" size="20"
-									required="true">
-									<f:validateLength minimum="11" maximum="11" />
-									<p:ajax event="blur" update="cpfMsg" />
-									<p:message id="cpfMsg" for="cpfProfessor" showDetail="true" />
-								</p:inputMask>
-							</p:column>
-							<p:column>Data de Nascimento</p:column>
-							<p:column>
-								<p:inputMask mask="99/99/9999" id="dataNascimento"
-									value="#{professorMB.professorSalvar.dataNascimento}" size="20"
-									required="true">
-									<f:converter converterId="javax.faces.DateTime" />
-									<p:ajax event="blur" update="dtNasMsg" />
-									<p:message id="dtNasMsg" for="dataNascimento" showDetail="true" />
-								</p:inputMask>
-							</p:column>
-							<p:column>Sexo</p:column>
-							<p:column>
-								<p:selectOneMenu value="#{professorMB.professorSalvar.sexo}"
-									effect="fade" required="true">
-									<f:selectItem itemLabel="--  Selecione   --" itemValue="" />
-									<f:selectItems value="#{professorMB.sexoList}" />
-								</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Nacionalidade</p:column>
-							<p:column>
-								<p:inputText id="nacionalidadeProfessor"
-									value="#{professorMB.professorSalvar.nacionalidade}" size="20"
-									required="true">
-									<p:ajax event="blur" update="nacMsg" />
-									<p:message id="nacMsg" for="nacionalidadeProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Naturalidade</p:column>
-							<p:column>
-								<p:inputText id="naturalidadeProfessor"
-									value="#{professorMB.professorSalvar.naturalidade}" size="20"
-									required="true">
-									<p:ajax event="blur" update="natMsg" />
-									<p:message id="natMsg" for="naturalidadeProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>UF Naturalidade</p:column>
-							<p:column>
-								<p:selectOneMenu
-									value="#{professorMB.professorSalvar.estadoNat}" effect="fade">
-									<f:selectItem itemLabel="-- Selecione --" itemValue="" />
-									<f:selectItems value="#{professorMB.estadoList}" />
-								</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>RG</p:column>
-							<p:column>
-								<p:inputText id="rgProfessor"
-									value="#{professorMB.professorSalvar.rg}" size="20"
-									required="true">
-									<p:ajax event="blur" update="rgMsg" />
-									<p:message id="rgMsg" for="rgProfessor" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Orgão Expedidor</p:column>
-							<p:column>
-								<p:inputText id="orgaoExpedidorProfessor"
-									value="#{professorMB.professorSalvar.orgaoExpeditor}" size="20"
-									required="true">
-									<p:ajax event="blur" update="orgExpMsg" />
-									<p:message id="orgExpMsg" for="orgaoExpedidorProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>UF Orgao Expedidor</p:column>
-							<p:column>
-								<p:selectOneMenu
-									value="#{professorMB.professorSalvar.ufOrgaoExpeditor}"
-									effect="fade">
-									<f:selectItem itemLabel="-- Selecione --" itemValue="" />
-									<f:selectItems value="#{professorMB.estadoList}" />
-								</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Nome do Pai</p:column>
-							<p:column colspan="2">
-								<p:inputText id="nomePaiProfessor"
-									value="#{professorMB.professorSalvar.nomePai}" size="45">
-									<p:ajax event="blur" update="nomePaiMsg" />
-									<p:message id="nomePaiMsg" for="nomePaiProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Nome da Mãe</p:column>
-							<p:column colspan="2">
-								<p:inputText id="nomeMaeProfessor" style="{text-align:right;}"
-									value="#{professorMB.professorSalvar.nomeMae}" size="42"
-									required="true">
-									<p:ajax event="blur" update="nomeMaeMsg" />
-									<p:message id="nomeMaeMsg" for="nomeMaeProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>CEP</p:column>
-							<p:column>
-								<p:inputMask mask="99999999" id="cepProfessor"
-									value="#{professorMB.professorSalvar.endereco.cep}" size="20"
-									required="true">
-									<p:ajax event="blur" update="cepMsg" />
-									<p:message id="cepMsg" for="cepProfessor" showDetail="true" />
-								</p:inputMask>
-							</p:column>
-							<p:column>Rua</p:column>
-							<p:column colspan="3">
-								<p:inputText id="enderecoProfessor"
-									value="#{professorMB.professorSalvar.endereco.rua}" size="70"
-									required="true">
-									<p:ajax event="blur" update="enderecoMsg" />
-									<p:message id="enderecoMsg" for="enderecoProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Numero</p:column>
-							<p:column>
-								<p:inputText id="numeroEnderecoProfessor"
-									value="#{professorMB.professorSalvar.endereco.numero}"
-									size="20" required="true">
-									<p:ajax event="blur" update="numeroEnderecoMsg" />
-									<p:message id="numeroEnderecoMsg" for="numeroEnderecoProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Complemento</p:column>
-							<p:column colspan="3">
-								<p:inputText id="complementoProfessor"
-									value="#{professorMB.professorSalvar.endereco.complemento}"
-									size="70">
-									<p:ajax event="blur" update="complementoMsg" />
-									<p:message id="complementoMsg" for="complementoProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Bairro</p:column>
-							<p:column>
-								<p:inputText id="bairroProfessor"
-									value="#{professorMB.professorSalvar.endereco.bairro}"
-									size="20" required="true">
-									<p:ajax event="blur" update="bairroMsg" />
-									<p:message id="bairroMsg" for="bairroProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Cidade</p:column>
-							<p:column>
-								<p:inputText id="cidadeProfessor"
-									value="#{professorMB.professorSalvar.endereco.cidade}"
-									size="20" required="true">
-									<p:ajax event="blur" update="cidadeMsg" />
-									<p:message id="cidadeMsg" for="cidadeProfessor"
-										showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Estado</p:column>
-							<p:column>
-								<p:selectOneMenu
-									value="#{professorMB.professorSalvar.endereco.estado}"
-									effect="fade">
-									<f:validateLength minimum="4" />
-									<f:selectItem itemLabel="Selecione" itemValue="" />
-									<f:selectItems value="#{professorMB.estadoList}" />
-								</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Telefone</p:column>
-							<p:column>
-								<p:inputText id="telefoneProfessor"
-									value="#{professorMB.professorSalvar.telefone}" size="20">
-									<p:ajax event="blur" update="telefoneMsg" />
-									<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Email</p:column>
-							<p:column colspan="3">
-								<p:inputText id="emailProfessor"
-									value="#{professorMB.professorSalvar.email}" size="70"
-									required="true">
-									<p:ajax event="blur" update="emailMsg" />
-									<p:message id="emailMsg" for="emailProfessor" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>Usuario</p:column>
-							<p:column>
-								<p:inputText id="userName"
-									value="#{professorMB.professorSalvar.userLogin.username}"
-									size="20" required="true">
-									<p:ajax event="blur" update="usernameMsg" />
-									<p:message id="usernameMsg" for="userName" showDetail="true" />
-								</p:inputText>
-							</p:column>
-							<p:column>Senha</p:column>
-							<p:column>
-								<p:inputText id="senhaProfessor" type="password"
-									value="#{professorMB.professorSalvar.userLogin.password}"
-									size="20" required="true">
-									<f:validateLength minimum="5" />
-									<p:ajax event="blur" update="senhaMsg" />
-									<p:message id="senhaMsg" for="senhaProfessor" showDetail="true" />
-								</p:inputText>
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>
-								<p:commandButton id="btnSalvar" value="Salvar"
-									icon="ui-icon-disk" action="#{professorMB.salvarProfessor}"
-									update=":salvar" process=":salvar" />
-							</p:column>
-							<p:column>
-								<p:commandButton id="btnCancelar" value="Limpar"
-									icon="ui-icon-cancel" update=":salvar :salvar:panelSalvar"
-									process="@this">
-									<p:resetInput target="panelSalvar" />
-								</p:commandButton>
-							</p:column>
-						</p:row>
-					</p:panelGrid>
-				</p:tab>
-			</p:accordionPanel>
-		</h:form>
+		<h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login"
+			styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Novo Professor</span>
+		</h:outputLink>
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<p:dialog id="dialogSalvar" header="Novo Professor" widgetVar="dlg" resizable="false" modal="true"
+			appendToBody="true" width="960" height="480">
+			<h:form id="salvar">
+				<p:wizard widgetVar="wiz" backLabel="Voltar" nextLabel="Próximo">
+					<p:tab id="personal" title="Pessoal">
+						<p:panel header="Dados pessoais">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>
+										<h:outputLabel value="Nome" for="nomeProfessor" />
+									</p:column>
+									<p:column>
+										<p:inputText id="nomeProfessor" value="#{professorMB.professorSalvar.nome}"
+											required="true" size="35">
+											<p:ajax event="blur" update="nomeMsg" />
+											<p:message id="nomeMsg" for="nomeProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>
+										<h:outputLabel value="Sexo" for="sexoProfessor" />
+									</p:column>
+									<p:column>
+										<p:selectOneMenu id="sexoProfessor" value="#{professorMB.professorSalvar.sexo}"
+											filter="true" effect="fade">
+											<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+											<f:selectItems value="#{professorMB.sexoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="cpfProfessor" value="CPF" />
+									</p:column>
+									<p:column>
+										<p:inputMask mask="99999999999" id="cpfProfessor"
+											value="#{professorMB.professorSalvar.cpf}" required="true">
+											<f:validateLength minimum="11" maximum="11" />
+											<p:ajax event="blur" update="cpfMsg" />
+											<p:message id="cpfMsg" for="cpfProfessor" showDetail="true" />
+										</p:inputMask>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="dataNascimento" value="Data de Nascimento" />
+									</p:column>
+									<p:column>
+										<p:inputMask mask="99/99/9999" id="dataNascimento"
+											value="#{professorMB.professorSalvar.dataNascimento}" required="true">
+											<f:converter converterId="javax.faces.DateTime" />
+											<p:ajax event="blur" update="dtNasMsg" />
+											<p:message id="dtNasMsg" for="dataNascimento" showDetail="true" />
+										</p:inputMask>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="nacionalidadeProfessor" value="Nacionalidade" />
+									</p:column>
+									<p:column>
+										<p:inputText id="nacionalidadeProfessor"
+											value="#{professorMB.professorSalvar.nacionalidade}" required="true">
+											<p:ajax event="blur" update="nacMsg" />
+											<p:message id="nacMsg" for="nacionalidadeProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="naturalidadeProfessor" value="Naturalidade" />
+									</p:column>
+									<p:column>
+										<p:inputText id="naturalidadeProfessor"
+											value="#{professorMB.professorSalvar.naturalidade}" required="true">
+											<p:ajax event="blur" update="natMsg" />
+											<p:message id="natMsg" for="naturalidadeProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="estadoNat" value="UF Naturalidade" />
+									</p:column>
+									<p:column>
+										<p:selectOneMenu id="estadoNat" value="#{professorMB.professorSalvar.estadoNat}"
+											filter="true" effect="fade">
+											<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+											<f:selectItems value="#{professorMB.estadoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="rgProfessor" value="RG"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<p:inputText id="rgProfessor" value="#{professorMB.professorSalvar.rg}" required="true">
+											<p:ajax event="blur" update="rgMsg" />
+											<p:message id="rgMsg" for="rgProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="orgaoExpedidorProfessor" value="Orgão Expedidor" />
+									</p:column>
+									<p:column>
+										<p:inputText id="orgaoExpedidorProfessor"
+											value="#{professorMB.professorSalvar.orgaoExpeditor}" required="true">
+											<p:ajax event="blur" update="orgExpMsg" />
+											<p:message id="orgExpMsg" for="orgaoExpedidorProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="ufOrgaoExpeditor" value="UF Orgao Expedidor"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu id="ufOrgaoExpeditor"
+											value="#{professorMB.professorSalvar.ufOrgaoExpeditor}" effect="fade">
+											<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+											<f:selectItems value="#{professorMB.estadoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel for="nomePaiProfessor" value="Nome do Pai" />
+									</p:column>
+									<p:column>
+										<p:inputText id="nomePaiProfessor" value="#{professorMB.professorSalvar.nomePai}"
+											required="true" size="30">
+											<p:ajax event="blur" update="nomePaiMsg" />
+											<p:message id="nomePaiMsg" for="nomePaiProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>
+										<h:outputLabel for="nomeMaeProfessor" value="Nome da Mãe"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<p:inputText id="nomeMaeProfessor" value="#{professorMB.professorSalvar.nomeMae}"
+											required="true" size="30">
+											<p:ajax event="blur" update="nomeMaeMsg" />
+											<p:message id="nomeMaeMsg" for="nomeMaeProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+											<p:resetInput target="salvar" />
+										</p:commandButton>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id="endereco" title="Endereço">
+						<p:panel header="Dados do Endereço">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>Rua</p:column>
+									<p:column>
+										<p:inputText id="enderecoProfessor" value="#{professorMB.professorSalvar.endereco.rua}"
+											size="50" required="true">
+											<p:ajax event="blur" update="enderecoMsg" />
+											<p:message id="enderecoMsg" for="enderecoProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Numero</p:column>
+									<p:column>
+										<p:inputText id="numeroEnderecoProfessor"
+											value="#{professorMB.professorSalvar.endereco.numero}" size="10" required="true">
+											<p:ajax event="blur" update="numeroEnderecoMsg" />
+											<p:message id="numeroEnderecoMsg" for="numeroEnderecoProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Complemento</p:column>
+									<p:column>
+										<p:inputText id="complementoProfessor"
+											value="#{professorMB.professorSalvar.endereco.complemento}">
+											<p:ajax event="blur" update="complementoMsg" />
+											<p:message id="complementoMsg" for="complementoProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Bairro</p:column>
+									<p:column>
+										<p:inputText id="bairroProfessor" value="#{professorMB.professorSalvar.endereco.bairro}"
+											required="true">
+											<p:ajax event="blur" update="bairroMsg" />
+											<p:message id="bairroMsg" for="bairroProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Cidade</p:column>
+									<p:column>
+										<p:inputText id="cidadeProfessor" value="#{professorMB.professorSalvar.endereco.cidade}"
+											required="true">
+											<p:ajax event="blur" update="cidadeMsg" />
+											<p:message id="cidadeMsg" for="cidadeProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Estado</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{professorMB.professorSalvar.endereco.estado}" effect="fade">
+											<f:validateLength minimum="4" />
+											<f:selectItem itemLabel="Selecione" itemValue="" />
+											<f:selectItems value="#{professorMB.estadoList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>CEP</p:column>
+									<p:column>
+										<p:inputMask mask="99999999" id="cepProfessor"
+											value="#{professorMB.professorSalvar.endereco.cep}" required="true">
+											<p:ajax event="blur" update="cepMsg" />
+											<p:message id="cepMsg" for="cepProfessor" showDetail="true" />
+										</p:inputMask>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Telefone</p:column>
+									<p:column>
+										<p:inputText id="telefoneProfessor" value="#{professorMB.professorSalvar.telefone}">
+											<p:ajax event="blur" update="telefoneMsg" />
+											<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Email</p:column>
+									<p:column>
+										<p:inputText id="emailProfessor" value="#{professorMB.professorSalvar.email}"
+											required="true">
+											<p:ajax event="blur" update="emailMsg" />
+											<p:message id="emailMsg" for="emailProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+											<p:resetInput target="salvar" />
+										</p:commandButton>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id="formacao" title="Formação">
+						<p:panel header="Dados da Formação">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>Titulo</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{professorMB.professorSalvar.titulo}" effect="fade">
+											<f:selectItem itemLabel="Selecione" itemValue="" />
+											<f:selectItems value="#{professorMB.titulos}" />
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>Descrição</p:column>
+									<p:column>
+										<p:inputText id="descricaoTituloProfessor"
+											value="#{professorMB.professorSalvar.descricaoTitulo}" required="true">
+											<p:ajax event="blur" update="descricaoMsg" />
+											<p:message id="descricaoMsg" for="descricaoTituloProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Disponibilidade</p:column>
+									<p:column>
+										<p:selectCheckboxMenu value="#{professorMB.professorSalvar.horarioDisponivel}"
+											label="Horário" panelStyle="width: 250px;" filter="true" filterText="Filter"
+											filterMatchMode="startsWith" converter="horarioDeAulaConverter">
+											<f:selectItems value="#{professorMB.horariosDeAula}" var="horario"
+												noSelectionValue="ERRO" itemLabel="#{horario.horarioDeAulas.value}"
+												itemValue="#{horario}" />
+										</p:selectCheckboxMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>Disciplinas</p:column>
+									<p:column>
+										<p:selectCheckboxMenu value="#{professorMB.professorSalvar.disciplinasQueLeciona}"
+											label="Disciplinas" panelStyle="width: 250px;" filter="true" filterText="Filter"
+											filterMatchMode="startsWith" converter="#{disciplinaConverter}">
+											<f:selectItems value="#{disciplinaMB.disciplinas}" var="disciplina"
+												noSelectionValue="ERRO" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" />
+										</p:selectCheckboxMenu>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+											<p:resetInput target="salvar" />
+										</p:commandButton>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id="acesso" title="Acesso">
+						<p:panel header="Dados de Acesso">
+							<p:panelGrid styleClass="companyHeaderGrid">
+								<p:row>
+									<p:column>Usuario</p:column>
+									<p:column>
+										<p:inputText id="userName" value="#{professorMB.professorSalvar.userLogin.username}"
+											required="true">
+											<p:ajax event="blur" update="usernameMsg" />
+											<p:message id="usernameMsg" for="userName" showDetail="true" />
+										</p:inputText>
+									</p:column>
+									<p:column>Senha</p:column>
+									<p:column>
+										<p:inputText id="senhaProfessor" type="password"
+											value="#{professorMB.professorSalvar.userLogin.password}" size="20" required="true">
+											<f:validateLength minimum="5" />
+											<p:ajax event="blur" update="senhaMsg" />
+											<p:message id="senhaMsg" for="senhaProfessor" showDetail="true" />
+										</p:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+											<p:resetInput target="salvar" />
+										</p:commandButton>
+									</p:column>
+									<p:column>
+										<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk" oncomplete="dlg.hide()"
+											action="#{professorMB.salvarProfessor}" process=":salvar" update=":salvar" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</p:dialog>
 		<h:form id="pesquisar">
-			<p:growl id="growl" showDetail="true" />
 			<div id="content" align="center">
-				<p:panel id="pesquisaProfessor" header="Pesquisar"
-					style="text-align: left;">
+				<p:panel id="pesquisaProfessor" header="Pesquisar" style="text-align: left;">
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputLabel value="Nome :" for="nomeProfessorPesquisar" />
-						<p:inputText id="nomeProfessorPesquisar"
-							value="#{professorMB.professorPesquisar.nome}" size="50">
+						<p:inputText id="nomeProfessorPesquisar" value="#{professorMB.professorPesquisar.nome}"
+							size="50">
 							<p:ajax event="blur" update="nomePesquisarMsg" />
-							<p:message id="nomePesquisarMsg" for="nomeProfessorPesquisar"
-								showDetail="true" />
+							<p:message id="nomePesquisarMsg" for="nomeProfessorPesquisar" showDetail="true" />
 						</p:inputText>
 						<h:outputLabel value="CPF :" for="cpfProfessorPesquisar" />
-						<p:inputText id="cpfProfessorPesquisar"
-							value="#{professorMB.professorPesquisar.cpf}"
+						<p:inputText id="cpfProfessorPesquisar" value="#{professorMB.professorPesquisar.cpf}"
 							requiredMessage="Teste">
 							<f:converter converterId="javax.faces.Long" />
 							<p:ajax event="blur" update="cpfMsg" />
-							<p:message id="cpfMsg" for="cpfProfessorPesquisar"
-								showSummary="false" display="message" />
+							<p:message id="cpfMsg" for="cpfProfessorPesquisar" showSummary="false" display="message" />
 						</p:inputText>
-						<h:outputLabel value="Usuario :" for="loginProfessorPesquisar" />
-						<p:inputText id="loginProfessorPesquisar"
+						<h:outputLabel value="Usuario :" for="loginUsuarioPesquisar" />
+						<p:inputText id="loginUsuarioPesquisar"
 							value="#{professorMB.professorPesquisar.userLogin.username}">
 							<p:ajax event="blur" update="loginMsg" />
-							<p:message id="loginMsg" for="loginProfessorPesquisar"
-								showDetail="true" />
+							<p:message id="loginMsg" for="loginUsuarioPesquisar" showDetail="true" />
 						</p:inputText>
+						<h:outputLabel value="Status :" for="statusUsuarioPesquisar" />
+						<p:selectOneMenu id="statusUsuarioPesquisar" value="#{professorMB.professorPesquisar.status}">
+							<f:selectItems value="#{professorMB.statusList}" />
+						</p:selectOneMenu>
 						<p:commandButton id="btnPesquisar" value="Pesquisar"
 							action="#{professorMB.pesquisarProfessors}"
-							update=":tbProfessors :pesquisar:pesquisaProfessor"
-							icon="ui-icon-search" />
+							update=":formTable:tbUsuarios pesquisar:pesquisaProfessor" icon="ui-icon-search" />
 					</h:panelGrid>
 				</p:panel>
 			</div>
-
 		</h:form>
-		<p:dataTable id="tbProfessors" var="tprofessorSalvar"
-			value="#{professorMB.listaProfessors}" widgetVar="tabela"
-			paginatorAlwaysVisible="false" paginator="true" rows="10"
-			paginatorPosition="bottom" emptyMessage="Nenhum resultado">
-			<p:column headerText="Nome">
+		<h:form id="formTable">
+			<p:dataTable id="tbUsuarios" var="tprofessorSalvar" value="#{professorMB.listaProfessors}"
+				widgetVar="tabela" paginatorAlwaysVisible="false" paginator="true" rows="10"
+				paginatorPosition="bottom" emptyMessage="Nenhum resultado" rowsPerPageTemplate="5,10,15">
+				<p:column headerText="Nome" sortBy="#{tprofessorSalvar.nome}">
 					#{tprofessorSalvar.nome}
 				</p:column>
-			<p:column headerText="CPF">
+				<p:column headerText="CPF">
 					#{tprofessorSalvar.cpf}
 				</p:column>
-			<p:column headerText="Usuario">
+				<p:column headerText="Usuario">
 					#{tprofessorSalvar.userLogin.username}
 				</p:column>
-			<p:column headerText="Email">
+				<p:column headerText="Email">
 					#{tprofessorSalvar.email}
 				</p:column>
-			<p:column headerText="Telefone">
+				<p:column headerText="Telefone">
 					#{tprofessorSalvar.telefone}
 				</p:column>
-			<p:column headerText="Status">
+				<p:column headerText="Status">
 					#{tprofessorSalvar.status}
 				</p:column>
-			<p:column headerText="Excluir">
-				<h:form>
-					<p:commandButton icon="ui-icon-trash" title="Excluir"
-						oncomplete="confirmation.show()"
-						disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}">
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()"
+						rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
 						<f:setPropertyActionListener value="#{tprofessorSalvar}"
 							target="#{professorMB.professorSelecionado}" />
 					</p:commandButton>
-					<p:commandButton icon="ui-icon-search" title="Atualizar"
-						process="@this" update=":dialog"
-						oncomplete="professorPopUp.show()">
+					<p:commandButton icon="ui-icon-search" title="Atualizar" update=":dialog"
+						oncomplete="prepararAtualizar()">
 						<f:setPropertyActionListener value="#{tprofessorSalvar}"
 							target="#{professorMB.professorSelecionado}" />
+						<p:remoteCommand name="prepararAtualizar" action="#{professorMB.prepararAtualizar}"
+							oncomplete="usuarioPopUp.show()" />
 					</p:commandButton>
-				</h:form>
-			</p:column>
-		</p:dataTable>
+				</p:column>
+			</p:dataTable>
+		</h:form>
 
-		<p:confirmDialog message="Deseja realmente excluir este item?"
-			header="Inciando processo de exclusão" severity="alert"
-			widgetVar="confirmation" appendToBody="true">
-			<h:form>
-				<p:commandButton value="Sim"
-					action="#{professorMB.removerProfessor}"
-					oncomplete="confirmation.hide()" update=":tbProfessors" />
+		<p:confirmDialog message="Confirma a exclsão?" header="Inciando processo de exclusão"
+			severity="alert" widgetVar="confirmation" appendToBody="true">
+			<h:form id="remover">
+				<p:commandButton value="Sim" action="#{professorMB.removerProfessor}"
+					onsuccess="confirmation.hide()" update=":formTable:tbUsuarios" />
 				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
 			</h:form>
 		</p:confirmDialog>
-		<p:dialog id="dialog" widgetVar="professorPopUp" resizable="false"
-			modal="true" showEffect="fade" hideEffect="explode"
-			appendToBody="true" header="Detalhes do Usuário">
+
+
+		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true" appendToBody="true"
+			header="Detalhes do Usuário">
 			<h:form id="atualizar">
 				<p:panelGrid styleClass="companyHeaderGrid"
 					rendered="#{professorMB.professorSelecionado != null}">
 					<p:row>
 						<p:column>Nome</p:column>
 						<p:column colspan="3">
-							<p:inputText id="nomeProfessor"
-								value="#{professorMB.professorSelecionado.nome}" size="73"
+							<p:inputText id="nomeUsuario" value="#{professorMB.professorSelecionado.nome}" size="73"
 								required="true">
 								<p:ajax event="blur" update="nomeMsg" />
-								<p:message id="nomeMsg" for="nomeProfessor" showDetail="true" />
+								<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>Status</p:column>
 						<p:column>
-							<p:selectOneMenu
-								value="#{professorMB.professorSelecionado.status}" effect="fade">
+							<p:selectOneMenu value="#{professorMB.professorSelecionado.status}" effect="fade"
+								disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}">
 								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
 								<f:selectItems value="#{professorMB.statusList}" />
 							</p:selectOneMenu>
@@ -396,19 +465,17 @@
 					<p:row>
 						<p:column>CPF</p:column>
 						<p:column>
-							<p:inputMask mask="99999999999" id="cpfProfessor"
-								value="#{professorMB.professorSelecionado.cpf}" size="20"
-								required="true">
+							<p:inputMask mask="99999999999" id="cpfUsuario"
+								value="#{professorMB.professorSelecionado.cpf}" size="20" required="true">
 								<f:validateLength minimum="11" maximum="11" />
 								<p:ajax event="blur" update="cpfMsg" />
-								<p:message id="cpfMsg" for="cpfProfessor" showDetail="true" />
+								<p:message id="cpfMsg" for="cpfUsuario" showDetail="true" />
 							</p:inputMask>
 						</p:column>
 						<p:column>Data de Nascimento</p:column>
 						<p:column>
 							<p:inputMask mask="99/99/9999" id="dataNascimento"
-								value="#{professorMB.professorSelecionado.dataNascimento}"
-								size="20" required="true">
+								value="#{professorMB.professorSelecionado.dataNascimento}" size="20" required="true">
 								<f:converter converterId="javax.faces.DateTime" />
 								<p:ajax event="blur" update="dtNasMsg" />
 								<p:message id="dtNasMsg" for="dataNascimento" showDetail="true" />
@@ -416,8 +483,8 @@
 						</p:column>
 						<p:column>Sexo</p:column>
 						<p:column>
-							<p:selectOneMenu value="#{professorMB.professorSelecionado.sexo}"
-								effect="fade" required="true">
+							<p:selectOneMenu value="#{professorMB.professorSelecionado.sexo}" effect="fade"
+								required="true">
 								<f:selectItem itemLabel="--  Selecione   --" itemValue="" />
 								<f:selectItems value="#{professorMB.sexoList}" />
 							</p:selectOneMenu>
@@ -426,29 +493,23 @@
 					<p:row>
 						<p:column>Nacionalidade</p:column>
 						<p:column>
-							<p:inputText id="nacionalidadeProfessor"
-								value="#{professorMB.professorSelecionado.nacionalidade}"
-								size="20" required="true">
+							<p:inputText id="nacionalidadeUsuario"
+								value="#{professorMB.professorSelecionado.nacionalidade}" size="20" required="true">
 								<p:ajax event="blur" update="nacMsg" />
-								<p:message id="nacMsg" for="nacionalidadeProfessor"
-									showDetail="true" />
+								<p:message id="nacMsg" for="nacionalidadeUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>Naturalidade</p:column>
 						<p:column>
-							<p:inputText id="naturalidadeProfessor"
-								value="#{professorMB.professorSelecionado.naturalidade}"
-								size="20" required="true">
+							<p:inputText id="naturalidadeUsuario"
+								value="#{professorMB.professorSelecionado.naturalidade}" size="20" required="true">
 								<p:ajax event="blur" update="natMsg" />
-								<p:message id="natMsg" for="naturalidadeProfessor"
-									showDetail="true" />
+								<p:message id="natMsg" for="naturalidadeUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>UF Naturalidade</p:column>
 						<p:column>
-							<p:selectOneMenu
-								value="#{professorMB.professorSelecionado.estadoNat}"
-								effect="fade">
+							<p:selectOneMenu value="#{professorMB.professorSelecionado.estadoNat}" effect="fade">
 								<f:validateLength minimum="4" />
 								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
 								<f:selectItems value="#{professorMB.estadoList}" />
@@ -458,28 +519,23 @@
 					<p:row>
 						<p:column>RG</p:column>
 						<p:column>
-							<p:inputText id="rgProfessor"
-								value="#{professorMB.professorSelecionado.rg}" size="20"
+							<p:inputText id="rgUsuario" value="#{professorMB.professorSelecionado.rg}" size="20"
 								required="true">
 								<p:ajax event="blur" update="rgMsg" />
-								<p:message id="rgMsg" for="rgProfessor" showDetail="true" />
+								<p:message id="rgMsg" for="rgUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>Orgão Expedidor</p:column>
 						<p:column>
-							<p:inputText id="orgaoExpedidorProfessor"
-								value="#{professorMB.professorSelecionado.orgaoExpeditor}"
-								size="20" required="true">
+							<p:inputText id="orgaoExpedidorUsuario"
+								value="#{professorMB.professorSelecionado.orgaoExpeditor}" size="20" required="true">
 								<p:ajax event="blur" update="orgExpMsg" />
-								<p:message id="orgExpMsg" for="orgaoExpedidorProfessor"
-									showDetail="true" />
+								<p:message id="orgExpMsg" for="orgaoExpedidorUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>UF Orgao Expedidor</p:column>
 						<p:column>
-							<p:selectOneMenu
-								value="#{professorMB.professorSelecionado.ufOrgaoExpeditor}"
-								effect="fade">
+							<p:selectOneMenu value="#{professorMB.professorSelecionado.ufOrgaoExpeditor}" effect="fade">
 								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
 								<f:selectItems value="#{professorMB.estadoList}" />
 							</p:selectOneMenu>
@@ -488,93 +544,77 @@
 					<p:row>
 						<p:column>Nome do Pai</p:column>
 						<p:column colspan="2">
-							<p:inputText id="nomePaiProfessor"
-								value="#{professorMB.professorSelecionado.nomePai}" size="45">
+							<p:inputText id="nomePaiUsuario" value="#{professorMB.professorSelecionado.nomePai}"
+								size="45">
 								<p:ajax event="blur" update="nomePaiMsg" />
-								<p:message id="nomePaiMsg" for="nomePaiProfessor"
-									showDetail="true" />
+								<p:message id="nomePaiMsg" for="nomePaiUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>Nome da Mãe</p:column>
 						<p:column colspan="2">
-							<p:inputText id="nomeMaeProfessor" style="{text-align:right;}"
-								value="#{professorMB.professorSelecionado.nomeMae}" size="42"
-								required="true">
+							<p:inputText id="nomeMaeUsuario" style="{text-align:right;}"
+								value="#{professorMB.professorSelecionado.nomeMae}" size="42" required="true">
 								<p:ajax event="blur" update="nomeMaeMsg" />
-								<p:message id="nomeMaeMsg" for="nomeMaeProfessor"
-									showDetail="true" />
+								<p:message id="nomeMaeMsg" for="nomeMaeUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 					</p:row>
 					<p:row>
 						<p:column>CEP</p:column>
 						<p:column>
-							<p:inputMask mask="99999999" id="cepProfessor"
-								value="#{professorMB.professorSelecionado.endereco.cep}"
-								size="20" required="true">
+							<p:inputMask mask="99999999" id="cepUsuario"
+								value="#{professorMB.professorSelecionado.endereco.cep}" size="20" required="true">
 								<p:ajax event="blur" update="cepMsg" />
-								<p:message id="cepMsg" for="cepProfessor" showDetail="true" />
+								<p:message id="cepMsg" for="cepUsuario" showDetail="true" />
 							</p:inputMask>
 						</p:column>
 						<p:column>Rua</p:column>
 						<p:column colspan="3">
-							<p:inputText id="enderecoProfessor"
-								value="#{professorMB.professorSelecionado.endereco.rua}"
+							<p:inputText id="enderecoUsuario" value="#{professorMB.professorSelecionado.endereco.rua}"
 								size="70" required="true">
 								<p:ajax event="blur" update="enderecoMsg" />
-								<p:message id="enderecoMsg" for="enderecoProfessor"
-									showDetail="true" />
+								<p:message id="enderecoMsg" for="enderecoUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 					</p:row>
 					<p:row>
 						<p:column>Numero</p:column>
 						<p:column>
-							<p:inputText id="numeroEnderecoProfessor"
-								value="#{professorMB.professorSelecionado.endereco.numero}"
-								size="20" required="true">
+							<p:inputText id="numeroEnderecoUsuario"
+								value="#{professorMB.professorSelecionado.endereco.numero}" size="20" required="true">
 								<p:ajax event="blur" update="numeroEnderecoMsg" />
-								<p:message id="numeroEnderecoMsg" for="numeroEnderecoProfessor"
-									showDetail="true" />
+								<p:message id="numeroEnderecoMsg" for="numeroEnderecoUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>Complemento</p:column>
 						<p:column colspan="3">
-							<p:inputText id="complementoProfessor"
-								value="#{professorMB.professorSelecionado.endereco.complemento}"
-								size="70">
+							<p:inputText id="complementoUsuario"
+								value="#{professorMB.professorSelecionado.endereco.complemento}" size="70">
 								<p:ajax event="blur" update="complementoMsg" />
-								<p:message id="complementoMsg" for="complementoProfessor"
-									showDetail="true" />
+								<p:message id="complementoMsg" for="complementoUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 					</p:row>
 					<p:row>
 						<p:column>Bairro</p:column>
 						<p:column>
-							<p:inputText id="bairroProfessor"
-								value="#{professorMB.professorSelecionado.endereco.bairro}"
+							<p:inputText id="bairroUsuario" value="#{professorMB.professorSelecionado.endereco.bairro}"
 								size="20" required="true">
 								<p:ajax event="blur" update="bairroMsg" />
-								<p:message id="bairroMsg" for="bairroProfessor"
-									showDetail="true" />
+								<p:message id="bairroMsg" for="bairroUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>Cidade</p:column>
 						<p:column>
-							<p:inputText id="cidadeProfessor"
-								value="#{professorMB.professorSelecionado.endereco.cidade}"
+							<p:inputText id="cidadeUsuario" value="#{professorMB.professorSelecionado.endereco.cidade}"
 								size="20" required="true">
 								<p:ajax event="blur" update="cidadeMsg" />
-								<p:message id="cidadeMsg" for="cidadeProfessor"
-									showDetail="true" />
+								<p:message id="cidadeMsg" for="cidadeUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>Estado</p:column>
 						<p:column>
-							<p:selectOneMenu
-								value="#{professorMB.professorSelecionado.endereco.estado}"
-								effect="fade">
+							<p:selectOneMenu value="#{professorMB.professorSelecionado.endereco.estado}" effect="fade">
 								<f:validateLength minimum="4" />
 								<f:selectItem itemLabel="Selecione" itemValue="" />
 								<f:selectItems value="#{professorMB.estadoList}" />
@@ -584,28 +624,62 @@
 					<p:row>
 						<p:column>Telefone</p:column>
 						<p:column>
-							<p:inputText id="telefoneProfessor"
-								value="#{professorMB.professorSelecionado.telefone}" size="20">
+							<p:inputText id="telefoneUsuario" value="#{professorMB.professorSelecionado.telefone}"
+								size="20">
 								<p:ajax event="blur" update="telefoneMsg" />
 								<p:message id="telefoneMsg" for="telefoneMsg" showDetail="true" />
 							</p:inputText>
 						</p:column>
 						<p:column>Email</p:column>
 						<p:column colspan="3">
-							<p:inputText id="emailProfessor"
-								value="#{professorMB.professorSelecionado.email}" size="70"
+							<p:inputText id="emailUsuario" value="#{professorMB.professorSelecionado.email}" size="70"
 								required="true">
 								<p:ajax event="blur" update="emailMsg" />
-								<p:message id="emailMsg" for="emailProfessor" showDetail="true" />
+								<p:message id="emailMsg" for="emailUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 					</p:row>
-
-					<p:row rendered="#{sec:ifAreAllGranted('ROLEA_DM')}">
+					<p:row>
+						<p:column>Titulo</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{professorMB.professorSelecionado.titulo}" effect="fade">
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItems value="#{professorMB.titulos}" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column>Disponibilidade</p:column>
+						<p:column>
+							<p:selectCheckboxMenu value="#{professorMB.professorSelecionado.horarioDisponivel}"
+								label="Disponibilidade" panelStyle="width: 250px;" filter="true" filterText="Filter"
+								filterMatchMode="startsWith" converter="horarioDeAulaConverter">
+								<f:selectItems value="#{professorMB.horariosDeAula}" var="horario" noSelectionValue="ERRO"
+									itemLabel="#{horario.horarioDeAulas.value}" itemValue="#{horario}" />
+							</p:selectCheckboxMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Descrição do Titulo</p:column>
+						<p:column>
+							<p:inputText id="descricaoTituloProfessor"
+								value="#{professorMB.professorSelecionado.descricaoTitulo}" required="true">
+								<p:ajax event="blur" update="descricaoMsg" />
+								<p:message id="descricaoMsg" for="descricaoTituloProfessor" showDetail="true" />
+							</p:inputText>
+						</p:column>
+						<p:column>Disciplinas</p:column>
+						<p:column>
+							<p:selectCheckboxMenu value="#{professorMB.professorSelecionado.disciplinasQueLeciona}"
+								label="Disponibilidade" panelStyle="width: 250px;" filter="true" filterText="Filter"
+								filterMatchMode="startsWith" converter="#{disciplinaConverter}">
+								<f:selectItems value="#{disciplinaMB.disciplinas}" var="disciplina" noSelectionValue="ERRO"
+									itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" />
+							</p:selectCheckboxMenu>
+						</p:column>
+					</p:row>
+					<p:row rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
 						<p:column>Usuario</p:column>
 						<p:column>
-							<p:inputText id="userName"
-								value="#{professorMB.professorSelecionado.userLogin.username}"
+							<p:inputText id="userName" value="#{professorMB.professorSelecionado.userLogin.username}"
 								size="20" required="true">
 								<p:ajax event="blur" update="usernameMsg" />
 								<p:message id="usernameMsg" for="userName" showDetail="true" />
@@ -613,22 +687,18 @@
 						</p:column>
 						<p:column>Senha</p:column>
 						<p:column>
-							<p:inputText id="senhaUsuario" type="password" 
-								value="#{professorMB.professorSelecionado.userLogin.password}"
-								size="20" required="true">
+							<p:inputText id="senhaUsuario" type="password"
+								value="#{professorMB.professorSelecionado.userLogin.password}" size="20" required="true">
 								<f:validateLength minimum="5" />
 								<p:ajax event="blur" update="senhaMsg" />
 								<p:message id="senhaMsg" for="senhaUsuario" showDetail="true" />
 							</p:inputText>
 						</p:column>
 					</p:row>
-
 					<p:row>
 						<p:column>
-							<p:commandButton oncomplete="professorPopUp.hide()"
-								value="Atualizar" type="submit"
-								action="#{professorMB.atualizarProfessor()}"
-								update=":tbProfessors" />
+							<p:commandButton oncomplete="usuarioPopUp.hide()" value="Atualizar" type="submit"
+								action="#{professorMB.atualizarProfessor()}" update=":formTable:tbUsuarios" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>

@@ -16,7 +16,9 @@ package br.facet.tcc.impl.managed.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -31,6 +33,8 @@ import br.facet.tcc.enums.UserRoles;
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.impl.datamodel.ProfessorDataModel;
 import br.facet.tcc.impl.service.GestaoProfessorImpl;
+import br.facet.tcc.pojo.Disciplina;
+import br.facet.tcc.pojo.HorarioDeAula;
 import br.facet.tcc.pojo.Professor;
 import br.facet.tcc.pojo.UserLogin;
 
@@ -78,9 +82,7 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
         try {
 
             List<br.facet.tcc.pojo.UserRoles> permissoes = new ArrayList<br.facet.tcc.pojo.UserRoles>();
-            br.facet.tcc.pojo.UserRoles roles = new br.facet.tcc.pojo.UserRoles();
-            roles.setUserRole(UserRoles.ROLE_ACA);
-            permissoes.add(roles);
+            permissoes.add(new br.facet.tcc.pojo.UserRoles(UserRoles.ROLE_ACA));
             this.professorSalvar.getUserLogin().setPermissoes(permissoes);
 
             this.professorService.salvarUsuario(this.professorSalvar);
@@ -198,6 +200,27 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
             FacesContext.getCurrentInstance().addMessage("message", message);
         }
         return null;
+    }
+
+    public void prepararAtualizar() {
+        Set<HorarioDeAula> horarioDeAulas = new HashSet<HorarioDeAula>();
+        Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+
+        for (Disciplina disciplina : this.professorSelecionado
+                .getDisciplinasQueLeciona()) {
+            Set<Disciplina> disciplinasD = new HashSet<Disciplina>();
+            for (Disciplina disciplinaD : disciplina.getRequisitos()) {
+                disciplinasD.add(disciplinaD);
+            }
+            disciplina.setRequisitos(disciplinasD);
+            disciplinas.add(disciplina);
+        }
+        for (HorarioDeAula horarioDeAula : this.professorSelecionado
+                .getHorarioDisponivel()) {
+            horarioDeAulas.add(horarioDeAula);
+        }
+        this.professorSelecionado.setDisciplinasQueLeciona(disciplinas);
+        this.professorSelecionado.setHorarioDisponivel(horarioDeAulas);
     }
 
     /**
