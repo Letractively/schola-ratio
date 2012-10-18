@@ -14,8 +14,10 @@
 package br.facet.tcc.impl.util;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -39,6 +41,8 @@ public class HibernateCriteria {
 
     private Criteria criteria;
 
+    private final Class[] noparam = {};
+
     /**
      * @since TODO: class_version
      */
@@ -50,7 +54,7 @@ public class HibernateCriteria {
     public Criteria createCriteria(Object object) {
 
         Method[] methods = object.getClass().getMethods();
-        Class[] noparam = {};
+
         this.criteria = session.createCriteria(object.getClass());
 
         try {
@@ -62,6 +66,14 @@ public class HibernateCriteria {
                             + method.getName().substring(4);
                     if (method.getAnnotation(Searchable.class).innerSearch()) {
                         this.prepareInnerSearch(serializable, field);
+                    } else if (serializable instanceof Collection
+                            && method.getAnnotation(Searchable.class)
+                                    .collectionSearch()) {
+
+                        criteria.createCriteria(field)
+                                .add(Restrictions
+                                        .in("id",
+                                                prepareCollectionId((Collection) serializable)));
                     } else {
                         if (serializable instanceof String) {
                             criteria.add(Restrictions.ilike(field, "%"
@@ -76,7 +88,22 @@ public class HibernateCriteria {
             e.printStackTrace();
         }
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        LOG.debug("Criteria criada : " + this.criteria.toString());
         return criteria;
+    }
+
+    private List<Integer> prepareCollectionId(Collection serializable)
+            throws IllegalArgumentException, SecurityException,
+            IllegalAccessException, InvocationTargetException,
+            NoSuchMethodException {
+        List<Integer> ids = new ArrayList<Integer>();
+        for (Object object : serializable) {
+            Integer id = (Integer) object.getClass()
+                    .getMethod("getId", noparam).invoke(object, noparam);
+            ids.add(id);
+        }
+
+        return ids;
     }
 
     private void prepareInnerSearch(Object object, String columnName) {
