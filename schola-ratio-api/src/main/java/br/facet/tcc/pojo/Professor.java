@@ -102,6 +102,7 @@ public class Professor extends Pessoa implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @IndexColumn(name = "idx_col")
     @Fetch(FetchMode.SUBSELECT)
+    @Searchable(collectionSearch = true)
     public Set<HorarioDeAula> getHorarioDisponivel() {
         return horarioDisponivel;
     }
@@ -112,6 +113,7 @@ public class Professor extends Pessoa implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @IndexColumn(name = "idx_col")
     @Fetch(FetchMode.SUBSELECT)
+    @Searchable(collectionSearch = true)
     public Set<Disciplina> getDisciplinasQueLeciona() {
         return disciplinasQueLeciona;
     }
