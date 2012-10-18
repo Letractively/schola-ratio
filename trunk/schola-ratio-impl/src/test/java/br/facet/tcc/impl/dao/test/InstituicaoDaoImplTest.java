@@ -35,7 +35,7 @@ public class InstituicaoDaoImplTest extends DaoTestCaseSetUp {
     @Test
     public void testSalvarInstituicao() throws DaoException {
         Instituicao instituicao = new Instituicao();
-        instituicao.setCnpj(33333333);
+        instituicao.setCnpj(33333333333333l);
         instituicao.setEmail("email3");
         instituicao.setInscricaoEstadual(3333333);
         instituicao.setNome("ScholaRatio3");
@@ -50,21 +50,21 @@ public class InstituicaoDaoImplTest extends DaoTestCaseSetUp {
     public void testAtualizar() throws DaoException {
 
         Instituicao instituicao = this.getInstituicaoDao()
-            .listar(Instituicao.class).get(0);
+                .listar(Instituicao.class).get(0);
         String expected = instituicao.getNome();
         instituicao.setNome("Outro nome");
         String actual = this.getInstituicaoDao().listar(Instituicao.class)
-            .get(0).getNome();
+                .get(0).getNome();
         Assert.assertNotSame("Nao atualizou o nome.", expected, actual);
     }
 
     @Test
     public void testDeletar() throws DaoException {
         int unexpected = this.getInstituicaoDao().listar(Instituicao.class)
-            .size();
+                .size();
 
         Instituicao instituicao = this.getInstituicaoDao().obterPorID(
-            Instituicao.class, 4);
+                Instituicao.class, 4);
         this.getInstituicaoDao().excluir(instituicao);
 
         int actual = this.getInstituicaoDao().listar(Instituicao.class).size();
@@ -75,7 +75,7 @@ public class InstituicaoDaoImplTest extends DaoTestCaseSetUp {
     @Test
     public void testListarInstituicao() throws DaoException {
         List<Instituicao> instituicao = this.getInstituicaoDao().listar(
-            Instituicao.class);
+                Instituicao.class);
 
         Assert.assertFalse(instituicao.isEmpty());
     }
@@ -85,7 +85,7 @@ public class InstituicaoDaoImplTest extends DaoTestCaseSetUp {
         Instituicao instituicao = new Instituicao();
         instituicao.setNome("%Schola%");
         List<Instituicao> instituicaos = this.getInstituicaoDao().pesquisar(
-            instituicao);
+                instituicao);
 
         Assert.assertFalse(instituicaos.isEmpty());
     }
