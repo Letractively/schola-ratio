@@ -165,9 +165,32 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
     @Test
     public void testPesquisar() throws DaoException {
         Professor professor = new Professor();
-        professor.setNome("%nome%");
+        // professor.setNome("carol");
+
+        Disciplina disciplina = this.disciplinaDao.obterPorID(Disciplina.class,
+                7);
+        Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+        disciplinas.add(disciplina);
+
+        professor.setDisciplinasQueLeciona(disciplinas);
+
         List<Professor> professor1 = getProfessorDao().pesquisar(professor);
         Assert.assertTrue("Lista esta vazia", professor1.size() > 0);
     }
 
+    @Test
+    public void testPesquisarPorDisponibilidade() throws DaoException {
+        Professor professor = new Professor();
+        // professor.setNome("carol");
+
+        Set<HorarioDeAula> horarios = new HashSet<HorarioDeAula>();
+        horarios.add(new HorarioDeAula(HorarioDeAulas.SEGUNDA_PRIMEIRO_HORARIO));
+        horarios.add(new HorarioDeAula(HorarioDeAulas.SEXTA_SEGUNDO_HORARIO));
+        horarios.add(new HorarioDeAula(HorarioDeAulas.QUARTA_PRIMEIRO_HORARIO));
+
+        professor.setHorarioDisponivel(horarios);
+
+        List<Professor> professor1 = getProfessorDao().pesquisar(professor);
+        Assert.assertTrue("Lista esta vazia", professor1.size() > 0);
+    }
 }
