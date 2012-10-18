@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * @version 0.0.1
  * @since 0.0.1
  */
-@Target({METHOD})
+@Target({ METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Searchable {
 
@@ -38,4 +38,11 @@ public @interface Searchable {
      * @since 0.0.1
      */
     boolean innerSearch() default false;
+
+    /**
+     * Se for uma Coleção
+     * 
+     * @since 0.0.1
+     */
+    boolean collectionSearch() default false;
 }
