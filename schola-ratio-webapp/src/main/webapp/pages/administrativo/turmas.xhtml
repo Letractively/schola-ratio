@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<h:head>
+	<style type="text/css">
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+</style>
+</h:head>
+<ui:decorate template="/template/template.xhtml">
+	<ui:define name="content">
+		<h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login"
+			styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Nova Turma</span>
+		</h:outputLink>
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<p:dialog id="dialogSalvar" widgetVar="dlg" resizable="false" modal="true" appendToBody="true">
+			<h:form id="salvar">
+				<p:panel header="Salvar Turma">
+					<p:panelGrid styleClass="companyHeaderGrid">
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Disciplina" for="discTurma" />
+							</p:column>
+							<p:column>
+								<p:autoComplete value="#{turmaMB.turmaSalvar.disciplina}" id="discTurma"
+									completeMethod="#{turmaMB.completeDisciplina}" var="d" itemLabel="#{d.nome}"
+									itemValue="#{d}" converter="#{disciplinaConverter}" size="30">
+									<p:ajax event="itemSelect" update="profTurma" listener="#{turmaMB.prepararSalvar}" />
+								</p:autoComplete>
+							</p:column>
+							</p:row>
+							<p:row>
+							<p:column>
+								<h:outputLabel value="Disciplina" for="discTurma" />
+							</p:column>
+							<p:column>
+								<p:selectOneMenu value="#{turmaMB.turmaSalvar.horarioDeAulas}"
+									label="Horários"  filter="true" filterText="Filter"
+									filterMatchMode="startsWith">
+									<f:selectItems value="#{disciplinaMB.horariosDeAula}" var="hor" noSelectionValue="ERRO"
+										itemLabel="#{hor.horarioDeAulas.value}" itemValue="#{hor.horarioDeAulas}" />
+								</p:selectOneMenu>
+							</p:column>							
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Professor" for="profTurma" />
+							</p:column>
+							<p:column>
+								<p:selectOneMenu id="profTurma" value="#{turmaMB.turmaSalvar.professor}" label="Professor"
+									filter="true" filterText="Filter" filterMatchMode="startsWith" panelStyle="width: 50px;"
+									converter="#{professorConverter}">
+									<f:selectItems value="#{turmaMB.professores}" var="prof" noSelectionValue="ERRO"
+										itemLabel="#{prof.nome}" itemValue="#{prof}" />
+								</p:selectOneMenu>
+							</p:column>
+							</p:row>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Ano" for="anoTurma" />
+							</p:column>
+							<p:column>
+								<p:inputText id="anoTurma" value="#{turmaMB.turmaSalvar.ano}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+									<p:resetInput target="salvar" />
+								</p:commandButton>
+							</p:column>
+							<p:column>
+								<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk" oncomplete="dlg.hide()"
+									action="#{turmaMB.salvarTurma}" process=":salvar" update=":salvar" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+		<h:form id="pesquisar">
+			<div id="content" align="center">
+				<p:panel id="pesquisaTurma" header="Pesquisar" style="text-align: left;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel value="Disciplina" for="nomeTurmaPesquisar" />
+						<p:autoComplete value="#{turmaMB.turmaPesquisar.disciplina}" id="nomeTurmaPesquisar"
+							completeMethod="#{turmaMB.completeDisciplina}" var="d" itemLabel="#{d.nome}"
+							itemValue="#{d}" converter="#{disciplinaConverter}" size="30">
+							<p:ajax event="itemSelect" update="profTurmaPesquisar" listener="#{turmaMB.prepararSalvar}" />
+						</p:autoComplete>
+						<h:outputLabel value="Professor :" for="profTurmaPesquisar" />
+						<p:autoComplete value="#{turmaMB.turmaPesquisar.professor}" id="profTurmaPesquisar"
+							completeMethod="#{turmaMB.completeProfessor}" var="p" itemLabel="#{p.nome}"
+							itemValue="#{p}" converter="#{professorConverter}" size="30">
+						</p:autoComplete>
+						<h:outputLabel value="Ano :" for="anoUsuarioPesquisar" />
+						<h:inputText id="anoUsuarioPesquisar" value="#{turmaMB.turmaPesquisar.ano}" />
+						<h:outputLabel value="Status :" for="statusUsuarioPesquisar" />
+						<p:selectOneMenu id="statusUsuarioPesquisar" value="#{turmaMB.turmaPesquisar.status}">
+							<f:selectItems value="#{turmaMB.statusList}" />
+						</p:selectOneMenu>
+						<p:commandButton id="btnPesquisar" value="Pesquisar" action="#{turmaMB.pesquisarTurma}"
+							update=":formTable:tbTurmas pesquisar:pesquisaTurma" icon="ui-icon-search" />
+					</h:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+		<h:form id="formTable">
+			<p:dataTable id="tbTurmas" var="tTurmaSalvar" value="#{turmaMB.listaTurmas}" widgetVar="tabela"
+				paginatorAlwaysVisible="false" paginator="true" rows="10" paginatorPosition="bottom"
+				emptyMessage="Nenhum resultado" rowsPerPageTemplate="5,10,15">
+				<p:column headerText="Disciplina" sortBy="#{tTurmaSalvar.nome}">	
+					#{tTurmaSalvar.disciplina.nome}
+				</p:column>
+				<p:column headerText="Ano">
+					#{tTurmaSalvar.ano}
+				</p:column>
+				<p:column headerText="Professor">
+					#{tTurmaSalvar.professor.nome}
+				</p:column>
+				<p:column headerText="Status">
+					#{tTurmaSalvar.status}
+				</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()"
+						rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
+						<f:setPropertyActionListener value="#{tTurmaSalvar}" target="#{turmaMB.turmaSelecionada}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-search" title="Atualizar" update=":dialog"
+						oncomplete="prepararAtualizar()">
+						<f:setPropertyActionListener value="#{tTurmaSalvar}" target="#{turmaMB.turmaSelecionada}" />
+						<p:remoteCommand name="prepararAtualizar" action="#{turmaMB.prepararAtualizar}"
+							oncomplete="usuarioPopUp.show()" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog message="Confirma a exclusão?" header="Inciando processo de exclusão"
+			severity="alert" widgetVar="confirmation" appendToBody="true">
+			<h:form id="remover">
+				<p:commandButton value="Sim" action="#{turmaMB.removerTurma}" onsuccess="confirmation.hide()"
+					update=":formTable:tbTurmas" />
+				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
+			</h:form>
+		</p:confirmDialog>
+
+
+		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true" appendToBody="true"
+			header="Detalhes do Turma">
+			<h:form id="atualizar">
+				<p:panelGrid styleClass="companyHeaderGrid" rendered="#{turmaMB.turmaSelecionada != null}">
+					<p:row>
+						<p:column>Disciplina</p:column>
+						<p:column colspan="3">
+							<p:inputText id="discTurma" value="#{turmaMB.turmaSelecionada.disciplina}" required="true"
+								size="50">
+								<p:ajax event="blur" update="nomeMsg" />
+								<p:message id="nomeMsg" for="discTurma" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:decorate>
+</html>
