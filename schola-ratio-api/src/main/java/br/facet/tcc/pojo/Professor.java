@@ -157,4 +157,10 @@ public class Professor extends Pessoa implements Serializable {
     public void setDisciplinasQueLeciona(Set<Disciplina> disciplinasQueLeciona) {
         this.disciplinasQueLeciona = disciplinasQueLeciona;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = this.getId().equals(((Professor) obj).getId());
+        return result;
+    }
 }
