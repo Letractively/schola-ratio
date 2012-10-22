@@ -44,7 +44,7 @@ public class HibernateCriteria {
     private final Class[] noparam = {};
 
     /**
-     * @since TODO: class_version
+     * @since 0.0.1
      */
     public HibernateCriteria(Session session) {
         LOG.debug("Criando uma instancia de " + this.getClass().getName());
@@ -69,11 +69,13 @@ public class HibernateCriteria {
                     } else if (serializable instanceof Collection
                             && method.getAnnotation(Searchable.class)
                                     .collectionSearch()) {
+                        if (!((Collection) serializable).isEmpty()) {
 
-                        criteria.createCriteria(field)
-                                .add(Restrictions
-                                        .in("id",
-                                                prepareCollectionId((Collection) serializable)));
+                            criteria.createCriteria(field)
+                                    .add(Restrictions
+                                            .in("id",
+                                                    prepareCollectionId((Collection) serializable)));
+                        }
                     } else {
                         if (serializable instanceof String) {
                             criteria.add(Restrictions.ilike(field, "%"
