@@ -111,6 +111,7 @@ public class Turma implements Serializable {
      */
     @Enumerated(EnumType.STRING)
     @Column
+    @Searchable
     public Status getStatus() {
         return status;
     }
