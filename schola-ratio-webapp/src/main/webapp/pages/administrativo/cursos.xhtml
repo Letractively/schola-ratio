@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<h:head>
+	<style type="text/css">
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+</style>
+</h:head>
+<ui:decorate template="/template/template.xhtml">
+	<ui:define name="content">
+		<h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login"
+			styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Novo Curso</span>
+		</h:outputLink>
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<p:dialog id="dialogSalvar" widgetVar="dlg" resizable="false" modal="true"
+			appendToBody="true">
+			<h:form id="salvar">
+				<p:panel header="Salvar Curso">
+					<p:panelGrid styleClass="companyHeaderGrid">
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Nome" for="nomeCurso" />
+							</p:column>
+							<p:column colspan="3">
+								<p:inputText id="nomeCurso" value="#{cursoMB.cursoSalvar.nome}" required="true"
+									size="50">
+									<p:ajax event="blur" update="nomeMsg" />
+									<p:message id="nomeMsg" for="nomeCurso" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Duração" for="durCurso" />
+							</p:column>
+							<p:column>
+								<p:inputText id="durCurso" value="#{cursoMB.cursoSalvar.duracao}"
+									required="true">
+									<p:ajax event="blur" update="durMsg" />
+									<p:message id="durMsg" for="durCurso" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+									<p:resetInput target="salvar" />
+								</p:commandButton>
+							</p:column>
+							<p:column>
+								<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk" oncomplete="dlg.hide()"
+									action="#{cursoMB.salvarCurso}" process=":salvar" update=":salvar" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+		<h:form id="pesquisar">
+			<div id="content" align="center">
+				<p:panel id="pesquisaCurso" header="Pesquisar" style="text-align: left;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel value="Nome :" for="nomeCursoPesquisar" />
+						<p:inputText id="nomeCursoPesquisar" value="#{cursoMB.cursoPesquisar.nome}"
+							size="50">
+							<p:ajax event="blur" update="nomePesquisarMsg" />
+							<p:message id="nomePesquisarMsg" for="nomeCursoPesquisar" showDetail="true" />
+						</p:inputText>
+
+						<h:outputLabel value="Duração :" for="duracaoCursoPesquisar" />
+						<p:inputText id="duracaoCursoPesquisar" value="#{cursoMB.cursoPesquisar.duracao}"
+							size="50">
+							<p:ajax event="blur" update="duracaoPesquisarMsg" />
+							<p:message id="duracaoPesquisarMsg" for="duracaoCursoPesquisar" showDetail="true" />
+						</p:inputText>
+
+						<h:outputLabel value="Status :" for="statusUsuarioPesquisar" />
+						<p:selectOneMenu id="statusUsuarioPesquisar" value="#{cursoMB.cursoPesquisar.status}">
+							<f:selectItems value="#{cursoMB.statusList}" />
+						</p:selectOneMenu>
+						<p:commandButton id="btnPesquisar" value="Pesquisar"
+							action="#{cursoMB.pesquisarCurso}"
+							update=":formTable:tbCursos pesquisar:pesquisaCurso" icon="ui-icon-search" />
+					</h:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+		<h:form id="formTable">
+			<p:dataTable id="tbCursos" var="tcursoSalvar" value="#{cursoMB.listaCursos}"
+				widgetVar="tabela" paginatorAlwaysVisible="false" paginator="true" rows="10"
+				paginatorPosition="bottom" emptyMessage="Nenhum resultado" rowsPerPageTemplate="5,10,15">
+				<p:column headerText="Nome" sortBy="#{tcursoSalvar.nome}">
+					#{tcursoSalvar.nome}
+				</p:column>
+				<p:column headerText="Duração">
+					#{tcursoSalvar.duracao}
+				</p:column>
+				<p:column headerText="Status">
+					#{tcursoSalvar.status}
+				</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()"
+						rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
+						<f:setPropertyActionListener value="#{tcursoSalvar}"
+							target="#{cursoMB.cursoSelecionada}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-search" title="Atualizar" update=":dialog"
+						oncomplete="usuarioPopUp.show()" >
+						<f:setPropertyActionListener value="#{tcursoSalvar}"
+							target="#{cursoMB.cursoSelecionada}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog message="Confirma a exclusão?" header="Inciando processo de exclusão"
+			severity="alert" widgetVar="confirmation" appendToBody="true">
+			<h:form id="remover">
+				<p:commandButton value="Sim" action="#{cursoMB.removerCurso}"
+					onsuccess="confirmation.hide()" update=":formTable:tbCursos" />
+				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
+			</h:form>
+		</p:confirmDialog>
+
+
+		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true" appendToBody="true"
+			header="Detalhes do Curso">
+			<h:form id="atualizar">
+				<p:panelGrid styleClass="companyHeaderGrid"
+					rendered="#{cursoMB.cursoSelecionada != null}">
+					<p:row>
+						<p:column>Nome</p:column>
+						<p:column colspan="3">
+							<p:inputText id="nomeUsuario" value="#{cursoMB.cursoSelecionada.nome}" required="true" size="50">
+								<p:ajax event="blur" update="nomeMsg" />
+								<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Duração</p:column>
+						<p:column>
+							<p:inputText id="duracaoCurso"
+								value="#{cursoMB.cursoSelecionada.duracao}" required="true">
+								<p:ajax event="blur" update="durMsg" />
+								<p:message id="durMsg" for="duracaoCurso" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Status</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{cursoMB.cursoSelecionada.status}" effect="fade"
+								disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}">
+								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+								<f:selectItems value="#{cursoMB.statusList}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+							<p:commandButton oncomplete="usuarioPopUp.hide()" value="Atualizar" type="submit"
+								action="#{cursoMB.atualizarCurso()}" update=":formTable:tbCursos" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:decorate>
+</html>
