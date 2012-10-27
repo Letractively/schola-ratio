@@ -103,6 +103,7 @@ public class Curso implements Serializable {
      */
     @Enumerated(EnumType.STRING)
     @Column
+    @Searchable
     public Status getStatus() {
         return status;
     }
