@@ -14,6 +14,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,7 +35,7 @@ import br.facet.tcc.enums.HorarioDeAulas;
 @Entity
 @Table(name = "tb_horario_aulas")
 @SequenceGenerator(sequenceName = "seq_horario_aulas", name = "seq_horario_aulas", initialValue = 1)
-public class HorarioDeAula {
+public class HorarioDeAula implements Serializable {
 
     private Integer id;
 
