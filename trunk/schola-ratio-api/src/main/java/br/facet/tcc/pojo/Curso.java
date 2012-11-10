@@ -14,7 +14,6 @@
 package br.facet.tcc.pojo;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +22,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -56,8 +54,6 @@ public class Curso implements Serializable {
     private Integer duracao;
 
     private Status status;
-
-    private List<Disciplina> disciplina;
 
     /**
      * @return the id
@@ -109,14 +105,6 @@ public class Curso implements Serializable {
     }
 
     /**
-     * @return the disciplina
-     */
-    @ManyToMany
-    public List<Disciplina> getDisciplina() {
-        return disciplina;
-    }
-
-    /**
      * @param id
      *            the id to set
      */
@@ -156,12 +144,10 @@ public class Curso implements Serializable {
         this.status = status;
     }
 
-    /**
-     * @param disciplina
-     *            the disciplina to set
-     */
-    public void setDisciplina(List<Disciplina> disciplina) {
-        this.disciplina = disciplina;
+    @Override
+    public boolean equals(Object obj) {
+        Curso curso = (Curso) obj;
+        return this.id.equals(curso.getId());
     }
 
 }
