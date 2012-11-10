@@ -187,7 +187,18 @@ public class TurmaManagedBean extends ConstantsMB implements Serializable {
     }
 
     public void prepararAtualizar() {
-        System.out.println("\nNot implemented yet.\n");
+        Disciplina disciplina = this.turmaSelecionada.getDisciplina();
+        disciplina.setRequisitos(new HashSet<Disciplina>());
+        Professor professor = new Professor();
+        Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+        disciplinas.add(disciplina);
+        professor.setDisciplinasQueLeciona(disciplinas);
+
+        try {
+            this.professores = this.professorService
+                    .consultarUsuario(professor);
+        } catch (ServiceException e) {
+        }
     }
 
     public void prepararSalvar() {
