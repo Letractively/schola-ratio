@@ -15,14 +15,16 @@ package br.facet.tcc.pojo;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -52,7 +54,23 @@ public class AlunoCurso implements Serializable {
 
     private Aluno aluno;
 
-    private SituacaoAlunoCurso situacaoAlunoCurso;
+    private SituacaoAlunoCurso situacaoAlunoCurso = SituacaoAlunoCurso.CURSANDO;
+
+    public AlunoCurso() {
+    }
+
+    /**
+     * @param curso
+     * @param aluno
+     * @param situacaoAlunoCurso
+     */
+    public AlunoCurso(Curso curso, Aluno aluno,
+            SituacaoAlunoCurso situacaoAlunoCurso) {
+        this();
+        this.curso = curso;
+        this.aluno = aluno;
+        this.situacaoAlunoCurso = situacaoAlunoCurso;
+    }
 
     /**
      * @return the id
@@ -67,7 +85,7 @@ public class AlunoCurso implements Serializable {
     /**
      * @return the curso
      */
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Searchable(innerSearch = true)
     public Curso getCurso() {
         return curso;
@@ -76,7 +94,7 @@ public class AlunoCurso implements Serializable {
     /**
      * @return the aluno
      */
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Searchable(innerSearch = true)
     public Aluno getAluno() {
         return aluno;
