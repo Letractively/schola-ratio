@@ -20,8 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.facet.tcc.exception.ServiceException;
-import br.facet.tcc.impl.dao.AlunoDaoImpl;
-import br.facet.tcc.pojo.Aluno;
+import br.facet.tcc.impl.dao.AlunoCursoDaoImpl;
+import br.facet.tcc.pojo.AlunoCurso;
 
 /**
  * @author Djulles IKEDA
@@ -30,11 +30,11 @@ import br.facet.tcc.pojo.Aluno;
  * @since 0.0.1
  */
 @Service("alunoService")
-public class GestaoAlunoImpl extends GestaoUsuarioConfig<Aluno> {
+public class GestaoAlunoImpl extends GestaoUsuarioConfig<AlunoCurso> {
 
     @Autowired
-    public GestaoAlunoImpl(AlunoDaoImpl alunoDao) {
-        this.dao = alunoDao;
+    public GestaoAlunoImpl(AlunoCursoDaoImpl alunoCursoDao) {
+        this.dao = alunoCursoDao;
     }
 
     /**
@@ -42,7 +42,7 @@ public class GestaoAlunoImpl extends GestaoUsuarioConfig<Aluno> {
      * @since since optional
      */
     @Override
-    public Integer salvarUsuario(Aluno t) throws ServiceException {
+    public Integer salvarUsuario(AlunoCurso t) throws ServiceException {
         return super.salvarUsuario(t);
     }
 
@@ -51,7 +51,7 @@ public class GestaoAlunoImpl extends GestaoUsuarioConfig<Aluno> {
      * @since since optional
      */
     @Override
-    public void removerUsuario(Aluno t) throws ServiceException {
+    public void removerUsuario(AlunoCurso t) throws ServiceException {
         super.removerUsuario(t);
     }
 
@@ -61,7 +61,7 @@ public class GestaoAlunoImpl extends GestaoUsuarioConfig<Aluno> {
      * @since since optional
      */
     @Override
-    public Aluno consultarUsuario(Class clazz, Integer id)
+    public AlunoCurso consultarUsuario(Class clazz, Integer id)
             throws ServiceException {
         return super.consultarUsuario(clazz, id);
     }
@@ -71,7 +71,8 @@ public class GestaoAlunoImpl extends GestaoUsuarioConfig<Aluno> {
      * @since since optional
      */
     @Override
-    public List<Aluno> consultarUsuario(Aluno t) throws ServiceException {
+    public List<AlunoCurso> consultarUsuario(AlunoCurso t)
+            throws ServiceException {
         return super.consultarUsuario(t);
     }
 
@@ -80,7 +81,7 @@ public class GestaoAlunoImpl extends GestaoUsuarioConfig<Aluno> {
      * @since since optional
      */
     @Override
-    public void alterarUsuario(Aluno t) throws ServiceException {
+    public void alterarUsuario(AlunoCurso t) throws ServiceException {
         super.alterarUsuario(t);
     }
 
@@ -89,7 +90,7 @@ public class GestaoAlunoImpl extends GestaoUsuarioConfig<Aluno> {
      * @since since optional
      */
     @Override
-    public List<Aluno> listarUsuario(Class clazz) throws ServiceException {
+    public List<AlunoCurso> listarUsuario(Class clazz) throws ServiceException {
         return super.listarUsuario(clazz);
     }
 }

@@ -43,6 +43,8 @@ public class HibernateCriteria {
 
     private final Class[] noparam = {};
 
+    private static StringBuilder parentFlag = null;
+
     /**
      * @since 0.0.1
      */
@@ -55,17 +57,20 @@ public class HibernateCriteria {
 
         Method[] methods = object.getClass().getMethods();
 
-        this.criteria = session.createCriteria(object.getClass());
+        this.criteria = session.createCriteria(object.getClass(), "F");
 
         try {
-            for (Method method : getSearchbles(methods)) {
+            for (Method method : getSearchables(methods)) {
                 Object serializable = method.invoke(object, noparam);
                 if (serializable != null) {
                     String field = method.getName().subSequence(3, 4)
                             .toString().toLowerCase()
                             + method.getName().substring(4);
                     if (method.getAnnotation(Searchable.class).innerSearch()) {
+                        parentFlag = new StringBuilder(field);
                         this.prepareInnerSearch(serializable, field);
+                        if (parentFlag.length() > 0)
+                            removeLastField(parentFlag);
                     } else if (serializable instanceof Collection
                             && method.getAnnotation(Searchable.class)
                                     .collectionSearch()) {
@@ -86,6 +91,7 @@ public class HibernateCriteria {
                     }
                 }
             }
+            parentFlag = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,19 +119,50 @@ public class HibernateCriteria {
         Class[] noparam = {};
 
         try {
-            for (Method method : getSearchbles(methods)) {
+            for (Method method : getInnerSearchables(methods)) {
                 Object serializable = method.invoke(object, noparam);
                 if (serializable != null) {
                     String field = method.getName().subSequence(3, 4)
                             .toString().toLowerCase()
                             + method.getName().substring(4);
-                    if (method.getAnnotation(Searchable.class).innerSearch()) {
-                        this.prepareInnerSearch(serializable, field);
+                    if (parentFlag != null) {
+                        parentFlag.append(".").append(field);
                     } else {
-                        if (serializable instanceof String) {
+                        parentFlag = new StringBuilder(field);
+                    }
+                    this.prepareInnerSearch(serializable, field);
+                    if (parentFlag.length() > 0)
+                        removeLastField(parentFlag);
+                }
+            }
+            for (Method method : getNonInnerSearchables(methods)) {
+                Object serializable = method.invoke(object, noparam);
+                if (serializable != null) {
+                    String field = method.getName().subSequence(3, 4)
+                            .toString().toLowerCase()
+                            + method.getName().substring(4);
+                    if (serializable instanceof String) {
+                        if (parentFlag != null) {
+                            parentFlag.append(".").append(field);
+                            this.criteria.add(Restrictions.ilike("F."
+                                    + parentFlag.toString(), "%" + serializable
+                                    + "%"));
+                            if (parentFlag.length() > 0)
+                                removeLastField(parentFlag);
+                        } else {
                             this.criteria.createCriteria(columnName).add(
                                     Restrictions.ilike(field, "%"
                                             + serializable + "%"));
+                        }
+                    } else {
+                        if (parentFlag != null) {
+                            parentFlag.append(".").append(field);
+                            this.criteria
+                                    .add(Restrictions.eq(
+                                            "F." + parentFlag.toString(),
+                                            serializable));
+                            if (parentFlag.length() > 0)
+                                removeLastField(parentFlag);
                         } else {
                             this.criteria.createCriteria(columnName).add(
                                     Restrictions.eq(field, serializable));
@@ -138,7 +175,7 @@ public class HibernateCriteria {
         }
     }
 
-    private List<Method> getSearchbles(Method[] methods) {
+    private List<Method> getSearchables(Method[] methods) {
         List<Method> retorno = new ArrayList<Method>();
 
         for (Method method : methods) {
@@ -149,5 +186,44 @@ public class HibernateCriteria {
             }
         }
         return retorno;
+    }
+
+    private List<Method> getInnerSearchables(Method[] methods) {
+        List<Method> retorno = new ArrayList<Method>();
+
+        for (Method method : methods) {
+            for (Annotation annotation : method.getAnnotations()) {
+                if (annotation instanceof Searchable) {
+                    if (((Searchable) annotation).innerSearch()) {
+                        retorno.add(method);
+                    }
+                }
+            }
+        }
+        return retorno;
+    }
+
+    private List<Method> getNonInnerSearchables(Method[] methods) {
+        List<Method> retorno = new ArrayList<Method>();
+
+        for (Method method : methods) {
+            for (Annotation annotation : method.getAnnotations()) {
+                if (annotation instanceof Searchable) {
+                    if (!((Searchable) annotation).innerSearch()) {
+                        retorno.add(method);
+                    }
+                }
+            }
+        }
+        return retorno;
+    }
+
+    private StringBuilder removeLastField(StringBuilder builder) {
+        int index = builder.lastIndexOf(".");
+
+        if (index != -1) {
+            builder.delete(index, builder.length());
+        }
+        return builder;
     }
 }
