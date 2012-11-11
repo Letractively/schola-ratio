@@ -111,6 +111,10 @@ public class DisciplinaManagedBean extends ConstantsMB implements Serializable {
         if (disciplinaPesquisar.getCargaHoraria() == 0) {
             this.disciplinaPesquisar.setCargaHoraria(null);
         }
+        // if ("".equals(disciplinaPesquisar.getCurso().getNome())) {
+        // this.disciplinaPesquisar.setCargaHoraria(null);
+        // }
+
         try {
             this.listaDisciplinas = this.gestaoAdministrativo
                     .buscarDisciplinas(disciplinaPesquisar);
