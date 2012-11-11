@@ -1,0 +1,380 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<h:head>
+	<style type="text/css">
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+</style>
+</h:head>
+<ui:decorate template="/template/template.xhtml">
+	<ui:define name="content">
+		<h:outputLink id="loginLink" value="javascript:void(0)"
+			onclick="dlg.show()" title="login"
+			styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Nova Configuracao</span>
+		</h:outputLink>
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<p:dialog id="dialogSalvar" widgetVar="dlg" resizable="false"
+			modal="true" appendToBody="true">
+			<h:form id="salvar">
+				<p:panel header="Salvar Configuracao">
+					<p:panelGrid styleClass="companyHeaderGrid">
+					
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Ano Referencia" for="anoReferencia" />
+							</p:column>
+							<p:column colspan="3">
+								<p:inputText id="anoReferencia"
+									value="#{configGeralMB.confGeralSistemaSalvar.anoReferencia}" required="true"
+									>
+									<p:ajax event="blur" update="anoMsg" />
+									<p:message id="anoMsg" for="anoReferencia" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Valor da mensalidade"
+									for="valorMensalidade" />
+							</p:column>
+							<p:column>
+								<p:inputText id="valorMensalidade"
+									value="#{configGeralMB.confGeralSistemaSalvar.valorMensalidade}" required="true">
+									<p:ajax event="blur" update="valorMensalidadeMsg" />
+									<p:message id="valorMensalidadeMsg" for="valorMensalidade"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Nota para passar direto"
+									for="notaPassarDireto" />
+							</p:column>
+							<p:column>
+								<p:inputText id="notaPassarDireto"
+									value="#{configGeralMB.confGeralSistemaSalvar.notaPassarDireto}" required="true">
+									<p:ajax event="blur" update="notaPassarDiretoMsg" />
+									<p:message id="notaPassarDiretoMsg" for="notaPassarDireto"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Nota para reprovar direto"
+									for="notaReprovarDireto" />
+							</p:column>
+							<p:column>
+								<p:inputText id="notaReprovarDireto"
+									value="#{configGeralMB.confGeralSistemaSalvar.notaReprovarDireto}" required="true">
+									<p:ajax event="blur" update="notaReprovarDiretoMsg" />
+									<p:message id="notaReprovarDiretoMsg" for="notaReprovarDireto"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Nota para recuperacao"
+									for="notaRecuperacao" />
+							</p:column>
+							<p:column>
+								<p:inputText id="notaRecuperacao"
+									value="#{configGeralMB.confGeralSistemaSalvar.notaRecuperacao}" required="true">
+									<p:ajax event="blur" update="notaRecuperacaoMsg" />
+									<p:message id="notaRecuperacaoMsg" for="notaRecuperacao"
+										showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Nota para passar na recuperacao"
+									for="notaPassarRecuperacao" />
+							</p:column>
+							<p:column>
+								<p:inputText id="notaPassarRecuperacao"
+									value="#{configGeralMB.confGeralSistemaSalvar.notaPassarRecuperacao}" required="true">
+									<p:ajax event="blur" update="notaPassarRecuperacaoMsg" />
+									<p:message id="notaPassarRecuperacaoMsg"
+										for="notaPassarRecuperacao" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Percentual para reprovar por falta"
+									for="percentualReprovarFalta" />
+							</p:column>
+							<p:column>
+								<p:inputText id="percentualReprovarFalta"
+									value="#{configGeralMB.confGeralSistemaSalvar.percentualReprovarFalta}" required="true">
+									<p:ajax event="blur" update="percentualReprovarFaltaMsg" />
+									<p:message id="percentualReprovarFaltaMsg"
+										for="percentualReprovarFalta" showDetail="true" />
+								</p:inputText>
+							</p:column>
+
+
+						<h:outputLabel value="Status :" for="statusUsuarioPesquisar" />
+						<p:selectOneMenu id="statusUsuarioPesquisar"
+							value="#{userMB.usuarioPesquisar.status}">
+							<f:selectItems value="#{userMB.statusList}" />
+						</p:selectOneMenu>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:commandButton value="Limpar" update=":salvar" process="@this"
+									icon="ui-icon-cancel">
+									<p:resetInput target="salvar" />
+								</p:commandButton>
+							</p:column>
+							<p:column>
+								<p:commandButton id="btnSalvar" value="Salvar"
+									icon="ui-icon-disk" oncomplete="dlg.hide()"
+									action="#{configGeralMB.salvarConfGeralSistema}" process=":salvar"
+									update=":salvar" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+		<h:form id="pesquisar">
+			<div id="content" align="center">
+				<p:panel id="pesquisaCurso" header="Pesquisar"
+					style="text-align: left;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel value="Ano :" for="anoReferenciaPesquisar" />
+						<p:inputText id="anoReferenciaPesquisar"
+							value="#{configGeralMB.confGeralSistemaPesquisar.anoReferencia}" size="50">
+							<p:ajax event="blur" update="anoReferenciaMsg" />
+							<p:message id="anoReferenciaMsg" for="anoReferenciaPesquisar"
+								showDetail="true" />
+						</p:inputText>
+
+						<h:outputLabel value="Status :" for="statusUsuarioPesquisar" />
+						<p:selectOneMenu id="statusUsuarioPesquisar"
+							value="#{configGeralMB.confGeralSistemaPesquisar.status}">
+							<f:selectItems value="#{configGeralMB.statusList}" />
+						</p:selectOneMenu>
+						<p:commandButton id="btnPesquisar" value="Pesquisar"
+							action="#{configGeralMB.pesquisarConfGeralSistema}"
+							update=":formTable:tbConf pesquisar:pesquisaCurso"
+							icon="ui-icon-search" />
+					</h:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+		<h:form id="formTable">
+			<p:dataTable id="tbConf" var="tconfSalvar"
+				value="#{configGeralMB.listaConfGeralSistemas}" widgetVar="tabela"
+				paginatorAlwaysVisible="false" paginator="true" rows="10"
+				paginatorPosition="bottom" emptyMessage="Nenhum resultado"
+				rowsPerPageTemplate="5,10,15">
+				<p:column headerText="Ano Referencia" sortBy="#{tconfSalvar.anoReferencia}">
+					#{tconfSalvar.anoReferencia}
+				</p:column>
+				<p:column headerText="valorMensalidade">
+					#{tconfSalvar.valorMensalidade}
+				</p:column>
+				<p:column headerText="notaPassarDireto">
+					#{tconfSalvar.notaPassarDireto}
+				</p:column>
+				<p:column headerText="notaReprovarDireto">
+					#{tconfSalvar.notaReprovarDireto}
+				</p:column>
+				<p:column headerText="notaRecuperacao">
+					#{tconfSalvar.notaRecuperacao}
+				</p:column>
+				<p:column headerText="notaPassarRecuperacao">
+					#{tconfSalvar.notaPassarRecuperacao}
+				</p:column>
+				<p:column headerText="percentualReprovarFalta">
+					#{tconfSalvar.percentualReprovarFalta}
+				</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="confirmation.show()"
+						rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
+						<f:setPropertyActionListener value="#{tconfSalvar}"
+							target="#{configGeralMB.confGeralSistemaSelecionada}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-search" title="Atualizar"
+						update=":dialog" oncomplete="usuarioPopUp.show()">
+						<f:setPropertyActionListener value="#{tconfSalvar}"
+							target="#{configGeralMB.confGeralSistemaSelecionada}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog message="Confirma a exclusão?"
+			header="Inciando processo de exclusão" severity="alert"
+			widgetVar="confirmation" appendToBody="true">
+			<h:form id="remover">
+				<p:commandButton value="Sim" action="#{configGeralMB.removerConfGeralSistema}"
+					onsuccess="confirmation.hide()" update=":formTable:tbConf" />
+				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
+			</h:form>
+		</p:confirmDialog>
+
+
+		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false"
+			modal="true" appendToBody="true" header="Detalhes do Curso">
+			<h:form id="atualizar">
+				<p:panelGrid styleClass="companyHeaderGrid"
+					rendered="#{configGeralMB.confGeralSistemaSelecionada != null}">
+
+
+
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Ano Referencia" for="anoReferencia" />
+						</p:column>
+						<p:column colspan="3">
+							<p:inputText id="anoReferencia"
+								value="#{configGeralMB.confGeralSistemaSelecionada.anoReferencia}"
+								required="true">
+								<p:ajax event="blur" update="anoMsg" />
+								<p:message id="anoMsg" for="anoReferencia" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Valor da mensalidade"
+								for="valorMensalidade" />
+						</p:column>
+						<p:column>
+							<p:inputText id="valorMensalidade"
+								value="#{configGeralMB.confGeralSistemaSelecionada.valorMensalidade}"
+								required="true">
+								<p:ajax event="blur" update="valorMensalidadeMsg" />
+								<p:message id="valorMensalidadeMsg" for="valorMensalidade"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Nota para passar direto"
+								for="notaPassarDireto" />
+						</p:column>
+						<p:column>
+							<p:inputText id="notaPassarDireto"
+								value="#{configGeralMB.confGeralSistemaSelecionada.notaPassarDireto}"
+								required="true">
+								<p:ajax event="blur" update="notaPassarDiretoMsg" />
+								<p:message id="notaPassarDiretoMsg" for="notaPassarDireto"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Nota para reprovar direto"
+								for="notaReprovarDireto" />
+						</p:column>
+						<p:column>
+							<p:inputText id="notaReprovarDireto"
+								value="#{configGeralMB.confGeralSistemaSelecionada.notaReprovarDireto}"
+								required="true">
+								<p:ajax event="blur" update="notaReprovarDiretoMsg" />
+								<p:message id="notaReprovarDiretoMsg" for="notaReprovarDireto"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Nota para recuperacao"
+								for="notaRecuperacao" />
+						</p:column>
+						<p:column>
+							<p:inputText id="notaRecuperacao"
+								value="#{configGeralMB.confGeralSistemaSelecionada.notaRecuperacao}"
+								required="true">
+								<p:ajax event="blur" update="notaRecuperacaoMsg" />
+								<p:message id="notaRecuperacaoMsg" for="notaRecuperacao"
+									showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Nota para passar na recuperacao"
+								for="notaPassarRecuperacao" />
+						</p:column>
+						<p:column>
+							<p:inputText id="notaPassarRecuperacao"
+								value="#{configGeralMB.confGeralSistemaSelecionada.notaPassarRecuperacao}"
+								required="true">
+								<p:ajax event="blur" update="notaPassarRecuperacaoMsg" />
+								<p:message id="notaPassarRecuperacaoMsg"
+									for="notaPassarRecuperacao" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Percentual para reprovar por falta"
+								for="percentualReprovarFalta" />
+						</p:column>
+						<p:column>
+							<p:inputText id="percentualReprovarFalta"
+								value="#{configGeralMB.confGeralSistemaSelecionada.percentualReprovarFalta}"
+								required="true">
+								<p:ajax event="blur" update="percentualReprovarFaltaMsg" />
+								<p:message id="percentualReprovarFaltaMsg"
+									for="percentualReprovarFalta" showDetail="true" />
+							</p:inputText>
+						</p:column>
+
+					<p:column>Status</p:column>
+					<p:column>
+						<p:selectOneMenu
+							value="#{configGeralMB.confGeralSistemaSelecionada.status}"
+							effect="fade" disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}">
+							<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+							<f:selectItems value="#{configGeralMB.statusList}" />
+						</p:selectOneMenu>
+					</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+							<p:commandButton oncomplete="usuarioPopUp.hide()"
+								value="Atualizar" type="submit"
+								action="#{configGeralMB.atualizarConfGeralSistema()}"
+								update=":formTable:tbConf" />
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:decorate>
+</html>
