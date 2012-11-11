@@ -123,9 +123,9 @@ INSERT INTO tb_avaliacao_aluno( avaliacao_aluno_id, aluno_aluno_id, avaliacao_id
 INSERT INTO tb_avaliacao_aluno( avaliacao_aluno_id, aluno_aluno_id, avaliacao_id, turma_turma_id)  VALUES (nextval('seq_avaliacao_aluno'), 3, 3, 3);
 
 
-INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (1, 1);
-INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (2, 2);
-INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (3, 3);
+--INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (1, 1);
+--INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (2, 2);
+--INSERT INTO tb_curso_tb_disciplina( tb_curso_curso_id, disciplina_id) VALUES (3, 3);
 
 INSERT INTO tb_professor_tb_disciplina( tb_professor_professor_id, disciplinasqueleciona_id) VALUES (1, 1);
 INSERT INTO tb_professor_tb_disciplina( tb_professor_professor_id, disciplinasqueleciona_id) VALUES (2, 2);

@@ -26,6 +26,7 @@ import br.facet.tcc.enums.Status;
 import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.pojo.Aluno;
+import br.facet.tcc.pojo.AlunoCurso;
 import br.facet.tcc.pojo.Endereco;
 
 /**
@@ -78,7 +79,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
         Integer codigo = null;
         try {
 
-            codigo = gestaoAluno.salvarUsuario(aluno);
+            codigo = gestaoAluno.salvarUsuario(null);
         } catch (ServiceException e) {
             Assert.fail();
         }
@@ -93,13 +94,13 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
     @Test
     public void testRemoverUsuarioAluno() {
 
-        Aluno aluno = null;
+        AlunoCurso aluno = null;
 
         try {
 
-            aluno = this.gestaoAluno.consultarUsuario(Aluno.class, 4);
+            aluno = this.gestaoAluno.consultarUsuario(AlunoCurso.class, 4);
             this.gestaoAluno.removerUsuario(aluno);
-            aluno = this.gestaoAluno.consultarUsuario(Aluno.class, 4);
+            aluno = this.gestaoAluno.consultarUsuario(AlunoCurso.class, 4);
 
         } catch (ServiceException e) {
             Assert.fail();
@@ -116,11 +117,11 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
     @Test
     public void testConsultarUsuarioClassInteger() {
 
-        Aluno aluno = null;
+        AlunoCurso aluno = null;
 
         try {
 
-            aluno = this.gestaoAluno.consultarUsuario(Aluno.class, 3);
+            aluno = this.gestaoAluno.consultarUsuario(AlunoCurso.class, 3);
 
         } catch (ServiceException e) {
             Assert.fail();
@@ -137,9 +138,9 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
     @Test
     public void testConsultarUsuarioAluno() {
 
-        Aluno aluno = new Aluno();
-        List<Aluno> alunos = null;
-        aluno.setNacionalidade("Bras%");
+        AlunoCurso aluno = new AlunoCurso();
+        List<AlunoCurso> alunos = null;
+        aluno.getAluno().setNacionalidade("Bras%");
 
         try {
 
@@ -159,14 +160,14 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
     @Test
     public void testAlterarUsuarioAluno() {
 
-        Aluno aluno = null;
+        AlunoCurso aluno = null;
         String emailAntigo = null, emailNovo = null;
         try {
 
-            aluno = this.gestaoAluno.consultarUsuario(Aluno.class, 3);
-            emailAntigo = aluno.getEmail();
-            aluno.setEmail("EmailNovo");
-            emailAntigo = aluno.getEmail();
+            aluno = this.gestaoAluno.consultarUsuario(AlunoCurso.class, 3);
+            emailAntigo = aluno.getAluno().getEmail();
+            aluno.getAluno().setEmail("EmailNovo");
+            emailAntigo = aluno.getAluno().getEmail();
 
         } catch (ServiceException e) {
             Assert.fail();
@@ -183,9 +184,9 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
     @Test
     public void testListarUsuarioClass() {
 
-        List<Aluno> alunos = null;
+        List<AlunoCurso> alunos = null;
         try {
-            alunos = gestaoAluno.listarUsuario(Aluno.class);
+            alunos = gestaoAluno.listarUsuario(AlunoCurso.class);
         } catch (ServiceException e) {
             Assert.fail();
         }
