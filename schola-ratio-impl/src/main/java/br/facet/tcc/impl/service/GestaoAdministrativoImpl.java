@@ -22,10 +22,12 @@ import org.springframework.stereotype.Service;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.exception.ServiceException;
+import br.facet.tcc.impl.dao.ConfGeralSistemaDaoImpl;
 import br.facet.tcc.impl.dao.CursoDaoImpl;
 import br.facet.tcc.impl.dao.DisciplinaDaoImpl;
 import br.facet.tcc.impl.dao.TurmaDaoImpl;
 import br.facet.tcc.pojo.Aluno;
+import br.facet.tcc.pojo.ConfGeralSistema;
 import br.facet.tcc.pojo.Curso;
 import br.facet.tcc.pojo.Disciplina;
 import br.facet.tcc.pojo.Turma;
@@ -48,6 +50,9 @@ public class GestaoAdministrativoImpl implements GestaoAdministrativo {
 
     @Autowired
     private TurmaDaoImpl turmaDao;
+
+    @Autowired
+    private ConfGeralSistemaDaoImpl confDao;
 
     /**
      * @see br.facet.tcc.service.GestaoAdministrativo#salvarCurso(br.facet.tcc.pojo.Curso)
@@ -255,6 +260,44 @@ public class GestaoAdministrativoImpl implements GestaoAdministrativo {
             throws ServiceException {
         // TODO Auto-generated method stub
 
+    }
+
+    public Integer salvarConfGeralSistema(ConfGeralSistema confSalvar)
+            throws ServiceException {
+        try {
+            return confDao.salvar(confSalvar);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+    }
+
+    public void alterarConfGeralSistema(ConfGeralSistema confSelecionada)
+            throws ServiceException {
+        try {
+            this.confDao.atualizar(confSelecionada);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+    }
+
+    public List<ConfGeralSistema> buscarConfGeralSistema(
+            ConfGeralSistema confPesquisar) throws ServiceException {
+        try {
+            return this.confDao.pesquisar(confPesquisar);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    public List<ConfGeralSistema> listarConfGeralSistemas()
+            throws ServiceException {
+        try {
+            return this.confDao.listar(ConfGeralSistema.class);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
 }
