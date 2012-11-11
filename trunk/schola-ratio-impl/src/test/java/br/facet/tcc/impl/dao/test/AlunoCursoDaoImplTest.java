@@ -28,8 +28,6 @@ import br.facet.tcc.pojo.Curso;
 /**
  * @author Djulles IKEDA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
  */
 public class AlunoCursoDaoImplTest extends DaoTestCaseSetUp {
 

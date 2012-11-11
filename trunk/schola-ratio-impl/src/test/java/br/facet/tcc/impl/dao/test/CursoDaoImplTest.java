@@ -22,7 +22,6 @@ import org.junit.Test;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Curso;
-import br.facet.tcc.pojo.Disciplina;
 import br.facet.tcc.pojo.Instituicao;
 
 /**
@@ -41,7 +40,6 @@ public class CursoDaoImplTest extends DaoTestCaseSetUp {
     public final void testSalvar() throws DaoException {
         Curso curso = new Curso();
 
-        curso.setDisciplina(this.getDisciplinaDao().listar(Disciplina.class));
         curso.setDuracao(8);
         curso.setInstituicao(this.getInstituicaoDao().listar(Instituicao.class)
                 .get(0));
