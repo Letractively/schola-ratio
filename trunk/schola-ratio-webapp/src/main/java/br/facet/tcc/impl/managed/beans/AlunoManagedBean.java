@@ -29,9 +29,10 @@ import org.apache.log4j.Logger;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.enums.UserRoles;
 import br.facet.tcc.exception.ServiceException;
-import br.facet.tcc.impl.datamodel.AlunoDataModel;
 import br.facet.tcc.impl.service.GestaoAlunoImpl;
 import br.facet.tcc.pojo.Aluno;
+import br.facet.tcc.pojo.AlunoCurso;
+import br.facet.tcc.pojo.Curso;
 import br.facet.tcc.pojo.UserLogin;
 
 /**
@@ -51,19 +52,18 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
     @ManagedProperty("#{alunoService}")
     private GestaoAlunoImpl alunoService;
 
-    @ManagedProperty("#{alunoDataModel}")
-    private AlunoDataModel alunoDataModel;
+    private List<AlunoCurso> listaAlunos;
 
-    private List<Aluno> listaAlunos;
+    private AlunoCurso alunoSalvar;
 
-    private Aluno alunoSalvar;
+    private AlunoCurso alunoPesquisar = new AlunoCurso();
 
-    private Aluno alunoPesquisar = new Aluno();
+    private AlunoCurso alunoSelecionado;
 
-    private Aluno alunoSelecionado;
+    private List<Curso> cursos;
 
     public AlunoManagedBean() {
-        this.listaAlunos = new ArrayList<Aluno>();
+        this.listaAlunos = new ArrayList<AlunoCurso>();
 
         this.reset();
     }
@@ -80,7 +80,8 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
             br.facet.tcc.pojo.UserRoles roles = new br.facet.tcc.pojo.UserRoles();
             roles.setUserRole(UserRoles.ROLE_ALU);
             permissoes.add(roles);
-            this.alunoSalvar.getUserLogin().setPermissoes(permissoes);
+            this.alunoSalvar.getAluno().getUserLogin()
+                    .setPermissoes(permissoes);
 
             this.alunoService.salvarUsuario(this.alunoSalvar);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -129,22 +130,32 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
      */
     public String pesquisarAlunos() {
 
-        listaAlunos = new ArrayList<Aluno>();
-        if ("".equals(alunoPesquisar.getNome())) {
-            alunoPesquisar.setNome(null);
+        boolean alunoFlag = true;
+        listaAlunos = new ArrayList<AlunoCurso>();
+        if ("".equals(alunoPesquisar.getAluno().getNome())) {
+            alunoPesquisar.getAluno().setNome(null);
+        } else {
+            alunoFlag = false;
         }
 
-        if (alunoPesquisar.getCpf() == 0) {
-            alunoPesquisar.setCpf(null);
+        if (alunoPesquisar.getAluno().getCpf() == 0) {
+            alunoPesquisar.getAluno().setCpf(null);
+        } else {
+            alunoFlag = false;
         }
 
-        if ("".equals(alunoPesquisar.getUserLogin().getUsername())) {
-            alunoPesquisar.setUserLogin(null);
+        if ("".equals(alunoPesquisar.getAluno().getUserLogin().getUsername())) {
+            alunoPesquisar.getAluno().setUserLogin(null);
+        } else {
+            alunoFlag = false;
+        }
+
+        if (alunoFlag) {
+            alunoPesquisar.setAluno(null);
         }
 
         try {
             listaAlunos = alunoService.consultarUsuario(alunoPesquisar);
-            this.alunoDataModel.setWrappedData(listaAlunos);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Busca realizada com sucesso.", this.listaAlunos.size()
                             + " usuários encontrado.");
@@ -182,7 +193,7 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
     public String removerAluno() {
 
         try {
-            this.alunoSelecionado.setStatus(Status.INATIVO);
+            this.alunoSelecionado.getAluno().setStatus(Status.INATIVO);
             this.alunoService.alterarUsuario(alunoSelecionado);
             this.listaAlunos.remove(alunoSelecionado);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -202,93 +213,97 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
      * 
      */
     public void reset() {
-        alunoSalvar = new Aluno();
-        alunoPesquisar = new Aluno();
-        alunoSalvar.setUserLogin(new UserLogin());
-        alunoPesquisar.setUserLogin(new UserLogin());
-        alunoSalvar.setStatus(Status.ATIVO);
+        alunoSalvar = new AlunoCurso();
+        alunoSalvar.setAluno(new Aluno());
+        alunoSalvar.getAluno().setUserLogin(new UserLogin());
+        alunoSalvar.getAluno().setStatus(Status.ATIVO);
+
+        alunoPesquisar = new AlunoCurso();
+        alunoPesquisar.setAluno(new Aluno());
+        alunoPesquisar.getAluno().setUserLogin(new UserLogin());
+
     }
 
     /**
-     * Get User List
-     * 
-     * @return List - User List
+     * @return the alunoService
      */
-    public List<Aluno> getListaAlunos() {
+    public GestaoAlunoImpl getAlunoService() {
+        return alunoService;
+    }
 
+    /**
+     * @return the listaAlunos
+     */
+    public List<AlunoCurso> getListaAlunos() {
         return listaAlunos;
     }
 
     /**
-     * @return the alunoDataModel
+     * @return the alunoSalvar
      */
-    public AlunoDataModel getAlunoDataModel() {
-        return alunoDataModel;
-    }
-
-    /**
-     * @return the aluno
-     */
-    public Aluno getAlunoSalvar() {
+    public AlunoCurso getAlunoSalvar() {
         return alunoSalvar;
-    }
-
-    /**
-     * @return the alunoSelecionado
-     */
-    public Aluno getAlunoSelecionado() {
-        return alunoSelecionado;
     }
 
     /**
      * @return the alunoPesquisar
      */
-    public Aluno getAlunoPesquisar() {
+    public AlunoCurso getAlunoPesquisar() {
         return alunoPesquisar;
     }
 
     /**
-     * @param usurioService
-     *            the usurioService to set
+     * @return the alunoSelecionado
+     */
+    public AlunoCurso getAlunoSelecionado() {
+        return alunoSelecionado;
+    }
+
+    /**
+     * @param alunoService
+     *            the alunoService to set
      */
     public void setAlunoService(GestaoAlunoImpl alunoService) {
         this.alunoService = alunoService;
     }
 
-    public GestaoAlunoImpl getAlunoService() {
-        return alunoService;
-    }
-
-    public void setListaAlunos(List<Aluno> listaAlunos) {
+    /**
+     * @param listaAlunos
+     *            the listaAlunos to set
+     */
+    public void setListaAlunos(List<AlunoCurso> listaAlunos) {
         this.listaAlunos = listaAlunos;
     }
 
     /**
-     * @param aluno
-     *            the aluno to set
+     * @param alunoSalvar
+     *            the alunoSalvar to set
      */
-    public void setAlunoSalvar(Aluno aluno) {
-        this.alunoSalvar = aluno;
-    }
-
-    /**
-     * @param alunoDataModel
-     *            the alunoDataModel to set
-     */
-    public void setAlunoDataModel(AlunoDataModel alunoDataModel) {
-        this.alunoDataModel = alunoDataModel;
+    public void setAlunoSalvar(AlunoCurso alunoSalvar) {
+        this.alunoSalvar = alunoSalvar;
     }
 
     /**
      * @param alunoSelecionado
      *            the alunoSelecionado to set
      */
-    public void setAlunoSelecionado(Aluno alunoSelecionado) {
+    public void setAlunoSelecionado(AlunoCurso alunoSelecionado) {
         this.alunoSelecionado = alunoSelecionado;
     }
 
-    public void setAlunoPesquisar(Aluno alunoPesquisar) {
-        this.alunoPesquisar = alunoPesquisar;
+    /**
+     * @return the cursos
+     */
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    /**
+     * @param cursos
+     *            the cursos to set
+     */
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
     }
 
 }
