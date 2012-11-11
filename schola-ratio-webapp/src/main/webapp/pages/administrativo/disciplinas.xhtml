@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://br.facet.tcc.utils/security-tags">
 <h:head>
 	<style type="text/css">
 .companyHeaderGrid tr,.companyHeaderGrid td {
@@ -13,13 +16,14 @@
 </h:head>
 <ui:decorate template="/template/template.xhtml">
 	<ui:define name="content">
-		<h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login"
+		<h:outputLink id="loginLink" value="javascript:void(0)"
+			onclick="dlg.show()" title="login"
 			styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
 			<span class="ui-button-text">Nova Disciplina</span>
 		</h:outputLink>
 		<p:growl id="growl" showDetail="true" autoUpdate="true" />
-		<p:dialog id="dialogSalvar" widgetVar="dlg" resizable="false" modal="true"
-			appendToBody="true">
+		<p:dialog id="dialogSalvar" widgetVar="dlg" resizable="false"
+			modal="true" appendToBody="true">
 			<h:form id="salvar">
 				<p:panel header="Salvar Disciplina">
 					<p:panelGrid styleClass="companyHeaderGrid">
@@ -28,19 +32,36 @@
 								<h:outputLabel value="Nome" for="nomeDisciplina" />
 							</p:column>
 							<p:column colspan="3">
-								<p:inputText id="nomeDisciplina" value="#{disciplinaMB.disciplinaSalvar.nome}" required="true"
+								<p:inputText id="nomeDisciplina"
+									value="#{disciplinaMB.disciplinaSalvar.nome}" required="true"
 									size="50">
 									<p:ajax event="blur" update="nomeMsg" />
 									<p:message id="nomeMsg" for="nomeDisciplina" showDetail="true" />
 								</p:inputText>
 							</p:column>
 						</p:row>
+
+						<p:row>
+							<p:column>Curso</p:column>
+							<p:column>
+							<p:selectOneMenu value="#{disciplinaMB.disciplinaSalvar.curso.id}"
+								converter="#{cursoConverter}">
+								<f:selectItems value="#{cursoMB.cursos}" var="curso1"
+									noSelectionValue="ERRO" itemLabel="#{curso1.nome}"
+									itemValue="#{curso1}" />
+							</p:selectOneMenu>
+
+							</p:column>
+
+						</p:row>
+
 						<p:row>
 							<p:column>
 								<h:outputLabel value="Período" for="perDisciplina" />
 							</p:column>
 							<p:column>
-								<p:inputText id="perDisciplina" value="#{disciplinaMB.disciplinaSalvar.periodo}"
+								<p:inputText id="perDisciplina"
+									value="#{disciplinaMB.disciplinaSalvar.periodo}"
 									required="true">
 									<p:ajax event="blur" update="perMsg" />
 									<p:message id="perMsg" for="perDisciplina" showDetail="true" />
@@ -51,7 +72,8 @@
 							</p:column>
 							<p:column>
 								<p:inputText id="cargaHor"
-									value="#{disciplinaMB.disciplinaSalvar.cargaHoraria}" required="true">
+									value="#{disciplinaMB.disciplinaSalvar.cargaHoraria}"
+									required="true">
 									<p:ajax event="blur" update="cargaHorMsg" />
 									<p:message id="cargaHorMsg" for="cargaHor" showDetail="true" />
 								</p:inputText>
@@ -60,23 +82,28 @@
 						<p:row>
 							<p:column>Disciplinas</p:column>
 							<p:column>
-								<p:selectCheckboxMenu value="#{disciplinaMB.disciplinaSalvar.requisitos}"
-								label="Dependencias" filter="true" filterText="Filter"
-								filterMatchMode="startsWith" converter="#{disciplinaConverter}">
-								<f:selectItems value="#{disciplinaMB.disciplinas}" var="disciplina" noSelectionValue="ERRO"
-									itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" />
-							</p:selectCheckboxMenu>
+								<p:selectCheckboxMenu
+									value="#{disciplinaMB.disciplinaSalvar.requisitos}"
+									label="Dependencias" filter="true" filterText="Filter"
+									filterMatchMode="startsWith" converter="#{disciplinaConverter}">
+									<f:selectItems value="#{disciplinaMB.disciplinas}"
+										var="disciplina" noSelectionValue="ERRO"
+										itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" />
+								</p:selectCheckboxMenu>
 							</p:column>
 						</p:row>
 						<p:row>
 							<p:column>
-								<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
+								<p:commandButton value="Limpar" update=":salvar" process="@this"
+									icon="ui-icon-cancel">
 									<p:resetInput target="salvar" />
 								</p:commandButton>
 							</p:column>
 							<p:column>
-								<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk" oncomplete="dlg.hide()"
-									action="#{disciplinaMB.salvarDisciplina}" process=":salvar" update=":salvar" />
+								<p:commandButton id="btnSalvar" value="Salvar"
+									icon="ui-icon-disk" oncomplete="dlg.hide()"
+									action="#{disciplinaMB.salvarDisciplina}" process=":salvar"
+									update=":salvar" />
 							</p:column>
 						</p:row>
 					</p:panelGrid>
@@ -85,18 +112,32 @@
 		</p:dialog>
 		<h:form id="pesquisar">
 			<div id="content" align="center">
-				<p:panel id="pesquisaDisciplina" header="Pesquisar" style="text-align: left;">
+				<p:panel id="pesquisaDisciplina" header="Pesquisar"
+					style="text-align: left;">
 					<h:panelGrid columns="2" cellpadding="5">
-						<h:outputLabel value="Nome :" for="nomeDisciplinaPesquisar" />
-						<p:inputText id="nomeDisciplinaPesquisar" value="#{disciplinaMB.disciplinaPesquisar.nome}"
-							size="50">
-							<p:ajax event="blur" update="nomePesquisarMsg" />
-							<p:message id="nomePesquisarMsg" for="nomeDisciplinaPesquisar" showDetail="true" />
+
+						<h:outputLabel value="Curso :" for="cursoDisciplinaPesquisar" />
+						<p:inputText id="cursoDisciplinaPesquisar"
+							value="#{disciplinaMB.disciplinaPesquisar.curso}" size="50">
+							<p:ajax event="blur" update="cursoPesquisarMsg" />
+							<p:message id="cursoPesquisarMsg" for="cursoDisciplinaPesquisar"
+								showDetail="true" />
 						</p:inputText>
+
+						<h:outputLabel value="Nome :" for="nomeDisciplinaPesquisar" />
+						<p:inputText id="nomeDisciplinaPesquisar"
+							value="#{disciplinaMB.disciplinaPesquisar.nome}" size="50">
+							<p:ajax event="blur" update="nomePesquisarMsg" />
+							<p:message id="nomePesquisarMsg" for="nomeDisciplinaPesquisar"
+								showDetail="true" />
+						</p:inputText>
+
 						<h:outputLabel value="Periodo :" for="perDisciplinaPesquisar" />
-						<p:inputText id="perDisciplinaPesquisar" value="#{disciplinaMB.disciplinaPesquisar.periodo}">
+						<p:inputText id="perDisciplinaPesquisar"
+							value="#{disciplinaMB.disciplinaPesquisar.periodo}">
 							<p:ajax event="blur" update="perMsg" />
-							<p:message id="perMsg" for="perDisciplinaPesquisar" showSummary="false" display="message" />
+							<p:message id="perMsg" for="perDisciplinaPesquisar"
+								showSummary="false" display="message" />
 						</p:inputText>
 						<h:outputLabel value="Carga Horaria :" for="chPesquisar" />
 						<p:inputText id="chPesquisar"
@@ -105,21 +146,28 @@
 							<p:message id="chDiscMsg" for="chPesquisar" showDetail="true" />
 						</p:inputText>
 						<h:outputLabel value="Status :" for="statusUsuarioPesquisar" />
-						<p:selectOneMenu id="statusUsuarioPesquisar" value="#{disciplinaMB.disciplinaPesquisar.status}">
+						<p:selectOneMenu id="statusUsuarioPesquisar"
+							value="#{disciplinaMB.disciplinaPesquisar.status}">
 							<f:selectItems value="#{disciplinaMB.statusList}" />
 						</p:selectOneMenu>
 						<p:commandButton id="btnPesquisar" value="Pesquisar"
 							action="#{disciplinaMB.pesquisarDisciplina}"
-							update=":formTable:tbDisciplinas pesquisar:pesquisaDisciplina" icon="ui-icon-search" />
+							update=":formTable:tbDisciplinas pesquisar:pesquisaDisciplina"
+							icon="ui-icon-search" />
 					</h:panelGrid>
 				</p:panel>
 			</div>
 		</h:form>
 		<h:form id="formTable">
-			<p:dataTable id="tbDisciplinas" var="tdisciplinaSalvar" value="#{disciplinaMB.listaDisciplinas}"
-				widgetVar="tabela" paginatorAlwaysVisible="false" paginator="true" rows="10"
-				paginatorPosition="bottom" emptyMessage="Nenhum resultado" rowsPerPageTemplate="5,10,15">
-				<p:column headerText="Nome" sortBy="#{tdisciplinaSalvar.nome}">
+			<p:dataTable id="tbDisciplinas" var="tdisciplinaSalvar"
+				value="#{disciplinaMB.listaDisciplinas}" widgetVar="tabela"
+				paginatorAlwaysVisible="false" paginator="true" rows="10"
+				paginatorPosition="bottom" emptyMessage="Nenhum resultado"
+				rowsPerPageTemplate="5,10,15">
+				<p:column headerText="Curso" sortBy="#{tdisciplinaSalvar.curso}">
+					#{tdisciplinaSalvar.curso.nome}
+				</p:column>
+				<p:column headerText="Nome">
 					#{tdisciplinaSalvar.nome}
 				</p:column>
 				<p:column headerText="Periodo">
@@ -132,40 +180,47 @@
 					#{tdisciplinaSalvar.status}
 				</p:column>
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()"
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="confirmation.show()"
 						rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
 						<f:setPropertyActionListener value="#{tdisciplinaSalvar}"
 							target="#{disciplinaMB.disciplinaSelecionada}" />
 					</p:commandButton>
-					<p:commandButton icon="ui-icon-search" title="Atualizar" update=":dialog"
-						oncomplete="prepararAtualizar()" >
+					<p:commandButton icon="ui-icon-search" title="Atualizar"
+						update=":dialog" oncomplete="prepararAtualizar()">
 						<f:setPropertyActionListener value="#{tdisciplinaSalvar}"
 							target="#{disciplinaMB.disciplinaSelecionada}" />
-						<p:remoteCommand name="prepararAtualizar" action="#{disciplinaMB.prepararAtualizar}" oncomplete="usuarioPopUp.show()" />
+						<p:remoteCommand name="prepararAtualizar"
+							action="#{disciplinaMB.prepararAtualizar}"
+							oncomplete="usuarioPopUp.show()" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 
-		<p:confirmDialog message="Confirma a exclusão?" header="Inciando processo de exclusão"
-			severity="alert" widgetVar="confirmation" appendToBody="true">
+		<p:confirmDialog message="Confirma a exclusão?"
+			header="Inciando processo de exclusão" severity="alert"
+			widgetVar="confirmation" appendToBody="true">
 			<h:form id="remover">
-				<p:commandButton value="Sim" action="#{disciplinaMB.removerDisciplina}"
+				<p:commandButton value="Sim"
+					action="#{disciplinaMB.removerDisciplina}"
 					onsuccess="confirmation.hide()" update=":formTable:tbDisciplinas" />
 				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
 			</h:form>
 		</p:confirmDialog>
 
 
-		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true" appendToBody="true"
-			header="Detalhes do Disciplina">
+		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false"
+			modal="true" appendToBody="true" header="Detalhes do Disciplina">
 			<h:form id="atualizar">
 				<p:panelGrid styleClass="companyHeaderGrid"
 					rendered="#{disciplinaMB.disciplinaSelecionada != null}">
 					<p:row>
 						<p:column>Nome</p:column>
 						<p:column colspan="3">
-							<p:inputText id="nomeUsuario" value="#{disciplinaMB.disciplinaSelecionada.nome}" required="true" size="50">
+							<p:inputText id="nomeUsuario"
+								value="#{disciplinaMB.disciplinaSelecionada.nome}"
+								required="true" size="50">
 								<p:ajax event="blur" update="nomeMsg" />
 								<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" />
 							</p:inputText>
@@ -175,7 +230,8 @@
 						<p:column>Periodo</p:column>
 						<p:column>
 							<p:inputText id="periDisci"
-								value="#{disciplinaMB.disciplinaSelecionada.periodo}" required="true">
+								value="#{disciplinaMB.disciplinaSelecionada.periodo}"
+								required="true">
 								<p:ajax event="blur" update="nacMsg" />
 								<p:message id="nacMsg" for="periDisci" showDetail="true" />
 							</p:inputText>
@@ -183,35 +239,56 @@
 						<p:column>Carga Horaria</p:column>
 						<p:column>
 							<p:inputText id="naturalidadeUsuario"
-								value="#{disciplinaMB.disciplinaSelecionada.cargaHoraria}" required="true">
+								value="#{disciplinaMB.disciplinaSelecionada.cargaHoraria}"
+								required="true">
 								<p:ajax event="blur" update="natMsg" />
-								<p:message id="natMsg" for="naturalidadeUsuario" showDetail="true" />
+								<p:message id="natMsg" for="naturalidadeUsuario"
+									showDetail="true" />
 							</p:inputText>
 						</p:column>
 					</p:row>
 					<p:row>
 						<p:column>Status</p:column>
 						<p:column>
-							<p:selectOneMenu value="#{disciplinaMB.disciplinaSelecionada.status}" effect="fade"
-								disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}">
+							<p:selectOneMenu
+								value="#{disciplinaMB.disciplinaSelecionada.status}"
+								effect="fade" disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}">
 								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
 								<f:selectItems value="#{disciplinaMB.statusList}" />
 							</p:selectOneMenu>
 						</p:column>
 						<p:column>Dependências</p:column>
 						<p:column>
-							<p:selectCheckboxMenu value="#{disciplinaMB.disciplinaSelecionada.requisitos}"
-								label="Disciplinas" panelStyle="width: 250px;" filter="true" filterText="Filter"
-								filterMatchMode="startsWith" converter="#{disciplinaConverter}">
-								<f:selectItems value="#{disciplinaMB.disciplinas}" var="disciplina" noSelectionValue="ERRO"
+							<p:selectCheckboxMenu
+								value="#{disciplinaMB.disciplinaSelecionada.requisitos}"
+								label="Disciplinas" panelStyle="width: 250px;" filter="true"
+								filterText="Filter" filterMatchMode="startsWith"
+								converter="#{disciplinaConverter}">
+								<f:selectItems value="#{disciplinaMB.disciplinas}"
+									var="disciplina" noSelectionValue="ERRO"
 									itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" />
 							</p:selectCheckboxMenu>
 						</p:column>
 					</p:row>
+
+					<p:row>
+						<p:column>Curso</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{disciplinaMB.disciplinaSelecionada.curso}"
+								converter="#{cursoConverter}">
+								<f:selectItems value="#{cursoMB.cursos}" var="curso1"
+									noSelectionValue="ERRO" itemLabel="#{curso1.nome}"
+									itemValue="#{curso1}" />
+							</p:selectOneMenu>
+
+						</p:column>
+					</p:row>
 					<p:row>
 						<p:column colspan="2">
-							<p:commandButton oncomplete="usuarioPopUp.hide()" value="Atualizar" type="submit"
-								action="#{disciplinaMB.atualizarDisciplina()}" update=":formTable:tbDisciplinas" />
+							<p:commandButton oncomplete="usuarioPopUp.hide()"
+								value="Atualizar" type="submit"
+								action="#{disciplinaMB.atualizarDisciplina()}"
+								update=":formTable:tbDisciplinas" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>
