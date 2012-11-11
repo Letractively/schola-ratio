@@ -25,7 +25,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -41,7 +43,10 @@ import br.facet.tcc.enums.Status;
  * 
  * @version 0.0.1
  * @since 0.0.1
+ * 
+ *        TODO : Metodo Salvar esta com problemas
  */
+
 @Entity
 @Table(name = "tb_disciplina")
 @SequenceGenerator(name = "seq_disciplina", sequenceName = "seq_disciplina", allocationSize = 1)
@@ -55,6 +60,8 @@ public class Disciplina implements Serializable {
     private Integer id;
 
     private String nome;
+
+    private Curso curso;
 
     private Integer cargaHoraria;
 
@@ -86,6 +93,17 @@ public class Disciplina implements Serializable {
     @Searchable
     public String getNome() {
         return nome;
+    }
+
+    /**
+     * @return the curso
+     */
+
+    @Searchable(innerSearch = true)
+    @ManyToOne
+    @JoinColumn(name = "curso_id")
+    public Curso getCurso() {
+        return curso;
     }
 
     /**
@@ -132,6 +150,14 @@ public class Disciplina implements Serializable {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * @param curso
+     *            the curso to set
+     */
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     /**
