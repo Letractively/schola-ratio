@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.impl.service.GestaoAlunoImpl;
-import br.facet.tcc.pojo.Aluno;
+import br.facet.tcc.pojo.AlunoCurso;
 
 /**
  * @author TODO: Djulles IKEDA
@@ -35,8 +35,8 @@ import br.facet.tcc.pojo.Aluno;
  */
 
 @Component
-public class AlunoDataModel extends ListDataModel<Aluno> implements
-        SelectableDataModel<Aluno>, Serializable {
+public class AlunoDataModel extends ListDataModel<AlunoCurso> implements
+        SelectableDataModel<AlunoCurso>, Serializable {
 
     @Resource(name = "alunoService")
     private GestaoAlunoImpl gestaoAlunoImpl;
@@ -56,7 +56,7 @@ public class AlunoDataModel extends ListDataModel<Aluno> implements
      * @param list
      * @since 0.0.1
      */
-    public AlunoDataModel(List<Aluno> list) {
+    public AlunoDataModel(List<AlunoCurso> list) {
         super(list);
     }
 
@@ -65,7 +65,7 @@ public class AlunoDataModel extends ListDataModel<Aluno> implements
      * @since since optional
      */
     @Override
-    public Object getRowKey(Aluno aluno) {
+    public Object getRowKey(AlunoCurso aluno) {
         Integer id = aluno.getId();
         return id;
     }
@@ -75,11 +75,11 @@ public class AlunoDataModel extends ListDataModel<Aluno> implements
      * @since since optional
      */
     @Override
-    public Aluno getRowData(String rowKey) {
+    public AlunoCurso getRowData(String rowKey) {
         Integer id = Integer.parseInt(rowKey);
-        Aluno aluno = null;
+        AlunoCurso aluno = null;
         try {
-            aluno = this.gestaoAlunoImpl.consultarUsuario(Aluno.class, id);
+            aluno = this.gestaoAlunoImpl.consultarUsuario(AlunoCurso.class, id);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
