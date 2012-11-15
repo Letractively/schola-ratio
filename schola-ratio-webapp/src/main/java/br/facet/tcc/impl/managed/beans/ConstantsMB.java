@@ -16,6 +16,7 @@ import br.facet.tcc.enums.Bimestre;
 import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.HorarioDeAulas;
 import br.facet.tcc.enums.Sexo;
+import br.facet.tcc.enums.SituacaoAlunoCurso;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.enums.TipoTitulo;
 import br.facet.tcc.enums.UserRoles;
@@ -82,5 +83,9 @@ public abstract class ConstantsMB {
             lista.add(horarioDeA);
         }
         return lista;
+    }
+
+    public SituacaoAlunoCurso[] getSituacaoAlunoCurso() {
+        return SituacaoAlunoCurso.values();
     }
 }
