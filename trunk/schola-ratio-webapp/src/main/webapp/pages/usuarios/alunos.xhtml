@@ -287,6 +287,17 @@
 									</p:column>
 								</p:row>
 								<p:row>
+								<p:column>
+									<h:outputLabel value="Curso :" for="cursoAlunoSalvar" />
+									<p:selectOneMenu id="cursoAlunoSalvar" value="#{alunoMB.alunoSalvar.curso}"
+										converter="#{cursoConverter}">
+										<f:selectItems value="#{cursoMB.cursos}" var="curso1"
+											noSelectionValue="ERRO" itemLabel="#{curso1.nome}"
+											itemValue="#{curso1}"  />
+									</p:selectOneMenu>
+									</p:column>
+								</p:row>								
+								<p:row>
 									<p:column>
 										<p:commandButton value="Limpar" update=":salvar" process="@this" icon="ui-icon-cancel">
 											<p:resetInput target="salvar" />
@@ -326,9 +337,18 @@
 							<p:ajax event="blur" update="loginMsg" />
 							<p:message id="loginMsg" for="loginAlunoPesquisar" showDetail="true" />
 						</p:inputText>
-						<h:outputLabel value="Status :" for="statusAlunoPesquisar" />
-						<p:selectOneMenu id="statusAlunoPesquisar" value="#{alunoMB.alunoPesquisar.aluno.status}">
-							<f:selectItems value="#{alunoMB.statusList}" />
+						<h:outputLabel value="Curso :" for="cursoAluno" />
+						<p:selectOneMenu id="cursoAluno" value="#{alunoMB.alunoPesquisar.curso}"
+							converter="#{cursoConverter}">
+							<f:selectItem itemLabel="Todos"/>
+							<f:selectItems value="#{cursoMB.cursos}" var="curso1"
+								noSelectionValue="ERRO" itemLabel="#{curso1.nome}"
+								itemValue="#{curso1}"  />
+						</p:selectOneMenu>						
+						<h:outputLabel value="Situação :" for="statusAlunoPesquisar" />
+						<p:selectOneMenu id="statusAlunoPesquisar" value="#{alunoMB.alunoPesquisar.situacaoAlunoCurso}">
+							<f:selectItem itemLabel="Todos"/>
+							<f:selectItems value="#{alunoMB.situacaoAlunoCurso}" />
 						</p:selectOneMenu>
 						<p:commandButton id="btnPesquisar" value="Pesquisar" action="#{alunoMB.pesquisarAlunos}"
 							update=":formTable:tbAlunos pesquisar:pesquisaAluno" icon="ui-icon-search" />
@@ -341,23 +361,41 @@
 			value="#{alunoMB.listaAlunos}" widgetVar="tabela" paginatorAlwaysVisible="false"
 			paginator="true" rows="10" paginatorPosition="bottom" emptyMessage="Nenhum resultado"  
                  rowsPerPageTemplate="5,10,15">
-			<p:column headerText="Nome" sortBy="#{talunoSalvar.aluno.nome}">
-					#{talunoSalvar.aluno.nome}
+			<p:column sortBy="#{talunoSalvar.aluno.nome}">
+				<f:facet name="header">
+	        		<h:outputText value="Nome"/>
+	    		</f:facet>
+				<h:outputText value="#{talunoSalvar.aluno.nome}" />
+			</p:column>
+			<p:column >
+				<f:facet name="header">
+	        		<h:outputText value="Usuário"/>
+	    		</f:facet>
+					<h:outputText value="#{talunoSalvar.aluno.userLogin.username}" />
 				</p:column>
-			<p:column headerText="CPF">
-					#{talunoSalvar.aluno.cpf}
+			<p:column>
+				<f:facet name="header">
+	        		<h:outputText value="Email"/>
+	    		</f:facet>
+					<h:outputText value="#{talunoSalvar.aluno.email}" />
 				</p:column>
-			<p:column headerText="Usuário" >
-					#{talunoSalvar.aluno.userLogin.username}
+			<p:column>
+				<f:facet name="header">
+	        		<h:outputText value="Telefone"/>
+	    		</f:facet>
+					<h:outputText value="#{talunoSalvar.aluno.telefone}" />
 				</p:column>
-			<p:column headerText="Email">
-					#{talunoSalvar.aluno.email}
-				</p:column>
-			<p:column headerText="Telefone">
-					#{talunoSalvar.aluno.telefone}
-				</p:column>
-			<p:column headerText="Status">
-					#{talunoSalvar.aluno.status}
+			<p:column>
+				<f:facet name="header">
+	        		<h:outputText value="Curso"/>
+	    		</f:facet>
+					<h:outputText value="#{talunoSalvar.curso.nome}" />
+				</p:column>				
+			<p:column>
+				<f:facet name="header">
+	        		<h:outputText value="Situação"/>
+	    		</f:facet>
+					<h:outputText value="#{talunoSalvar.situacaoAlunoCurso}" />
 				</p:column>
 			<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()"
@@ -370,7 +408,14 @@
 					</p:commandButton>
 			</p:column>
 		</p:dataTable>
+		<p:panel header="Relatório Excel">
+			<h:commandLink>  
+	            <p:graphicImage value="/imagens/excel.png" />  
+	            <p:dataExporter  type="xls" target="tbAlunos" fileName="alunos" postProcessor="#{alunoMB.postProcessXLS}" />  
+	        </h:commandLink>
+        </p:panel>
 		</h:form>
+  
 		
 		<p:confirmDialog message="Confirma a exclsão?"
 			header="Inciando processo de exclusão" severity="alert" widgetVar="confirmation"
@@ -595,6 +640,12 @@
 								<p:message id="senhaMsg" for="senhaAluno" showDetail="true" />
 							</p:inputText>
 						</p:column>
+						<p:column>Curso</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{alunoMB.alunoSelecionado.curso}" effect="fade" converter="#{cursoConverter}">
+								<f:selectItems value="#{cursoMB.cursos}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
+							</p:selectOneMenu>
+						</p:column>						
 					</p:row>
 					<p:row>
 						<p:column>
