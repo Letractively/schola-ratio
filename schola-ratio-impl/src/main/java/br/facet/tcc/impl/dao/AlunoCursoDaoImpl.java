@@ -16,6 +16,8 @@ package br.facet.tcc.impl.dao;
 
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.DetachedCriteria;
@@ -27,6 +29,7 @@ import org.springframework.stereotype.Repository;
 import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.AlunoCurso;
+import br.facet.tcc.pojo.Curso;
 import br.facet.tcc.pojo.UserLogin;
 
 /**
@@ -38,6 +41,31 @@ import br.facet.tcc.pojo.UserLogin;
 @Repository("alunoCursoDao")
 public class AlunoCursoDaoImpl extends DaoConfiguration<AlunoCurso> {
 
+    private static final Logger LOG = Logger.getLogger(AlunoCursoDaoImpl.class);
+
+    @Override
+    public Integer salvar(AlunoCurso t) throws DaoException {
+        String password = t.getAluno().getUserLogin().getPassword();
+        t.getAluno()
+                .getUserLogin()
+                .setPassword(
+                        password.length() == 40 ? password : DigestUtils
+                                .shaHex(password));
+        return super.salvar(t);
+    }
+
+    @Override
+    public void atualizar(AlunoCurso t) throws DaoException {
+        String password = t.getAluno().getUserLogin().getPassword();
+        t.getAluno()
+                .getUserLogin()
+                .setPassword(
+                        password.length() == 40 ? password : DigestUtils
+                                .shaHex(password));
+        super.atualizar(t);
+    }
+
+    @SuppressWarnings("unchecked")
     @Override
     public List<AlunoCurso> pesquisar(AlunoCurso t) throws DaoException {
         Criteria criteria = this.getSession().createCriteria(AlunoCurso.class,
@@ -45,7 +73,9 @@ public class AlunoCursoDaoImpl extends DaoConfiguration<AlunoCurso> {
 
         Conjunction aluno = Restrictions.conjunction();
         Conjunction userLogin = Restrictions.conjunction();
+        Conjunction curso = Restrictions.conjunction();
         if (t.getAluno() != null) {
+            LOG.info("Adicionando Aluno à busca.");
             aluno.add(Subqueries.exists(DetachedCriteria.forClass(Aluno.class)
                     .setProjection(Projections.id())));
             criteria.createAlias("AC.aluno", "a");
@@ -72,11 +102,31 @@ public class AlunoCursoDaoImpl extends DaoConfiguration<AlunoCurso> {
                         + t.getAluno().getUserLogin().getUsername() + "%"));
                 userLogin.add(Restrictions
                         .eqProperty("a.userLogin.id", "ul.id"));
+                aluno.add(userLogin);
             }
 
-            criteria.add(aluno.add(userLogin));
+            criteria.add(aluno);
+
+        }
+        if (t.getCurso() != null) {
+            LOG.info("Adicionando Curso à busca.");
+            curso.add(Subqueries.exists(DetachedCriteria.forClass(Curso.class)
+                    .setProjection(Projections.id())));
+            criteria.createAlias("AC.curso", "c");
+
+            curso.add(Restrictions.eq("c.id", t.getCurso().getId()));
+            curso.add(Restrictions.eqProperty("AC.curso.id", "c.id"));
+
+            criteria.add(curso);
         }
 
+        if (t.getSituacaoAlunoCurso() != null) {
+            LOG.info("Adicionando Situação à busca.");
+            criteria.add(Restrictions.eq("AC.situacaoAlunoCurso",
+                    t.getSituacaoAlunoCurso()));
+        }
+
+        LOG.info("Criteria criada : " + criteria.toString());
         return criteria.list();
     }
 }
