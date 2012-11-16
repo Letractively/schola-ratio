@@ -25,7 +25,14 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
 
+import br.facet.tcc.enums.SituacaoAlunoCurso;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.enums.UserRoles;
 import br.facet.tcc.exception.ServiceException;
@@ -151,7 +158,7 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
         }
 
         if (alunoFlag) {
-            alunoPesquisar.setAluno(null);
+            alunoPesquisar.setAluno(new Aluno());
         }
 
         try {
@@ -208,6 +215,27 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
         return null;
     }
 
+    public void postProcessXLS(Object document) {
+        HSSFWorkbook wb = (HSSFWorkbook) document;
+        wb.setSheetName(0, "Alunos");
+        HSSFSheet sheet = wb.getSheetAt(0);
+        CellStyle style = wb.createCellStyle();
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        for (Cell cell : sheet.getRow(0))
+            cell.setCellStyle(style);
+
+        int lastCol = sheet.rowIterator().next().getLastCellNum() - 1;
+
+        for (int i = 0; i <= lastCol; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        for (Row row : sheet) {
+            row.removeCell(row.getCell(lastCol));
+        }
+    }
+
     /**
      * Reset Fields
      * 
@@ -217,6 +245,7 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
         alunoSalvar.setAluno(new Aluno());
         alunoSalvar.getAluno().setUserLogin(new UserLogin());
         alunoSalvar.getAluno().setStatus(Status.ATIVO);
+        alunoSalvar.setSituacaoAlunoCurso(SituacaoAlunoCurso.CADASTRADO);
 
         alunoPesquisar = new AlunoCurso();
         alunoPesquisar.setAluno(new Aluno());
