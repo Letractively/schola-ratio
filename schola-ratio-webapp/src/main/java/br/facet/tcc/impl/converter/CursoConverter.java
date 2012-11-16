@@ -14,6 +14,8 @@
  */
 package br.facet.tcc.impl.converter;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -52,7 +54,8 @@ public class CursoConverter implements Converter {
         Curso retorno = null;
 
         try {
-            retorno = this.gestaoAdministrativo.buscarCurso(curso).get(0);
+            List<Curso> cursos = this.gestaoAdministrativo.buscarCurso(curso);
+            retorno = cursos.isEmpty() ? null : cursos.get(0);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -69,7 +72,7 @@ public class CursoConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component,
             Object value) {
         Curso curso = (Curso) value;
-        return curso.getNome();
+        return curso != null ? curso.getNome() : null;
     }
 
     public void setGestaoAdministrativo(
