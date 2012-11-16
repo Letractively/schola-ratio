@@ -332,11 +332,16 @@
 							<p:ajax event="blur" update="cpfMsg" />
 							<p:message id="cpfMsg" for="cpfAlunoPesquisar" showSummary="false" display="message" />
 						</p:inputText>
-						<h:outputLabel value="Aluno :" for="loginAlunoPesquisar" />
+						<h:outputLabel value="Usuario :" for="loginAlunoPesquisar" />
 						<p:inputText id="loginAlunoPesquisar" value="#{alunoMB.alunoPesquisar.aluno.userLogin.username}">
 							<p:ajax event="blur" update="loginMsg" />
 							<p:message id="loginMsg" for="loginAlunoPesquisar" showDetail="true" />
 						</p:inputText>
+						<h:outputLabel value="Statis :" for="statusAluno" />
+						<p:selectOneMenu id="statusAluno" value="#{alunoMB.alunoPesquisar.aluno.status}">
+							<f:selectItems value="#{alunoMB.statusList}" var="status"
+								itemValue="#{status}"  />
+						</p:selectOneMenu>
 						<h:outputLabel value="Curso :" for="cursoAluno" />
 						<p:selectOneMenu id="cursoAluno" value="#{alunoMB.alunoPesquisar.curso}"
 							converter="#{cursoConverter}">
@@ -400,7 +405,7 @@
 			<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()"
 						rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
-						<f:setPropertyActionListener value="#{talunoSalvar}" target="#{alunoMB.alunoSelecionado.aluno}" />
+						<f:setPropertyActionListener value="#{talunoSalvar}" target="#{alunoMB.alunoSelecionado}" />
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-search" title="Atualizar" process="@this" update=":dialog"
 						oncomplete="alunoPopUp.show()">

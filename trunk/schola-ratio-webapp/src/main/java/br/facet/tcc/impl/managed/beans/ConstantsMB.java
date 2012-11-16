@@ -12,6 +12,13 @@ package br.facet.tcc.impl.managed.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+
 import br.facet.tcc.enums.Bimestre;
 import br.facet.tcc.enums.Estado;
 import br.facet.tcc.enums.HorarioDeAulas;
@@ -87,5 +94,34 @@ public abstract class ConstantsMB {
 
     public SituacaoAlunoCurso[] getSituacaoAlunoCurso() {
         return SituacaoAlunoCurso.values();
+    }
+
+    /**
+     * Formata a planilha gerada.
+     * 
+     * @param document
+     *            arquivo xls
+     * @param sheetName
+     *            nome da planilha no arquivo
+     */
+    protected void processarXLS(Object document, String sheetName) {
+        HSSFWorkbook wb = (HSSFWorkbook) document;
+        wb.setSheetName(0, sheetName);
+        HSSFSheet sheet = wb.getSheetAt(0);
+        CellStyle style = wb.createCellStyle();
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+        for (Cell cell : sheet.getRow(0))
+            cell.setCellStyle(style);
+
+        int lastCol = sheet.rowIterator().next().getLastCellNum() - 1;
+
+        for (int i = 0; i <= lastCol; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        for (Row row : sheet) {
+            row.removeCell(row.getCell(lastCol));
+        }
     }
 }
