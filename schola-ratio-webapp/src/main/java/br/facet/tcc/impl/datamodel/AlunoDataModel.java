@@ -24,11 +24,11 @@ import org.primefaces.model.SelectableDataModel;
 import org.springframework.stereotype.Component;
 
 import br.facet.tcc.exception.ServiceException;
-import br.facet.tcc.impl.service.GestaoAlunoImpl;
+import br.facet.tcc.impl.service.GestaoAlunoCursoImpl;
 import br.facet.tcc.pojo.AlunoCurso;
 
 /**
- * @author TODO: Djulles IKEDA
+ * @author Djulles IKEDA
  * 
  * @version 1.0.2
  * @since 23 SEP 2012
@@ -38,8 +38,8 @@ import br.facet.tcc.pojo.AlunoCurso;
 public class AlunoDataModel extends ListDataModel<AlunoCurso> implements
         SelectableDataModel<AlunoCurso>, Serializable {
 
-    @Resource(name = "alunoService")
-    private GestaoAlunoImpl gestaoAlunoImpl;
+    @Resource(name = "alunoCursoService")
+    private GestaoAlunoCursoImpl gestaoAlunoImpl;
 
     /**
 * 
