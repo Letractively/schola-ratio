@@ -29,11 +29,11 @@ import br.facet.tcc.pojo.AlunoCurso;
  * @version 0.0.1
  * @since 0.0.1
  */
-@Service("alunoService")
-public class GestaoAlunoImpl extends GestaoUsuarioConfig<AlunoCurso> {
+@Service("alunoCursoService")
+public class GestaoAlunoCursoImpl extends GestaoUsuarioConfig<AlunoCurso> {
 
     @Autowired
-    public GestaoAlunoImpl(AlunoCursoDaoImpl alunoCursoDao) {
+    public GestaoAlunoCursoImpl(AlunoCursoDaoImpl alunoCursoDao) {
         this.dao = alunoCursoDao;
     }
 
