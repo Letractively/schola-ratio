@@ -40,7 +40,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.service.GestaoAlunoImpl#salvarUsuario(br.facet.tcc.pojo.Aluno)}
+     * {@link br.facet.tcc.impl.service.GestaoAlunoCursoImpl#salvarUsuario(br.facet.tcc.pojo.Aluno)}
      * .
      * 
      * @throws DaoException
@@ -88,7 +88,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.service.GestaoAlunoImpl#removerUsuario(br.facet.tcc.pojo.Aluno)}
+     * {@link br.facet.tcc.impl.service.GestaoAlunoCursoImpl#removerUsuario(br.facet.tcc.pojo.Aluno)}
      * .
      */
     @Test
@@ -111,7 +111,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.service.GestaoAlunoImpl#consultarUsuario(java.lang.Class, java.lang.Integer)}
+     * {@link br.facet.tcc.impl.service.GestaoAlunoCursoImpl#consultarUsuario(java.lang.Class, java.lang.Integer)}
      * .
      */
     @Test
@@ -132,7 +132,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.service.GestaoAlunoImpl#consultarUsuario(br.facet.tcc.pojo.Aluno)}
+     * {@link br.facet.tcc.impl.service.GestaoAlunoCursoImpl#consultarUsuario(br.facet.tcc.pojo.Aluno)}
      * .
      */
     @Test
@@ -154,7 +154,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.service.GestaoAlunoImpl#alterarUsuario(br.facet.tcc.pojo.Aluno)}
+     * {@link br.facet.tcc.impl.service.GestaoAlunoCursoImpl#alterarUsuario(br.facet.tcc.pojo.Aluno)}
      * .
      */
     @Test
@@ -178,7 +178,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
 
     /**
      * Test method for
-     * {@link br.facet.tcc.impl.service.GestaoAlunoImpl#listarUsuario(java.lang.Class)}
+     * {@link br.facet.tcc.impl.service.GestaoAlunoCursoImpl#listarUsuario(java.lang.Class)}
      * .
      */
     @Test
