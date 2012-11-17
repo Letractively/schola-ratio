@@ -44,9 +44,9 @@ import br.facet.tcc.pojo.UserLogin;
  */
 @ManagedBean(name = "alunoMB")
 @ViewScoped
-public class AlunoManagedBean extends ConstantsMB implements Serializable {
+public class AlunoCursoManagedBean extends ConstantsMB implements Serializable {
 
-    private static final Logger log = Logger.getLogger(AlunoManagedBean.class);
+    private static final Logger log = Logger.getLogger(AlunoCursoManagedBean.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -63,7 +63,7 @@ public class AlunoManagedBean extends ConstantsMB implements Serializable {
 
     private List<Curso> cursos;
 
-    public AlunoManagedBean() {
+    public AlunoCursoManagedBean() {
         this.listaAlunos = new ArrayList<AlunoCurso>();
 
         this.reset();
