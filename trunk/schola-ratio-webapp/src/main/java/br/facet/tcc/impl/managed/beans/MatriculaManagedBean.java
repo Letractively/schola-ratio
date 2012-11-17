@@ -38,7 +38,7 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
     @ManagedProperty("#{gestaoAdministrativo}")
     private GestaoAdministrativoImpl gestaoAdministrativo;
 
-    @ManagedProperty("#{usurioService}")
+    @ManagedProperty("#{alunoCursoService}")
     private GestaoUsuarioImpl usurioService;
 
     private Aluno aluno;

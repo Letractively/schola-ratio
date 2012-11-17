@@ -30,7 +30,7 @@ import br.facet.tcc.enums.SituacaoAlunoCurso;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.enums.UserRoles;
 import br.facet.tcc.exception.ServiceException;
-import br.facet.tcc.impl.service.GestaoAlunoImpl;
+import br.facet.tcc.impl.service.GestaoAlunoCursoImpl;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.AlunoCurso;
 import br.facet.tcc.pojo.Curso;
@@ -46,12 +46,13 @@ import br.facet.tcc.pojo.UserLogin;
 @ViewScoped
 public class AlunoCursoManagedBean extends ConstantsMB implements Serializable {
 
-    private static final Logger log = Logger.getLogger(AlunoCursoManagedBean.class);
+    private static final Logger log = Logger
+            .getLogger(AlunoCursoManagedBean.class);
 
     private static final long serialVersionUID = 1L;
 
-    @ManagedProperty("#{alunoService}")
-    private GestaoAlunoImpl alunoService;
+    @ManagedProperty("#{alunoCursoService}")
+    private GestaoAlunoCursoImpl alunoService;
 
     private List<AlunoCurso> listaAlunos;
 
@@ -220,7 +221,7 @@ public class AlunoCursoManagedBean extends ConstantsMB implements Serializable {
     /**
      * @return the alunoService
      */
-    public GestaoAlunoImpl getAlunoService() {
+    public GestaoAlunoCursoImpl getAlunoService() {
         return alunoService;
     }
 
@@ -256,7 +257,7 @@ public class AlunoCursoManagedBean extends ConstantsMB implements Serializable {
      * @param alunoService
      *            the alunoService to set
      */
-    public void setAlunoService(GestaoAlunoImpl alunoService) {
+    public void setAlunoService(GestaoAlunoCursoImpl alunoService) {
         this.alunoService = alunoService;
     }
 
