@@ -17,7 +17,7 @@ package br.facet.tcc.impl.service.test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.facet.tcc.impl.dao.test.DaoTestCaseSetUp;
-import br.facet.tcc.impl.service.GestaoAlunoImpl;
+import br.facet.tcc.impl.service.GestaoAlunoCursoImpl;
 import br.facet.tcc.impl.service.GestaoProfessorImpl;
 import br.facet.tcc.impl.service.GestaoUsuarioImpl;
 
@@ -31,7 +31,7 @@ import br.facet.tcc.impl.service.GestaoUsuarioImpl;
 public class ServiceTestCaseSetUp extends DaoTestCaseSetUp {
 
     @Autowired
-    protected GestaoAlunoImpl gestaoAluno;
+    protected GestaoAlunoCursoImpl gestaoAluno;
 
     @Autowired
     protected GestaoProfessorImpl gestaoProfessor;
