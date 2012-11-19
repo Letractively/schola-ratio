@@ -100,7 +100,7 @@ public class Disciplina implements Serializable {
      */
 
     @Searchable(innerSearch = true)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "curso_id")
     public Curso getCurso() {
         return curso;
