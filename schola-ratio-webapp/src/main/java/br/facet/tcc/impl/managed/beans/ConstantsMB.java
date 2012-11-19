@@ -9,6 +9,7 @@
  */
 package br.facet.tcc.impl.managed.beans;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,5 +124,12 @@ public abstract class ConstantsMB {
         for (Row row : sheet) {
             row.removeCell(row.getCell(lastCol));
         }
+    }
+
+    public String getExcelFileName() {
+        String clazz = this.getClass().getSimpleName();
+        int last = clazz.indexOf("ManagedBean");
+        return clazz.substring(0, last) + "-"
+                + new Timestamp(System.currentTimeMillis()).toString();
     }
 }
