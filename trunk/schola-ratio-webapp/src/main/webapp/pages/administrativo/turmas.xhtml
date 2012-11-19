@@ -114,17 +114,32 @@
 			<p:dataTable id="tbTurmas" var="tTurmaSalvar" value="#{turmaMB.listaTurmas}" widgetVar="tabela"
 				paginatorAlwaysVisible="false" paginator="true" rows="10" paginatorPosition="bottom"
 				emptyMessage="Nenhum resultado" rowsPerPageTemplate="5,10,15">
-				<p:column headerText="Disciplina" sortBy="#{tTurmaSalvar.nome}">	
-					#{tTurmaSalvar.disciplina.nome}
+				<p:column sortBy="#{tTurmaSalvar.nome}">
+					<f:facet name="header">
+						<h:outputText value="Disciplina" />
+					</f:facet>	
+					<h:outputText value="#{tTurmaSalvar.disciplina.nome}" />
 				</p:column>
-				<p:column headerText="Ano">
-					#{tTurmaSalvar.ano}
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Professor" />
+					</f:facet>
+					<h:outputText value="#{tTurmaSalvar.professor.nome}" />
 				</p:column>
-				<p:column headerText="Professor">
-					#{tTurmaSalvar.professor.nome}
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Horário"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{tTurmaSalvar.horarioDeAulas}" />
 				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Curso"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{tTurmaSalvar.disciplina.curso.nome}" />
+				</p:column>								
 				<p:column headerText="Status">
-					#{tTurmaSalvar.status}
+					<h:outputText value="#{tTurmaSalvar.status}" />
 				</p:column>
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmation.show()"
@@ -139,6 +154,12 @@
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			<p:panel header="Relatório Excel">
+			<h:commandLink>  
+	            <p:graphicImage value="/imagens/excel.png" />  
+	            <p:dataExporter  type="xls" target="tbTurmas" fileName="#{turmaMB.excelFileName}" postProcessor="#{turmaMB.postProcessXLS}" />  
+	        </h:commandLink>
+        </p:panel>
 		</h:form>
 
 		<p:confirmDialog message="Confirma a exclusão?" header="Inciando processo de exclusão"
