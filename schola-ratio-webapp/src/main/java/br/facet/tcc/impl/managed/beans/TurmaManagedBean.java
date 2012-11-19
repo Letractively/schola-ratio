@@ -258,6 +258,10 @@ public class TurmaManagedBean extends ConstantsMB implements Serializable {
         return suggestions;
     }
 
+    public void postProcessXLS(Object document) {
+        this.processarXLS(document, "Turmas");
+    }
+
     public List<Professor> getProfessores() {
         return professores;
     }
