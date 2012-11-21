@@ -141,4 +141,12 @@ public class AlunoCurso implements Serializable {
     public void setSituacaoAlunoCurso(SituacaoAlunoCurso situacaoAlunoCurso) {
         this.situacaoAlunoCurso = situacaoAlunoCurso;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        AlunoCurso alunoCurso = (AlunoCurso) obj;
+
+        return this.getId().equals(alunoCurso.getId());
+    }
 }
