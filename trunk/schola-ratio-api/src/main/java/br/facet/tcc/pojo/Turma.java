@@ -171,4 +171,24 @@ public class Turma implements Serializable {
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Integer id = ((Turma) obj).getId();
+        return this.id.equals(id);
+    }
+
+    @Override
+    public String toString() {
+        String disciplina = "";
+        String professor = "";
+
+        if (this.disciplina != null) {
+            disciplina = this.disciplina.getNome();
+        }
+        if (this.professor != null) {
+            professor = this.professor.getNome();
+        }
+        return disciplina + " - " + professor;
+    }
 }

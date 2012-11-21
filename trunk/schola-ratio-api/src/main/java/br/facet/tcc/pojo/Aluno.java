@@ -85,4 +85,11 @@ public class Aluno extends Pessoa implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Integer id = ((Aluno) obj).getId();
+        boolean result = this.getId().equals(id);
+        return result;
+    }
 }
