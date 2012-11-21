@@ -18,13 +18,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
+import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.impl.service.GestaoAdministrativoImpl;
-import br.facet.tcc.impl.service.GestaoUsuarioImpl;
+import br.facet.tcc.impl.service.GestaoAlunoCursoImpl;
 import br.facet.tcc.pojo.Aluno;
+import br.facet.tcc.pojo.AlunoCurso;
+import br.facet.tcc.pojo.Curso;
+import br.facet.tcc.pojo.Disciplina;
 import br.facet.tcc.pojo.Turma;
 
 /**
@@ -35,25 +43,109 @@ import br.facet.tcc.pojo.Turma;
 @ViewScoped
 public class MatriculaManagedBean extends ConstantsMB implements Serializable {
 
+    private static final Logger log = Logger
+            .getLogger(MatriculaManagedBean.class);
+
+    @ManagedProperty("#{alunoCursoService}")
+    private GestaoAlunoCursoImpl alunoCursoService;
+
     @ManagedProperty("#{gestaoAdministrativo}")
     private GestaoAdministrativoImpl gestaoAdministrativo;
 
-    @ManagedProperty("#{alunoCursoService}")
-    private GestaoUsuarioImpl usurioService;
+    private AlunoCurso aluno;
 
-    private Aluno aluno;
+    private List<Turma> turmasListadas;
 
-    private List<Turma> turmas;
+    private List<Turma> turmasSelecionadas;
 
-    public List<Aluno> completeDisciplina(String query) {
-        List<Aluno> suggestions = new ArrayList<Aluno>();
+    private List<Curso> cursos;
+
+    public List<AlunoCurso> completeAluno(String query) {
+        List<AlunoCurso> suggestions = new ArrayList<AlunoCurso>();
 
         Aluno aluno = new Aluno();
         aluno.setNome(query);
 
-        // suggestions = this.usurioService.consultarUsuario(suggestions);
+        AlunoCurso alunoCurso = new AlunoCurso();
+        alunoCurso.setAluno(aluno);
+
+        try {
+            suggestions = this.alunoCursoService.consultarUsuario(alunoCurso);
+        } catch (ServiceException e) {
+
+            log.error("Falha ao executar o autocomplete aluno", e);
+
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
+                            .getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
 
         return suggestions;
+    }
+
+    public void buscarTurmas() {
+
+        System.out.println("\nEntrou no buscar turmas\n");
+
+        if (this.aluno.getId() != null) {
+            Turma turma = new Turma();
+            Disciplina disciplina = new Disciplina();
+            Curso curso = new Curso();
+            curso.setId(this.aluno.getCurso().getId());
+            disciplina.setCurso(curso);
+            turma.setDisciplina(disciplina);
+
+            try {
+                this.turmasListadas = this.gestaoAdministrativo
+                        .buscarTurma(turma);
+            } catch (ServiceException e) {
+
+                log.error("Falha ao listar as turmas", e);
+
+                FacesMessage message = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, e.getMessage(), e
+                                .getCause().getMessage());
+                FacesContext.getCurrentInstance()
+                        .addMessage("message", message);
+            }
+        }
+    }
+
+    /**
+     * @return the aluno
+     */
+    public AlunoCurso getAluno() {
+        return aluno;
+    }
+
+    /**
+     * @return the turmasListadas
+     */
+    public List<Turma> getTurmasListadas() {
+        return turmasListadas;
+    }
+
+    /**
+     * @return the turmasSelecionadas
+     */
+    public List<Turma> getTurmasSelecionadas() {
+        return turmasSelecionadas;
+    }
+
+    /**
+     * @return the cursos
+     */
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    /**
+     * @param alunoCursoService
+     *            the alunoCursoService to set
+     */
+    public void setAlunoCursoService(GestaoAlunoCursoImpl alunoCursoService) {
+        this.alunoCursoService = alunoCursoService;
     }
 
     /**
@@ -66,41 +158,34 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
     }
 
     /**
-     * @return the aluno
-     */
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    /**
-     * @return the turmas
-     */
-    public List<Turma> getTurmas() {
-        return turmas;
-    }
-
-    /**
-     * @param usurioService
-     *            the usurioService to set
-     */
-    public void setUsurioService(GestaoUsuarioImpl usurioService) {
-        this.usurioService = usurioService;
-    }
-
-    /**
      * @param aluno
      *            the aluno to set
      */
-    public void setAluno(Aluno aluno) {
+    public void setAluno(AlunoCurso aluno) {
         this.aluno = aluno;
     }
 
     /**
-     * @param turmas
-     *            the turmas to set
+     * @param turmasListadas
+     *            the turmasListadas to set
      */
-    public void setTurmas(List<Turma> turmas) {
-        this.turmas = turmas;
+    public void setTurmasListadas(List<Turma> turmasListadas) {
+        this.turmasListadas = turmasListadas;
     }
 
+    /**
+     * @param turmasSelecionadas
+     *            the turmasSelecionadas to set
+     */
+    public void setTurmasSelecionadas(List<Turma> turmasSelecionadas) {
+        this.turmasSelecionadas = turmasSelecionadas;
+    }
+
+    /**
+     * @param cursos
+     *            the cursos to set
+     */
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
 }
