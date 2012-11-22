@@ -44,7 +44,6 @@ import br.facet.tcc.enums.Status;
  * @version 0.0.1
  * @since 0.0.1
  * 
- *        TODO : Metodo Salvar esta com problemas
  */
 
 @Entity
@@ -128,7 +127,7 @@ public class Disciplina implements Serializable {
     /**
      * @return the requisitos
      */
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @IndexColumn(name = "idx_col")
     @Fetch(FetchMode.SUBSELECT)
     public Set<Disciplina> getRequisitos() {
