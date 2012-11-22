@@ -24,11 +24,13 @@ import br.facet.tcc.exception.DaoException;
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.impl.dao.ConfGeralSistemaDaoImpl;
 import br.facet.tcc.impl.dao.CursoDaoImpl;
+import br.facet.tcc.impl.dao.DescontoDaoImpl;
 import br.facet.tcc.impl.dao.DisciplinaDaoImpl;
 import br.facet.tcc.impl.dao.TurmaDaoImpl;
 import br.facet.tcc.pojo.Aluno;
 import br.facet.tcc.pojo.ConfGeralSistema;
 import br.facet.tcc.pojo.Curso;
+import br.facet.tcc.pojo.Desconto;
 import br.facet.tcc.pojo.Disciplina;
 import br.facet.tcc.pojo.Turma;
 import br.facet.tcc.service.GestaoAdministrativo;
@@ -53,6 +55,9 @@ public class GestaoAdministrativoImpl implements GestaoAdministrativo {
 
     @Autowired
     private ConfGeralSistemaDaoImpl confDao;
+
+    @Autowired
+    private DescontoDaoImpl descontoDao;
 
     /**
      * @see br.facet.tcc.service.GestaoAdministrativo#salvarCurso(br.facet.tcc.pojo.Curso)
@@ -295,6 +300,57 @@ public class GestaoAdministrativoImpl implements GestaoAdministrativo {
             throws ServiceException {
         try {
             return this.confDao.listar(ConfGeralSistema.class);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * @see br.facet.tcc.service.GestaoAdministrativo#salvarDisciplina(br.facet.tcc.pojo.Disciplina)
+     * @since since optional
+     */
+    public Integer salvarDesconto(Desconto desconto) throws ServiceException {
+        try {
+            return this.descontoDao.salvar(desconto);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * @see br.facet.tcc.service.GestaoAdministrativo#alterarDesconto(br.facet.tcc.pojo.Desconto)
+     * @since since optional
+     */
+    public void alterarDesconto(Desconto desconto) throws ServiceException {
+        try {
+            this.descontoDao.atualizar(desconto);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+    }
+
+    /**
+     * @see br.facet.tcc.service.GestaoAdministrativo#listarDescontos()
+     * @since since optional
+     */
+    public List<Desconto> listarDescontos() throws ServiceException {
+        try {
+            return this.descontoDao.listar(Desconto.class);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * @see br.facet.tcc.service.GestaoAdministrativo#buscarDescontos(br.facet.tcc.pojo.Desconto)
+     * @since since optional
+     */
+
+    public List<Desconto> buscarDescontos(Desconto desconto)
+            throws ServiceException {
+        try {
+            return this.descontoDao.pesquisar(desconto);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
