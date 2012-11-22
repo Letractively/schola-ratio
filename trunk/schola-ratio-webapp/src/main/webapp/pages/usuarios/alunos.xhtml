@@ -416,7 +416,7 @@
 		<p:panel header="Relatório Excel">
 			<h:commandLink>  
 	            <p:graphicImage value="/imagens/excel.png" />  
-	            <p:dataExporter  type="xls" target="tbAlunos" fileName="alunos" postProcessor="#{alunoMB.postProcessXLS}" />  
+	            <p:dataExporter  type="xls" target="tbAlunos" fileName="#{alunoMB.excelFileName}" postProcessor="#{alunoMB.postProcessXLS}" />  
 	        </h:commandLink>
         </p:panel>
 		</h:form>
