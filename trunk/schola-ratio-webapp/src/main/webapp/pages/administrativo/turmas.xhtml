@@ -138,7 +138,10 @@
 					</f:facet>
 					<h:outputText value="#{tTurmaSalvar.disciplina.curso.nome}" />
 				</p:column>								
-				<p:column headerText="Status">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Status" />
+					</f:facet>
 					<h:outputText value="#{tTurmaSalvar.status}" />
 				</p:column>
 				<p:column headerText="Opções">
