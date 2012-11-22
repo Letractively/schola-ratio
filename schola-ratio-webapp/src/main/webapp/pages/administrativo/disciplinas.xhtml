@@ -44,7 +44,7 @@
 						<p:row>
 							<p:column>Curso</p:column>
 							<p:column>
-							<p:selectOneMenu value="#{disciplinaMB.disciplinaSalvar.curso.id}"
+							<p:selectOneMenu value="#{disciplinaMB.disciplinaSalvar.curso}"
 								converter="#{cursoConverter}">
 								<f:selectItems value="#{cursoMB.cursos}" var="curso1"
 									noSelectionValue="ERRO" itemLabel="#{curso1.nome}"
@@ -100,10 +100,8 @@
 								</p:commandButton>
 							</p:column>
 							<p:column>
-								<p:commandButton id="btnSalvar" value="Salvar"
-									icon="ui-icon-disk" oncomplete="dlg.hide()"
-									action="#{disciplinaMB.salvarDisciplina}" process=":salvar"
-									update=":salvar" />
+								<p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-disk" oncomplete="dlg.hide()"
+									action="#{disciplinaMB.salvarDisciplina}" process=":salvar" update=":salvar" />
 							</p:column>
 						</p:row>
 					</p:panelGrid>
@@ -118,7 +116,7 @@
 
 						<h:outputLabel value="Curso :" for="cursoDisciplinaPesquisar" />
 						<p:inputText id="cursoDisciplinaPesquisar"
-							value="#{disciplinaMB.disciplinaPesquisar.curso}" size="50">
+							value="#{disciplinaMB.disciplinaPesquisar.curso.nome}" size="50">
 							<p:ajax event="blur" update="cursoPesquisarMsg" />
 							<p:message id="cursoPesquisarMsg" for="cursoDisciplinaPesquisar"
 								showDetail="true" />
@@ -164,20 +162,35 @@
 				paginatorAlwaysVisible="false" paginator="true" rows="10"
 				paginatorPosition="bottom" emptyMessage="Nenhum resultado"
 				rowsPerPageTemplate="5,10,15">
-				<p:column headerText="Curso" sortBy="#{tdisciplinaSalvar.curso}">
-					#{tdisciplinaSalvar.curso.nome}
+				<p:column sortBy="#{tdisciplinaSalvar.curso}">
+					<f:facet name="header">
+						<h:outputText value="Curso" />
+					</f:facet>
+					<h:outputText value="#{tdisciplinaSalvar.curso.nome}" />
 				</p:column>
-				<p:column headerText="Nome">
-					#{tdisciplinaSalvar.nome}
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<h:outputText value="#{tdisciplinaSalvar.nome}" />
 				</p:column>
-				<p:column headerText="Periodo">
-					#{tdisciplinaSalvar.periodo}
+				<p:column >
+					<f:facet name="header">
+						<h:outputText value="Periodo" />
+					</f:facet>				
+					<h:outputText value="#{tdisciplinaSalvar.periodo}" />
 				</p:column>
-				<p:column headerText="Carga Horaria">
-					#{tdisciplinaSalvar.cargaHoraria}
+				<p:column >
+					<f:facet name="header">
+						<h:outputText value="Carga Horaria" />
+					</f:facet>				
+					<h:outputText value="#{tdisciplinaSalvar.cargaHoraria}" />
 				</p:column>
-				<p:column headerText="Status">
-					#{tdisciplinaSalvar.status}
+				<p:column >
+					<f:facet name="header">
+						<h:outputText value="Status" />
+					</f:facet>				
+					<h:outputText value="#{tdisciplinaSalvar.status}" />
 				</p:column>
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
@@ -196,6 +209,12 @@
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			<p:panel header="Relatório Excel">
+			<h:commandLink>  
+	            <p:graphicImage value="/imagens/excel.png" />  
+	            <p:dataExporter  type="xls" target="tbDisciplinas" fileName="#{disciplinaMB.excelFileName}" postProcessor="#{disciplinaMB.postProcessXLS}" />  
+	        </h:commandLink>
+        </p:panel>
 		</h:form>
 
 		<p:confirmDialog message="Confirma a exclusão?"
