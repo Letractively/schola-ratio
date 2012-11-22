@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<h:head>
+	<style type="text/css">
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+</style>
+</h:head>
+<ui:decorate template="/template/template.xhtml">
+	<ui:define name="content">
+		<h:outputLink id="loginLink" value="javascript:void(0)"
+			onclick="dlg.show()" title="login"
+			styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Novo Desconto</span>
+		</h:outputLink>
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<p:dialog id="dialogSalvar" widgetVar="dlg" resizable="false"
+			modal="true" appendToBody="true">
+			<h:form id="salvar">
+				<p:panel header="Salvar Desconto">
+					<p:panelGrid styleClass="companyHeaderGrid">
+						<p:row>
+							<p:column>Aluno</p:column>
+							<p:column>
+						<p:autoComplete value="#{descontoMB.aluno}" id="alunoMatricula"
+							completeMethod="#{matriculaMB.completeAluno}" var="a" itemLabel="#{a.aluno.nome}"
+							itemValue="#{a}" converter="#{alunoConverter}" size="30">
+						</p:autoComplete>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Valor do Desconto" for="perDesconto" />
+							</p:column>
+							<p:column>
+								<p:inputText id="perDesconto"
+									value="#{descontoMB.descontoSalvar.valorDesconto}"
+									required="true">
+									<p:ajax event="blur" update="perMsg" />
+									<p:message id="perMsg" for="perDesconto" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Descrição do Desconto" for="desDesconto" />
+							</p:column>
+							<p:column>
+								<p:inputText id="desDesconto"
+									value="#{descontoMB.descontoSalvar.tipoDesconto}"
+									required="true">
+									<p:ajax event="blur" update="desMsg" />
+									<p:message id="desMsg" for="desDesconto" showDetail="true" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:commandButton value="Limpar" update=":salvar" process="@this"
+									icon="ui-icon-cancel">
+									<p:resetInput target="salvar" />
+								</p:commandButton>
+							</p:column>
+							<p:column>
+								<p:commandButton id="btnSalvar" value="Salvar"
+									icon="ui-icon-disk" oncomplete="dlg.hide()"
+									action="#{descontoMB.salvarDesconto}" process=":salvar"
+									update=":salvar" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+		<h:form id="pesquisar">
+			<div id="content" align="center">
+				<p:panel id="pesquisaDesconto" header="Pesquisar"
+					style="text-align: left;">
+					<h:panelGrid columns="2" cellpadding="5">
+
+						<h:outputLabel value="Aluno :" for="cursoDescontoPesquisar" />
+						<p:inputText id="cursoDescontoPesquisar"
+							value="#{descontoMB.descontoPesquisar.aluno}" size="50">
+							<p:ajax event="blur" update="cursoPesquisarMsg" />
+							<p:message id="cursoPesquisarMsg" for="cursoDescontoPesquisar"
+								showDetail="true" />
+						</p:inputText>
+
+						<h:outputLabel value="Valor desconto :"
+							for="nomeDescontoPesquisar" />
+						<p:inputText id="nomeDescontoPesquisar"
+							value="#{descontoMB.descontoPesquisar.valorDesconto}" size="50">
+							<p:ajax event="blur" update="nomePesquisarMsg" />
+							<p:message id="nomePesquisarMsg" for="nomeDescontoPesquisar"
+								showDetail="true" />
+						</p:inputText>
+
+						<h:outputLabel value="Descricao do desconto :"
+							for="desDescontoPesquisar" />
+						<p:inputText id="desDescontoPesquisar"
+							value="#{descontoMB.descontoPesquisar.tipoDesconto}" size="50">
+							<p:ajax event="blur" update="desPesquisarMsg" />
+							<p:message id="desPesquisarMsg" for="desDescontoPesquisar"
+								showDetail="true" />
+						</p:inputText>
+						
+						<h:outputLabel value="Status :" for="statusUsuarioPesquisar" />
+						<p:selectOneMenu id="statusUsuarioPesquisar"
+							value="#{descontoMB.descontoPesquisar.status}">
+							<f:selectItems value="#{descontoMB.statusList}" />
+						</p:selectOneMenu>
+						<p:commandButton id="btnPesquisar" value="Pesquisar"
+							action="#{descontoMB.pesquisarDesconto}"
+							update=":formTable:tbDescontos pesquisar:pesquisaDesconto"
+							icon="ui-icon-search" />
+					</h:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+		<h:form id="formTable">
+			<p:dataTable id="tbDescontos" var="tdescontoSalvar"
+				value="#{descontoMB.listaDesconto}" widgetVar="tabela"
+				paginatorAlwaysVisible="false" paginator="true" rows="10"
+				paginatorPosition="bottom" emptyMessage="Nenhum resultado"
+				rowsPerPageTemplate="5,10,15">
+				<p:column headerText="Aluno" sortBy="#{tdescontoSalvar.aluno}">
+					#{tdescontoSalvar.aluno.nome}
+				</p:column>
+				<p:column headerText="Valor desconto">
+					#{tdescontoSalvar.valorDesconto}
+				</p:column>
+				<p:column headerText="Status">
+					#{tdescontoSalvar.status}
+				</p:column>
+				<p:column headerText="Descrição">
+					#{tdescontoSalvar.tipoDesconto}
+				</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="confirmation.show()"
+						rendered="#{sec:ifAreAllGranted('ROLE_ADM')}">
+						<f:setPropertyActionListener value="#{tdescontoSalvar}"
+							target="#{descontoMB.descontoSelecionada}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-search" title="Atualizar"
+						update=":dialog" oncomplete="prepararAtualizar()">
+						<f:setPropertyActionListener value="#{tdescontoSalvar}"
+							target="#{descontoMB.descontoSelecionada}" />
+						<p:remoteCommand name="prepararAtualizar"
+							action="#{descontoMB.prepararAtualizar}"
+							oncomplete="usuarioPopUp.show()" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog message="Confirma a exclusão?"
+			header="Inciando processo de exclusão" severity="alert"
+			widgetVar="confirmation" appendToBody="true">
+			<h:form id="remover">
+				<p:commandButton value="Sim" action="#{descontoMB.removerDesconto}"
+					onsuccess="confirmation.hide()" update=":formTable:tbDescontos" />
+				<p:commandButton value="Cancelar" oncomplete="confirmation.hide()" />
+			</h:form>
+		</p:confirmDialog>
+
+
+		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false"
+			modal="true" appendToBody="true" header="Detalhes do Desconto">
+			<h:form id="atualizar">
+				<p:panelGrid styleClass="companyHeaderGrid"
+					rendered="#{descontoMB.descontoSelecionada != null}">
+					<p:row>
+						<p:column>Aluno</p:column>
+						<p:column colspan="3">
+							<p:inputText id="nomeUsuario"
+								value="#{descontoMB.descontoSelecionada.aluno.nome}" required="true"
+								size="50">
+								<p:ajax event="blur" update="nomeMsg" />
+								<p:message id="nomeMsg" for="nomeUsuario" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Valor Desconto</p:column>
+						<p:column>
+							<p:inputText id="periDisci"
+								value="#{descontoMB.descontoSelecionada.valorDesconto}"
+								required="true">
+								<p:ajax event="blur" update="nacMsg" />
+								<p:message id="nacMsg" for="periDisci" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Descrição do Desconto</p:column>
+						<p:column>
+							<p:inputText id="desDisci"
+								value="#{descontoMB.descontoSelecionada.tipoDesconto}"
+								required="true">
+								<p:ajax event="blur" update="desMsg" />
+								<p:message id="desMsg" for="desDisci" showDetail="true" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>Status</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{descontoMB.descontoSelecionada.status}"
+								effect="fade" disabled="#{!sec:ifAreAllGranted('ROLE_ADM')}">
+								<f:selectItem itemLabel="-- Selecione --" itemValue="" />
+								<f:selectItems value="#{descontoMB.statusList}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column colspan="2">
+							<p:commandButton oncomplete="usuarioPopUp.hide()"
+								value="Atualizar" type="submit"
+								action="#{descontoMB.atualizarDesconto()}"
+								update=":formTable:tbDescontos" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:decorate>
+</html>
