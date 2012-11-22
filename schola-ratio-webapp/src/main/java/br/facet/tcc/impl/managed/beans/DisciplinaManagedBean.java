@@ -31,6 +31,7 @@ import org.apache.log4j.Logger;
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.impl.service.GestaoAdministrativoImpl;
+import br.facet.tcc.pojo.Curso;
 import br.facet.tcc.pojo.Disciplina;
 
 /**
@@ -111,9 +112,9 @@ public class DisciplinaManagedBean extends ConstantsMB implements Serializable {
         if (disciplinaPesquisar.getCargaHoraria() == 0) {
             this.disciplinaPesquisar.setCargaHoraria(null);
         }
-        // if ("".equals(disciplinaPesquisar.getCurso().getNome())) {
-        // this.disciplinaPesquisar.setCargaHoraria(null);
-        // }
+        if ("".equals(disciplinaPesquisar.getCurso().getNome())) {
+            this.disciplinaPesquisar.setCurso(null);
+        }
 
         try {
             this.listaDisciplinas = this.gestaoAdministrativo
@@ -166,6 +167,7 @@ public class DisciplinaManagedBean extends ConstantsMB implements Serializable {
     private void reset() {
         this.disciplinaSalvar = new Disciplina();
         this.disciplinaPesquisar = new Disciplina();
+        this.disciplinaPesquisar.setCurso(new Curso());
         this.disciplinaSalvar.setStatus(Status.ATIVO);
     }
 
@@ -181,6 +183,10 @@ public class DisciplinaManagedBean extends ConstantsMB implements Serializable {
             disciplinas.add(disciplina);
         }
         this.disciplinaSelecionada.setRequisitos(disciplinas);
+    }
+
+    public void postProcessXLS(Object document) {
+        this.processarXLS(document, "Disciplinas");
     }
 
     /**
