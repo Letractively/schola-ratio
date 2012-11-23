@@ -14,7 +14,9 @@
  */
 package br.facet.tcc.impl.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -226,9 +228,28 @@ public class GestaoAdministrativoImpl implements GestaoAdministrativo {
      * @since since optional
      */
     @Override
-    public Integer matricularAluno(Aluno aluno, List<Turma> turmas)
+    public Map matricularAluno(Aluno aluno, List<Turma> turmas)
             throws ServiceException {
-        return null;
+        StringBuilder retornoOk = new StringBuilder();
+        StringBuilder retornoErr = new StringBuilder();
+        try {
+            for (Turma turma : turmas) {
+                if (!turma.getAlunos().contains(aluno)) {
+                    turma.getAlunos().add(aluno);
+                    this.turmaDao.atualizar(turma);
+                    retornoOk.append(turma.toString()).append("\n");
+                } else {
+                    retornoErr.append(turma.toString()).append("\n");
+                }
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        Map<String, String> map = new HashMap<String, String>();
+
+        map.put("retornoErr", retornoErr.toString());
+        map.put("retornoOk", retornoOk.toString());
+        return map;
     }
 
     /**

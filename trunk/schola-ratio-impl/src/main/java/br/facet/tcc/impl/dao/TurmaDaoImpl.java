@@ -86,6 +86,12 @@ public class TurmaDaoImpl extends DaoConfiguration<Turma> {
                 discipl.add(Restrictions.eq("d.id", t.getDisciplina().getId()));
             }
 
+            if (t.getDisciplina().getNome() != null
+                    && !"".equals(t.getDisciplina().getNome())) {
+                discipl.add(Restrictions.ilike("d.nome", t.getDisciplina()
+                        .getNome()));
+            }
+
             discipl.add(Restrictions.eqProperty("T.disciplina.id", "d.id"));
             criteria.add(discipl);
 
@@ -95,7 +101,17 @@ public class TurmaDaoImpl extends DaoConfiguration<Turma> {
                     Professor.class).setProjection(Projections.id())));
             criteria.createAlias("T.professor", "p");
 
-            profes.add(Restrictions.eq("p.id", t.getProfessor().getId()));
+            if (t.getProfessor().getId() != null
+                    && t.getProfessor().getId() != 0) {
+                profes.add(Restrictions.eq("p.id", t.getProfessor().getId()));
+            }
+
+            if (t.getProfessor().getNome() != null
+                    && !"".equals(t.getProfessor().getId())) {
+                profes.add(Restrictions.ilike("p.nome", "%"
+                        + t.getProfessor().getNome() + "%"));
+            }
+
             profes.add(Restrictions.eqProperty("T.professor.id", "p.id"));
 
             criteria.add(profes);
