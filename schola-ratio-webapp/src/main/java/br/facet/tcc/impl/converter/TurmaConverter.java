@@ -48,7 +48,7 @@ public class TurmaConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component,
             String value) {
-        String[] values = value.split("-");
+        String[] values = value.split(" - ");
         String disciplina = values[0];
         String professor = values[1];
 
@@ -59,7 +59,9 @@ public class TurmaConverter implements Converter {
 
         Professor prof = new Professor();
         prof.setNome(professor);
+
         turma.setDisciplina(disci);
+        turma.setProfessor(prof);
 
         try {
             turma = this.gestaoAdministrativo.buscarTurma(turma).get(0);
@@ -82,4 +84,8 @@ public class TurmaConverter implements Converter {
         return turma.toString();
     }
 
+    public void setGestaoAdministrativo(
+            GestaoAdministrativoImpl gestaoAdministrativo) {
+        this.gestaoAdministrativo = gestaoAdministrativo;
+    }
 }
