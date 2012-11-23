@@ -145,8 +145,15 @@ public class AlunoCurso implements Serializable {
     @Override
     public boolean equals(Object obj) {
 
-        AlunoCurso alunoCurso = (AlunoCurso) obj;
+        if (this.id == null)
+            return false;
+        if (obj != null) {
 
-        return this.getId().equals(alunoCurso.getId());
+            AlunoCurso alunoCurso = (AlunoCurso) obj;
+
+            return this.getId().equals(alunoCurso.getId());
+        } else {
+            return false;
+        }
     }
 }
