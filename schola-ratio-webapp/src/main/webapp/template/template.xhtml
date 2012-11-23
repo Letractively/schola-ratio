@@ -61,6 +61,7 @@ body {
 					<sec:ifAllGranted roles="ROLE_ACA">
 						<p:tab title="Academico">
 							<p:menu>
+								<p:menuitem url="/pages/academico/notas_e_faltas.schola" value="Notas e Faltas" />
 								<sec:ifAllGranted roles="ROLE_ADM">
 									<p:menuitem url="/pages/academico/relatorios.schola" value="Relatórios" />
 								</sec:ifAllGranted>
