@@ -13,8 +13,9 @@
 </h:head>
 <ui:decorate template="/template/template.xhtml">
 	<ui:define name="content">
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
 		<h:form id="formMatricula">
-				<p:panel id="pesquisaAluno" header="Pesquisar" style="text-align: left;">
+				<p:panel id="pesquisaAluno" header="Matricula" style="text-align: left;">
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputLabel value="Aluno :" for="alunoMatricula" />
 						<p:autoComplete value="#{matriculaMB.aluno}" id="alunoMatricula"
@@ -25,11 +26,13 @@
 						
 						<h:outputLabel value="Turmas :" for="turmasMAtricula" />
 						<p:selectManyCheckbox id="turmasMAtricula" value="#{matriculaMB.turmasSelecionadas}"
-							converter="#{turmaConverterConverter}">
+							converter="#{turmaConverter}" layout="pageDirection">
 							<f:selectItems value="#{matriculaMB.turmasListadas}" var="turma"
 								itemLabel="#{turma}" itemValue="#{turma}"  />
 						</p:selectManyCheckbox>						
 
+						<p:commandButton id="btnMatricular" value="Confirmar" action="#{matriculaMB.matricularAluno}"
+							update=":formMatricula:pesquisaAluno" icon="ui-icon-disk" />
 					</h:panelGrid>
 				</p:panel>
 		</h:form>
