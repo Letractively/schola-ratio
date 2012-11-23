@@ -15,6 +15,7 @@ package br.facet.tcc.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import br.facet.tcc.enums.Status;
 import br.facet.tcc.exception.ServiceException;
@@ -68,7 +69,7 @@ public interface GestaoAdministrativo extends Serializable {
      * @since 0.0.1
      */
     public Integer salvarDisciplina(Disciplina disciplina)
-        throws ServiceException;
+            throws ServiceException;
 
     /**
      * @param disciplina
@@ -76,7 +77,7 @@ public interface GestaoAdministrativo extends Serializable {
      * @since 0.0.1
      */
     public void alterarDisciplina(Disciplina disciplina)
-        throws ServiceException;
+            throws ServiceException;
 
     /**
      * @return
@@ -92,7 +93,7 @@ public interface GestaoAdministrativo extends Serializable {
      * @since 0.0.1
      */
     public List<Disciplina> buscarDisciplinas(Disciplina disciplina)
-        throws ServiceException;
+            throws ServiceException;
 
     public Integer salvarTurma(Turma turma) throws ServiceException;
 
@@ -125,8 +126,8 @@ public interface GestaoAdministrativo extends Serializable {
      * @throws ServiceException
      * @since 0.0.1
      */
-    public Integer matricularAluno(Aluno aluno, List<Turma> turmas)
-        throws ServiceException;
+    public Map matricularAluno(Aluno aluno, List<Turma> turmas)
+            throws ServiceException;
 
     /**
      * @param aluno
@@ -137,7 +138,7 @@ public interface GestaoAdministrativo extends Serializable {
      * @since 0.0.1
      */
     public Integer matricularAluno(Aluno aluno, Curso curso, Integer periodo)
-        throws ServiceException;
+            throws ServiceException;
 
     /**
      * @param aluno
@@ -147,7 +148,7 @@ public interface GestaoAdministrativo extends Serializable {
      * @since 0.0.1
      */
     public void alterarMatricula(Aluno aluno, Turma turma, Status status)
-        throws ServiceException;
+            throws ServiceException;
 
     /**
      * @param aluno
@@ -157,5 +158,5 @@ public interface GestaoAdministrativo extends Serializable {
      * @since 0.0.1
      */
     public void pesquisarMatricula(Aluno aluno, Turma turma, Status status)
-        throws ServiceException;
+            throws ServiceException;
 }
