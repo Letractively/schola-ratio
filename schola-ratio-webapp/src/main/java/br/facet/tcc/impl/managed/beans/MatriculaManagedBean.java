@@ -17,6 +17,7 @@ package br.facet.tcc.impl.managed.beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -26,6 +27,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
+import br.facet.tcc.enums.SituacaoAlunoCurso;
 import br.facet.tcc.exception.ServiceException;
 import br.facet.tcc.impl.service.GestaoAdministrativoImpl;
 import br.facet.tcc.impl.service.GestaoAlunoCursoImpl;
@@ -60,6 +62,52 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
 
     private List<Curso> cursos;
 
+    public MatriculaManagedBean() {
+        reset();
+    }
+
+    private void reset() {
+        this.aluno = new AlunoCurso(new Curso(), new Aluno(),
+                SituacaoAlunoCurso.CURSANDO);
+        this.turmasListadas = new ArrayList<Turma>();
+        this.turmasSelecionadas = new ArrayList<Turma>();
+
+    }
+
+    public String matricularAluno() {
+
+        try {
+            Map<String, String> result = this.gestaoAdministrativo
+                    .matricularAluno(this.aluno.getAluno(),
+                            this.turmasSelecionadas);
+
+            if (result.get("retornoErr").length() > 0) {
+                FacesMessage messageErr = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, this.aluno.getAluno()
+                                .getNome() + " já matriculado em: ",
+                        result.get("retornoErr"));
+                FacesContext.getCurrentInstance().addMessage("message",
+                        messageErr);
+            }
+            if (result.get("retornoOk").length() > 0) {
+                FacesMessage message = new FacesMessage(
+                        FacesMessage.SEVERITY_INFO, this.aluno.getAluno()
+                                .getNome() + " matriculado em: ",
+                        result.get("retornoOk"));
+                FacesContext.getCurrentInstance()
+                        .addMessage("message", message);
+            }
+            this.reset();
+        } catch (ServiceException e) {
+            FacesMessage message = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Erro ao matricular.", e
+                            .getCause().getMessage());
+            FacesContext.getCurrentInstance().addMessage("message", message);
+        }
+
+        return null;
+    }
+
     public List<AlunoCurso> completeAluno(String query) {
         List<AlunoCurso> suggestions = new ArrayList<AlunoCurso>();
 
@@ -68,6 +116,7 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
 
         AlunoCurso alunoCurso = new AlunoCurso();
         alunoCurso.setAluno(aluno);
+        alunoCurso.setSituacaoAlunoCurso(SituacaoAlunoCurso.CURSANDO);
 
         try {
             suggestions = this.alunoCursoService.consultarUsuario(alunoCurso);
@@ -93,6 +142,7 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
             Disciplina disciplina = new Disciplina();
             Curso curso = new Curso();
             curso.setId(this.aluno.getCurso().getId());
+            // disciplina.setId(this.aluno.getAluno().getId());
             disciplina.setCurso(curso);
             turma.setDisciplina(disciplina);
 
@@ -110,6 +160,10 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
                         .addMessage("message", message);
             }
         }
+    }
+
+    public void postProcessXLS(Object document) {
+        this.processarXLS(document, "Matriculas");
     }
 
     /**
