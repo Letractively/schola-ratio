@@ -78,12 +78,10 @@
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
-			<p:panel header="Relatório Excel">
-			<h:commandLink>  
-	            <p:graphicImage value="/imagens/excel.png" />  
+			<h:commandLink >  
+	            <p:graphicImage value="/imagens/excel.png"/>  
 	            <p:dataExporter  type="xls" target="tbTurmas" fileName="#{turmaMB.excelFileName}" postProcessor="#{turmaMB.postProcessXLS}" />  
 	        </h:commandLink>
-        </p:panel>
 		</h:form>
 
 		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true" appendToBody="true"

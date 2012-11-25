@@ -1,11 +1,136 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-</head>
-<body>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:sec="http://br.facet.tcc.utils/security-tags">
+<h:head>
+	<style type="text/css">
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+</style>
+</h:head>
+<ui:decorate template="/template/template.xhtml">
+	<ui:define name="content">
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<h:form id="pesquisar">
+			<div id="content" align="center">
+				<p:panel id="pesquisaTurma" header="Pesquisar" style="text-align: left;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel value="Aluno" for="nomeTurmaPesquisar" />
+						<p:autoComplete value="#{turmaMB.turmaPesquisar.disciplina}" id="nomeTurmaPesquisar"
+							completeMethod="#{turmaMB.completeDisciplina}" var="d" itemLabel="#{d.nome}"
+							itemValue="#{d}" converter="#{disciplinaConverter}" size="30">
+							<p:ajax event="itemSelect" update="profTurmaPesquisar" listener="#{turmaMB.prepararSalvar}" />
+						</p:autoComplete>
+						<h:outputLabel value="Periodo :" for="profTurmaPesquisar" />
+						<p:autoComplete value="#{turmaMB.turmaPesquisar.professor}" id="profTurmaPesquisar"
+							completeMethod="#{turmaMB.completeProfessor}" var="p" itemLabel="#{p.nome}"
+							itemValue="#{p}" converter="#{professorConverter}" size="30">
+						</p:autoComplete>
+						<h:inputHidden id="anoUsuarioPesquisar" value="#{turmaMB.turmaPesquisar.ano}" />
+						<h:inputHidden id="statusUsuarioPesquisar" value="#{turmaMB.turmaPesquisar.status}" />
+						<p:commandButton id="btnPesquisar" value="Pesquisar" action="#{turmaMB.pesquisarTurma}"
+							update=":formTable:tbTurmas pesquisar:pesquisaTurma" icon="ui-icon-search" />
+					</h:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+		<h:form id="formTable">
+			<p:dataTable id="tbTurmas" var="tTurmaSalvar" value="#{turmaMB.listaTurmas}" widgetVar="tabela"
+				paginatorAlwaysVisible="false" paginator="true" rows="10" paginatorPosition="bottom"
+				emptyMessage="Nenhum resultado" rowsPerPageTemplate="5,10,15">
+				<p:column sortBy="#{tTurmaSalvar.nome}">
+					<f:facet name="header">
+						<h:outputText value="Disciplina" />
+					</f:facet>	
+					<h:outputText value="#{tTurmaSalvar.disciplina.nome}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Professor" />
+					</f:facet>
+					<h:outputText value="#{tTurmaSalvar.professor.nome}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Situação" />
+					</f:facet>
+					<h:outputText value="#{tTurmaSalvar.status}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nota" />
+					</f:facet>
+					<h:outputText value="#{tTurmaSalvar.status}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Faltas" />
+					</f:facet>
+					<h:outputText value="#{tTurmaSalvar.status}" />
+				</p:column>
+			</p:dataTable>
+			<h:commandLink >  
+	            <p:graphicImage value="/imagens/excel.png"/>  
+	            <p:dataExporter  type="xls" target="tbTurmas" fileName="#{turmaMB.excelFileName}" postProcessor="#{turmaMB.postProcessXLS}" />  
+	        </h:commandLink>
+		</h:form>
 
-</body>
+		<p:dialog id="dialog" widgetVar="usuarioPopUp" resizable="false" modal="true" appendToBody="true"
+			header="Detalhes do Turma">
+			<h:form id="atualizar">
+				<p:panelGrid styleClass="companyHeaderGrid" rendered="#{turmaMB.turmaSelecionada != null}">
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Disciplina :" for="discTurma" />
+							</p:column>
+							<p:column>
+								<h:outputLabel value="#{turmaMB.turmaSelecionada.disciplina.nome}" id="discTurma" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputText value="Professor :" for="discTurma" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{turmaMB.turmaSelecionada.professor.nome}"/>
+							</p:column>							
+						</p:row>
+						<p:row>
+							<p:column colspan="2">
+								<p:dataTable id="tbAlunos" var="tAluno" value="#{turmaMB.turmaSelecionada.alunos}" widgetVar="varTbAlunos">
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Nome" />
+										</f:facet>
+										<h:outputText value="#{tAluno.nome}" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Nota" />
+										</f:facet>
+										<h:inputText value="" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Falta" />
+										</f:facet>
+										<h:inputText value="" />
+									</p:column>
+								</p:dataTable>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2">
+								<p:commandButton id="btnAtualizar" value="Atualizar" icon="ui-icon-disk" oncomplete="usuarioPopUp.hide()"
+									action="#{turmaMB.atualizarTurma}" update=":formTable:tbTurmas" />
+							</p:column>
+						</p:row>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:decorate>
 </html>

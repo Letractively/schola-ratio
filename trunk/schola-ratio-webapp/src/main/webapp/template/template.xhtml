@@ -62,9 +62,7 @@ body {
 						<p:tab title="Academico">
 							<p:menu>
 								<p:menuitem url="/pages/academico/notas_e_faltas.schola" value="Notas e Faltas" />
-								<sec:ifAllGranted roles="ROLE_ADM">
-									<p:menuitem url="/pages/academico/relatorios.schola" value="Relatórios" />
-								</sec:ifAllGranted>
+								<p:menuitem url="/pages/academico/relatorios.schola" value="Boletim" />
 							</p:menu>
 						</p:tab>
 					</sec:ifAllGranted>
@@ -75,7 +73,6 @@ body {
 								<p:menuitem url="/pages/administrativo/disciplinas.schola" value="Disciplinas" />
 								<p:menuitem url="/pages/administrativo/turmas.schola" value="Turmas" />
 								<p:menuitem url="/pages/administrativo/matriculas.schola" value="Matriculas" />
-								<p:menuitem url="/pages/administrativo/relatorios.schola" value="Relatórios" />
 							</p:menu>
 						</p:tab>
 					</sec:ifAllGranted>
@@ -84,8 +81,7 @@ body {
 							<p:menu>
 								<p:menuitem url="/pages/financeiro/mensalidades.schola" value="Mensalidades" />
 								<sec:ifAllGranted roles="ROLE_ADM">
-								<p:menuitem url="/pages/financeiro/desconto.schola" value="Desconto" />
-									<p:menuitem url="/pages/financeiro/relatorios.schola" value="Relatórios" />
+									<p:menuitem url="/pages/financeiro/desconto.schola" value="Desconto" />
 								</sec:ifAllGranted>
 							</p:menu>
 						</p:tab>
@@ -96,20 +92,14 @@ body {
 								<p:menuitem url="/pages/usuarios/alunos.schola" value="Alunos" />
 								<p:menuitem url="/pages/usuarios/professores.schola" value="Professores" />
 								<p:menuitem url="/pages/usuarios/usuarios.schola" value="Usuários" />
-								<sec:ifAllGranted roles="ROLE_ADM">
-									<p:menuitem url="/pages/usuarios/relatorios.schola" value="Relatórios" />
-								</sec:ifAllGranted>
 							</p:menu>
 						</p:tab>
 					</sec:ifAllGranted>
 					<sec:ifAllGranted roles="ROLE_CFG">
 						<p:tab title="Configurações">
 							<p:menu>
-								<p:menuitem url="/pages/configuracoes/configuracoesDoSistema.schola" value="Parametros do Sistema" />
-								<p:menuitem url="/pages/configuracoes/confGeraisSistema.schola" value="Configuracoes Gerais do Sistema" />
-								<sec:ifAllGranted roles="ROLE_ADM">
-									<p:menuitem url="#" value="Relatórios" />
-								</sec:ifAllGranted>
+								<p:menuitem url="/pages/configuracoes/configuracoesDoSistema.schola" value="Dados da Instituição" />
+								<p:menuitem url="/pages/configuracoes/confGeraisSistema.schola" value="Parametros do Sistema" />
 							</p:menu>
 						</p:tab>
 					</sec:ifAllGranted>
