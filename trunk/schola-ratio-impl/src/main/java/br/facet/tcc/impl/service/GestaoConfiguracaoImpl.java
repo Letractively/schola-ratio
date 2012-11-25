@@ -54,10 +54,8 @@ public class GestaoConfiguracaoImpl implements GestaoConfiguracao {
         try {
             this.instituicaoDao.atualizar(instituicao);
         } catch (DaoException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // TODO Auto-generated method stub
         return instituicao;
 
     }
@@ -77,12 +75,10 @@ public class GestaoConfiguracaoImpl implements GestaoConfiguracao {
 
     @Override
     public Instituicao buscarInstituicao() throws ServiceException {
-        // TODO Auto-generated method stub
         try {
             return (Instituicao) this.instituicaoDao.listar(Instituicao.class)
                     .get(0);
         } catch (DaoException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
