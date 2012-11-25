@@ -209,12 +209,10 @@
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
-			<p:panel header="Relatório Excel">
 			<h:commandLink>  
 	            <p:graphicImage value="/imagens/excel.png" />  
 	            <p:dataExporter  type="xls" target="tbDisciplinas" fileName="#{disciplinaMB.excelFileName}" postProcessor="#{disciplinaMB.postProcessXLS}" />  
 	        </h:commandLink>
-        </p:panel>
 		</h:form>
 
 		<p:confirmDialog message="Confirma a exclusão?"
