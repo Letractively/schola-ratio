@@ -16,7 +16,7 @@ package br.facet.tcc.impl.dao.test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.Assert;
@@ -48,7 +48,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         Endereco endereco = this.enderecoDao.listar(Endereco.class).get(0);
         Usuario usuario = new Usuario();
         usuario.setCpf(19809887654L);
-        usuario.setDataNascimento(new Date(103, 06, 12));
+        usuario.setDataNascimento(new GregorianCalendar(1980, 06, 12).getTime());
         usuario.setEmail("osnircunha@email.com");
         usuario.setEndereco(endereco);
         usuario.setNacionalidade("Brasileiro");

@@ -37,6 +37,7 @@ import br.facet.tcc.impl.util.HibernateCriteria;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 public abstract class DaoConfiguration<T> extends HibernateTemplate implements
         Dao<T> {
 
@@ -97,6 +98,7 @@ public abstract class DaoConfiguration<T> extends HibernateTemplate implements
      * @see br.facet.tcc.dao.Dao#listar()
      * @since since optional
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List<T> listar(Class clazz) throws DaoException {
         List list = null;
@@ -113,6 +115,7 @@ public abstract class DaoConfiguration<T> extends HibernateTemplate implements
      * @see br.facet.tcc.dao.Dao#pesquisar(java.lang.Object)
      * @since since optional
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List<T> pesquisar(T t) throws DaoException {
 
@@ -138,6 +141,7 @@ public abstract class DaoConfiguration<T> extends HibernateTemplate implements
      * @throws DaoException
      * @since 0.0.1
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public T obterPorID(Class clazz, Integer id) throws DaoException {
         T t = null;

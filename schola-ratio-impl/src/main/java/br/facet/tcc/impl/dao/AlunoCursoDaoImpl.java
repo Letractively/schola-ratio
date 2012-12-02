@@ -38,6 +38,7 @@ import br.facet.tcc.pojo.UserLogin;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Repository("alunoCursoDao")
 public class AlunoCursoDaoImpl extends DaoConfiguration<AlunoCurso> {
 

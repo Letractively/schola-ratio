@@ -32,11 +32,13 @@ import br.facet.tcc.enums.HorarioDeAulas;
  * @version 0.0.1
  * @since 0.0.2
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "tb_horario_aulas")
 @SequenceGenerator(sequenceName = "seq_horario_aulas", name = "seq_horario_aulas", initialValue = 1)
 public class HorarioDeAula implements Serializable {
 
+    @SuppressWarnings("unused")
     private Integer id;
 
     private HorarioDeAulas horarioDeAulas;

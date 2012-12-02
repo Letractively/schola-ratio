@@ -35,6 +35,7 @@ import br.facet.tcc.pojo.Turma;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Repository("turmaDao")
 public class TurmaDaoImpl extends DaoConfiguration<Turma> {
 
@@ -53,11 +54,13 @@ public class TurmaDaoImpl extends DaoConfiguration<Turma> {
         super.excluir(t);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public List<Turma> listar(Class clazz) throws DaoException {
         return super.listar(clazz);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Turma> pesquisar(Turma t) throws DaoException {
         Criteria criteria = this.getSession().createCriteria(Turma.class, "T");
@@ -122,5 +125,11 @@ public class TurmaDaoImpl extends DaoConfiguration<Turma> {
 
         return criteria.list();
 
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Turma obterPorID(Class clazz, Integer id) throws DaoException {
+        return super.obterPorID(clazz, id);
     }
 }

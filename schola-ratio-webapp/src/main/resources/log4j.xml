@@ -1,13 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
-<log4j:configuration>
-	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
-		</layout>
-	</appender>
-	<root>
-		<priority value="ERROR"></priority>
-		<appender-ref ref="stdout" />
-	</root>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC
+  "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Appenders -->
+    <appender name="appender" class="org.apache.log4j.RollingFileAppender">
+        <param name="encoding" value="ISO-8859-1" />
+        <param name="File" value="${LOG_DIR}/schola-ratio.out" />
+        <param name="MaxFileSize" value="10000Kb" />
+        <param name="MaxBackupIndex" value="100" />
+        <!-- ATTENTION: Change the Threshold to adjust the log level! -->
+        <param name="Threshold" value="DEBUG" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %p %C{1}.%M(%L) | %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="monitorAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="encoding" value="ISO-8859-1" />
+        <param name="File" value="${LOG_DIR}/schola-ratio.err" />
+        <param name="MaxFileSize" value="10000Kb" />
+        <param name="MaxBackupIndex" value="1" />
+        <!-- Only Errors should be logged! -->
+        <param name="Threshold" value="ERROR" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %p %C{1}.%M(%L) | %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="loggerAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="encoding" value="ISO-8859-1" />
+        <param name="File" value="${LOG_DIR}/schola-ratio.trace" />
+        <param name="MaxFileSize" value="10000Kb" />
+        <param name="MaxBackupIndex" value="10" />
+        <param name="Threshold" value="INFO" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %p %C{1}.%M(%L) | %m%n" />
+        </layout>
+    </appender>
+
+    <!-- Loggers -->
+    <logger name="DEBUG" additivity="false">
+        <level value="ALL" />
+        <appender-ref ref="monitorAppender" />
+        <appender-ref ref="loggerAppender" />
+    </logger>
+
+    <logger name="INFO" additivity="false">
+        <level value="ALL" />
+        <appender-ref ref="appender" />
+        <appender-ref ref="monitorAppender" />
+    </logger>
+
+    <logger name="WARN" additivity="false">
+        <level value="ALL" />
+        <appender-ref ref="appender" />
+        <appender-ref ref="monitorAppender" />
+    </logger>
+
+    <logger name="ERROR" additivity="false">
+        <level value="ALL" />
+        <appender-ref ref="appender" />
+        <appender-ref ref="monitorAppender" />
+    </logger>
+
+    <logger name="org.apache" additivity="false">
+        <level value="ERROR" />
+        <appender-ref ref="appender" />
+        <appender-ref ref="monitorAppender" />
+    </logger>
+
+    <logger name="org.springframework" additivity="false">
+        <level value="ERROR" />
+        <appender-ref ref="appender" />
+        <appender-ref ref="monitorAppender" />
+    </logger>
+
+    <logger name="br.facet.tcc" additivity="false">
+        <level value="ALL" />
+        <appender-ref ref="appender" />
+        <appender-ref ref="monitorAppender" />
+        <appender-ref ref="loggerAppender" />
+    </logger>
+
 </log4j:configuration>

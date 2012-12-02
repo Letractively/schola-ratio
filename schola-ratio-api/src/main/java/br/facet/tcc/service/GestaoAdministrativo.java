@@ -126,6 +126,7 @@ public interface GestaoAdministrativo extends Serializable {
      * @throws ServiceException
      * @since 0.0.1
      */
+    @SuppressWarnings("rawtypes")
     public Map matricularAluno(Aluno aluno, List<Turma> turmas)
             throws ServiceException;
 

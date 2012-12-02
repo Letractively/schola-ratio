@@ -42,6 +42,7 @@ public class ProfessorConverter implements Converter {
     @ManagedProperty("#{professorService}")
     private GestaoProfessorImpl gestaoProfessor;
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component,
             String value) {

@@ -68,12 +68,14 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Usuario salvo com sucesso.", "Código : "
                             + this.usuarioSalvar.getId());
+            log.debug(message.toString());
             FacesContext.getCurrentInstance().addMessage("message", message);
             this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
                             .getMessage());
+            log.error(message.toString(), e);
             FacesContext.getCurrentInstance().addMessage("message", message);
         }
 
@@ -108,6 +110,7 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
      * @return
      * @since 0.0.1
      */
+    @SuppressWarnings("unchecked")
     public String pesquisarUsuarios() {
 
         listaUsuarios = new ArrayList<Usuario>();
@@ -147,6 +150,7 @@ public class UsuarioManagedBean extends ConstantsMB implements Serializable {
      * @return
      * @since schola-ratio-webapp 0.0.1
      */
+    @SuppressWarnings("unchecked")
     public String listarUsuarios() {
         try {
             this.listaUsuarios = this.usurioService

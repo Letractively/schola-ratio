@@ -90,12 +90,14 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
                     "Professor salvo com sucesso.", "Código : "
                             + this.professorSalvar.getId());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.debug(message.toString());
             this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
                             .getMessage());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.error(message.toString());
         }
 
         return null;
@@ -130,6 +132,7 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
      * @return
      * @since 0.0.1
      */
+    @SuppressWarnings("unchecked")
     public String pesquisarProfessors() {
 
         listaProfessors = new ArrayList<Professor>();
@@ -170,6 +173,7 @@ public class ProfessorManagedBean extends ConstantsMB implements Serializable {
      * @return
      * @since schola-ratio-webapp 0.0.1
      */
+    @SuppressWarnings("unchecked")
     public String listarProfessors() {
         try {
             this.listaProfessors = this.professorService

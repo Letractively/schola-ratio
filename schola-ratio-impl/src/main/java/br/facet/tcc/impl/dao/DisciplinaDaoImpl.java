@@ -33,6 +33,7 @@ import br.facet.tcc.pojo.Disciplina;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Repository("disciplinaDao")
 public class DisciplinaDaoImpl extends DaoConfiguration<Disciplina> {
 
@@ -51,6 +52,7 @@ public class DisciplinaDaoImpl extends DaoConfiguration<Disciplina> {
         super.atualizar(t);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Disciplina> pesquisar(Disciplina t) throws DaoException {
         Criteria criteria = this.getSession().createCriteria(Disciplina.class,
@@ -90,6 +92,7 @@ public class DisciplinaDaoImpl extends DaoConfiguration<Disciplina> {
         return criteria.list();
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public List<Disciplina> listar(Class clazz) throws DaoException {
         return super.listar(clazz);

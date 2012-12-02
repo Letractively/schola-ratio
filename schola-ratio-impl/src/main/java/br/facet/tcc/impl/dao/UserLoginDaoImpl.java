@@ -13,6 +13,8 @@
  */
 package br.facet.tcc.impl.dao;
 
+import java.util.List;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Repository;
 
@@ -26,16 +28,13 @@ import br.facet.tcc.pojo.UserLogin;
  * @since 0.0.1
  */
 
+@SuppressWarnings("serial")
 @Repository("userLoginDao")
 public class UserLoginDaoImpl extends DaoConfiguration<UserLogin> {
 
     /**
      * @see br.facet.tcc.impl.dao.DaoConfiguration#salvar(java.lang.Object)
      * @since since optional
-     * 
-     *        FIXME : Verificar a melhor forma de tratar o retorno do metodo
-     *        salvar
-     * 
      * 
      */
     @Override
@@ -52,6 +51,27 @@ public class UserLoginDaoImpl extends DaoConfiguration<UserLogin> {
         userLogin.setUsername(userName);
 
         return this.pesquisar(userLogin).get(0);
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public List<UserLogin> listar(Class clazz) throws DaoException {
+        return super.listar(clazz);
+    }
+
+    @Override
+    public List<UserLogin> pesquisar(UserLogin t) throws DaoException {
+        return super.pesquisar(t);
+    }
+
+    @Override
+    public void atualizar(UserLogin t) throws DaoException {
+        super.atualizar(t);
+    }
+
+    @Override
+    public void excluir(UserLogin t) throws DaoException {
+        super.excluir(t);
     }
 
 }

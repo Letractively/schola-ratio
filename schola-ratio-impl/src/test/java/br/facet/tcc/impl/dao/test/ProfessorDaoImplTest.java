@@ -14,7 +14,7 @@
 package br.facet.tcc.impl.dao.test;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -39,8 +39,6 @@ import br.facet.tcc.pojo.UserLogin;
 /**
  * @author Osnir F CUNHA
  * 
- * @version TODO: class_version
- * @since TODO: package_version
  */
 public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
 
@@ -82,7 +80,8 @@ public class ProfessorDaoImplTest extends DaoTestCaseSetUp {
         Professor professor = new Professor();
 
         professor.setCpf(32932112388L);
-        professor.setDataNascimento(new Date(2003, 06, 12));
+        professor.setDataNascimento(new GregorianCalendar(2003, 06, 12)
+                .getTime());
         professor.setEmail("osnircunha@email.com");
         professor.setEndereco(endereco);
         professor.setNacionalidade("Brasileiro");
