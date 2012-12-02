@@ -9,6 +9,8 @@
  */
 package br.facet.tcc.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -24,11 +26,13 @@ import javax.persistence.Table;
  * @version 0.0.1
  * @since schola-ratio-api
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "tb_user_roles")
 @SequenceGenerator(sequenceName = "seq_user_roles", name = "seq_user_roles", initialValue = 1)
-public class UserRoles {
+public class UserRoles implements Serializable {
 
+    @SuppressWarnings("unused")
     private Integer id;
 
     private br.facet.tcc.enums.UserRoles userRole;

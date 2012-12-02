@@ -27,6 +27,7 @@ import br.facet.tcc.pojo.Aluno;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Repository("alunoDao")
 public class AlunoDaoImpl extends DaoConfiguration<Aluno> {
 
@@ -51,6 +52,7 @@ public class AlunoDaoImpl extends DaoConfiguration<Aluno> {
         super.excluir(t);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public List<Aluno> listar(Class clazz) throws DaoException {
         return super.listar(clazz);

@@ -40,6 +40,7 @@ import br.facet.tcc.pojo.Disciplina;
  * @version 0.0.2
  * @since 0.0.2
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "disciplinaMB")
 @ViewScoped
 public class DisciplinaManagedBean extends ConstantsMB implements Serializable {
@@ -74,12 +75,14 @@ public class DisciplinaManagedBean extends ConstantsMB implements Serializable {
                     "Disciplina salva com sucesso.", "Código : "
                             + this.disciplinaSalvar.getId());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.debug(message.toString());
             this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
                             .getMessage());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.error(message.toString());
         }
         return null;
     }

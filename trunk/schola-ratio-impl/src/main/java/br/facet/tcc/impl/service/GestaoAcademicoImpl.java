@@ -33,6 +33,7 @@ import br.facet.tcc.service.GestaoAcademico;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Service("gestaoAcademico")
 public class GestaoAcademicoImpl implements GestaoAcademico {
 
@@ -45,7 +46,7 @@ public class GestaoAcademicoImpl implements GestaoAcademico {
      */
     @Override
     public void registrarNotasFaltas(AvaliacaoDeAluno avaliacaoDeAluno)
-        throws ServiceException {
+            throws ServiceException {
 
         try {
             this.avaliacaoDeAlunoDao.salvar(avaliacaoDeAluno);
@@ -61,7 +62,7 @@ public class GestaoAcademicoImpl implements GestaoAcademico {
      */
     @Override
     public void registrarNotasFaltas(List<AvaliacaoDeAluno> avaliacoesDaTurma)
-        throws ServiceException {
+            throws ServiceException {
 
         for (AvaliacaoDeAluno avaliacaoDeAluno : avaliacoesDaTurma) {
             try {
@@ -87,7 +88,7 @@ public class GestaoAcademicoImpl implements GestaoAcademico {
      */
     @Override
     public List<AvaliacaoDeAluno> listarDiario(Aluno aluno)
-        throws ServiceException {
+            throws ServiceException {
 
         AvaliacaoDeAluno avaliacaoDeAluno = new AvaliacaoDeAluno();
         avaliacaoDeAluno.setAluno(aluno);
@@ -108,9 +109,8 @@ public class GestaoAcademicoImpl implements GestaoAcademico {
      */
     @Override
     public List<AvaliacaoDeAluno> listarDiario(Turma turma)
-        throws ServiceException {
-
-        return null;
+            throws ServiceException {
+        throw new ServiceException("Metodo não implementado.");
     }
 
 }

@@ -42,6 +42,7 @@ import br.facet.tcc.pojo.Turma;
  * @version 0.0.2
  * @since 0.0.2
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "turmaMB")
 @ViewScoped
 public class TurmaManagedBean extends ConstantsMB implements Serializable {
@@ -76,12 +77,14 @@ public class TurmaManagedBean extends ConstantsMB implements Serializable {
                     "Turma salva com sucesso.", "Código : "
                             + this.turmaSalvar.getId());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.debug(message.toString());
             this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
                             .getMessage());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.error(message.toString());
         }
         return null;
     }
@@ -186,6 +189,7 @@ public class TurmaManagedBean extends ConstantsMB implements Serializable {
         this.professores = new ArrayList<Professor>();
     }
 
+    @SuppressWarnings("unchecked")
     public void prepararAtualizar() {
         Disciplina disciplina = this.turmaSelecionada.getDisciplina();
         disciplina.setRequisitos(new HashSet<Disciplina>());
@@ -201,6 +205,7 @@ public class TurmaManagedBean extends ConstantsMB implements Serializable {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void prepararSalvar() {
         Disciplina disciplina = this.turmaSalvar.getDisciplina();
         Professor professor = new Professor();
@@ -242,6 +247,7 @@ public class TurmaManagedBean extends ConstantsMB implements Serializable {
         return suggestions;
     }
 
+    @SuppressWarnings("unchecked")
     public List<Professor> completeProfessor(String query) {
         List<Professor> suggestions = new ArrayList<Professor>();
 

@@ -14,7 +14,7 @@
  */
 package br.facet.tcc.impl.service.test;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.Assert;
@@ -59,7 +59,8 @@ public class GestaoProfessorImplTest extends ServiceTestCaseSetUp {
         endereco.setRua("rua");
 
         professor.setCpf(32932112388L);
-        professor.setDataNascimento(new Date(103, 06, 12));
+        professor.setDataNascimento(new GregorianCalendar(1983, 06, 12)
+                .getTime());
         professor.setEmail("osnircunha@email.com");
         professor.setEndereco(endereco);
         professor.setNacionalidade("Brasileiro");
@@ -137,6 +138,7 @@ public class GestaoProfessorImplTest extends ServiceTestCaseSetUp {
      * {@link br.facet.tcc.impl.service.GestaoProfessorImpl#consultarUsuario(br.facet.tcc.pojo.Professor)}
      * .
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void testConsultarUsuarioProfessor() {
 
@@ -184,6 +186,7 @@ public class GestaoProfessorImplTest extends ServiceTestCaseSetUp {
      * {@link br.facet.tcc.impl.service.GestaoProfessorImpl#listarUsuario(java.lang.Class)}
      * .
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void testListarUsuarioClass() {
         List<Professor> professores = null;

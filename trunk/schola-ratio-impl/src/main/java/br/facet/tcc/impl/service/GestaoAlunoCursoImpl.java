@@ -29,6 +29,7 @@ import br.facet.tcc.pojo.AlunoCurso;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Service("alunoCursoService")
 public class GestaoAlunoCursoImpl extends GestaoUsuarioConfig<AlunoCurso> {
 
@@ -60,6 +61,7 @@ public class GestaoAlunoCursoImpl extends GestaoUsuarioConfig<AlunoCurso> {
      *      java.lang.Integer)
      * @since since optional
      */
+    @SuppressWarnings("rawtypes")
     @Override
     public AlunoCurso consultarUsuario(Class clazz, Integer id)
             throws ServiceException {
@@ -89,6 +91,7 @@ public class GestaoAlunoCursoImpl extends GestaoUsuarioConfig<AlunoCurso> {
      * @see br.facet.tcc.impl.service.GestaoUsuarioConfig#listarUsuario(java.lang.Class)
      * @since since optional
      */
+    @SuppressWarnings("rawtypes")
     @Override
     public List<AlunoCurso> listarUsuario(Class clazz) throws ServiceException {
         return super.listarUsuario(clazz);

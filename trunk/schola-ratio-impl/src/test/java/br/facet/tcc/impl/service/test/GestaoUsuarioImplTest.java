@@ -15,7 +15,7 @@
 package br.facet.tcc.impl.service.test;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -78,7 +78,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
         userLogin.setPermissoes(permissoes);
 
         usuario.setCpf(32932112388L);
-        usuario.setDataNascimento(new Date(103, 06, 12));
+        usuario.setDataNascimento(new GregorianCalendar(1983, 06, 12).getTime());
         usuario.setEmail("osnircunha@email.com");
         usuario.setEndereco(endereco);
         usuario.setNacionalidade("Brasileiro");
@@ -150,6 +150,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
      * {@link br.facet.tcc.impl.service.GestaoUsuarioImpl#consultarUsuario(br.facet.tcc.pojo.Usuario)}
      * .
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void testConsultarUsuarioUsuario() {
         Usuario usuario = new Usuario();
@@ -175,7 +176,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
     public void testAlterarUsuarioUsuario() {
 
         Usuario usuario = null;
-        String emailAntigo = null, emailNovo = null;
+        String emailAntigo = null;
         try {
 
             usuario = this.gestaoUsuario.consultarUsuario(Usuario.class, 1);
@@ -196,6 +197,7 @@ public class GestaoUsuarioImplTest extends ServiceTestCaseSetUp {
      * {@link br.facet.tcc.impl.service.GestaoUsuarioImpl#listarUsuario(java.lang.Class)}
      * .
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void testListarUsuarioClass() {
         List<Usuario> usuarios = null;

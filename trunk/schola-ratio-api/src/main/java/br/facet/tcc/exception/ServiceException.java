@@ -20,6 +20,7 @@ package br.facet.tcc.exception;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 public class ServiceException extends Exception {
 
     /**

@@ -41,6 +41,7 @@ import br.facet.tcc.pojo.Turma;
  * @author Osnir F CUNHA
  * 
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "matriculaMB")
 @ViewScoped
 public class MatriculaManagedBean extends ConstantsMB implements Serializable {
@@ -74,6 +75,7 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
 
     }
 
+    @SuppressWarnings("unchecked")
     public String matricularAluno() {
 
         try {
@@ -88,6 +90,7 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
                         result.get("retornoErr"));
                 FacesContext.getCurrentInstance().addMessage("message",
                         messageErr);
+                log.error(messageErr.toString());
             }
             if (result.get("retornoOk").length() > 0) {
                 FacesMessage message = new FacesMessage(
@@ -96,6 +99,7 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
                         result.get("retornoOk"));
                 FacesContext.getCurrentInstance()
                         .addMessage("message", message);
+                log.debug(message.toString());
             }
             this.reset();
         } catch (ServiceException e) {
@@ -103,6 +107,7 @@ public class MatriculaManagedBean extends ConstantsMB implements Serializable {
                     FacesMessage.SEVERITY_ERROR, "Erro ao matricular.", e
                             .getCause().getMessage());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.error(message.toString());
         }
 
         return null;

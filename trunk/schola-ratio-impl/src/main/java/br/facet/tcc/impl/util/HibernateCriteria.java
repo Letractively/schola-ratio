@@ -41,6 +41,7 @@ public class HibernateCriteria {
 
     private Criteria criteria;
 
+    @SuppressWarnings("rawtypes")
     private final Class[] noparam = {};
 
     private static StringBuilder parentFlag = null;
@@ -53,6 +54,7 @@ public class HibernateCriteria {
         this.session = session;
     }
 
+    @SuppressWarnings("rawtypes")
     public Criteria createCriteria(Object object) {
 
         Method[] methods = object.getClass().getMethods();
@@ -61,7 +63,7 @@ public class HibernateCriteria {
 
         try {
             for (Method method : getSearchables(methods)) {
-                Object serializable = method.invoke(object, noparam);
+                Object serializable = method.invoke(object, (Object[]) noparam);
                 if (serializable != null) {
                     String field = method.getName().subSequence(3, 4)
                             .toString().toLowerCase()
@@ -100,6 +102,7 @@ public class HibernateCriteria {
         return criteria;
     }
 
+    @SuppressWarnings("rawtypes")
     private List<Integer> prepareCollectionId(Collection serializable)
             throws IllegalArgumentException, SecurityException,
             IllegalAccessException, InvocationTargetException,
@@ -107,20 +110,22 @@ public class HibernateCriteria {
         List<Integer> ids = new ArrayList<Integer>();
         for (Object object : serializable) {
             Integer id = (Integer) object.getClass()
-                    .getMethod("getId", noparam).invoke(object, noparam);
+                    .getMethod("getId", noparam)
+                    .invoke(object, (Object[]) noparam);
             ids.add(id);
         }
 
         return ids;
     }
 
+    @SuppressWarnings("rawtypes")
     private void prepareInnerSearch(Object object, String columnName) {
         Method[] methods = object.getClass().getMethods();
         Class[] noparam = {};
 
         try {
             for (Method method : getInnerSearchables(methods)) {
-                Object serializable = method.invoke(object, noparam);
+                Object serializable = method.invoke(object, (Object[]) noparam);
                 if (serializable != null) {
                     String field = method.getName().subSequence(3, 4)
                             .toString().toLowerCase()
@@ -136,7 +141,7 @@ public class HibernateCriteria {
                 }
             }
             for (Method method : getNonInnerSearchables(methods)) {
-                Object serializable = method.invoke(object, noparam);
+                Object serializable = method.invoke(object, (Object[]) noparam);
                 if (serializable != null) {
                     String field = method.getName().subSequence(3, 4)
                             .toString().toLowerCase()

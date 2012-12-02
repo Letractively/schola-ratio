@@ -27,14 +27,17 @@ import br.facet.tcc.service.GestaoUsuario;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 public abstract class GestaoUsuarioConfig<T> implements GestaoUsuario<T> {
 
+    @SuppressWarnings("rawtypes")
     protected Dao dao;
 
     /**
      * @see br.facet.tcc.service.GestaoUsuario#salvarUsuario(java.lang.Object)
      * @since since optional
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Integer salvarUsuario(T t) throws ServiceException {
         try {
@@ -48,6 +51,7 @@ public abstract class GestaoUsuarioConfig<T> implements GestaoUsuario<T> {
      * @see br.facet.tcc.service.GestaoUsuario#removerUsuario(java.lang.Object)
      * @since since optional
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void removerUsuario(T t) throws ServiceException {
         try {
@@ -61,6 +65,7 @@ public abstract class GestaoUsuarioConfig<T> implements GestaoUsuario<T> {
      * @see br.facet.tcc.service.GestaoUsuario#consultarUsuario(java.lang.Object)
      * @since since optional
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public T consultarUsuario(Class clazz, Integer id) throws ServiceException {
         try {
@@ -74,6 +79,7 @@ public abstract class GestaoUsuarioConfig<T> implements GestaoUsuario<T> {
      * @see br.facet.tcc.service.GestaoUsuario#consultarUsuario(java.lang.Integer)
      * @since since optional
      */
+    @SuppressWarnings("unchecked")
     @Override
     public List<T> consultarUsuario(T t) throws ServiceException {
         try {
@@ -87,6 +93,7 @@ public abstract class GestaoUsuarioConfig<T> implements GestaoUsuario<T> {
      * @see br.facet.tcc.service.GestaoUsuario#alterarUsuario(java.lang.Object)
      * @since since optional
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void alterarUsuario(T t) throws ServiceException {
         try {
@@ -100,6 +107,7 @@ public abstract class GestaoUsuarioConfig<T> implements GestaoUsuario<T> {
      * @see br.facet.tcc.service.GestaoUsuario#listarUsuario(java.lang.Object)
      * @since since optional
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List<T> listarUsuario(Class clazz) throws ServiceException {
         try {

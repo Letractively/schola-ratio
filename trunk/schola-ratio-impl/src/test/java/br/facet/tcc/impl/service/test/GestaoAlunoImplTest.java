@@ -15,6 +15,7 @@
 package br.facet.tcc.impl.service.test;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.Assert;
@@ -60,7 +61,7 @@ public class GestaoAlunoImplTest extends ServiceTestCaseSetUp {
         endereco.setRua("rua");
 
         aluno.setCpf(32932112388L);
-        aluno.setDataNascimento(new Date(103, 06, 12));
+        aluno.setDataNascimento(new GregorianCalendar(1983, 06, 12).getTime());
         aluno.setEmail("osnircunha@email.com");
         aluno.setEndereco(endereco);
         aluno.setNacionalidade("Brasileiro");

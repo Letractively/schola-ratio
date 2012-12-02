@@ -32,6 +32,7 @@ import br.facet.tcc.service.GestaoConfiguracao;
  * @since 0.0.1
  */
 
+@SuppressWarnings("serial")
 @Service("instituicaoService")
 public class GestaoConfiguracaoImpl implements GestaoConfiguracao {
 
@@ -40,6 +41,7 @@ public class GestaoConfiguracaoImpl implements GestaoConfiguracao {
         this.instituicaoDao = instituicaoDao;
     }
 
+    @SuppressWarnings("rawtypes")
     private final Dao instituicaoDao;
 
     /**
@@ -48,6 +50,7 @@ public class GestaoConfiguracaoImpl implements GestaoConfiguracao {
      * @since since optional
      */
 
+    @SuppressWarnings("unchecked")
     @Override
     public Instituicao atualizarDetalhesInstituicao(Instituicao instituicao)
             throws ServiceException {
@@ -63,14 +66,12 @@ public class GestaoConfiguracaoImpl implements GestaoConfiguracao {
     @Override
     public Integer incluirPermissao(Permissao permissao)
             throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        throw new ServiceException("Metodo não implementado.");
     }
 
     @Override
     public void alterarPermissao(Permissao permissao) throws ServiceException {
-        // TODO Auto-generated method stub
-
+        throw new ServiceException("Metodo não implementado.");
     }
 
     @Override

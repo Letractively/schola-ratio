@@ -32,10 +32,12 @@ public interface GestaoUsuario<T> extends Serializable {
 
     public List<T> consultarUsuario(T t) throws ServiceException;
 
+    @SuppressWarnings("rawtypes")
     public T consultarUsuario(Class clazz, Integer id) throws ServiceException;
 
     public void alterarUsuario(T t) throws ServiceException;
 
+    @SuppressWarnings("rawtypes")
     public List<T> listarUsuario(Class clazz) throws ServiceException;
 
 }

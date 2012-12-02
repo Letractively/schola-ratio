@@ -37,6 +37,7 @@ import br.facet.tcc.pojo.Curso;
  * @version 0.0.2
  * @since 0.0.2
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "cursoMB")
 @ViewScoped
 public class CursoManagedBean extends ConstantsMB implements Serializable {
@@ -70,12 +71,14 @@ public class CursoManagedBean extends ConstantsMB implements Serializable {
                     "Curso salva com sucesso.", "Código : "
                             + this.cursoSalvar.getId());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.debug(message.toString());
             this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
                             .getMessage());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.error(message.toString());
         }
         return null;
     }

@@ -90,12 +90,14 @@ public class AlunoCursoManagedBean extends ConstantsMB implements Serializable {
                     "Aluno salvo com sucesso.", "Código : "
                             + this.alunoSalvar.getId());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.debug(message.toString());
             this.reset();
         } catch (ServiceException e) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getCause()
                             .getMessage());
             FacesContext.getCurrentInstance().addMessage("message", message);
+            log.error(message.toString());
         }
 
         return null;

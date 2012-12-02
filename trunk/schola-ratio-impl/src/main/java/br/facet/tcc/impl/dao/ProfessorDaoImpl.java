@@ -27,6 +27,7 @@ import br.facet.tcc.pojo.Professor;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Repository("professorDao")
 public class ProfessorDaoImpl extends DaoConfiguration<Professor> {
 
@@ -51,6 +52,7 @@ public class ProfessorDaoImpl extends DaoConfiguration<Professor> {
         super.excluir(t);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public List<Professor> listar(Class clazz) throws DaoException {
         return super.listar(clazz);
@@ -59,5 +61,11 @@ public class ProfessorDaoImpl extends DaoConfiguration<Professor> {
     @Override
     public List<Professor> pesquisar(Professor t) throws DaoException {
         return super.pesquisar(t);
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Professor obterPorID(Class clazz, Integer id) throws DaoException {
+        return super.obterPorID(clazz, id);
     }
 }

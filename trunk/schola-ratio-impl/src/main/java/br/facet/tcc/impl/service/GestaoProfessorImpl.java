@@ -29,6 +29,7 @@ import br.facet.tcc.pojo.Professor;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Service("professorService")
 public class GestaoProfessorImpl extends GestaoUsuarioConfig<Professor> {
     @Autowired
@@ -59,6 +60,7 @@ public class GestaoProfessorImpl extends GestaoUsuarioConfig<Professor> {
      *      java.lang.Integer)
      * @since since optional
      */
+    @SuppressWarnings("rawtypes")
     @Override
     public Professor consultarUsuario(Class clazz, Integer id)
             throws ServiceException {
@@ -69,6 +71,7 @@ public class GestaoProfessorImpl extends GestaoUsuarioConfig<Professor> {
      * @see br.facet.tcc.impl.service.GestaoUsuarioConfig#consultarUsuario(java.lang.Object)
      * @since since optional
      */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public List consultarUsuario(Professor t) throws ServiceException {
         return super.consultarUsuario(t);
@@ -87,6 +90,7 @@ public class GestaoProfessorImpl extends GestaoUsuarioConfig<Professor> {
      * @see br.facet.tcc.impl.service.GestaoUsuarioConfig#listarUsuario(java.lang.Class)
      * @since since optional
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List listarUsuario(Class clazz) throws ServiceException {
         return super.listarUsuario(clazz);

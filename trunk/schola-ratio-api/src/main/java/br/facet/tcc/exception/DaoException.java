@@ -13,22 +13,24 @@
  */
 package br.facet.tcc.exception;
 
+
 /**
  * @author Osnir F CUNHA
  * 
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 public class DaoException extends Exception {
 
     /**
      * @since 0.0.1
      */
-    public DaoException() {}
+    public DaoException() {
+    }
 
     /**
      * @param message
-     * @since TODO: class_version
      */
     public DaoException(String message) {
         super(message);
@@ -36,7 +38,6 @@ public class DaoException extends Exception {
 
     /**
      * @param cause
-     * @since TODO: class_version
      */
     public DaoException(Throwable cause) {
         super(cause);
@@ -45,7 +46,6 @@ public class DaoException extends Exception {
     /**
      * @param message
      * @param cause
-     * @since TODO: class_version
      */
     public DaoException(String message, Throwable cause) {
         super(message, cause);

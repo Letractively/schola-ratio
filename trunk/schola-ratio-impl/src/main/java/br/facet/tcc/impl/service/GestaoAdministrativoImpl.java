@@ -43,6 +43,7 @@ import br.facet.tcc.service.GestaoAdministrativo;
  * @version 0.0.2
  * @since 0.0.2
  */
+@SuppressWarnings("serial")
 @Service("gestaoAdministrativo")
 public class GestaoAdministrativoImpl implements GestaoAdministrativo {
 
@@ -227,6 +228,7 @@ public class GestaoAdministrativoImpl implements GestaoAdministrativo {
      *      java.util.List)
      * @since since optional
      */
+    @SuppressWarnings("rawtypes")
     @Override
     public Map matricularAluno(Aluno aluno, List<Turma> turmas)
             throws ServiceException {

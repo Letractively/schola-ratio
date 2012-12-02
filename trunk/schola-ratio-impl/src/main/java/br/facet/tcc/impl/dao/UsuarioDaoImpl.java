@@ -27,6 +27,7 @@ import br.facet.tcc.pojo.Usuario;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("serial")
 @Repository("usuarioDao")
 public class UsuarioDaoImpl extends DaoConfiguration<Usuario> {
 
@@ -51,6 +52,7 @@ public class UsuarioDaoImpl extends DaoConfiguration<Usuario> {
         super.excluir(t);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public List<Usuario> listar(Class clazz) throws DaoException {
         return super.listar(clazz);
