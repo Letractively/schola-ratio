@@ -21,7 +21,6 @@
 	</profiles>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -40,22 +39,33 @@
 						<goals>
 							<goal>run</goal>
 						</goals>
-						<phase>install</phase>
+						<phase>pre-clean</phase>
 						<configuration>
 							<target>
 								<taskdef resource="net/sf/antcontrib/antlib.xml"
 									classpathref="maven.dependency.classpath" />
 
-								<replaceregexp file="src/main/java/br/osnir/teste/Config.java"
-									match="DEBUG_ENABLE = (.*)" replace="DEBUG_ENABLE = ${test.value};" byline="true" />
+								<loadfile property="configFile" srcFile="src/main/java/br/osnir/teste/Config.java"/>
+								
+								<echo message="${configFile}" />
+								
+								<condition property="isDebugMatching">
+									<matches pattern="DEBUG_ENABLE = ${test.value}"
+										string="${configFile}" />
+								</condition>
+								
+								<echo message="${isDebugMatching}" />
 
 								<if>
-									<istrue value="${test.value}" />
+									<istrue value="${isDebugMatching}" />
 									<then>
-										<echo message="DEBUG SELECTED" />
+										<echo message="DEBUG WILL NOT BE CHANGED" />
 									</then>
 									<else>
-										<echo message="DEBUG DESELECTED" />
+										<echo message="DEBUG WILL BE CHANGED" />
+										<replaceregexp file="src/main/java/br/osnir/teste/Config.java"
+											match="DEBUG_ENABLE = (.*)" replace="DEBUG_ENABLE = ${test.value};"
+											byline="true" />
 									</else>
 								</if>
 							</target>
