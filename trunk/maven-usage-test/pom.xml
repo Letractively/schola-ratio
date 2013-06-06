@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.org.ocunha.tests</groupId>
+	<artifactId>ant-maven-tests</artifactId>
+	<version>0.0.1</version>
+
+	<profiles>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<test.value>false</test.value>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<test.value>true</test.value>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>echo-test</id>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<phase>install</phase>
+						<configuration>
+							<target>
+								<taskdef resource="net/sf/antcontrib/antlib.xml"
+									classpathref="maven.dependency.classpath" />
+
+								<replaceregexp file="src/main/java/br/osnir/teste/Config.java"
+									match="DEBUG_ENABLE = (.*)" replace="DEBUG_ENABLE = ${test.value};" byline="true" />
+
+								<if>
+									<istrue value="${test.value}" />
+									<then>
+										<echo message="DEBUG SELECTED" />
+									</then>
+									<else>
+										<echo message="DEBUG DESELECTED" />
+									</else>
+								</if>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>ant-contrib</groupId>
+			<artifactId>ant-contrib</artifactId>
+			<version>1.0b3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>ant</groupId>
+					<artifactId>ant</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant-nodeps</artifactId>
+			<version>1.8.1</version>
+		</dependency>
+	</dependencies>
+</project>
