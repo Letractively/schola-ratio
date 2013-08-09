@@ -14,7 +14,7 @@
 package br.facet.tcc.enums;
 
 /**
- * Define as roles que serão utilizadas para controle de acesso.
+ * Define as roles que serÃ£o utilizadas para controle de acesso.
  * 
  * @author Osnir F CUNHA
  * 
@@ -34,9 +34,9 @@ public enum UserRoles {
     ROLE_ADM(2, "Administrativo"),
 
     /**
-     * Configuração
+     * ConfiguraÃ§Ã£o
      */
-    ROLE_CFG(3, "Configurações"),
+    ROLE_CFG(3, "ConfiguraÃ§Ãµes"),
 
     /**
      * Financeiro

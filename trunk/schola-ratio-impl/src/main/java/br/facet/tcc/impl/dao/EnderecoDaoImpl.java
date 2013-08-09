@@ -23,7 +23,7 @@ import br.facet.tcc.pojo.Endereco;
 /**
  * <code>EnderecoDaoImpl</code><br>
  * 
- * Implementação de uma Dao para a classe {@link Endereco}
+ * ImplementaÃ§Ã£o de uma Dao para a classe {@link Endereco}
  * 
  * @author Osnir F CUNHA
  * 

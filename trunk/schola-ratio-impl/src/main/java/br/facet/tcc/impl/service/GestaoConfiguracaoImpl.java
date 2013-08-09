@@ -66,12 +66,12 @@ public class GestaoConfiguracaoImpl implements GestaoConfiguracao {
     @Override
     public Integer incluirPermissao(Permissao permissao)
             throws ServiceException {
-        throw new ServiceException("Metodo n„o implementado.");
+        throw new ServiceException("Metodo n√£o implementado.");
     }
 
     @Override
     public void alterarPermissao(Permissao permissao) throws ServiceException {
-        throw new ServiceException("Metodo n„o implementado.");
+        throw new ServiceException("Metodo n√£o implementado.");
     }
 
     @Override

@@ -79,7 +79,7 @@ public class GestaoAcademicoImpl implements GestaoAcademico {
      */
     @Override
     public File buscarRelatorio(Integer tipo) throws ServiceException {
-        throw new ServiceException("Ainda n„o implementado.");
+        throw new ServiceException("Ainda n√£o implementado.");
     }
 
     /**
@@ -110,7 +110,7 @@ public class GestaoAcademicoImpl implements GestaoAcademico {
     @Override
     public List<AvaliacaoDeAluno> listarDiario(Turma turma)
             throws ServiceException {
-        throw new ServiceException("Metodo n„o implementado.");
+        throw new ServiceException("Metodo n√£o implementado.");
     }
 
 }

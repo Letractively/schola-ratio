@@ -30,7 +30,7 @@ import br.facet.tcc.impl.util.HibernateCriteria;
 
 /**
  * <code>DaoConfiguration</code><br>
- * Define os metodos utiilizados para a configuração das DAOs
+ * Define os metodos utiilizados para a configuraÃ§Ã£o das DAOs
  * 
  * @author Osnir F CUNHA
  * 

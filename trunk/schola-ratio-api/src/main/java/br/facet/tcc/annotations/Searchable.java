@@ -20,7 +20,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Usada para definir se um atributo de uma classe é 'Searchable' (procuravel).<br>
+ * Usada para definir se um atributo de uma classe Ã© 'Searchable' (procuravel).<br>
  * Deve ser adicionada ao metodo get do atributo que se deseja procurar.
  * 
  * @author Osnir F CUNHA
@@ -40,7 +40,7 @@ public @interface Searchable {
     boolean innerSearch() default false;
 
     /**
-     * Se for uma Coleção
+     * Se for uma ColeÃ§Ã£o
      * 
      * @since 0.0.1
      */

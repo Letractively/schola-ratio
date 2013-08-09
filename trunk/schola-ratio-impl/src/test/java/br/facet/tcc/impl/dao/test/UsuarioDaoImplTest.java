@@ -52,7 +52,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         usuario.setEmail("osnircunha@email.com");
         usuario.setEndereco(endereco);
         usuario.setNacionalidade("Brasileiro");
-        usuario.setNaturalidade("São Vicente");
+        usuario.setNaturalidade("SÃ£o Vicente");
         usuario.setNome("Osnir F CUNHA");
         usuario.setNomeMae("");
         usuario.setNomePai("");
@@ -79,7 +79,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
 
         Integer codigo = this.usuarioDao.salvar(usuario);
 
-        Assert.assertTrue("Codigo é nulo.", codigo == usuario.getId());
+        Assert.assertTrue("Codigo Ã© nulo.", codigo == usuario.getId());
     }
 
     /**
@@ -98,7 +98,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         int count = getUsuarioDao().pesquisar(usuarioToSearch).size();
 
         Assert.assertEquals(
-                "Lista não foi atualizada de acordo com o esperado.", 2, count);
+                "Lista nÃ£o foi atualizada de acordo com o esperado.", 2, count);
     }
 
     /**
@@ -112,7 +112,7 @@ public class UsuarioDaoImplTest extends DaoTestCaseSetUp {
         getUsuarioDao().excluir(getUsuarioDao().obterPorID(Usuario.class, 3));
         int actual = getUsuarioDao().listar(Usuario.class).size();
 
-        Assert.assertNotSame("Quantidade das listas são as mesmas.",
+        Assert.assertNotSame("Quantidade das listas sï¿½o as mesmas.",
                 unexpected, actual);
     }
 

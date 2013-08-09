@@ -76,7 +76,7 @@ public class AlunoCursoDaoImpl extends DaoConfiguration<AlunoCurso> {
         Conjunction userLogin = Restrictions.conjunction();
         Conjunction curso = Restrictions.conjunction();
         if (t.getAluno() != null) {
-            LOG.info("Adicionando Aluno à busca.");
+            LOG.info("Adicionando Aluno Ã  busca.");
             aluno.add(Subqueries.exists(DetachedCriteria.forClass(Aluno.class)
                     .setProjection(Projections.id())));
             criteria.createAlias("AC.aluno", "a");
@@ -110,7 +110,7 @@ public class AlunoCursoDaoImpl extends DaoConfiguration<AlunoCurso> {
 
         }
         if (t.getCurso() != null) {
-            LOG.info("Adicionando Curso à busca.");
+            LOG.info("Adicionando Curso Ã  busca.");
             curso.add(Subqueries.exists(DetachedCriteria.forClass(Curso.class)
                     .setProjection(Projections.id())));
             criteria.createAlias("AC.curso", "c");
@@ -122,7 +122,7 @@ public class AlunoCursoDaoImpl extends DaoConfiguration<AlunoCurso> {
         }
 
         if (t.getSituacaoAlunoCurso() != null) {
-            LOG.info("Adicionando Situação à busca.");
+            LOG.info("Adicionando SituaÃ§Ã£o Ã  busca.");
             criteria.add(Restrictions.eq("AC.situacaoAlunoCurso",
                     t.getSituacaoAlunoCurso()));
         }
