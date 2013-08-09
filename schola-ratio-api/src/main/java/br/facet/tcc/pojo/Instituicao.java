@@ -30,7 +30,7 @@ import br.facet.tcc.annotations.Searchable;
 
 /**
  * <code>Instituicao</code><br>
- * Modela uma instituição e seus atributos.
+ * Modela uma instituiÃ§Ã£o e seus atributos.
  * 
  * @author Osnir F CUNHA
  * 
