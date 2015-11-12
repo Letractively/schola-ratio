@@ -1,0 +1,1 @@
+Este projeto é destinado ao trabalho de conclusão de curso dos alunos **Djulles Ikeda** e **Osnir F Cunha** alunos do curso de Sistemas de Informação da Faculdade de Ciencias e Tecnologias do Paraná (FACET), sob a orientação do professor **Leonardo Ozaki**
